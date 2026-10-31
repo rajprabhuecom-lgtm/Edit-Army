@@ -1,0 +1,9 @@
+ID,Source clip,Source time (s),Line (meaning),Visual,Source,Layout,Status,Licence
+B01,IMG_2533,2.9-6.6,"His weight is 18 kg","Friendly Indian dog steps onto a floor scale; 18 KG graphic on top",P3 Google Flow (+P5 text),Full cutaway,To generate,AI - disclose in Meta
+B02,IMG_2533,6.6-10.7,"Vaccination date, food chart, walking time - we know it all","Owner's hands: vet card, measured food bowl, leash",P3 Google Flow,Split screen,To generate,AI - disclose in Meta
+B03,IMG_2533,13.0-19.0,"Your BMI? Your mother's BMR? Wife's body fat?","Animated question cards: BMI ? / BMR ? / BODY FAT % ?",P5 motion graphics,Split screen,To build,Original
+B04,IMG_2533,23.0-28.0,"We care for our dog - but do we care for ourselves?","Man brushing his dog; his own breakfast left untouched",P3 Google Flow,Split screen,To generate,AI - disclose in Meta
+B05,IMG_2538,0.6-6.0,"3 Day Challenge - first 2 days, 1 hour morning Zoom from home","Family at home at dawn on a laptop video call, then Day 1 / Day 2 / Day 3 cards",P3 Google Flow + P5,Split screen,To generate,AI - disclose in Meta
+B06,IMG_2538,7.9-12.5,"How to keep your family away from hospital visits","Family doing a morning walk / stretches together in a park",P3 Google Flow,Split screen,To generate,AI - disclose in Meta
+B07,IMG_2538,17.0-22.5,"Day 3 - come here, BMI, BMR, fat % check","Body-composition check at the centre, family watching. REAL centre footage preferred",P2 real (fallback P3 Google Flow),Split screen,To record / generate,Consent if real people
+B08,IMG_2540,14.0-19.0,"Centre: Guduvanchery, Nellikuppam Rd, Periyar Nagar, opp. SRM School","Real clip of the centre front + SRM School landmark; fallback animated map pin",P2 real (fallback P5),Split screen,To record,Own footage
