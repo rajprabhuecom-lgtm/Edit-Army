@@ -1,0 +1,458 @@
+# B-Roll Engine v3: lead-quality scenes (sun_ads, 26 Oct 2026)
+ 
+New scenes: clientmsg (WhatsApp client request), leadrain (ad -> quality vs junk tiles + counters), methods (VSL/this/that struck out), cpl (cost-per-enquiry gauge + lock), pipeline (Ads -> WhatsApp -> Chat Flow with packets), chatq (bot questions + testimonial + brochure), filter (funnel: junk to bin, interested pass), crm (enquiry list filtering to qualified), booking (calendar auto-booked + bell), revenue (bars + arrow + coins), testi, livedemo (laptop chat-flow node diagram), implement (4-step checklist), time (spinning clock). Also: white flash on B-roll entry, slide-out exit, flash item type, per-scene SFX map in plan.py (SCENE_SFX). Gotcha: never wait with 'while pgrep -f render.py' — it matches its own shell.
+ 
+## engine.html
+ 
+```
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:A;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+:root{--em:#00C896;--yl:#FFD60A;--rd:#FF3B30;--ob:#080A0D;--ti:#8B949E;--pl:#D8DDE3;--wa:#25D366}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:transparent;overflow:hidden}
+body{font-family:M,sans-serif;color:#fff}
+.layer{position:absolute;inset:0;display:none}
+.stroke{paint-order:stroke fill;-webkit-text-stroke:16px #000;text-shadow:0 10px 24px rgba(0,0,0,.55)}
+.s10{paint-order:stroke fill;-webkit-text-stroke:10px #000}
+#cap{position:absolute;left:50px;right:50px;top:1175px;height:300px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0 24px;text-align:center;z-index:10}
+#cap span{display:inline-block;font-weight:900;font-size:86px;line-height:1.08;text-transform:uppercase;transform-origin:50% 70%}
+#cap.split{top:668px;height:190px}
+#cap.hi{top:235px;height:230px}
+.stage{position:absolute;left:0;top:0;width:1080px;overflow:hidden;background:radial-gradient(120% 90% at 50% 30%,#13241e 0%,#0b1411 50%,#080A0D 100%)}
+.stage.full{height:1920px}.stage.split{height:864px;border-bottom:8px solid var(--em);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.inner{position:absolute;inset:0;transform-origin:540px 420px}
+.grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(0,200,150,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(0,200,150,.07) 2px,transparent 2px);background-size:90px 90px}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;left:90px;top:-100px;background:radial-gradient(circle,rgba(0,200,150,.16),transparent 65%)}
+.ttl{position:absolute;left:0;right:0;text-align:center;font-weight:900;text-transform:uppercase;line-height:1.04;z-index:4}
+.card{position:absolute;background:#0f1713;border:4px solid rgba(0,200,150,.6);border-radius:34px;box-shadow:0 0 60px rgba(0,200,150,.18),0 30px 60px rgba(0,0,0,.5)}
+.chip{display:inline-block;padding:10px 28px;border-radius:999px;font-weight:900;font-size:40px}
+.g{color:var(--em)}.y{color:var(--yl)}.r{color:var(--rd)}
+svg{overflow:visible}
+.flash{position:absolute;inset:0;background:#fff;pointer-events:none;z-index:20}
+</style></head><body>
+<div id="root"></div>
+<div id="cap" class="stroke"></div>
+<script>
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const back=x=>{x=clamp(x);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const pop=(dt,d=.28)=>back(dt/d);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const root=document.getElementById('root');let TL=null;const els=[];
+function mk(html){const d=document.createElement('div');d.className='layer';d.innerHTML=html;root.appendChild(d);return d}
+const q=(el,s)=>el.querySelector(s), qa=(el,s)=>[...el.querySelectorAll(s)];
+function stage(it,inner){return `<div class="stage ${it.layout||'full'}"><div class="inner"><div class="grid"></div><div class="glow"></div>${inner}</div><div class="flash"></div></div>`}
+function popIn(x,dt,d=.32){if(!x)return;x.style.opacity=clamp(dt/.06);x.style.transform=`scale(${dt<0?0:pop(dt,d)})`}
+function slideUp(x,dt,dist=500,d=.4){x.style.opacity=clamp(dt/.08);x.style.transform=`translateY(${(1-ease(dt/d))*dist}px)`}
+const S={};
+const SP=it=>it.layout=='split';
+ 
+/* phone shell */
+const PHONE=(w,h,head,body)=>`<div class="phone card" style="width:${w}px;height:${h}px;border-radius:46px;border:8px solid #D8DDE3;background:#0b141a;overflow:hidden">
+ <div style="height:86px;background:#1f2c34;display:flex;align-items:center;padding-left:26px;font-size:30px;font-weight:800;gap:14px"><div style="width:52px;height:52px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:30px">${head[0]}</div>${head[1]}</div>
+ <div class="body" style="display:flex;flex-direction:column;padding:14px 18px">${body}</div></div>`;
+const BUB=(dir,txt,extra='')=>`<div class="msg" style="align-self:${dir=='in'?'flex-start':'flex-end'};max-width:86%;margin:9px 0;padding:14px 22px;border-radius:24px;font-size:35px;font-weight:700;line-height:1.25;background:${dir=='in'?'#202c33':'#005c4b'};color:#e9edef;${extra}">${txt}</div>`;
+ 
+/* 1. client request on WhatsApp */
+S.clientmsg=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:84px">CLIENT'S <span class="y">REQUEST</span></div>
+ <div class="ph" style="position:absolute;left:190px;top:160px">${PHONE(700,470,['👤','Important Client'],
+  BUB('in','I don\'t want <b style="color:#FF6B60">JUNK LEADS</b> ❌')+BUB('in','Give me only <b style="color:#3dffc8">QUALITY LEADS</b> ✅')+`<div class="typ" style="align-self:flex-start;margin-top:8px;padding:14px 22px;border-radius:24px;background:#202c33;font-size:40px;letter-spacing:6px">•••</div>`)}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-.05,600);
+  qa(el,'.msg').forEach((m,i)=>{const t=dt-.45-i*.8;m.style.opacity=clamp(t/.06);m.style.transform=`scale(${t<0?0:pop(t,.3)})`;m.style.transformOrigin='left bottom'});
+  const ty=q(el,'.typ');ty.style.opacity=dt>2.3?.4+.6*Math.abs(Math.sin(dt*5)):0}}};
+ 
+/* 2. ads bring quality + junk */
+S.leadrain=(it)=>{let d='';for(let i=0;i<16;i++){const good=[0,2,3,6,9,11,14].includes(i);
+  d+=`<div class="ld" data-g="${good?1:0}" style="position:absolute;left:0;top:0;width:120px;height:120px;border-radius:30px;background:${good?'#0f2a20':'#2a1010'};border:5px solid ${good?'#00C896':'#FF3B30'};display:flex;align-items:center;justify-content:center;font-size:62px;font-weight:900;color:${good?'#00C896':'#FF3B30'}">${good?'✓':'✕'}</div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:104px">RUN <span class="y">ADS</span> =</div>
+  <div class="ttl stroke t2" style="top:370px;font-size:92px"><span class="g">QUALITY</span> + <span class="r">JUNK</span></div>
+  <div class="mg" style="position:absolute;left:390px;top:500px;width:300px;height:170px;border-radius:30px;background:var(--yl);color:#000;display:flex;align-items:center;justify-content:center;font-size:70px;font-weight:900;box-shadow:0 20px 50px rgba(0,0,0,.5)">📢 AD</div>
+  <div class="box" style="position:absolute;left:140px;top:700px;width:800px;height:440px">${d}</div>
+  <div class="cnt" style="position:absolute;left:0;right:0;top:1520px;text-align:center;font-weight:900;font-size:56px">
+   <span class="chip" style="background:#0f2a20;border:4px solid var(--em);color:var(--em);font-size:52px">✓ QUALITY <span class="nq">0</span></span>&nbsp;
+   <span class="chip" style="background:#2a1010;border:4px solid var(--rd);color:var(--rd);font-size:52px">✕ JUNK <span class="nj">0</span></span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.35);
+  const mg=q(el,'.mg');mg.style.transform=`scale(${pop(dt-.1)*(1+.05*Math.sin(dt*14))}) rotate(${Math.sin(dt*9)*3}deg)`;
+  let nq=0,nj=0;qa(el,'.ld').forEach((x,i)=>{const t=dt-.5-i*.13;const col=i%6,row=(i/6|0);const X=col*136,Y=row*140;
+   const p=ease(t/.45);x.style.opacity=clamp(t/.05);x.style.left=lerp(330,X,p)+'px';x.style.top=lerp(-200,Y,p)+'px';x.style.transform=`rotate(${(1-p)*(i%2?40:-40)}deg) scale(${.5+.5*p})`;
+   if(t>.45){if(x.dataset.g==1)nq++;else nj++}});
+  q(el,'.nq').textContent=nq;q(el,'.nj').textContent=nj;popIn(q(el,'.cnt'),dt-.6)}}};
+ 
+/* 3. everyone says: VSL / this / that -> struck out */
+S.methods=(it)=>{const C=[['🎬','USE VSL'],['🧩','USE THIS'],['🛠️','USE THAT']];let c='';
+ C.forEach((x,i)=>{c+=`<div class="card mc" style="left:120px;top:${540+i*210}px;width:840px;height:180px;display:flex;align-items:center;padding:0 40px;overflow:visible">
+  <div style="font-size:96px;width:140px">${x[0]}</div><div class="lb" style="position:relative;font-weight:900;font-size:80px">${x[1]}<div class="sk" style="position:absolute;left:-10px;top:50%;height:14px;border-radius:7px;background:var(--rd);width:0"></div></div>
+  <div class="x" style="position:absolute;right:-24px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--rd);font-size:72px;font-weight:900;display:flex;align-items:center;justify-content:center">✕</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:260px;font-size:96px">EVERYONE SAYS…</div>${c}
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:56px">🤯 TOO MANY "METHODS"</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);
+  qa(el,'.mc').forEach((c,i)=>{const t=dt-.25-i*.4;c.style.opacity=clamp(t/.08);c.style.transform=`translateX(${(1-ease(t/.3))*(i%2?1100:-1100)}px)`;
+   const tx=dt-1.7-i*.22;q(c,'.sk').style.width=(ease(tx/.2)*106)+'%';const x=q(c,'.x');x.style.opacity=clamp(tx/.06);x.style.transform=`scale(${tx<0?0:lerp(2.2,1,ease(tx/.16))}) rotate(-10deg)`;
+   c.style.borderColor=tx>0?'#FF3B30':'rgba(0,200,150,.6)';q(c,'.lb').style.opacity=tx>0?.5:1});popIn(q(el,'.nb'),dt-2.4)}}};
+ 
+/* 4. cost per enquiry must not increase (gauge + lock) */
+S.cpl=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:80px">COST PER <span class="y">ENQUIRY</span></div>
+  <svg style="position:absolute;left:240px;top:200px" width="600" height="360" viewBox="0 0 600 360">
+   <path d="M60 320 A240 240 0 0 1 540 320" stroke="#1d2b26" stroke-width="54" fill="none"/>
+   <path d="M60 320 A240 240 0 0 1 180 112" stroke="#00C896" stroke-width="54" fill="none"/>
+   <path d="M180 112 A240 240 0 0 1 420 112" stroke="#FFD60A" stroke-width="54" fill="none"/>
+   <path d="M420 112 A240 240 0 0 1 540 320" stroke="#FF3B30" stroke-width="54" fill="none"/>
+   <g class="nd" style="transform-origin:300px 320px"><path d="M292 320 L300 110 L308 320 Z" fill="#fff"/><circle cx="300" cy="320" r="26" fill="#fff"/></g>
+   <text x="300" y="250" text-anchor="middle" font-family="M" font-weight="900" font-size="38" fill="#00C896" class="lw">LOW</text></svg>
+  <div class="lk" style="position:absolute;left:770px;top:330px;font-size:130px">🔒</div>
+  <div class="nb" style="position:absolute;left:0;right:0;top:570px;text-align:center"><span class="chip s10" style="background:var(--rd);font-size:46px">MUST NOT INCREASE ↑</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);
+  let a=-60;const t=dt-.4;if(t>0)a=-60+Math.min(t,.7)/.7*95;if(t>.7)a=35-ease((t-.7)/.4)*95+Math.sin(t*30)*Math.exp(-(t-.7)*4)*6;
+  q(el,'.nd').style.transform=`rotate(${a}deg)`;popIn(q(el,'.lk'),dt-1.1,.3);popIn(q(el,'.nb'),dt-1.3)}}};
+ 
+/* 5. pipeline: ad -> whatsapp -> chat flow */
+S.pipeline=(it)=>{const N=[['📢','ADS','#FFD60A'],['💬','WHATSAPP','#25D366'],['🤖','CHAT FLOW','#00C896']];let n='';
+ N.forEach((x,i)=>{n+=`<div class="card nd" style="left:${40+i*350}px;top:250px;width:300px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-color:${x[2]};box-shadow:0 0 60px ${x[2]}44">
+  <div style="font-size:130px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:40px;margin-top:16px">${x[1]}</div></div>`});
+ let p='';for(let i=0;i<8;i++)p+=`<div class="pk" style="position:absolute;top:385px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 0 20px #fff"></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:40px;font-size:84px">THE <span class="g">SYSTEM</span></div>
+  <div class="ln" style="position:absolute;left:190px;top:392px;height:16px;width:0;border-radius:8px;background:linear-gradient(90deg,#FFD60A,#25D366,#00C896)"></div>${n}${p}
+  <div class="nb" style="position:absolute;left:0;right:0;top:580px;text-align:center"><span class="chip" style="background:var(--ob);border:4px solid var(--em);color:var(--em);font-size:42px">⚡ 100% AUTOMATED</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.nd').forEach((x,i)=>popIn(x,dt-.2-i*.9,.35));
+  q(el,'.ln').style.width=(clamp((dt-.4)/1.9)*700)+'px';
+  qa(el,'.pk').forEach((x,i)=>{const t=((dt-2.3)*.6+i/8)%1;x.style.left=(190+t*700-15)+'px';x.style.opacity=dt>2.3?Math.sin(Math.PI*t):0});
+  popIn(q(el,'.nb'),dt-2.6)}}};
+ 
+/* 6. qualify on whatsapp: questions + testimonial + brochure */
+S.chatq=(it)=>{const body=BUB('out','🤖 What service do you need?')+BUB('in','Interior for 2BHK')+
+  `<div class="msg" style="align-self:flex-end;display:flex;gap:14px;margin:9px 0">
+   <div style="width:220px;height:130px;border-radius:18px;background:linear-gradient(150deg,#1d6b54,#0b1210);position:relative;border:3px solid #D8DDE3"><div style="position:absolute;left:80px;top:32px;width:60px;height:60px;border-radius:50%;background:#fff"><div style="position:absolute;left:23px;top:16px;border-left:22px solid #000;border-top:14px solid transparent;border-bottom:14px solid transparent"></div></div><div style="position:absolute;bottom:-2px;left:0;right:0;text-align:center;font-size:20px;font-weight:900;background:#FFD60A;color:#000;border-radius:0 0 14px 14px">TESTIMONIAL</div></div>
+   <div style="width:220px;height:130px;border-radius:18px;background:#f4f6f8;color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #D8DDE3"><div style="font-size:54px">📄</div><div style="font-size:22px;font-weight:900">BROCHURE.pdf</div></div></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:78px"><span class="g">QUALIFY</span> ON WHATSAPP</div>
+  <div class="ph" style="position:absolute;left:170px;top:140px">${PHONE(740,500,['🤖','Chat Flow • auto'],body)}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-.05,600);
+  qa(el,'.msg').forEach((m,i)=>{const t=dt-.4-i*.75;m.style.opacity=clamp(t/.06);m.style.transform=`scale(${t<0?0:pop(t,.3)})`;m.style.transformOrigin=i==1?'left bottom':'right bottom'})}}};
+ 
+/* 7. the filter: junk out, interested in */
+S.filter=(it)=>{let d='';for(let i=0;i<14;i++){const good=[1,4,5,8,12].includes(i);
+  d+=`<div class="ld" data-g="${good?1:0}" style="position:absolute;width:86px;height:86px;border-radius:50%;background:${good?'#00C896':'#FF3B30'};display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;color:#080A0D;box-shadow:0 10px 26px rgba(0,0,0,.5)">${good?'✓':'✕'}</div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:110px"><span class="r">FILTER</span> OUT</div>
+  <div class="ttl stroke t2" style="top:370px;font-size:80px">THE <span class="r">JUNK</span></div>
+  <svg style="position:absolute;left:240px;top:560px" width="600" height="420" viewBox="0 0 600 420"><path d="M0 0 H600 L370 260 V420 H230 V260 Z" fill="rgba(0,200,150,.12)" stroke="#00C896" stroke-width="10" stroke-linejoin="round"/>
+   <g stroke="#00C896" stroke-width="5" opacity=".6"><line x1="60" y1="60" x2="540" y2="60"/><line x1="120" y1="130" x2="480" y2="130"/><line x1="180" y1="200" x2="420" y2="200"/></g></svg>
+  <div class="bin" style="position:absolute;left:860px;top:940px;font-size:120px">🗑️</div>
+  <div class="ok" style="position:absolute;left:330px;top:1020px;width:420px;height:130px;border-radius:30px;background:#0f2a20;border:6px solid var(--em);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:50px;color:var(--em)">INTERESTED ✓ <span class="n" style="margin-left:14px;color:#fff">0</span></div>
+  <div class="lds" style="position:absolute;inset:0">${d}</div>
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:54px">ONLY SERIOUS BUYERS</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.3);popIn(q(el,'.bin'),dt-.4);popIn(q(el,'.ok'),dt-.5);let n=0;
+  qa(el,'.ld').forEach((x,i)=>{const t=dt-.6-i*.22;const g=x.dataset.g==1;const sx=280+(i*137)%520;let X,Y;
+   if(t<.5){const p=ease(t/.5);X=lerp(sx,500,p*.7);Y=lerp(420,700,p)}
+   else if(g){const p=easeIO((t-.5)/.45);X=lerp(lerp(sx,500,.7),497,p);Y=lerp(700,1040,p);if(p>=1){n++;X=497;Y=1040}}
+   else{const p=clamp((t-.5)/.55);X=lerp(lerp(sx,500,.7),900,p);Y=700-Math.sin(p*Math.PI)*220+p*260}
+   x.style.left=X+'px';x.style.top=Y+'px';x.style.opacity=t<0?0:(g&&t>.95?0:(!g&&t>1.05?0:1));x.style.transform=`scale(${t<0?0:pop(t,.25)}) rotate(${g?0:t*400}deg)`});
+  q(el,'.n').textContent=n;const b=q(el,'.ok');if(n)b.style.boxShadow=`0 0 ${30+20*Math.sin(dt*10)}px rgba(0,200,150,.6)`;popIn(q(el,'.nb'),dt-2.6)}}};
+ 
+/* 8. CRM monitor */
+S.crm=(it)=>{const R=[['Ravi K.','✓ ANSWERED',1],['Priya S.','NO REPLY',0],['Arun M.','✓ ANSWERED',1],['Deepa R.','NO REPLY',0],['Karthik V.','✓ ANSWERED',1]];let r='';
+ R.forEach((x,i)=>{r+=`<div class="rw" data-g="${x[2]}" style="position:absolute;left:30px;right:30px;top:${100+i*86}px;height:74px;border-radius:18px;background:#16201c;display:flex;align-items:center;padding:0 24px;font-size:34px;font-weight:800">
+  <div style="width:46px;height:46px;border-radius:50%;background:#2b3a35;margin-right:20px"></div><div style="flex:1">${x[0]}</div>
+  <div class="chip" style="font-size:26px;padding:8px 18px;background:${x[2]?'#00C896':'#3a4a44'};color:${x[2]?'#04110c':'#8B949E'}">${x[1]}</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:76px">TALK TO <span class="g">RIGHT ONES</span></div>
+  <div class="card bd" style="left:110px;top:150px;width:860px;height:560px;overflow:hidden">
+   <div style="height:80px;background:#0b1210;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-weight:900;font-size:32px"><span>📋 ENQUIRIES</span><span class="tg chip" style="font-size:26px;padding:8px 18px;background:#2b3a35">SHOW: ALL</span></div>${r}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.bd'),dt,500);const f=dt>2.0;const tg=q(el,'.tg');tg.textContent=f?'SHOW: QUALIFIED ✓':'SHOW: ALL';tg.style.background=f?'#FFD60A':'#2b3a35';tg.style.color=f?'#000':'#fff';
+  let k=0;qa(el,'.rw').forEach((x,i)=>{const t=dt-.3-i*.18;const g=x.dataset.g==1;let top=100+i*86;
+   if(f){if(g){top=lerp(100+i*86,100+k*86,ease((dt-2)/.35));k++}else{x.style.opacity=1-ease((dt-2)/.25)}}
+   if(!f||g)x.style.opacity=clamp(t/.1);x.style.top=top+'px';x.style.transform=`translateX(${(1-ease(t/.3))*-200}px)`})}}};
+ 
+/* 9. auto booking calendar */
+S.booking=(it)=>{let c='';const B=[3,8,10,15,17];for(let i=0;i<20;i++){c+=`<div class="sl" data-b="${B.indexOf(i)}" style="position:absolute;left:${(i%5)*156}px;top:${(i/5|0)*86}px;width:142px;height:74px;border-radius:14px;background:#16201c;border:3px solid #2b3a35;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#04110c"></div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:74px"><span class="g">AUTO-BOOKED</span> CALLS</div>
+  <div class="card cl" style="left:110px;top:150px;width:860px;height:490px">
+   <div style="height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:900;font-size:36px;border-bottom:3px solid #2b3a35"><span>📅 THIS WEEK</span><span class="bk g">0 BOOKED</span></div>
+   <div style="position:absolute;left:44px;top:110px;width:780px;height:350px">${c}</div></div>
+  <div class="bell" style="position:absolute;left:880px;top:110px;font-size:100px">🔔</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.cl'),dt,500);let n=0;
+  qa(el,'.sl').forEach(x=>{const b=+x.dataset.b;if(b<0)return;const t=dt-.7-b*.42;if(t>0){n++;x.style.background='#00C896';x.style.borderColor='#3dffc8';x.textContent='BOOKED';x.style.transform=`scale(${pop(t,.25)})`}else{x.style.background='#16201c';x.textContent=''}});
+  q(el,'.bk').textContent=n+' BOOKED';const be=q(el,'.bell');be.style.opacity=dt>.7?1:0;be.style.transform=`rotate(${Math.sin(dt*25)*18*Math.exp(-((dt-.7)%.42)*6)}deg)`;be.style.transformOrigin='50% 10%'}}};
+ 
+/* 10. revenue */
+S.revenue=(it)=>{const v=[.25,.34,.46,.6,.78,1];let b='';v.forEach((x,i)=>b+=`<div class="br" style="position:absolute;bottom:0;left:${i*130}px;width:96px;border-radius:16px 16px 4px 4px;background:${i==5?'#FFD60A':'linear-gradient(#3dffc8,#00C896)'}"></div>`);
+ let co='';for(let i=0;i<8;i++)co+=`<div class="co" style="position:absolute;font-size:80px">🪙</div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:96px">RIGHT CLIENT</div>
+  <div class="ttl stroke t2" style="top:360px;font-size:118px">= <span class="g">REVENUE</span> ₹</div>
+  <div style="position:absolute;left:160px;top:560px;width:780px;height:560px;border-bottom:8px solid #2b3a35">${b}</div>
+  <svg style="position:absolute;left:0;top:0" width="1080" height="1920"><path class="ar" d="M190 1050 L340 980 L470 900 L600 820 L730 700 L880 560" stroke="#FFD60A" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="hd" style="position:absolute;left:840px;top:470px;font-size:110px">🚀</div>${co}
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:56px">📈 EASY CONVERSATIONS</span></div>`));
+ const ar=q(el,'.ar');let L=null;
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.3);qa(el,'.br').forEach((x,i)=>x.style.height=(ease((dt-.4-i*.15)/.4)*v[i]*540)+'px');
+  if(L===null)L=ar.getTotalLength();const p=clamp((dt-.6)/1.2);ar.style.strokeDasharray=`${L*p} ${L}`;popIn(q(el,'.hd'),dt-1.8);
+  qa(el,'.co').forEach((x,i)=>{const t=dt-1.0-i*.18;const y=(t*900)%1300;x.style.left=(120+(i*113)%840)+'px';x.style.top=(420+y)+'px';x.style.opacity=t>0&&y<1100?1:0;x.style.transform=`rotate(${t*200}deg)`});
+  popIn(q(el,'.nb'),dt-1.4)}}};
+ 
+/* 11. testimonial card (placeholder for real client clip) */
+S.testi=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:80px">CLIENT <span class="y">TESTIMONIAL</span></div>
+  <div class="tv card" style="left:300px;top:160px;width:480px;height:480px;border-radius:40px;border:8px solid #D8DDE3;overflow:hidden;background:linear-gradient(170deg,#1d3a31,#0b1210)">
+   <div style="position:absolute;left:170px;top:90px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.22)"></div><div style="position:absolute;left:120px;top:250px;width:240px;height:200px;border-radius:120px 120px 0 0;background:rgba(255,255,255,.16)"></div>
+   <div class="pl" style="position:absolute;left:180px;top:170px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.95)"><div style="position:absolute;left:46px;top:32px;border-left:44px solid #080A0D;border-top:28px solid transparent;border-bottom:28px solid transparent"></div></div>
+   <div style="position:absolute;left:0;right:0;bottom:24px;text-align:center;font-weight:900;font-size:44px;color:#FFD60A">★★★★★</div>
+   <div class="pr" style="position:absolute;left:0;bottom:0;height:10px;background:var(--em);width:0"></div></div>
+  <div class="bd" style="position:absolute;left:740px;top:130px"><span class="chip" style="background:var(--rd);font-size:34px;transform:rotate(8deg);display:inline-block">🎥 OPENLY</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const tv=q(el,'.tv');tv.style.opacity=clamp(dt/.1);tv.style.transform=`translateY(${(1-ease(dt/.4))*500}px) rotate(${(1-ease(dt/.4))*-10}deg)`;
+  q(el,'.pl').style.transform=`scale(${1+.07*Math.sin(dt*7)})`;q(el,'.pr').style.width=(clamp((dt-.5)/2.5)*464)+'px';popIn(q(el,'.bd'),dt-.6)}}};
+ 
+/* 12. live demo of chat flow */
+S.livedemo=(it)=>{const nodes=[['START',60,40],['ASK Q1',60,150],['ASK Q2',60,260],['QUALIFIED?',330,150],['📅 BOOK',600,90],['✕ DROP',600,220]];let n='';
+ nodes.forEach((x,i)=>n+=`<div class="nd" style="position:absolute;left:${x[1]}px;top:${x[2]}px;width:${i==3?230:190}px;height:74px;border-radius:16px;background:${i==4?'#00C896':(i==5?'#FF3B30':'#1d2b26')};border:3px solid ${i>3?'transparent':'#00C896'};color:${i==4?'#04110c':'#fff'};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px">${x[0]}</div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px"><span class="lv chip s10" style="background:var(--rd);font-size:64px;-webkit-text-stroke:0">● LIVE</span> DEMO</div>
+  <svg class="lap" style="position:absolute;left:90px;top:150px" width="900" height="500" viewBox="0 0 900 500"><rect x="60" y="0" width="780" height="440" rx="24" fill="#1b2421" stroke="#D8DDE3" stroke-width="10"/><rect x="80" y="20" width="740" height="400" rx="12" fill="#061410"/><path d="M0 450 H900 L850 500 H50 Z" fill="#D8DDE3"/></svg>
+  <svg class="wr" style="position:absolute;left:200px;top:195px" width="800" height="380"><g stroke="#00C896" stroke-width="5" fill="none" stroke-dasharray="10 8"><path d="M155 114 V150"/><path d="M155 224 V260"/><path d="M250 187 H330"/><path d="M560 187 Q580 127 600 127"/><path d="M560 187 Q580 257 600 257"/></g></svg>
+  <div style="position:absolute;left:200px;top:195px;width:740px;height:360px">${n}<div class="cur" style="position:absolute;font-size:56px">👆</div></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);q(el,'.lv').style.opacity=(Math.floor(dt*3)%2)?1:.6;q(el,'.lap').style.transform=`translateY(${(1-ease(dt/.35))*600}px)`;
+  q(el,'.wr').style.opacity=clamp((dt-.9)/.3);q(el,'.wr g').style.strokeDashoffset=-dt*60;
+  qa(el,'.nd').forEach((x,i)=>popIn(x,dt-.4-i*.22,.25));
+  const c=q(el,'.cur');const p=easeIO((dt-1.6)/1.4);c.style.left=lerp(140,660,p)+'px';c.style.top=lerp(300,120,p)+'px';c.style.opacity=dt>1.6?1:0;
+  const b=qa(el,'.nd')[4];if(dt>3.0)b.style.boxShadow=`0 0 ${30+20*Math.sin(dt*12)}px #00C896`}}};
+ 
+/* 13. we implement it */
+S.implement=(it)=>{const L=['📢 META ADS','💬 WHATSAPP LINK','🤖 CHAT FLOW','📅 AUTO BOOKING'];let r='';
+ L.forEach((x,i)=>r+=`<div class="ck" style="position:absolute;left:140px;top:${165+i*112}px;width:800px;height:96px;border-radius:24px;background:#0f1713;border:4px solid #2b3a35;display:flex;align-items:center;padding:0 30px;font-weight:900;font-size:48px">
+  <div class="bx" style="width:62px;height:62px;border-radius:16px;border:5px solid #00C896;margin-right:30px;display:flex;align-items:center;justify-content:center;font-size:44px;color:#04110c"></div>${x}</div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:78px">WE <span class="g">IMPLEMENT</span> IT</div>${r}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.ck').forEach((x,i)=>{const t=dt-.3-i*.45;x.style.opacity=clamp(t/.08);x.style.transform=`translateX(${(1-ease(t/.3))*-900}px)`;
+  const on=t>.35;const b=q(x,'.bx');b.style.background=on?'#00C896':'transparent';b.textContent=on?'✓':'';x.style.borderColor=on?'#00C896':'#2b3a35';b.style.transform=on?`scale(${pop(t-.35,.25)})`:'scale(1)'})}}};
+ 
+/* 14. save time - biggest asset */
+S.time=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:120px">SAVE YOUR</div>
+  <div class="ttl stroke t2" style="top:380px;font-size:170px;font-family:A,M"><span class="y">TIME</span></div>
+  <svg class="ck" style="position:absolute;left:290px;top:600px" width="500" height="500" viewBox="0 0 500 500">
+   <circle cx="250" cy="250" r="225" fill="#0f1713" stroke="#00C896" stroke-width="18"/>
+   ${Array.from({length:12},(_,i)=>`<line x1="250" y1="45" x2="250" y2="${i%3?70:90}" stroke="#D8DDE3" stroke-width="${i%3?6:12}" transform="rotate(${i*30} 250 250)"/>`).join('')}
+   <path class="arc" d="" fill="rgba(255,214,10,.25)"/>
+   <line class="hh" x1="250" y1="250" x2="250" y2="140" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+   <line class="mh" x1="250" y1="250" x2="250" y2="80" stroke="#FFD60A" stroke-width="11" stroke-linecap="round"/>
+   <circle cx="250" cy="250" r="18" fill="#fff"/></svg>
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--rd);font-size:52px">🚫 NO MORE JUNK CALLS</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.25,.35);const c=q(el,'.ck');c.style.transform=`scale(${pop(dt-.2,.4)})`;c.style.transformOrigin='250px 250px';
+  const sp=dt<2.2?dt*720*(1-dt/4.4):(2.2*720*.5);const m=sp%360;
+  q(el,'.mh').setAttribute('transform',`rotate(${sp} 250 250)`);q(el,'.hh').setAttribute('transform',`rotate(${sp/12} 250 250)`);popIn(q(el,'.nb'),dt-1.3)}}};
+ 
+/* ---------- on-face graphics ---------- */
+S.text=(it)=>{const el=mk(`<div class="stroke tx" style="position:absolute;left:0;right:0;top:${it.y||260}px;text-align:center;font-weight:900;font-size:${it.size||120}px;line-height:1.04;text-transform:uppercase">${it.html}</div>`);
+ return {el,upd(dt){const x=q(el,'.tx');x.style.transform=`scale(${pop(dt,.3)}) rotate(${it.rot||0}deg)`;x.style.opacity=clamp(dt/.05)}}};
+S.badge=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;text-align:center;top:${it.y||260}px"><div class="bg chip" style="background:${it.bg||'var(--rd)'};color:${it.fg||'#fff'};font-size:${it.size||54}px;padding:16px 36px;box-shadow:0 12px 30px rgba(0,0,0,.5)">${it.html}</div></div>`);
+ return {el,upd(dt){const b=q(el,'.bg');b.style.transform=`scale(${pop(dt)}) rotate(${it.rot||-3}deg)`}}};
+S.cta=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||1080}px;text-align:center">
+  <div class="btn" style="display:inline-flex;align-items:center;gap:20px;padding:30px 60px;border-radius:999px;background:${it.bg||'var(--yl)'};color:${it.fg||'#000'};font-weight:900;font-size:66px;white-space:nowrap">${it.label}</div>
+  <div class="arw stroke" style="font-size:110px;font-weight:900;color:var(--yl);line-height:1.05">${it.arrow||'↓'}</div>
+  ${it.badge?`<div class="bd chip" style="background:var(--ob);border:5px solid var(--em);color:var(--em);font-size:44px">${it.badge}</div>`:''}</div>`);
+ return {el,upd(dt){const b=q(el,'.btn');const pl=(dt*1.4)%1;b.style.transform=`scale(${pop(dt,.3)*(1+.045*Math.sin(dt*7))})`;b.style.boxShadow=`0 0 0 ${pl*40}px rgba(255,214,10,${.55*(1-pl)}),0 20px 50px rgba(0,0,0,.5)`;
+  q(el,'.arw').style.transform=`translateY(${Math.abs(Math.sin(dt*5))*34}px)`;const d=q(el,'.bd');if(d)d.style.transform=`scale(${pop(dt-.35)})`}}};
+S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div>
+  <div class="lg" style="position:relative;font-weight:900;font-size:124px;letter-spacing:4px"><span style="color:#D8DDE3">PROFIT</span><span style="color:var(--em);font-weight:700">SOUL</span></div>
+  <div style="position:relative;font-size:34px;color:var(--ti);letter-spacing:6px;margin-top:10px;font-weight:700">INTELLIGENT GROWTH • AI AUTOMATION</div>
+  <div class="j stroke" style="position:relative;margin-top:90px;font-size:84px;font-weight:900;text-align:center;line-height:1.1">${it.html}</div></div>`);
+ return {el,upd(dt){q(el,'.lg').style.transform=`scale(${pop(dt,.4)})`;const j=q(el,'.j');j.style.transform=`translateY(${(1-ease((dt-.3)/.4))*200}px)`;j.style.opacity=ease((dt-.3)/.3)}}};
+S.flash=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:#fff"></div>`);return {el,upd(dt){el.style.opacity=.85*(1-clamp(dt/.12))}}};
+ 
+/* ---------- captions ---------- */
+const capEl=document.getElementById('cap');let curCap=null;
+function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
+ if(!c||c.pos=='none'){capEl.style.display='none';curCap=null;return}
+ capEl.style.display='flex';capEl.className='stroke'+(c.pos?' '+c.pos:'');
+ if(curCap!==c){capEl.innerHTML=c.words.map(w=>`<span>${w}</span>`).join('');curCap=c}
+ const sp=[...capEl.children];const n=sp.length;const dur=(c.t1-c.t0);
+ sp.forEach((s,i)=>{const ws=c.t0+dur*i/n*0.8;const dt=t-ws;const vis=dt>=0;s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
+  s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const bs=c.pos=='split'?.8:(c.pos=='hi'?.9:1);s.style.fontSize=(em?102:86)*bs+'px';
+  s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
+const OVL=['text','cta','badge','flash'];
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type=='endcard'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+function setT(t){let any=false,hideCap=false;
+ for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
+  if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');
+   if(inn){inn.style.transform=`scale(${1+.05*dt/(it.t1-it.t0)})`;q(b.el,'.grid').style.transform=`translateY(${(dt*30)%90}px)`;
+    const fl=q(b.el,'.flash');fl.style.opacity=.5*(1-clamp(dt/.1));
+    const out=clamp((it.t1-t)/.12);b.el.style.transform=`translateX(${(1-out)*-80}px)`}
+   if(['text','cta','badge'].includes(it.type))b.el.style.opacity=clamp((it.t1-t)/.12);
+   if(it.nocap)hideCap=true}}
+ drawCap(t);if(hideCap)capEl.style.display='none';return any||capEl.style.display!='none'}
+window.init=init;window.setT=setT;
+</script></body></html>
+```
+ 
+## plan.py
+ 
+```
+"""EDL for sun_ads: jump cuts, B-roll map, graphics, captions, zooms, music + SFX. Source time -> output (pre-speed) time."""
+import json, bisect, csv
+segs = json.load(open('/home/claude/w/segs.json'))
+PRE, POST = 0.06, 0.09
+keep = []
+for s, e in segs:
+    if e - s < 0.1: continue
+    a, b = max(0, s - PRE), e + POST
+    if keep and a <= keep[-1][1] + 0.02: keep[-1][1] = max(keep[-1][1], b)
+    else: keep.append([a, b])
+keep[-1][1] = 111.0   # hold tail under the end card
+keep = [k for k in keep if k[0] < 111]
+ostarts = []; acc = 0
+for a, b in keep: ostarts.append(acc); acc += b - a
+TOTAL = acc
+def s2o(t):
+    for (a, b), o in zip(keep, ostarts):
+        if t < a: return o
+        if t <= b: return o + (t - a)
+    return TOTAL
+def o2s(t):
+    i = max(0, bisect.bisect_right(ostarts, t) - 1); return keep[i][0] + (t - ostarts[i])
+ 
+BROLL = [
+ ('B01', 4.62, 8.70, 'clientmsg', 'split', '"an important client told me this"'),
+ ('B02', 11.28, 16.47, 'leadrain', 'full', '"run ads -> quality AND junk enquiries come"'),
+ ('B03', 25.30, 28.83, 'methods', 'full', '"many say use VSL, use this, use that"'),
+ ('B04', 29.11, 32.56, 'cpl', 'split', '"but cost per enquiry must not increase"'),
+ ('B05', 40.08, 46.52, 'pipeline', 'split', '"ads -> enquiries -> WhatsApp -> chat flows"'),
+ ('B06', 46.90, 51.06, 'chatq', 'split', '"ask questions, send testimonials + brochures"'),
+ ('B07', 51.35, 56.42, 'filter', 'full', '"filter out the interested candidates"'),
+ ('B08', 58.78, 62.70, 'crm', 'split', '"no matter how many enquiries, only those who answer properly"'),
+ ('B09', 64.88, 68.99, 'booking', 'split', '"system automatically books the appointment"'),
+ ('B10', 69.28, 73.48, 'revenue', 'full', '"easily talk to the right client and generate revenue"'),
+ ('B11', 87.12, 91.38, 'livedemo', 'split', '"I will show you a live demo of the chat flow"'),
+ ('B12', 95.30, 98.62, 'implement', 'split', '"we can implement it for you"'),
+ ('B13', 102.37, 107.34, 'time', 'full', '"save your time"'),
+]
+GFX = [
+ ('flash', 1.05, 1.25, {}),
+ ('text', 1.11, 2.60, {'html': 'NO <span class="r">JUNK</span><br>LEADS ❌', 'y': 150, 'size': 140}),
+ ('text', 2.72, 4.55, {'html': 'ONLY <span class="g">QUALITY</span><br>LEADS ✅', 'y': 150, 'size': 130}),
+ ('badge', 9.07, 10.96, {'html': '⚠️ BIG PROBLEM', 'y': 200, 'size': 72}),
+ ('text', 16.84, 20.55, {'html': 'TALK ONLY TO<br><span class="g">QUALITY</span> LEADS?', 'y': 150, 'size': 108}),
+ ('badge', 21.71, 25.10, {'html': '💡 I USED THIS METHOD', 'y': 200, 'bg': 'var(--yl)', 'fg': '#000', 'size': 60}),
+ ('text', 32.85, 36.56, {'html': 'PROBLEM<br><span class="g">SOLVED ✓</span>', 'y': 150, 'size': 130}),
+ ('cta', 36.88, 39.90, {'label': '➕ FOLLOW ME', 'badge': '✓ PROVEN METHODS', 'y': 1070}),
+ ('badge', 56.60, 58.60, {'html': '💬 MY CLIENT SAID…', 'y': 200, 'bg': 'var(--em)', 'fg': '#04110c', 'size': 64}),
+ ('text', 62.80, 64.60, {'html': 'MONITOR<br><span class="g">ONLY THEM</span>', 'y': 150, 'size': 124}),
+ ('badge', 73.75, 77.80, {'html': '🎥 OPEN CLIENT TESTIMONIAL', 'y': 200, 'bg': 'var(--yl)', 'fg': '#000', 'size': 56}),
+ ('text', 77.99, 81.90, {'html': 'RUNNING <span class="y">ADS</span><br>FOR YOUR BUSINESS?', 'y': 150, 'size': 96}),
+ ('flash', 82.10, 82.30, {}),
+ ('cta', 82.21, 87.00, {'label': '💬 DM ME', 'badge': 'GET ONLY QUALITY ENQUIRIES', 'y': 1070}),
+ ('text', 91.67, 95.00, {'html': 'YOU TOO<br><span class="g">CAN DO THIS 🚀</span>', 'y': 150, 'size': 110}),
+ ('cta', 98.97, 102.10, {'label': '💬 DM ME NOW', 'badge': '⚙️ WE IMPLEMENT IT', 'y': 1070}),
+ ('text', 107.55, 109.25, {'html': 'YOUR <span class="y">BIGGEST</span><br><span class="y">ASSET</span> ⏰', 'y': 150, 'size': 124}),
+ ('endcard', 109.25, 111.0, {'html': 'DM ME NOW<br><span class="g">QUALITY ENQUIRIES</span><br><span class="y">NOT JUNK LEADS ↓</span>'}),
+]
+CAP = [
+ (1.11, 2.54, [['I', "DON'T", 'WANT', '!JUNK', '!LEADS']]),
+ (2.77, 4.42, [['GIVE ME', 'ONLY', '*QUALITY', '*LEADS']]),
+ (4.62, 8.70, [['AN', '^IMPORTANT', 'CLIENT'], ['TOLD ME', 'THIS']]),
+ (9.07, 10.96, [['YES', 'THIS IS A'], ['!BIG', '!PROBLEM']]),
+ (11.28, 12.89, [['WHEN YOU', 'RUN', '^ADS']]),
+ (13.27, 16.47, [['*QUALITY', 'AND'], ['!JUNK', 'ENQUIRIES', 'BOTH COME']]),
+ (16.84, 20.50, [['HOW DO WE', 'TALK'], ['ONLY TO', '*QUALITY', '*ENQUIRIES?']]),
+ (20.84, 22.83, [['WHEN THAT', 'QUESTION', 'CAME']]),
+ (23.13, 25.04, [['I USED', '^THIS METHOD']]),
+ (25.30, 26.08, [['MANY', 'PEOPLE', 'SAY']]),
+ (26.30, 28.83, [['USE', '^VSL'], ['USE THIS', 'USE THAT']]),
+ (29.11, 32.56, [['BUT', '^COST PER', '^ENQUIRY'], ['MUST', '!NOT', '!INCREASE']]),
+ (32.85, 36.56, [['WE', '*SOLVED IT'], ['WITH', 'THIS METHOD']]),
+ (36.88, 39.81, [['WANT', '*PROVEN', '*METHODS?'], ['^FOLLOW ME', 'NOW']]),
+ (40.08, 41.80, [['WE RUN', '^ADS'], ['WE GET', 'ENQUIRIES']]),
+ (42.09, 44.90, [['ENQUIRIES', 'GO TO'], ['*WHATSAPP']]),
+ (45.27, 46.52, [['INTO', '*CHAT FLOWS']]),
+ (46.90, 47.90, [['WE', '^ASK QUESTIONS']]),
+ (48.13, 51.06, [['SEND', '*TESTIMONIALS'], ['AND', '*BROCHURES']]),
+ (51.35, 54.07, [['!FILTER', 'OUT'], ['*INTERESTED', 'LEADS']]),
+ (54.29, 56.42, [['WE BUILT', 'THIS'], ['FOR OUR', '^CLIENT']]),
+ (56.60, 58.56, [['WHAT', 'HE SAID']]),
+ (58.78, 62.61, [['NO MATTER', 'HOW MANY'], ['ENQUIRIES', 'COME'], ['ONLY WHO', '*ANSWERS RIGHT']]),
+ (62.89, 64.60, [['I', '*MONITOR', 'ONLY THEM']]),
+ (64.88, 68.99, [['THE SYSTEM', '*AUTO-BOOKS'], ['THE', '*APPOINTMENT']]),
+ (69.28, 73.48, [['I TALK TO', 'THE', '*RIGHT CLIENT'], ['AND MAKE', '^REVENUE', '^EASILY']]),
+ (73.75, 77.74, [['THE CLIENT', 'GAVE'], ['AN', '^OPEN', '^TESTIMONIAL']]),
+ (77.99, 81.88, [['YOUR', 'BUSINESS', 'TOO'], ['IS', 'RUNNING', '^ADS']]),
+ (82.21, 85.45, [['WANT ONLY', 'THE'], ['*RIGHT', '*ENQUIRIES?']]),
+ (85.69, 86.87, [['^DM ME', 'ONCE']]),
+ (87.12, 91.38, [["I'LL SHOW", 'A'], ['^LIVE DEMO'], ['OF THE', '*CHAT FLOW']]),
+ (91.67, 94.96, [['YOU TOO', 'CAN GET'], ['*BUSINESS', 'LIKE THIS']]),
+ (95.30, 98.62, [['WANT', '*QUALITY', 'ENQUIRIES?'], ['WE', '*IMPLEMENT IT']]),
+ (98.97, 102.05, [['^DM ME', '^NOW'], ['FOR', 'IMPLEMENTATION']]),
+ (102.37, 107.34, [['TALK TO', '*QUALITY', 'ENQUIRIES'], ['AND', '^SAVE', '^YOUR TIME']]),
+ (107.64, 109.23, [["THAT'S YOUR", '^BIGGEST', '^ASSET']]),
+]
+PUNCH = [(1.0, 2.6, 1.14), (2.7, 4.5, 1.06), (9.0, 11.0, 1.16), (16.8, 18.6, 1.10), (18.6, 20.6, 1.18), (32.8, 36.6, 1.10),
+         (36.8, 40.0, 1.16), (56.5, 58.7, 1.12), (62.8, 64.7, 1.15), (73.7, 77.9, 1.08), (77.9, 82.0, 1.12), (82.1, 87.1, 1.18),
+         (91.6, 95.1, 1.10), (98.9, 102.2, 1.18), (107.5, 109.3, 1.16)]
+DESAT = [(9.0, 11.0)]
+MUSIC = [(0.0, 20.75, 'pulse'), (20.75, 82.15, 'tech'), (82.15, 111.0, 'uplift')]
+SFX = [(1.11, 'hit'), (2.72, 'pop'), (16.84, 'thud'), (36.88, 'hit'), (81.0, 'riser'), (82.21, 'hit'), (98.97, 'hit'), (109.25, 'hit')]
+SCENE_SFX = {
+ 'clientmsg': [(.45, 'pop'), (1.25, 'pop'), (2.3, 'tick')],
+ 'leadrain': [(.0, 'thud')] + [(.5 + i * .13 + .45, 'tick') for i in range(16)],
+ 'methods': [(.25, 'swipe'), (.65, 'swipe'), (1.05, 'swipe'), (1.7, 'thud'), (1.92, 'thud'), (2.14, 'thud'), (2.4, 'pop')],
+ 'cpl': [(.4, 'riser_s'), (1.1, 'thud'), (1.3, 'pop')],
+ 'pipeline': [(.2, 'pop'), (1.1, 'pop'), (2.0, 'pop'), (2.6, 'ding')],
+ 'chatq': [(.4, 'pop'), (1.15, 'pop'), (1.9, 'pop')],
+ 'filter': [(.6 + i * .22 + .5, 'tick') for i in range(14)] + [(2.6, 'ding')],
+ 'crm': [(.3 + i * .18, 'tick') for i in range(5)] + [(2.0, 'click')],
+ 'booking': [(.7 + i * .42, 'ding') for i in range(5)],
+ 'revenue': [(.4, 'riser_s'), (1.0, 'cash'), (1.8, 'cash')],
+ 'livedemo': [(.4 + i * .22, 'pop') for i in range(6)] + [(3.0, 'click'), (3.05, 'ding')],
+ 'implement': [(.65 + i * .45, 'tick') for i in range(4)] + [(2.3, 'ding')],
+ 'time': [(.0, 'thud')] + [(.3 + i * .12, 'tick') for i in range(14)] + [(1.3, 'pop')],
+}
+ 
+def build():
+    items = []; captions = []; sfx = list(SFX)
+    for bid, s0, s1, sc, lay, _ in BROLL:
+        o0 = s2o(s0)
+        items.append(dict(type=sc, t0=o0, t1=s2o(s1), layout=lay, id=bid))
+        sfx.append((o0 - 0.12, 'whoosh', 1)); sfx.append((s2o(s1) - 0.12, 'swipe', 1))
+        for dt, n in SCENE_SFX.get(sc, []):
+            if o0 + dt < s2o(s1): sfx.append((o0 + dt, n, 1))
+    for ty, s0, s1, ex in GFX:
+        d = dict(type=ty, t0=s2o(s0), t1=s2o(s1)); d.update(ex); items.append(d)
+        if ty in ('text', 'badge'): sfx.append((s0, 'pop'))
+        if ty == 'cta': sfx.append((s0 + 0.35, 'click'))
+    for s0, s1, chunks in CAP:
+        o0, o1 = s2o(s0), s2o(s1); wts = [sum(len(w) for w in c) + 4 for c in chunks]; tot = sum(wts); t = o0
+        for c, wt in zip(chunks, wts):
+            d = (o1 - o0) * wt / tot
+            words = [w.lstrip('*!^') for w in c]; hl = [i for i, w in enumerate(c) if w[:1] in '*!^']
+            col = '#FF3B30' if any(w.startswith('!') for w in c) else ('#FFD60A' if any(w.startswith('^') for w in c) else '#00C896')
+            captions.append(dict(t0=t, t1=t + d, words=words, hl=hl, col=col)); t += d
+    for a, b in zip(captions, captions[1:]):
+        if b['t0'] - a['t1'] < 0.45: a['t1'] = b['t0']
+    for c in captions:
+        mid = (c['t0'] + c['t1']) / 2
+        for it in items:
+            if it['t0'] <= mid < it['t1']:
+                if it.get('layout') == 'split': c['pos'] = 'split'
+                if it['type'] == 'cta': c['pos'] = 'hi'
+                if it['type'] == 'endcard': c['pos'] = 'none'
+    json.dump(dict(items=items, captions=captions, total=TOTAL), open('/home/claude/w/gfx/timeline.json', 'w'), ensure_ascii=False)
+    fps = 30; frames = []
+    for i in range(int(round(TOTAL * fps))):
+        to = i / fps; ts = o2s(to); k = max(0, bisect.bisect_right(ostarts, to) - 1)
+        z = 1.0 if k % 2 == 0 else 1.09
+        for a, b, zz in PUNCH:
+            if a <= ts <= b: z = zz
+        L = None
+        for it in items:
+            if it.get('layout') and it['t0'] <= to < it['t1']: L = it['layout']
+        frames.append(dict(ts=round(ts, 4), z=z, L=L, des=any(a <= ts <= b for a, b in DESAT)))
+    json.dump(frames, open('/home/claude/w/frames.json', 'w'))
+    # sfx: entries with 3rd elem are already in output time
+    sfxo = sorted([(x[0], x[1]) if len(x) == 3 else (s2o(x[0]), x[1]) for x in sfx])
+    json.dump(dict(keep=keep, music=[(s2o(a), s2o(b), m) for a, b, m in MUSIC], sfx=sfxo, total=TOTAL), open('/home/claude/w/audio/cues.json', 'w'))
+    with open('/home/claude/w/broll_plan.csv', 'w', newline='') as f:
+        w = csv.writer(f)
+        w.writerow(['ID', 'Source time (s)', 'Final time (s, after 1.2x)', 'Keyword spoken (meaning)', 'Visual', 'Source', 'Layout', 'On-screen length (s, final)', 'Status', 'Licence'])
+        for bid, s0, s1, sc, lay, kw in BROLL:
+            w.writerow([bid, f'{s0:.2f}-{s1:.2f}', f'{s2o(s0)/1.2:.1f}-{s2o(s1)/1.2:.1f}', kw, f'animated "{sc}" motion-graphic scene', 'P5 motion graphics (original)', 'split screen' if lay == 'split' else 'full cutaway',
+                        f'{(s2o(s1)-s2o(s0))/1.2:.1f}', 'rendered', 'original - no licence needed'])
+    cov = sum(it['t1'] - it['t0'] for it in items if it.get('layout'))
+    print(f'total {TOTAL:.2f}s -> {TOTAL/1.2:.2f}s | {len(keep)} cuts | B-roll {cov/TOTAL*100:.0f}% | captions {len(captions)} | sfx {len(sfxo)}')
+if __name__ == '__main__': build()
+```

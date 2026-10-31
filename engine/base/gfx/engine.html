@@ -1,0 +1,312 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:T;font-weight:900;src:url(node_modules/@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-900-normal.woff2)}
+@font-face{font-family:A;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+:root{--em:#00C896;--yl:#FFD60A;--rd:#FF3B30;--ob:#080A0D;--ti:#8B949E;--pl:#D8DDE3}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:transparent;overflow:hidden}
+body{font-family:M,T,sans-serif;color:#fff}
+.layer{position:absolute;inset:0;display:none}
+.stroke{paint-order:stroke fill;-webkit-text-stroke:16px #000;text-shadow:0 10px 24px rgba(0,0,0,.55)}
+/* captions */
+#cap{position:absolute;left:60px;right:60px;top:1175px;height:300px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0 26px;text-align:center}
+#cap span{display:inline-block;font-weight:900;font-size:86px;line-height:1.08;text-transform:uppercase;transform-origin:50% 70%}
+#cap{z-index:10}
+#cap.split{top:668px;height:190px}#cap.split span{font-size:70px}
+#cap.hi{top:235px;height:230px}
+/* B-roll scene stage */
+.stage{position:absolute;left:0;top:0;width:1080px;overflow:hidden;background:radial-gradient(120% 90% at 50% 30%,#12201b 0%,#0b1210 45%,#080A0D 100%)}
+.stage.full{height:1920px}.stage.split{height:864px;border-bottom:6px solid var(--em)}
+.grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(0,200,150,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(0,200,150,.07) 2px,transparent 2px);background-size:90px 90px}
+.ttl{position:absolute;left:0;right:0;text-align:center;font-weight:900;text-transform:uppercase}
+.card{position:absolute;background:#0f1713;border:3px solid rgba(0,200,150,.55);border-radius:34px;box-shadow:0 0 60px rgba(0,200,150,.18),0 30px 60px rgba(0,0,0,.5)}
+.chip{display:inline-block;padding:10px 26px;border-radius:999px;font-weight:900;font-size:40px}
+.g{color:var(--em)}.y{color:var(--yl)}.r{color:var(--rd)}
+svg{overflow:visible}
+</style></head><body>
+<div id="root"></div>
+<div id="cap" class="stroke"></div>
+<script>
+const W=1080,H=1920;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const back=x=>{x=clamp(x);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const pop=(dt,d=.28)=>back(dt/d);
+const lerp=(a,b,p)=>a+(b-a)*p;
+let TL=null;const root=document.getElementById('root');
+const els=[];
+function mk(html){const d=document.createElement('div');d.className='layer';d.innerHTML=html;root.appendChild(d);return d}
+function q(el,s){return el.querySelector(s)}function qa(el,s){return [...el.querySelectorAll(s)]}
+function stageCls(it){return 'stage '+(it.layout||'full')}
+function inout(it,t){const a=clamp((t-it.t0)/.18),b=clamp((it.t1-t)/.18);return Math.min(a,b)}
+// ---------- scene builders: each returns {el, upd(dt,it,t)} ----------
+const S={};
+const ROBOT=(c)=>`<svg viewBox="0 0 200 200" width="100%" height="100%"><defs><linearGradient id="rg${c}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3a34"/><stop offset="1" stop-color="#121a17"/></linearGradient></defs>
+<line x1="100" y1="20" x2="100" y2="46" stroke="#00C896" stroke-width="7"/><circle class="ant" cx="100" cy="18" r="11" fill="#00C896"/>
+<rect x="34" y="46" width="132" height="104" rx="34" fill="url(#rg${c})" stroke="#00C896" stroke-width="6"/>
+<rect x="52" y="70" width="96" height="50" rx="22" fill="#061410"/>
+<g class="eyes"><circle cx="78" cy="95" r="11" fill="#00C896"/><circle cx="122" cy="95" r="11" fill="#00C896"/></g>
+<rect x="20" y="82" width="16" height="36" rx="7" fill="#00C896"/><rect x="164" y="82" width="16" height="36" rx="7" fill="#00C896"/>
+<rect x="66" y="156" width="68" height="20" rx="10" fill="#1d2b26" stroke="#00C896" stroke-width="4"/></svg>`;
+
+S.agents=(it)=>{ // 4 AI agents popping in a 2x2 grid
+const labels=it.labels||['AGENT 1','AGENT 2','AGENT 3','AGENT 4'];
+const icons=it.icons||['','','',''];
+let cards='';for(let i=0;i<4;i++){const x=i%2,y=(i/2|0);
+cards+=`<div class="card ag" style="left:${90+x*470}px;top:${(it.layout=='split'?190:520)+y*(it.layout=='split'?330:520)}px;width:430px;height:${it.layout=='split'?300:480}px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+<div style="width:${it.layout=='split'?180:270}px;height:${it.layout=='split'?180:270}px" class="rb">${ROBOT(i)}</div>
+<div style="font-weight:900;font-size:${it.layout=='split'?38:46}px;margin-top:10px;color:#fff">${labels[i]}</div></div>`}
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${it.layout=='split'?40:250}px;font-size:${it.layout=='split'?100:140}px"><span class="big g">4</span> AI AGENTS</div>${cards}</div>`);
+return {el,upd(dt){const C=qa(el,'.ag');C.forEach((c,i)=>{const p=pop(dt-.15-i*.32,.35);c.style.opacity=clamp((dt-.15-i*.32)/.1);c.style.transform=`scale(${p}) rotate(${(1-p)*(i%2?8:-8)}deg)`;
+const r=q(c,'.rb');r.style.transform=`translateY(${Math.sin((dt+i)*4)*8}px)`;
+const e=q(c,'.eyes');e.style.transform=`scaleY(${(Math.floor((dt+i*.7)*1.3)%3==0 && ((dt+i*.7)*1.3)%1<.12)?.15:1})`;e.style.transformOrigin='100px 95px'});
+const b=q(el,'.big');b.style.display='inline-block';b.style.transform=`scale(${pop(dt,.35)})`;
+q(el,'.grid').style.transform=`translateY(${(dt*30)%90}px)`}}};
+
+S.laptop=(it)=>{
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${it.layout=='split'?50:300}px;font-size:96px">THIS IS <span class="y">ENOUGH</span></div>
+<svg class="lap" style="position:absolute;left:${it.layout=='split'?110:140}px;top:${it.layout=='split'?250:640}px" width="${it.layout=='split'?500:560}" height="${it.layout=='split'?380:560}" viewBox="0 0 560 420">
+<g class="lid" style="transform-origin:280px 330px"><rect x="70" y="40" width="420" height="290" rx="22" fill="#1b2421" stroke="#D8DDE3" stroke-width="8"/>
+<rect class="scr" x="92" y="62" width="376" height="246" rx="10" fill="#062a21"/>
+<g class="code"><rect x="116" y="90" width="180" height="16" rx="8" fill="#00C896"/><rect x="116" y="124" width="260" height="16" rx="8" fill="#8B949E"/><rect x="116" y="158" width="210" height="16" rx="8" fill="#00C896"/><rect x="116" y="192" width="300" height="16" rx="8" fill="#8B949E"/><rect x="116" y="226" width="150" height="16" rx="8" fill="#FFD60A"/></g></g>
+<path d="M20 335 H540 L505 375 H55 Z" fill="#D8DDE3"/><rect x="230" y="335" width="100" height="10" rx="5" fill="#8B949E"/></svg>
+<div class="plus stroke" style="position:absolute;left:640px;top:${it.layout=='split'?330:800}px;font-size:120px;font-weight:900">+</div>
+<svg class="wifi" style="position:absolute;left:760px;top:${it.layout=='split'?260:700}px" width="240" height="240" viewBox="0 0 240 240">
+<path class="w3" d="M20 100 Q120 10 220 100" stroke="#00C896" stroke-width="22" fill="none" stroke-linecap="round"/>
+<path class="w2" d="M55 140 Q120 80 185 140" stroke="#00C896" stroke-width="22" fill="none" stroke-linecap="round"/>
+<path class="w1" d="M88 178 Q120 150 152 178" stroke="#00C896" stroke-width="22" fill="none" stroke-linecap="round"/>
+<circle cx="120" cy="214" r="18" fill="#00C896"/></svg>
+<div class="ok" style="position:absolute;left:0;right:0;top:${it.layout=='split'?560:1280}px;text-align:center;${it.layout=='split'?'display:none':''}"><span class="chip" style="background:var(--em);color:#04110c;font-size:56px">✓ LAPTOP + WIFI</span></div></div>`);
+return {el,upd(dt){const lid=q(el,'.lid');const o=ease((dt-.05)/.6);lid.style.transform=`perspective(900px) rotateX(${(1-o)*-85}deg)`;
+qa(el,'.code rect').forEach((r,i)=>{r.style.transform=`scaleX(${ease((dt-.6-i*.12)/.3)})`;r.style.transformBox='fill-box'});
+const pl=q(el,'.plus');pl.style.transform=`scale(${pop(dt-.7)})`;
+['.w1','.w2','.w3'].forEach((s,i)=>{const ph=((dt-.9)*1.6-i*.33);q(el,s).style.opacity=dt<.9?0:(.25+.75*((Math.floor(ph*3)%3)>=0 && (ph%1)>(i*.2)?1:0))});
+q(el,'.wifi').style.transform=`scale(${pop(dt-.85)})`;
+const ok=q(el,'.ok');ok.style.transform=`scale(${pop(dt-1.4)})`;ok.style.opacity=clamp((dt-1.4)/.1)}}};
+
+S.seats=(it)=>{ // 50 seats filling + counter
+let dots='';for(let i=0;i<50;i++){const x=i%10,y=(i/10|0);const sp=it.layout=='split'?72:88,sz=it.layout=='split'?56:66;dots+=`<div class="st" style="position:absolute;left:${(1080-10*sp)/2+(sp-sz)/2+x*sp}px;top:${y*sp}px;width:${sz}px;height:${sz}px;border-radius:50%;border:5px solid #2b3a35"></div>`}
+const top=it.layout=='split'?240:640;
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${it.layout=='split'?40:330}px;font-size:110px">ONLY <span class="y cnt">50</span> SEATS</div>
+<div style="position:absolute;left:0;top:${top}px;width:1080px;height:440px">${dots}</div>
+<div class="ttl" style="top:${top+470}px;font-size:46px;color:var(--pl);${it.layout=='split'?'display:none':''}">${it.sub||'FOR BUSINESS OWNERS'}</div></div>`);
+return {el,upd(dt){const D=qa(el,'.st');const fill=it.fill||38;const n=Math.floor(clamp((dt-.2)/1.6)*fill);
+D.forEach((d,i)=>{const on=i<n;d.style.background=on?'radial-gradient(circle at 40% 35%,#3dffc8,#00C896 60%,#008a68)':'transparent';d.style.borderColor=on?'#00C896':(i>=fill?'#FFD60A':'#2b3a35');d.style.transform=on&&i>n-3?'scale(1.2)':'scale(1)'});
+const c=q(el,'.cnt');c.style.display='inline-block';c.style.transform=`scale(${1+.08*Math.sin(dt*10)})`}}};
+
+S.voiceads=(it)=>{ // your voice -> AI video & ads
+let bars='';for(let i=0;i<22;i++)bars+=`<div class="bar" style="width:16px;margin:0 5px;border-radius:8px;background:var(--em)"></div>`;
+const s=it.layout=='split';
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?36:300}px;font-size:${s?88:110}px">AI VIDEO + ADS<br><span class="g">IN YOUR VOICE</span></div>
+<div class="mic" style="position:absolute;left:70px;top:${s?340:820}px;width:420px;height:220px;display:flex;align-items:center;justify-content:center">${bars}</div>
+<div class="arr stroke" style="position:absolute;left:490px;top:${s?370:860}px;font-size:110px;font-weight:900" >→</div>
+<div class="phone card" style="left:${s?660:640}px;top:${s?240:680}px;width:${s?260:300}px;height:${s?410:560}px;border-radius:44px;border-color:#D8DDE3;overflow:hidden;background:#111">
+<div class="vid" style="position:absolute;inset:16px;border-radius:30px;background:linear-gradient(160deg,#00C896,#0a5b47 50%,#080A0D)"></div>
+<div class="play" style="position:absolute;left:${s?85:105}px;top:${s?160:230}px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.92)"><div style="position:absolute;left:34px;top:24px;border-left:34px solid #080A0D;border-top:21px solid transparent;border-bottom:21px solid transparent"></div></div>
+<div class="adtag chip" style="position:absolute;left:30px;top:40px;background:var(--yl);color:#000;font-size:30px">AD</div>
+<div class="prog" style="position:absolute;left:30px;bottom:40px;height:10px;border-radius:5px;background:#fff;width:0"></div></div></div>`);
+return {el,upd(dt){qa(el,'.bar').forEach((b,i)=>{const h=30+150*Math.abs(Math.sin(dt*7+i*.7)*Math.sin(dt*3.1+i*.3));b.style.height=(dt<.1?10:h)+'px'});
+const ph=q(el,'.phone');ph.style.transform=`translateY(${(1-ease((dt-.5)/.45))*500}px) rotate(${(1-ease((dt-.5)/.45))*12}deg)`;
+q(el,'.arr').style.transform=`translateX(${Math.sin(dt*6)*14}px) scale(${pop(dt-.35)})`;
+q(el,'.play').style.transform=`scale(${pop(dt-.9)*(1+.06*Math.sin(dt*8))})`;
+q(el,'.adtag').style.transform=`scale(${pop(dt-1.2)})`;
+q(el,'.prog').style.width=(clamp((dt-1)/3)*240)+'px'}}};
+
+S.live=(it)=>{ // live implementation session grid
+const s=it.layout=='split';let tiles='';const cols=['#1f6f5a','#2a4d7a','#6b3b6e','#7a5a2a','#2a6b6e','#5a2a2a'];
+for(let i=0;i<6;i++){const x=i%3,y=(i/3|0);tiles+=`<div class="tile" style="position:absolute;left:${60+x*325}px;top:${y*(s?205:300)}px;width:305px;height:${s?190:280}px;border-radius:22px;background:${cols[i]};overflow:hidden;border:4px solid transparent">
+<div style="position:absolute;left:50%;top:${s?48:70}px;width:${s?90:120}px;height:${s?90:120}px;margin-left:-${s?45:60}px;border-radius:50%;background:rgba(255,255,255,.35)"></div>
+<div style="position:absolute;left:50%;top:${s?140:200}px;width:${s?150:190}px;height:${s?110:150}px;margin-left:-${s?75:95}px;border-radius:80px 80px 0 0;background:rgba(255,255,255,.25)"></div></div>`}
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?50:300}px;font-size:${s?92:110}px"><span class="lv chip" style="background:var(--rd);font-size:${s?70:80}px;-webkit-text-stroke:0">● LIVE</span> SESSIONS</div>
+<div style="position:absolute;left:0;top:${s?210:620}px;width:1080px;height:600px">${tiles}</div>
+<div class="ttl stroke" style="top:${s?700:1300}px;font-size:${s?60:72}px;${s?'display:none':''}">WE <span class="g">IMPLEMENT</span> TOGETHER</div></div>`);
+return {el,upd(dt){qa(el,'.tile').forEach((t,i)=>{const p=ease((dt-.1-i*.1)/.3);t.style.opacity=p;t.style.transform=`scale(${.7+.3*p})`;
+t.style.borderColor=(Math.floor(dt*1.5)%6==i)?'#00C896':'transparent'});
+const l=q(el,'.lv');l.style.opacity=(Math.floor(dt*2.5)%2)?1:.55}}};
+
+S.weeks=(it)=>{ // 4 weeks -> agency live
+const s=it.layout=='split';let w='';for(let i=0;i<4;i++)w+=`<div class="wk" style="position:absolute;left:${70+i*240}px;top:0;width:220px;height:150px;border-radius:26px;border:4px solid #2b3a35;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900"><div style="font-size:30px;color:var(--ti)">WEEK</div><div style="font-size:72px">${i+1}</div></div>`;
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:330}px;font-size:${s?96:120}px">IN <span class="y">4 WEEKS</span></div>
+<div style="position:absolute;left:0;top:${s?250:700}px;width:1080px;height:160px">${w}</div>
+<div class="trk" style="position:absolute;left:90px;top:${s?440:900}px;width:900px;height:18px;border-radius:9px;background:#1d2b26"><div class="fill" style="height:100%;border-radius:9px;background:var(--em);width:0"></div></div>
+<div class="go ttl stroke" style="top:${s?530:1010}px;font-size:${s?96:120}px">🚀 <span class="g">${it.endText||'AGENCY LIVE'}</span></div></div>`);
+return {el,upd(dt){const p=clamp((dt-.2)/1.8);q(el,'.fill').style.width=(p*100)+'%';
+qa(el,'.wk').forEach((k,i)=>{const on=p>(i+.5)/4;k.style.borderColor=on?'#00C896':'#2b3a35';k.style.background=on?'rgba(0,200,150,.18)':'transparent';k.style.transform=`scale(${on?1.04:1})`});
+const g=q(el,'.go');g.style.transform=`scale(${pop(dt-2.0,.35)})`;g.style.opacity=clamp((dt-2)/.1)}}};
+
+S.whatsapp=(it)=>{ // WhatsApp automation + landing page
+const s=it.layout=='split';
+const msgs=it.msgs||[['in','Hi, I saw your ad 👋'],['out','Hi! 🙌 Here are the details + booking link'],['in','Booked for tomorrow ✅'],['out','Confirmed! Reminder sent 🔔']];
+let m='';(s?msgs.slice(0,3):msgs).forEach((x,i)=>{m+=`<div class="msg" style="align-self:${x[0]=='in'?'flex-start':'flex-end'};max-width:440px;margin:${s?7:10}px 0;padding:${s?12:18}px 22px;border-radius:24px;font-size:${s?27:30}px;font-weight:700;line-height:1.25;background:${x[0]=='in'?'#202c33':'#005c4b'};color:#e9edef">${x[1]}${x[0]=='out'?' <span style="font-size:22px;color:#53bdeb">✓✓ AUTO</span>':''}</div>`});
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?36:260}px;font-size:${s?84:100}px">${it.title||'<span class="g">FREE</span> SOFTWARE BONUS'}</div>
+<div class="phone card" style="left:60px;top:${s?170:600}px;width:540px;height:${s?480:900}px;border-radius:44px;border-color:#D8DDE3;background:#0b141a;overflow:hidden">
+<div style="height:${s?70:90}px;background:#1f2c34;display:flex;align-items:center;padding-left:26px;font-size:32px;font-weight:900">💬 WhatsApp Automation</div>
+<div style="display:flex;flex-direction:column;padding:16px 20px">${m}</div></div>
+<div class="lp card" style="left:630px;top:${s?200:700}px;width:390px;height:${s?440:700}px;border-radius:30px;border-color:#D8DDE3;background:#f4f6f8;overflow:hidden;padding:24px">
+<div class="b" style="height:22px;width:60%;background:#080A0D;border-radius:6px;margin-bottom:18px"></div>
+<div class="b" style="height:${s?120:180}px;background:linear-gradient(135deg,#00C896,#0a5b47);border-radius:16px;margin-bottom:18px"></div>
+<div class="b" style="height:16px;width:90%;background:#8B949E;border-radius:6px;margin-bottom:12px"></div>
+<div class="b" style="height:16px;width:75%;background:#8B949E;border-radius:6px;margin-bottom:24px"></div>
+<div class="b" style="height:64px;width:80%;margin:0 auto;background:#FFD60A;border-radius:32px;color:#000;font-weight:900;font-size:28px;display:flex;align-items:center;justify-content:center">BOOK NOW</div>
+<div style="position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#080A0D;font-weight:900;font-size:30px">Landing Page</div></div></div>`);
+return {el,upd(dt){qa(el,'.msg').forEach((x,i)=>{const p=pop(dt-.3-i*.55,.3);x.style.opacity=clamp((dt-.3-i*.55)/.08);x.style.transform=`scale(${p})`;x.style.transformOrigin=i%2?'right bottom':'left bottom'});
+qa(el,'.lp .b').forEach((b,i)=>{const p=ease((dt-.5-i*.22)/.3);b.style.opacity=p;b.style.transform=`translateX(${(1-p)*60}px)`});
+q(el,'.lp').style.transform=`translateY(${(1-ease((dt-.2)/.4))*400}px)`;q(el,'.phone').style.transform=`translateY(${(1-ease(dt/.4))*400}px)`}}};
+
+S.costs=(it)=>{ // monthly software bills -> crossed out
+const s=it.layout=='split';const rows=it.rows||[['WhatsApp software','₹2,000'],['Landing page builder','₹1,500'],['CRM','₹2,500'],['AI video tools','₹3,000']];
+let r='';rows.forEach((x,i)=>{r+=`<div class="row" style="display:flex;justify-content:space-between;font-size:${s?42:50}px;font-weight:700;padding:${s?10:20}px 0;border-bottom:3px dashed #2b3a35"><span>${x[0]}</span><span class="r">${x[1]}</span></div>`});
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?36:280}px;font-size:${s?84:100}px">${it.title||'SOFTWARE COSTS / MONTH'}</div>
+<div class="card bill" style="left:110px;top:${s?170:600}px;width:860px;padding:${s?20:30}px 50px;background:#0f1713">${r}
+<div class="tot" style="display:flex;justify-content:space-between;font-size:${s?52:66}px;font-weight:900;padding-top:${s?12:20}px"><span>TOTAL</span><span class="r">${it.total||'₹5,000–10,000'}</span></div></div>
+<div class="stamp" style="position:absolute;left:${s?330:250}px;top:${s?300:900}px;padding:20px 40px;border:12px solid var(--em);border-radius:26px;color:var(--em);font-size:${s?100:120}px;font-weight:900;transform:rotate(-12deg);background:rgba(8,10,13,.75)">${it.stamp||'INCLUDED'}</div></div>`);
+return {el,upd(dt){qa(el,'.row').forEach((x,i)=>{const p=ease((dt-.1-i*.25)/.25);x.style.opacity=p;x.style.transform=`translateX(${(1-p)*-80}px)`});
+const tt=q(el,'.tot');tt.style.opacity=ease((dt-1.1)/.2);
+const st=q(el,'.stamp');const p=clamp((dt-(it.stampAt||1.7))/.18);st.style.opacity=p;st.style.transform=`rotate(-12deg) scale(${lerp(2.2,1,ease(p))})`}}};
+
+S.affordable=(it)=>{ // most affordable badge + price tag swing
+const s=it.layout=='split';
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:330}px;font-size:${s?96:118}px">${it.title||'INDIA\'S MOST<br><span class="g">AFFORDABLE</span>'}</div>
+<div class="tag" style="position:absolute;left:265px;top:${s?350:820}px;width:550px;height:${s?260:380}px;transform-origin:275px -40px">
+<div style="position:absolute;left:265px;top:-60px;width:20px;height:70px;background:#D8DDE3;border-radius:10px"></div>
+<div style="position:absolute;inset:0;background:var(--yl);border-radius:40px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#000;box-shadow:0 30px 60px rgba(0,0,0,.5)">
+<div style="width:44px;height:44px;border-radius:50%;background:#080A0D;margin-bottom:${s?10:30}px"></div>
+<div style="font-weight:900;font-size:${s?62:76}px;line-height:1;width:100%">${it.tag||'AI COMMUNITY'}</div><div style="font-weight:700;font-size:${s?34:44}px;margin-top:8px;width:100%">${it.tag2||'FOR BUSINESS OWNERS'}</div></div></div></div>`);
+return {el,upd(dt){const t=q(el,'.tag');const a=Math.sin(dt*4)*Math.exp(-dt*1.2)*18;t.style.transform=`rotate(${a}deg) translateY(${(1-ease(dt/.4))*-600}px)`}}};
+
+const PERSON=(c)=>`<svg viewBox="0 0 60 120" width="100%" height="100%"><circle cx="30" cy="18" r="14" fill="${c}"/><rect x="14" y="36" width="32" height="46" rx="14" fill="${c}"/><rect class="lg1" x="16" y="74" width="11" height="40" rx="5" fill="${c}"/><rect class="lg2" x="33" y="74" width="11" height="40" rx="5" fill="${c}"/></svg>`;
+const CENTRE=(w,h,lit)=>`<svg viewBox="0 0 300 240" width="${w}" height="${h}"><path d="M20 90 L150 20 L280 90 Z" fill="${lit?'#00C896':'#2b3a35'}"/><rect x="40" y="90" width="220" height="140" rx="10" fill="#14201c" stroke="${lit?'#00C896':'#2b3a35'}" stroke-width="6"/>
+<rect x="120" y="140" width="60" height="90" rx="6" fill="${lit?'#FFD60A':'#0b1210'}"/><rect x="60" y="115" width="44" height="36" rx="5" fill="${lit?'#bff5e6':'#1d2b26'}"/><rect x="196" y="115" width="44" height="36" rx="5" fill="${lit?'#bff5e6':'#1d2b26'}"/>
+<text x="150" y="80" text-anchor="middle" font-family="M" font-weight="900" font-size="26" fill="#080A0D">WELLNESS</text></svg>`;
+S.walkin=(it)=>{ // people walking into a wellness centre, counter rising
+const s=it.layout=='split';let p='';const cols=['#D8DDE3','#00C896','#FFD60A','#D8DDE3','#8be0c9','#FFD60A','#D8DDE3'];
+for(let i=0;i<7;i++)p+=`<div class="pp" style="position:absolute;top:${s?330:820}px;width:70px;height:140px">${PERSON(cols[i])}</div>`;
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?74:110}px;white-space:nowrap">${it.title||'KNOWLEDGE → <span class="g">WALK&#8209;INS</span>'}</div>
+<div style="position:absolute;left:640px;top:${s?200:690}px">${CENTRE(380,300,true)}</div>${p}
+<div class="ground" style="position:absolute;left:40px;right:40px;top:${s?478:968}px;height:8px;border-radius:4px;background:#2b3a35"></div>
+<div class="cnt card" style="left:60px;top:${s?520:1010}px;padding:16px 30px;font-weight:900;font-size:${s?50:60}px">WALK-INS <span class="g n">0</span> <span class="g">↑</span></div></div>`);
+return {el,upd(dt){const P=qa(el,'.pp');let inside=0;P.forEach((x,i)=>{const t=dt-i*.42;const X=-80+t*330;const done=X>770;if(done)inside++;
+x.style.left=Math.min(X,770)+'px';x.style.opacity=t<0||X>790?0:(X>740?clamp((790-X)/50):1);x.style.transform=`translateY(${Math.abs(Math.sin(t*9))*-8}px)`;
+const a=Math.sin(t*9)*14;const l1=q(x,'.lg1'),l2=q(x,'.lg2');l1.style.transformOrigin='21px 76px';l2.style.transformOrigin='38px 76px';l1.style.transform=`rotate(${a}deg)`;l2.style.transform=`rotate(${-a}deg)`});
+q(el,'.n').textContent='+'+(inside*3);q(el,'.cnt').style.transform=`scale(${pop(dt-.1)})`}}};
+S.days=(it)=>{ // 3-day challenge cards
+const s=it.layout=='split';const D=it.days||[['DAY 1','💻','LIVE ZOOM'],['DAY 2','💻','LIVE ZOOM'],['DAY 3','🏥','CENTRE VISIT']];let c='';
+D.forEach((d,i)=>{c+=`<div class="dy card" style="left:${60+i*330}px;top:${s?230:700}px;width:300px;height:${s?330:440}px;display:flex;flex-direction:column;align-items:center;justify-content:center;${i==2?'border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.3)':''}">
+<div style="font-weight:900;font-size:${s?46:56}px;color:${i==2?'#FFD60A':'#00C896'}">${d[0]}</div><div style="font-size:${s?90:120}px;margin:10px 0">${d[1]}</div><div style="font-weight:900;font-size:${s?32:38}px;text-align:center">${d[2]}</div></div>`});
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?90:116}px">${it.title||'<span class="y">3-DAY</span> CHALLENGE'}</div>${c}
+</div>`);
+return {el,upd(dt){qa(el,'.dy').forEach((x,i)=>{const p=pop(dt-.15-i*.35,.35);x.style.opacity=clamp((dt-.15-i*.35)/.1);x.style.transform=`translateY(${(1-ease((dt-.15-i*.35)/.35))*120}px) scale(${p})`});
+const f=q(el,'.ft');if(f){f.style.transform=`scale(${pop(dt-1.3)})`;f.style.opacity=clamp((dt-1.3)/.1)}}}};
+S.centres=(it)=>{ // many centres lighting up with ticks
+const s=it.layout=='split';let g='';for(let i=0;i<9;i++){const x=i%3,y=(i/3|0);g+=`<div class="cc" style="position:absolute;left:${95+x*310}px;top:${(s?200:540)+y*(s?150:200)}px;width:270px"><div class="off">${CENTRE(s?200:240,s?140:185,false)}</div><div class="on" style="position:absolute;left:0;top:0">${CENTRE(s?200:240,s?140:185,true)}</div><div class="tk" style="position:absolute;right:${s?40:0}px;top:-10px;width:${s?50:64}px;height:${s?50:64}px;border-radius:50%;background:#00C896;color:#04110c;font-weight:900;font-size:${s?34:44}px;display:flex;align-items:center;justify-content:center">✓</div></div>`}
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?84:108}px">${it.title||'EVERY CENTRE <span class="g">THAT USED IT</span>'}</div>${g}</div>`);
+return {el,upd(dt){qa(el,'.cc').forEach((x,i)=>{const t=dt-.2-i*.22;const on=t>0;q(x,'.on').style.opacity=on?1:0;const k=q(x,'.tk');k.style.transform=`scale(${on?pop(t,.3):0})`;x.style.opacity=clamp((dt-i*.05)/.2)})}}};
+S.testis=(it)=>{ // testimonial video cards (placeholders for real clips)
+const s=it.layout=='split';let c='';for(let i=0;i<3;i++)c+=`<div class="tv card" style="left:${80+i*320}px;top:${s?200:640}px;width:280px;height:${s?420:500}px;border-radius:36px;border-color:#D8DDE3;overflow:hidden;background:linear-gradient(170deg,#1d3a31,#0b1210)">
+<div style="position:absolute;left:50%;top:${s?90:110}px;width:110px;height:110px;margin-left:-55px;border-radius:50%;background:rgba(255,255,255,.22)"></div><div style="position:absolute;left:50%;top:${s?205:235}px;width:170px;height:130px;margin-left:-85px;border-radius:90px 90px 0 0;background:rgba(255,255,255,.16)"></div>
+<div class="pl" style="position:absolute;left:95px;top:${s?140:170}px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.92)"><div style="position:absolute;left:34px;top:24px;border-left:34px solid #080A0D;border-top:21px solid transparent;border-bottom:21px solid transparent"></div></div>
+<div style="position:absolute;left:20px;right:20px;bottom:24px;text-align:center;font-weight:900;font-size:28px;color:#FFD60A">★★★★★</div></div>`;
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?88:110}px">${it.title||'<span class="g">AMAZING</span> RESULTS'}</div>${c}</div>`);
+return {el,upd(dt){qa(el,'.tv').forEach((x,i)=>{const t=dt-.1-i*.3;x.style.opacity=clamp(t/.12);x.style.transform=`translateY(${(1-ease(t/.4))*300}px) rotate(${(i-1)*4*(1-ease(t/.4))+(i-1)*2}deg)`;
+q(x,'.pl').style.transform=`scale(${1+.07*Math.sin(dt*7+i)})`})}}};
+S.transform=(it)=>{ // your experience -> 3-day event
+const s=it.layout=='split';
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?80:104}px">${it.title||'ON THE CALL 📞'}</div>
+<div class="a card" style="left:60px;top:${s?220:680}px;width:400px;height:${s?320:400}px;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:${s?110:140}px">🧠</div><div style="font-weight:900;font-size:${s?42:50}px;text-align:center">${it.a||'YOUR<br>EXPERIENCE'}</div></div>
+<div class="ar stroke" style="position:absolute;left:470px;top:${s?310:800}px;font-size:120px;font-weight:900;color:#FFD60A">→</div>
+<div class="b card" style="left:620px;top:${s?220:680}px;width:400px;height:${s?320:400}px;border-color:#FFD60A;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:${s?110:140}px">🎯</div><div style="font-weight:900;font-size:${s?42:50}px;text-align:center">${it.b||'3-DAY<br>CHALLENGE EVENT'}</div></div></div>`);
+return {el,upd(dt){q(el,'.a').style.transform=`scale(${pop(dt-.1)})`;q(el,'.ar').style.transform=`translateX(${(Math.sin(dt*6))*14}px) scale(${pop(dt-.5)})`;
+const b=q(el,'.b');b.style.transform=`scale(${pop(dt-.85,.35)})`;b.style.opacity=clamp((dt-.85)/.1)}}};
+S.chart=(it)=>{ // walk-ins bar chart growing
+const s=it.layout=='split';const vals=it.vals||[.22,.3,.38,.55,.72,.95];let b='';
+vals.forEach((v,i)=>{b+=`<div class="br" style="position:absolute;bottom:0;left:${i*140}px;width:100px;border-radius:16px 16px 4px 4px;background:${i==vals.length-1?'#FFD60A':'linear-gradient(#3dffc8,#00C896)'}"></div>`});
+const h=s?360:560;
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?86:110}px">${it.title||'MORE <span class="g">WALK-INS</span>'}</div>
+<div class="bx" style="position:absolute;left:${(1080-vals.length*140+40)/2}px;top:${s?200:640}px;width:${vals.length*140}px;height:${h}px;border-bottom:6px solid #2b3a35">${b}</div>
+<svg style="position:absolute;left:0;top:0" width="1080" height="${s?864:1920}"><path class="tr" d="" stroke="#FFD60A" stroke-width="10" fill="none" stroke-linecap="round"/></svg></div>`);
+return {el,upd(dt){const B=qa(el,'.br');B.forEach((x,i)=>{x.style.height=(ease((dt-.15-i*.18)/.45)*vals[i]*h)+'px'})}}};
+S.pin=(it)=>{ // climbing rank ladder to the next pin
+const s=it.layout=='split';const R=it.ranks||['PIN 1','PIN 2','NEXT PIN'];let st='';
+R.forEach((r,i)=>{st+=`<div class="rk" style="position:absolute;left:${120+i*300}px;top:${(s?520:1050)-i*(s?110:170)}px;width:260px;height:${s?100:130}px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:${s?40:50}px;background:${i==R.length-1?'#FFD60A':'#14201c'};color:${i==R.length-1?'#000':'#fff'};border:4px solid ${i==R.length-1?'#FFD60A':'#00C896'}">${r}</div>`});
+const el=mk(`<div class="${stageCls(it)}"><div class="grid"></div>
+<div class="ttl stroke" style="top:${s?40:300}px;font-size:${s?86:110}px">${it.title||'YOUR <span class="y">NEXT PIN</span>'}</div>${st}
+<div class="rk2" style="position:absolute;font-size:${s?110:140}px">🚀</div></div>`);
+return {el,upd(dt){const K=qa(el,'.rk');K.forEach((x,i)=>{x.style.transform=`scale(${pop(dt-.1-i*.3)})`;x.style.opacity=clamp((dt-.1-i*.3)/.1)});
+const r=q(el,'.rk2');const p=easeIO((dt-.3)/2.2);const n=R.length-1;const seg=Math.min(n,p*n);
+const x0=200,y0=(s?405:900),dx=300,dy=-(s?110:170);r.style.left=(x0+seg*dx)+'px';r.style.top=(y0+seg*dy-(s?0:20))+'px';r.style.transform=`rotate(-20deg) translateY(${Math.sin(dt*12)*5}px)`}}};
+
+// ------- on-face graphics -------
+S.text=(it)=>{const el=mk(`<div class="stroke tx" style="position:absolute;left:0;right:0;top:${it.y||300}px;text-align:center;font-weight:900;font-size:${it.size||120}px;line-height:1.05;text-transform:uppercase">${it.html}</div>`);
+return {el,upd(dt){const x=q(el,'.tx');x.style.transform=`scale(${pop(dt,.3)}) rotate(${it.rot||0}deg)`}}};
+S.price=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||170}px;text-align:center">
+<div class="old stroke" style="display:inline-block;position:relative;font-weight:900;font-size:90px;color:#ddd">${it.old||'₹5,000'}<div class="ln" style="position:absolute;left:-10px;top:50%;height:14px;background:var(--rd);border-radius:7px;width:0;-webkit-text-stroke:0"></div></div>
+<div class="nw stroke" style="font-family:A,M;font-size:240px;line-height:1;color:var(--em)">₹<span class="n">0</span></div>
+<div class="pm stroke" style="font-weight:900;font-size:70px">${it.per||'/ MONTH'}</div></div>`);
+return {el,upd(dt){const L=q(el,'.ln');L.style.width=(ease((dt-.25)/.3)*110)+'%';
+const v=Math.round(ease((dt-.45)/.7)*(it.val||1000));q(el,'.n').textContent=v.toLocaleString('en-IN');
+q(el,'.nw').style.transform=`scale(${pop(dt-.4,.35)*(dt>1.15?1+.04*Math.sin((dt-1.15)*7):1)})`;q(el,'.pm').style.opacity=ease((dt-1)/.2);
+q(el,'.old').style.opacity=clamp(dt/.1)}}};
+S.stamp=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||190}px;display:flex;justify-content:center"><div class="st" style="padding:26px 46px;border:14px solid var(--yl);border-radius:30px;color:var(--yl);text-align:center;font-weight:900;background:rgba(8,10,13,.82);box-shadow:0 20px 60px rgba(0,0,0,.6)">
+<div style="font-family:A,M;font-size:150px;line-height:1">${it.big||'100%'}</div><div style="font-size:58px;line-height:1.1">${it.small||'MONEY-BACK<br>GUARANTEE'}</div></div></div>`);
+return {el,upd(dt){const s=q(el,'.st');const p=clamp(dt/.16);s.style.opacity=p;s.style.transform=`rotate(-8deg) scale(${lerp(2.4,1,ease(p))*(dt>.2?1+.015*Math.sin(dt*6):1)})`}}};
+S.cta=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||1010}px;text-align:center">
+<div class="btn" style="display:inline-block;padding:30px 60px;border-radius:999px;background:var(--yl);color:#000;font-weight:900;font-size:66px;box-shadow:0 0 0 0 rgba(255,214,10,.6),0 20px 50px rgba(0,0,0,.5)">${it.label||'CLICK THE LINK BELOW'}</div>
+<div class="arw stroke" style="font-size:110px;font-weight:900;color:var(--yl);line-height:1.05">↓</div>
+${it.badge?`<div class="bd chip" style="background:var(--ob);border:5px solid var(--em);color:var(--em);font-size:44px">${it.badge}</div>`:''}</div>`);
+return {el,upd(dt){const b=q(el,'.btn');const pl=(dt*1.4)%1;b.style.transform=`scale(${pop(dt,.3)*(1+.045*Math.sin(dt*7))})`;b.style.boxShadow=`0 0 0 ${pl*40}px rgba(255,214,10,${.55*(1-pl)}),0 20px 50px rgba(0,0,0,.5)`;
+q(el,'.arw').style.transform=`translateY(${Math.abs(Math.sin(dt*5))*34}px)`;const d=q(el,'.bd');if(d)d.style.transform=`scale(${pop(dt-.35)})`}}};
+S.badge=(it)=>{const el=mk(`<div style="position:absolute;${it.right?'right:150px':'left:60px'};top:${it.y||170}px"><div class="bg chip" style="background:${it.bg||'var(--rd)'};color:${it.fg||'#fff'};font-size:${it.size||54}px;padding:16px 34px;box-shadow:0 12px 30px rgba(0,0,0,.5)">${it.html}</div></div>`);
+return {el,upd(dt){const b=q(el,'.bg');b.style.display='inline-block';b.style.transform=`scale(${pop(dt)}) rotate(${it.rot||-4}deg)`}}};
+S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div>
+<div class="lg" style="position:relative;font-weight:900;font-size:120px;letter-spacing:4px"><span style="color:#D8DDE3">PROFIT</span><span style="color:var(--em);font-weight:700">SOUL</span></div>
+<div style="position:relative;font-size:34px;color:var(--ti);letter-spacing:6px;margin-top:10px">INTELLIGENT GROWTH • AI AUTOMATION</div>
+<div class="j stroke" style="position:relative;margin-top:90px;font-size:84px;font-weight:900;text-align:center">${it.html||'JOIN NOW<br><span class="y">LINK BELOW ↓</span>'}</div></div>`);
+return {el,upd(dt){q(el,'.lg').style.transform=`scale(${pop(dt,.4)})`;q(el,'.j').style.transform=`translateY(${(1-ease((dt-.3)/.4))*200}px)`;q(el,'.j').style.opacity=ease((dt-.3)/.3)}}};
+
+// ---------- captions ----------
+const capEl=document.getElementById('cap');let curCap=null;
+function drawCap(t){
+let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
+if(!c){capEl.style.display='none';curCap=null;return}
+if(c.pos=='none'){capEl.style.display='none';return}
+capEl.style.display='flex';capEl.className='stroke'+(c.pos?' '+c.pos:'');
+if(curCap!==c){capEl.innerHTML=c.words.map(w=>`<span>${w}</span>`).join('');curCap=c}
+const sp=[...capEl.children];const n=sp.length;const dur=(c.t1-c.t0);
+sp.forEach((s,i)=>{const ws=c.t0+dur*i/n*0.85;const dt=t-ws;const vis=dt>=0;
+s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
+const active=vis&&(i==n-1||t<c.t0+dur*(i+1)/n*0.85);
+s.style.color=em?(c.col||'#00C896'):(active?'#FFFFFF':'#FFFFFF');
+const bs=c.pos=='split'?.8:(c.pos=='hi'?.9:1);s.style.fontSize=(em?100:86)*bs+'px';
+s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em&&c.tilt?c.tilt:0}deg)`;
+s.style.fontFamily=/[஀-௿]/.test(s.textContent)?'T,M':'M,T'});
+}
+// ---------- main ----------
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.z||(it.type=='endcard'?5:(['text','price','stamp','cta','badge'].includes(it.type)?3:1));els.push([it,b])}}
+function setT(t){let any=false;let hideCap=false;
+for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
+if(on){any=true;b.upd(t-it.t0,it,t);const fo=inout(it,t);
+if(['text','price','stamp','cta','badge'].includes(it.type)) b.el.style.opacity=clamp((it.t1-t)/.15);
+else b.el.style.opacity=1; if(it.nocap)hideCap=true;}}
+drawCap(t);if(hideCap)capEl.style.display='none';
+return any||capEl.style.display!='none';}
+window.init=init;window.setT=setT;
+</script></body></html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:A;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+:root{--em:#00C896;--yl:#FFD60A;--rd:#FF3B30;--ob:#080A0D;--ti:#8B949E;--pl:#D8DDE3;--nv:#0b1530;--mn:#cfe0ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:transparent;overflow:hidden}
+body{font-family:M,'Noto Color Emoji',sans-serif;color:#fff}
+.layer{position:absolute;inset:0;display:none}
+.stroke{paint-order:stroke fill;-webkit-text-stroke:16px #000;text-shadow:0 10px 24px rgba(0,0,0,.55)}
+.s10{paint-order:stroke fill;-webkit-text-stroke:10px #000}
+#cap{position:absolute;left:50px;right:50px;top:470px;height:290px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0 24px;text-align:center;z-index:10}
+#cap span{display:inline-block;font-weight:900;font-size:86px;line-height:1.08;text-transform:uppercase;transform-origin:50% 70%}
+#cap.split{top:668px;height:190px}
+#cap.low{top:1360px;height:260px}
+.stage{position:absolute;left:0;top:0;width:1080px;overflow:hidden;background:radial-gradient(120% 90% at 50% 25%,#16234a 0%,#0c1430 45%,#080A0D 100%)}
+.stage.full{height:1920px}.stage.split{height:864px;border-bottom:8px solid var(--em);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.inner{position:absolute;inset:0;transform-origin:540px 420px}
+.grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(120,160,255,.06) 2px,transparent 2px),linear-gradient(90deg,rgba(120,160,255,.06) 2px,transparent 2px);background-size:90px 90px}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;left:90px;top:-160px;background:radial-gradient(circle,rgba(0,200,150,.14),transparent 65%)}
+.ttl{position:absolute;left:0;right:0;text-align:center;font-weight:900;text-transform:uppercase;line-height:1.04;z-index:4}
+.card{position:absolute;background:#0f1726;border:4px solid rgba(0,200,150,.6);border-radius:34px;box-shadow:0 0 60px rgba(0,200,150,.15),0 30px 60px rgba(0,0,0,.5)}
+.chip{display:inline-block;padding:10px 28px;border-radius:999px;font-weight:900;font-size:40px}
+.g{color:var(--em)}.y{color:var(--yl)}.r{color:var(--rd)}.m{color:var(--mn)}
+svg{overflow:visible}
+.flash{position:absolute;inset:0;background:#fff;pointer-events:none;z-index:20}
+.star{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff}
+</style></head><body>
+<div id="root"></div>
+<div id="cap" class="stroke"></div>
+<script>
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const back=x=>{x=clamp(x);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const pop=(dt,d=.28)=>back(dt/d);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const root=document.getElementById('root');let TL=null;const els=[];
+function mk(html){const d=document.createElement('div');d.className='layer';d.innerHTML=html;root.appendChild(d);return d}
+const q=(el,s)=>el.querySelector(s), qa=(el,s)=>[...el.querySelectorAll(s)];
+function stage(it,inner){return `<div class="stage ${it.layout||'full'}"><div class="inner"><div class="grid"></div><div class="glow"></div>${inner}</div><div class="flash"></div></div>`}
+function popIn(x,dt,d=.32){if(!x)return;x.style.opacity=clamp(dt/.06);x.style.transform=`scale(${dt<0?0:pop(dt,d)})`}
+function slideUp(x,dt,dist=500,d=.4){x.style.opacity=clamp(dt/.08);x.style.transform=`translateY(${(1-ease(dt/d))*dist}px)`}
+function slideX(x,dt,dist=-1000,d=.35){x.style.opacity=clamp(dt/.08);x.style.transform=`translateX(${(1-ease(dt/d))*dist}px)`}
+function rnd(i){const x=Math.sin(i*91.7+13.3)*43758.5453;return x-Math.floor(x)}
+function stars(n,w,h,y0=0){let s='';for(let i=0;i<n;i++)s+=`<div class="star" data-i="${i}" style="left:${rnd(i)*w}px;top:${y0+rnd(i+50)*h}px;transform:scale(${.5+rnd(i+9)})"></div>`;return s}
+function twinkle(el,dt){qa(el,'.star').forEach(s=>{const i=+s.dataset.i;s.style.opacity=.35+.65*Math.abs(Math.sin(dt*(2+rnd(i+3)*4)+i))})}
+const MOON=(sz)=>`<div style="position:relative;width:${sz}px;height:${sz}px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fffbe8,#f3e2a8 60%,#d9c27a);box-shadow:0 0 ${sz*.5}px rgba(255,236,170,.55)"><div style="position:absolute;width:${sz*.82}px;height:${sz*.82}px;border-radius:50%;left:${sz*.32}px;top:${-sz*.08}px;background:#0e1838"></div></div>`;
+const S={};
+
+/* 1. city never sleeps - overlay on client skyline footage */
+S.nightcity=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,40,.55) 0%,rgba(6,10,40,.15) 45%,rgba(0,0,0,0) 70%)"></div>
+ ${stars(40,1080,420,40)}
+ <div class="mo" style="position:absolute;left:770px;top:150px">${MOON(170)}</div>
+ <div class="bd" style="position:absolute;left:0;right:0;top:1420px;text-align:center"><span class="chip s10" style="background:var(--ob);border:5px solid var(--yl);color:var(--yl);font-size:58px">🌃 24/7 CITY</span></div>`);
+ return {el,upd(dt){twinkle(el,dt);const m=q(el,'.mo');m.style.transform=`translateY(${(1-ease(dt/.8))*-200}px) rotate(${-10+dt*3}deg)`;m.style.opacity=clamp(dt/.3);popIn(q(el,'.bd'),dt-1.2)}}};
+
+/* 2. "for so many years" - overlay on client B-roll 1 */
+S.years=(it)=>{let p='';for(let i=0;i<5;i++)p+=`<div class="pg" style="position:absolute;left:0;top:0;width:220px;height:240px;border-radius:22px;background:#f4f6f8;color:#000;text-align:center;box-shadow:0 14px 30px rgba(0,0,0,.45);transform-origin:50% 0">
+  <div style="height:64px;border-radius:22px 22px 0 0;background:var(--rd);color:#fff;font-weight:900;font-size:34px;line-height:64px">NIGHT</div><div style="font-weight:900;font-size:110px;line-height:170px">😩</div></div>`;
+ const el=mk(`<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 45%,rgba(0,0,0,0) 40%,rgba(0,0,0,.55) 100%)"></div>
+ <div class="cal" style="position:absolute;left:800px;top:1180px;width:220px;height:240px">${p}</div>
+ <div class="bd" style="position:absolute;left:0;right:0;top:1480px;text-align:center"><span class="chip s10" style="background:var(--rd);font-size:56px">NIGHT AFTER NIGHT</span></div>`);
+ return {el,upd(dt){const pg=qa(el,'.pg');pg.forEach((x,i)=>{const t=dt-.2-i*.32;const fl=clamp(t/.25);x.style.zIndex=10-i;x.style.transform=`perspective(600px) rotateX(${i==4?0:fl*-100}deg)`;x.style.opacity=t>.3&&i<4?0:1});
+  popIn(q(el,'.cal'),dt-.05);popIn(q(el,'.bd'),dt-.5)}}};
+
+/* 3. awake at 3 AM */
+S.awake=(it)=>{const el=mk(stage(it,`${stars(30,1080,600,120)}
+  <div class="ttl stroke t1" style="top:200px;font-size:120px"><span class="r">WIDE</span> AWAKE</div>
+  <div class="win" style="position:absolute;left:640px;top:380px;width:300px;height:300px;border-radius:24px;border:10px solid #2b3a5c;background:#0a1230;overflow:hidden"><div style="position:absolute;left:80px;top:60px">${MOON(130)}</div><div style="position:absolute;left:140px;top:0;bottom:0;width:10px;background:#2b3a5c"></div></div>
+  <div class="clk" style="position:absolute;left:120px;top:470px;width:520px;height:250px;border-radius:40px;background:#05070d;border:8px solid #2b3a5c;display:flex;align-items:center;justify-content:center;font-family:A;font-size:170px;color:#FF3B30;text-shadow:0 0 30px rgba(255,59,48,.8);letter-spacing:6px"><span class="tm">2:58</span><span style="font-size:60px;margin-left:16px;font-family:M;font-weight:900">AM</span></div>
+  <svg style="position:absolute;left:90px;top:820px" width="900" height="380" viewBox="0 0 900 380"><rect x="20" y="150" width="860" height="150" rx="40" fill="#1a2547"/><rect x="40" y="90" width="260" height="110" rx="50" fill="#e8ecf5"/><rect x="230" y="120" width="640" height="110" rx="40" fill="#30407a"/><rect x="20" y="290" width="40" height="80" fill="#1a2547"/><rect x="840" y="290" width="40" height="80" fill="#1a2547"/></svg>
+  <div class="ey" style="position:absolute;left:150px;top:820px;font-size:150px">👀</div>
+  <div class="zz" style="position:absolute;left:470px;top:760px;font-size:90px;font-weight:900;color:var(--mn)">Zzz<div class="x" style="position:absolute;left:-10px;right:-10px;top:50%;height:14px;border-radius:7px;background:var(--rd);transform:rotate(-12deg) scaleX(0)"></div></div>`));
+ return {el,upd(dt){twinkle(el,dt);popIn(q(el,'.t1'),dt);slideUp(q(el,'.win'),dt-.05,300);popIn(q(el,'.clk'),dt-.1,.35);
+  const T=['2:58','2:59','3:00','3:01','3:02','3:03'];const k=Math.min(T.length-1,Math.max(0,Math.floor((dt-.3)/.28)));q(el,'.tm').textContent=T[k];
+  q(el,'.clk').style.opacity=(dt>.1)?(Math.floor(dt*4)%4==0?.75:1):0;
+  popIn(q(el,'.ey'),dt-.5,.3);popIn(q(el,'.zz'),dt-.3);q(el,'.x').style.transform=`rotate(-12deg) scaleX(${ease((dt-.8)/.2)})`}}};
+
+/* 4. burning under the AC */
+S.hotac=(it)=>{let sn='';for(let i=0;i<14;i++)sn+=`<div class="sn" data-i="${i}" style="position:absolute;font-size:44px">❄️</div>`;
+ let hw='';for(let i=0;i<3;i++)hw+=`<path class="hw" d="M${i*60} 120 q20 -30 0 -60 q-20 -30 0 -60" stroke="#FF6B30" stroke-width="12" fill="none" stroke-linecap="round"/>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:84px">STILL <span class="r">BURNING</span> 🔥</div>
+  <div class="ac" style="position:absolute;left:70px;top:170px;width:470px;height:170px;border-radius:30px;background:#e8ecf5;box-shadow:0 20px 40px rgba(0,0,0,.5)"><div style="position:absolute;left:30px;right:30px;bottom:26px;height:18px;border-radius:9px;background:#9aa6bd"></div><div style="position:absolute;left:30px;top:26px;font-weight:900;color:#4b5a7a;font-size:34px">AC • 18°C</div><div style="position:absolute;right:34px;top:28px;width:20px;height:20px;border-radius:50%;background:#00C896"></div></div>
+  <div style="position:absolute;inset:0">${sn}</div>
+  <svg class="th" style="position:absolute;left:700px;top:130px" width="200" height="500" viewBox="0 0 200 500"><rect x="70" y="20" width="60" height="360" rx="30" fill="#e8ecf5"/><rect class="mer" x="84" y="370" width="32" height="0" rx="16" fill="#FF3B30"/><circle cx="100" cy="410" r="62" fill="#FF3B30" stroke="#e8ecf5" stroke-width="12"/>${[0,1,2,3,4].map(i=>`<rect x="140" y="${70+i*60}" width="30" height="8" rx="4" fill="#8B949E"/>`).join('')}</svg>
+  <svg class="hws" style="position:absolute;left:600px;top:180px" width="400" height="200">${hw}</svg>
+  <div class="tp" style="position:absolute;left:640px;top:560px"><span class="chip" style="background:var(--rd);font-size:50px">🔥 HOT FLASHES</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideX(q(el,'.ac'),dt,-700);slideX(q(el,'.th'),dt-.1,600);
+  qa(el,'.sn').forEach(s=>{const i=+s.dataset.i;const t=(dt*0.9+rnd(i))%1;s.style.left=(100+rnd(i+7)*420)+'px';s.style.top=(340+t*260)+'px';s.style.opacity=dt>.3?(1-t):0;s.style.transform=`rotate(${dt*200+i*40}deg)`});
+  q(el,'.mer').setAttribute('height',ease((dt-.25)/1.0)*330);q(el,'.mer').setAttribute('y',370-ease((dt-.25)/1.0)*330);
+  const h=q(el,'.hws');h.style.opacity=dt>.7?.6+.4*Math.sin(dt*12):0;h.style.transform=`translateY(${-((dt*80)%40)}px)`;
+  q(el,'.th').style.filter=dt>1?`drop-shadow(0 0 ${20+15*Math.sin(dt*14)}px #FF3B30)`:'none';popIn(q(el,'.tp'),dt-.9)}}};
+
+/* 5. watching the clock */
+S.clockwatch=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:84px">WATCHING THE <span class="r">CLOCK</span></div>
+  <svg class="ck" style="position:absolute;left:330px;top:150px" width="420" height="420" viewBox="0 0 500 500">
+   <circle cx="250" cy="250" r="225" fill="#0f1726" stroke="#cfe0ff" stroke-width="18"/>
+   ${Array.from({length:12},(_,i)=>`<line x1="250" y1="45" x2="250" y2="${i%3?72:95}" stroke="#D8DDE3" stroke-width="${i%3?6:12}" transform="rotate(${i*30} 250 250)"/>`).join('')}
+   <line class="hh" x1="250" y1="250" x2="250" y2="140" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+   <line class="mh" x1="250" y1="250" x2="250" y2="80" stroke="#FF3B30" stroke-width="11" stroke-linecap="round"/><circle cx="250" cy="250" r="18" fill="#fff"/></svg>
+  <div class="hr" style="position:absolute;left:60px;top:250px"><span class="chip ch" style="background:var(--rd);font-size:64px;font-family:A;letter-spacing:2px">1 AM</span></div>
+  <div class="hr2" style="position:absolute;left:790px;top:250px;font-size:120px">😫</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const c=q(el,'.ck');c.style.transform=`scale(${pop(dt-.05,.35)})`;
+  const sp=Math.max(0,dt-.15)*1080;q(el,'.mh').setAttribute('transform',`rotate(${sp} 250 250)`);q(el,'.hh').setAttribute('transform',`rotate(${30+sp/12} 250 250)`);
+  const hrs=['1 AM','2 AM','3 AM','4 AM'];const k=Math.min(3,Math.floor(Math.max(0,dt-.15)/.33));const ch=q(el,'.ch');ch.textContent=hrs[k];popIn(q(el,'.hr'),((dt-.15)%.33)+(dt<.15?-1:0),.18);popIn(q(el,'.hr2'),dt-.6)}}};
+
+/* 6. years of targets */
+S.targets=(it)=>{let st='';const P=[[120,560,-12],[430,700,8],[220,900,-5],[560,1030,10],[300,1150,-14]];
+ P.forEach((p,i)=>st+=`<div class="st" style="position:absolute;left:${p[0]}px;top:${p[1]}px;transform:rotate(${p[2]}deg)"><div class="si" style="padding:14px 38px;border:10px solid var(--rd);border-radius:20px;color:var(--rd);font-family:A;font-size:110px;letter-spacing:6px;background:rgba(20,6,6,.75)">TARGET</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:200px;font-size:110px">YEARS OF</div><div class="ttl stroke t2" style="top:320px;font-size:150px"><span class="y">TARGETS</span> 🎯</div>
+  <svg class="bull" style="position:absolute;left:290px;top:560px" width="500" height="500" viewBox="0 0 500 500">${[230,180,130,80,35].map((r,i)=>`<circle cx="250" cy="250" r="${r}" fill="${i%2?'#e8ecf5':'#FF3B30'}"/>`).join('')}</svg>${st}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.12);const b=q(el,'.bull');b.style.transform=`scale(${pop(dt-.05,.35)}) rotate(${dt*40}deg)`;
+  qa(el,'.st').forEach((s,i)=>{const t=dt-.25-i*.3;const si=q(s,'.si');si.style.opacity=t>0?1:0;si.style.transform=`scale(${t<0?2.4:lerp(2.4,1,ease(t/.12))})`})}}};
+
+/* 7. body battery draining */
+S.battery=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px">BODY <span class="r">FORGOT</span> TO REST</div>
+  <div class="bt" style="position:absolute;left:200px;top:170px;width:620px;height:300px;border-radius:44px;border:14px solid #e8ecf5;padding:18px">
+   <div class="lv" style="height:100%;border-radius:24px;background:var(--em);width:80%"></div>
+   <div class="pc" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:A;font-size:150px" ></div></div>
+  <div style="position:absolute;left:836px;top:265px;width:44px;height:110px;border-radius:0 18px 18px 0;background:#e8ecf5"></div>
+  <div class="wr" style="position:absolute;left:0;right:0;top:520px;text-align:center"><span class="chip" style="background:var(--rd);font-size:52px">⚠️ REST MODE: OFF</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.bt'),dt-.05,.35);const p=lerp(80,3,easeIO((dt-.2)/1.3));const lv=q(el,'.lv');lv.style.width=p+'%';
+  lv.style.background=p>50?'#00C896':(p>20?'#FFD60A':'#FF3B30');q(el,'.pc').textContent=Math.round(p)+'%';
+  if(p<10)lv.style.opacity=Math.floor(dt*6)%2?.4:1;popIn(q(el,'.wr'),dt-1.5)}}};
+
+/* 8. retrained with hypnosis + breathwork */
+S.retrain=(it)=>{const c=it.cues||[.6,1.2];
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:${it.order=='bh'?64:80}px">${it.order=='bh'?'WHAT <span class="g">BROUGHT IT BACK</span>':'<span class="g">RETRAINED</span> MY BODY'}</div>
+  <div class="card c1" style="left:70px;top:160px;width:440px;height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+   <svg class="sp" width="230" height="230" viewBox="-100 -100 200 200"><path d="${(()=>{let d='M0 0';for(let a=0;a<6*Math.PI;a+=.15){const r=a*5;d+=` L${(r*Math.cos(a)).toFixed(1)} ${(r*Math.sin(a)).toFixed(1)}`}return d})()}" stroke="#00C896" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+   <div style="font-weight:900;font-size:54px;margin-top:20px">HYPNOSIS</div></div>
+  <div class="card c2" style="left:570px;top:160px;width:440px;height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+   <div style="width:230px;height:230px;display:flex;align-items:center;justify-content:center"><div class="br" style="width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,#7fffd9,#00C896 60%,rgba(0,200,150,.2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:32px;color:#04110c">INHALE</div></div>
+   <div style="font-weight:900;font-size:54px;margin-top:20px">BREATHWORK</div></div>`));
+ const o=it.order=='bh';return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.c1'),dt-c[o?1:0]+.05,.35);popIn(q(el,'.c2'),dt-c[o?0:1]+.05,.35);
+  q(el,'.sp').style.transform=`rotate(${dt*240}deg)`;const b=q(el,'.br');const ph=(Math.sin(dt*3)+1)/2;b.style.transform=`scale(${.6+.4*ph})`;b.textContent=Math.cos(dt*3)>0?'INHALE':'EXHALE'}}};
+
+/* 9. career timeline */
+S.career=(it)=>{const c=it.cues;const R=[['🏦','BRANCH HEAD','HDFC STANDARD LIFE'],['📊','UNIT MANAGER','ICICI PRUDENTIAL'],['🎓','<span class="n">0</span> YEARS','BUILDING EDUCATION COMPANIES']];let r='';
+ R.forEach((x,i)=>r+=`<div class="card rw" style="left:70px;top:${150+i*160}px;width:940px;height:140px;display:flex;align-items:center;padding:0 34px;border-color:${i==2?'#FFD60A':'rgba(0,200,150,.6)'}">
+  <div style="font-size:80px;width:120px">${x[0]}</div><div><div style="font-weight:900;font-size:56px;line-height:1.05">${x[1]}</div><div style="font-weight:800;font-size:32px;color:${i==2?'#FFD60A':'#00C896'};letter-spacing:2px">${x[2]}</div></div>
+  <div class="ok" style="margin-left:auto;width:70px;height:70px;border-radius:50%;background:var(--em);color:#04110c;font-size:46px;font-weight:900;display:flex;align-items:center;justify-content:center">✓</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px">WHO I <span class="y">AM</span></div>${r}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.rw').forEach((x,i)=>{const t=dt-c[i]+.05;slideX(x,t,i%2?1100:-1100,.32);popIn(q(x,'.ok'),t-.35,.25)});
+  q(el,'.n').textContent=Math.round(15*ease((dt-c[2])/.8))}}};
+
+/* 10. credentials today */
+S.creds=(it)=>{const c=it.cues;const C=[['🌀','HYPNOTHERAPIST'],['🧠','NEURO-EDUCATIONIST'],['🌿','NATUROPATHY'],['🧘','PATANJALI YOGA SUTRAS']];let h='';
+ C.forEach((x,i)=>h+=`<div class="cr" style="position:absolute;left:${i%2?550:70}px;top:${150+(i>>1)*150}px;width:460px;height:126px;border-radius:28px;background:#0f1726;border:4px solid ${i==0?'#FFD60A':'#00C896'};display:flex;align-items:center;padding:0 22px;gap:16px"><div style="font-size:64px">${x[0]}</div><div style="font-weight:900;font-size:${x[1].length>16?30:(x[1].length>12?33:38)}px;line-height:1.1">${x[1]}</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:84px"><span class="g">TODAY</span></div>${h}
+  <div class="wm" style="position:absolute;left:0;right:0;top:470px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:52px">👩 FOR WOMEN IN THE UAE 📍</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.cr').forEach((x,i)=>popIn(x,dt-.2-i*.28,.3));popIn(q(el,'.wm'),dt-c[1]+.05)}}};
+
+/* 11. product reveal */
+S.protocol=(it)=>{const el=mk(stage(it,`${stars(60,1080,1800,40)}
+  <div class="ring" style="position:absolute;left:240px;top:330px;width:600px;height:600px;border-radius:50%;border:6px solid rgba(255,214,10,.5)"></div>
+  <div class="ring2" style="position:absolute;left:190px;top:280px;width:700px;height:700px;border-radius:50%;border:4px dashed rgba(0,200,150,.45)"></div>
+  <div class="mo" style="position:absolute;left:400px;top:490px">${MOON(280)}</div>
+  <div class="ttl stroke a" style="top:1000px;font-size:70px;color:var(--mn)">THE</div>
+  <div class="ttl stroke b" style="top:1075px;font-size:150px;font-family:A,M;letter-spacing:4px">SLEEP RESET</div>
+  <div class="ttl stroke c" style="top:1245px;font-size:130px;font-family:A,M;letter-spacing:8px"><span class="y">PROTOCOL</span></div>
+  <div class="sh" style="position:absolute;top:1060px;height:360px;width:160px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg)"></div>`));
+ return {el,upd(dt){twinkle(el,dt);const m=q(el,'.mo');m.style.transform=`scale(${pop(dt,.45)}) rotate(${dt*6}deg)`;
+  q(el,'.ring').style.transform=`scale(${ease(dt/.5)*(1+.04*Math.sin(dt*6))})`;q(el,'.ring2').style.transform=`rotate(${dt*30}deg) scale(${ease((dt-.1)/.5)})`;
+  popIn(q(el,'.a'),dt-.15);popIn(q(el,'.b'),dt-.3,.3);popIn(q(el,'.c'),dt-.5,.3);const s=q(el,'.sh');s.style.left=lerp(-200,1200,clamp((dt-.8)/.6))+'px'}}};
+
+/* 12. live on zoom webinar */
+S.zoomlive=(it)=>{let tl='';for(let i=0;i<6;i++){const hue=[200,330,30,160,270,0][i];tl+=`<div class="tl" style="position:absolute;left:${(i%3)*232}px;top:${(i/3|0)*178}px;width:220px;height:166px;border-radius:14px;background:hsl(${hue},30%,22%);overflow:hidden;border:4px solid ${i==0?'#00C896':'transparent'}">
+  <div style="position:absolute;left:75px;top:30px;width:70px;height:70px;border-radius:50%;background:hsl(${hue},40%,62%)"></div><div style="position:absolute;left:50px;top:108px;width:120px;height:80px;border-radius:60px 60px 0 0;background:hsl(${hue},40%,52%)"></div></div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px"><span class="lv chip s10" style="background:var(--rd);font-size:62px;-webkit-text-stroke:0">● LIVE</span> ON ZOOM</div>
+  <svg class="lap" style="position:absolute;left:100px;top:140px" width="880" height="500" viewBox="0 0 880 500"><rect x="50" y="0" width="780" height="440" rx="24" fill="#1b2421" stroke="#D8DDE3" stroke-width="10"/><rect x="70" y="20" width="740" height="400" rx="12" fill="#061018"/><path d="M0 450 H880 L830 500 H50 Z" fill="#D8DDE3"/></svg>
+  <div class="grd" style="position:absolute;left:192px;top:180px;width:700px;height:360px">${tl}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);q(el,'.lv').style.opacity=(Math.floor(dt*3)%2)?1:.55;q(el,'.lap').style.transform=`translateY(${(1-ease(dt/.35))*600}px)`;
+  q(el,'.grd').style.transform=`translateY(${(1-ease(dt/.35))*600}px)`;qa(el,'.tl').forEach((x,i)=>{popIn(x,dt-.5-i*.15,.25);if(i==0)x.style.boxShadow=`0 0 ${20+14*Math.sin(dt*8)}px #00C896`})}}};
+
+/* 13. guided hypnosis */
+S.hypno=(it)=>{let r='';for(let i=0;i<6;i++)r+=`<div class="rg" data-i="${i}" style="position:absolute;left:540px;top:380px;width:0;height:0;border-radius:50%;border:5px solid rgba(160,190,255,.7)"></div>`;
+ const el=mk(stage(it,`${stars(25,1080,640,90)}<div class="ttl stroke t1" style="top:30px;font-size:68px"><span class="g">GUIDED</span> SLEEP HYPNOSIS</div>${r}
+  <div class="mo" style="position:absolute;left:450px;top:290px">${MOON(180)}</div>
+  <div class="zz" style="position:absolute;left:700px;top:240px;font-weight:900;font-size:70px;color:var(--mn)">Z<span style="font-size:56px">z</span><span style="font-size:44px">z</span></div>`));
+ return {el,upd(dt){twinkle(el,dt);popIn(q(el,'.t1'),dt);q(el,'.mo').style.transform=`scale(${pop(dt-.05,.4)})`;
+  qa(el,'.rg').forEach(x=>{const i=+x.dataset.i;const p=((dt*.45)+i/6)%1;const s=60+p*700;x.style.width=s+'px';x.style.height=s+'px';x.style.marginLeft=-s/2+'px';x.style.marginTop=-s/2+'px';x.style.opacity=(1-p)*clamp(dt/.3)});
+  const z=q(el,'.zz');z.style.opacity=dt>.4?.5+.5*Math.sin(dt*4):0;z.style.transform=`translateY(${-((dt*40)%50)}px)`}}};
+
+/* 14. what you'll learn - 3 steps */
+S.steps=(it)=>{const c=it.cues;const L=[['WHY SLEEP BREAKS','AFTER 40'],['WHAT HAPPENS','AT NIGHT'],['GUIDED SLEEP','HYPNOSIS — LIVE']];let r='';
+ L.forEach((x,i)=>r+=`<div class="card st" style="left:70px;top:${150+i*158}px;width:940px;height:140px;display:flex;align-items:center;padding:0 30px">
+  <div class="nm" style="width:92px;height:92px;border-radius:50%;background:var(--yl);color:#000;font-family:A;font-size:62px;display:flex;align-items:center;justify-content:center;margin-right:30px">${i+1}</div>
+  <div style="font-weight:900;font-size:48px;line-height:1.05">${x[0]} <span class="g">${x[1]}</span></div><div class="ok" style="margin-left:auto;font-size:60px">✅</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px">STEP <span class="y">BY</span> STEP</div>${r}`));
+ const at=[.15,c[1],c[2]];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.st').forEach((x,i)=>{const t=dt-at[i];slideX(x,t,-1100,.3);popIn(q(x,'.ok'),t-.35,.25)})}}};
+
+/* 15. only 100 seats */
+S.seats=(it)=>{let s='';for(let i=0;i<100;i++)s+=`<div class="se" style="position:absolute;left:${(i%20)*44}px;top:${(i/20|0)*56}px;width:36px;height:44px;border-radius:10px 10px 6px 6px;background:#25304d"></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:84px">ONLY <span class="y">100</span> SEATS</div>
+  <div class="gr" style="position:absolute;left:105px;top:170px;width:880px;height:290px">${s}</div>
+  <div class="bd" style="position:absolute;left:0;right:0;top:500px;text-align:center"><span class="chip" style="background:var(--rd);font-size:54px">⏳ FILLING FAST</span></div>
+  ${it.cues?`<div class="nr" style="position:absolute;left:300px;top:210px;transform:rotate(-10deg)"><div class="nri" style="padding:12px 36px;border:10px solid var(--rd);border-radius:20px;color:var(--rd);font-family:A;font-size:110px;letter-spacing:6px;background:rgba(20,6,6,.85)">NO REPLAY</div></div>`:''}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.gr'),dt,300,.3);qa(el,'.se').forEach((x,i)=>{const o=(rnd(i)*100|0);const on=dt>.3+((i*37)%100)/100*1.1&&rnd(i+5)<.82;x.style.background=on?'#FFD60A':'#25304d'});popIn(q(el,'.bd'),dt-1.2);const nr=q(el,'.nri');if(nr){const t=dt-it.cues[0];nr.style.opacity=t>0?1:0;nr.style.transform=`scale(${t<0?2.4:lerp(2.4,1,ease(t/.12))})`;q(el,'.bd').style.display=t>0?'none':'block'}}}};
+
+/* 16. 60-second sleep reset guide */
+S.guide=(it)=>{const c=it.cues;const el=mk(stage(it,`<div class="ttl t1" style="top:34px"><span class="chip s10" style="background:var(--rd);font-size:56px">🔴 LIVE ATTENDEES ONLY</span></div>
+  <div class="gb" style="position:absolute;left:150px;top:230px;font-size:240px">🎁</div>
+  <div class="bk" style="position:absolute;left:400px;top:150px;width:330px;height:440px;border-radius:18px 30px 30px 18px;background:linear-gradient(160deg,#16234a,#080A0D);border:6px solid var(--yl);box-shadow:0 30px 60px rgba(0,0,0,.6);text-align:center;padding-top:40px;overflow:hidden">
+   <div style="display:flex;justify-content:center">${MOON(110)}</div>
+   <div style="font-family:A;font-size:66px;color:var(--yl);margin-top:24px;line-height:1">60-SECOND</div>
+   <div style="font-weight:900;font-size:40px;line-height:1.1;margin-top:12px">SLEEP RESET<br>GUIDE</div>
+   <div class="shn" style="position:absolute;top:0;height:100%;width:90px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg)"></div></div>
+  <svg class="sw" style="position:absolute;left:790px;top:250px" width="220" height="250" viewBox="0 0 220 250"><rect x="90" y="0" width="40" height="30" rx="8" fill="#D8DDE3"/><circle cx="110" cy="140" r="100" fill="#0f1726" stroke="#D8DDE3" stroke-width="12"/><circle class="ar" cx="110" cy="140" r="78" fill="none" stroke="#00C896" stroke-width="18" stroke-dasharray="490 490" transform="rotate(-90 110 140)"/><text class="sv" x="110" y="160" text-anchor="middle" font-family="A" font-size="64" fill="#fff">60s</text></svg>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const g=q(el,'.gb');g.style.transform=`scale(${pop(dt-.1,.3)}) rotate(${dt<c[0]?Math.sin(dt*30)*6:0}deg)`;g.style.opacity=dt<c[0]+.3?1:clamp(1-(dt-c[0]-.3)/.2);
+  const b=q(el,'.bk');const t=dt-c[0];b.style.opacity=clamp(t/.08);b.style.transform=`translateY(${(1-ease(t/.4))*300}px) scale(${t<0?.3:lerp(.3,1,ease(t/.4))}) rotate(${(1-ease(t/.4))*-15}deg)`;
+  q(el,'.shn').style.left=lerp(-120,420,clamp((t-.4)/.6))+'px';const sw=q(el,'.sw');popIn(sw,dt-c[1]+.05,.3);
+  const p=clamp((dt-c[1])/1.2);q(el,'.ar').setAttribute('stroke-dashoffset',490*p);q(el,'.sv').textContent=Math.max(0,Math.round(60-p*60))+'s'}}};
+
+/* ===== India cut scenes ===== */
+const FAM=(e,lab)=>`<div style="display:flex;flex-direction:column;align-items:center"><div style="font-size:84px;line-height:1">${e}</div><div style="font-weight:900;font-size:26px;margin-top:6px">${lab}</div></div>`;
+S.lightsoff=(it)=>{const el=mk(`<div class="dk" style="position:absolute;inset:0;background:rgba(5,8,30,.0)"></div>${stars(30,1080,500,60)}
+ <div class="ck" style="position:absolute;left:0;right:0;top:1440px;text-align:center"><span class="chip s10" style="background:var(--ob);border:5px solid var(--yl);color:var(--yl);font-size:66px;font-family:A;letter-spacing:3px">🕚 11:00 PM</span></div>
+ <div class="zz" style="position:absolute;left:700px;top:900px;font-weight:900;font-size:110px;color:var(--mn)">Z<span style="font-size:80px">z</span><span style="font-size:60px">z</span></div>`);
+ return {el,upd(dt){const off=dt>1.85;q(el,'.dk').style.background=`rgba(5,8,30,${off?.35:0})`;qa(el,'.star').forEach(s=>s.style.display=off?'block':'none');if(off)twinkle(el,dt);
+  popIn(q(el,'.ck'),dt-.15);const z=q(el,'.zz');z.style.opacity=off?.6+.4*Math.sin(dt*5):0;z.style.transform=`translateY(${-((dt*50)%60)}px)`}}};
+S.house=(it)=>{const R=[['👨','HUSBAND'],['👧','KIDS'],['👵','PARENTS'],['👩','HER']];let r='';
+ R.forEach((x,i)=>r+=`<div class="rm" style="position:absolute;left:${110+(i%2)*440}px;top:${560+(i>>1)*360}px;width:420px;height:340px;border-radius:24px;background:#f6d77c;border:8px solid #2b3a5c;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#000">${FAM(x[0],'')}<div class="lb" style="font-weight:900;font-size:40px;margin-top:6px">${x[1]}</div><div class="z" style="position:absolute;right:26px;top:16px;font-weight:900;font-size:52px;color:var(--mn)">Zzz</div></div>`);
+ const el=mk(stage(it,`${stars(25,1080,300,120)}<div class="ttl stroke t1" style="top:200px;font-size:84px">EVERYONE <span class="g">ASLEEP</span>…</div>
+  <svg style="position:absolute;left:80px;top:330px" width="920" height="240" viewBox="0 0 920 240"><path d="M0 240 L460 20 L920 240 Z" fill="#2b3a5c"/></svg>
+  <div style="position:absolute;left:80px;top:550px;width:920px;height:760px;background:#2b3a5c;border-radius:0 0 30px 30px"></div>${r}
+  <div class="aw" style="position:absolute;left:560px;top:1200px"><span class="chip" style="background:var(--rd);font-size:44px">😳 STILL AWAKE</span></div>`));
+ return {el,upd(dt){twinkle(el,dt);popIn(q(el,'.t1'),dt);qa(el,'.rm').forEach((x,i)=>{popIn(x,dt-.05-i*.06,.25);const dark=i<3&&dt>.3+i*.25;x.style.background=dark?'#141c38':'#f6d77c';x.style.color=dark?'#8b98c9':'#000';q(x,'.z').style.opacity=dark?.5+.5*Math.sin(dt*5+i):0;q(x,'.lb').style.color=dark?'#8b98c9':'#000';
+   if(i==3&&dt>1.0)x.style.boxShadow=`0 0 ${40+25*Math.sin(dt*8)}px #f6d77c`});popIn(q(el,'.aw'),dt-1.1)}}};
+S.awake2=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 45%,rgba(0,0,0,0) 40%,rgba(0,0,30,.55) 100%)"></div>
+ <div class="clk" style="position:absolute;left:290px;top:1380px;width:500px;height:200px;border-radius:34px;background:#05070d;border:7px solid #2b3a5c;display:flex;align-items:center;justify-content:center;font-family:A;font-size:140px;color:#FF3B30;text-shadow:0 0 30px rgba(255,59,48,.8)"><span class="tm">1:57</span><span style="font-size:50px;margin-left:14px;font-family:M;font-weight:900">AM</span></div>`);
+ return {el,upd(dt){popIn(q(el,'.clk'),dt-.05,.3);const T=['1:57','1:58','1:59','2:00'];q(el,'.tm').textContent=T[Math.min(3,Math.max(0,Math.floor((dt-.2)/.35)))];q(el,'.clk').style.opacity=Math.floor(dt*4)%4==0?.8:1}}};
+S.mindloop=(it)=>{const C=['📅 MEETING','🍱 TIFFIN','📚 KIDS\' EXAM','💊 MOM\'S MEDS','🧾 BILLS','🛒 GROCERIES'];let c='';
+ C.forEach((x,i)=>c+=`<div class="ml" data-i="${i}" style="position:absolute;white-space:nowrap"><span class="chip" style="background:#0f1726;border:4px solid ${i%2?'#FFD60A':'#FF3B30'};font-size:34px">${x}</span></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:84px">MIND <span class="r">RUNNING</span></div>
+  <div class="hd" style="position:absolute;left:440px;top:260px;width:200px;height:240px;border-radius:100px 100px 80px 80px;background:#2b3a5c;display:flex;align-items:center;justify-content:center;font-size:110px">😣</div>${c}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const h=q(el,'.hd');h.style.transform=`scale(${pop(dt,.3)}) rotate(${Math.sin(dt*14)*3}deg)`;
+  qa(el,'.ml').forEach(x=>{const i=+x.dataset.i;const t=dt-.2-i*.22;const a=dt*1.6+i*Math.PI/3;x.style.left=(540+Math.cos(a)*360-130)+'px';x.style.top=(380+Math.sin(a)*190-30)+'px';x.style.opacity=clamp(t/.1);x.style.transform=`scale(${t<0?0:pop(t,.25)})`})}}};
+S.alarm=(it)=>{const el=mk(stage(it,`<div class="sun" style="position:absolute;left:240px;top:1550px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,#FFD60A,#ff9a3c 55%,rgba(255,120,40,0) 72%);"></div>
+  <div class="ttl stroke t1" style="top:200px;font-size:96px">UP AT <span class="y">6</span> ANYWAY</div>
+  <div class="al" style="position:absolute;left:290px;top:430px;width:500px;height:500px">
+   <svg width="500" height="500" viewBox="0 0 500 500"><circle cx="130" cy="90" r="70" fill="#FFD60A"/><circle cx="370" cy="90" r="70" fill="#FFD60A"/><circle cx="250" cy="270" r="200" fill="#e8ecf5" stroke="#FF3B30" stroke-width="22"/><line x1="250" y1="270" x2="250" y2="140" stroke="#000" stroke-width="16" stroke-linecap="round"/><line x1="250" y1="270" x2="250" y2="400" stroke="#000" stroke-width="10" stroke-linecap="round"/><circle cx="250" cy="270" r="16" fill="#000"/><line x1="120" y1="460" x2="90" y2="500" stroke="#e8ecf5" stroke-width="18"/><line x1="380" y1="460" x2="410" y2="500" stroke="#e8ecf5" stroke-width="18"/></svg></div>
+  <div class="tm" style="position:absolute;left:0;right:0;top:1000px;text-align:center"><span class="chip s10" style="background:var(--ob);border:5px solid var(--yl);color:var(--yl);font-family:A;font-size:80px">⏰ 6:00 AM</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const a=q(el,'.al');a.style.transform=`scale(${pop(dt,.3)}) rotate(${Math.sin(dt*45)*7}deg) translateX(${Math.sin(dt*60)*6}px)`;
+  const s=q(el,'.sun');s.style.transform=`translateY(${(1-ease(dt/1.2))*300}px)`;s.style.opacity=clamp(dt/.4);popIn(q(el,'.tm'),dt-.3)}}};
+S.sleepback=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,40,.35),rgba(0,0,0,0) 50%)"></div>
+ <div class="mo" style="position:absolute;left:760px;top:180px">${MOON(170)}</div>
+ <div class="bd" style="position:absolute;left:0;right:0;top:1450px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:64px">😴 SLEEP: BACK ✓</span></div>`);
+ return {el,upd(dt){const m=q(el,'.mo');m.style.transform=`translateY(${(1-ease(dt/.6))*-200}px)`;m.style.opacity=clamp(dt/.3);popIn(q(el,'.bd'),dt-.5)}}};
+S.twocountry=(it)=>{const c=it.cues;const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:66px"><span class="g">HYPNOTHERAPIST</span> TODAY</div>
+  <div class="wm" style="position:absolute;left:0;right:0;top:140px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:46px">👩 COACHING WOMEN</span></div>
+  <div class="card c1" style="left:90px;top:250px;width:360px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:150px;line-height:1">🇮🇳</div><div style="font-weight:900;font-size:58px;margin-top:10px">INDIA</div></div>
+  <div class="card c2" style="left:630px;top:250px;width:360px;height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:150px;line-height:1">🇦🇪</div><div style="font-weight:900;font-size:58px;margin-top:10px">UAE</div></div>
+  <svg style="position:absolute;left:0;top:0" width="1080" height="864"><path class="arc" d="M450 360 Q540 230 630 360" stroke="#00C896" stroke-width="10" fill="none" stroke-dasharray="8 14" stroke-linecap="round"/></svg>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.wm'),dt-c[0]+.05);popIn(q(el,'.c1'),dt-c[1]+.05,.35);popIn(q(el,'.c2'),dt-c[2]+.05,.35);
+  const a=q(el,'.arc');a.style.opacity=dt>c[2]?1:0;a.style.strokeDashoffset=-dt*60}}};
+S.indiacities=(it)=>{const C=[['MUMBAI',120,330],['DELHI',430,190],['BENGALURU',600,470],['CHENNAI',300,520],['KOLKATA',720,300],['HYDERABAD',100,440],['PUNE',780,170]];let c='';
+ C.forEach((x,i)=>c+=`<div class="cy" style="position:absolute;left:${x[1]}px;top:${x[2]}px;display:flex;align-items:center;gap:10px"><div class="pin" style="width:30px;height:30px;border-radius:50%;background:var(--em);box-shadow:0 0 20px #00C896"></div><span class="chip" style="background:#0f1726;border:3px solid var(--em);font-size:38px;padding:8px 22px">💻 ${x[0]}</span></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:78px">FROM <span class="y">ANYWHERE</span> 🇮🇳</div>${c}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.cy').forEach((x,i)=>{popIn(x,dt-.15-i*.17,.25);q(x,'.pin').style.transform=`scale(${1+.3*Math.sin(dt*8+i)})`})}}};
+S.sleepcurve=(it)=>{const c=it.cues;const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:74px">WHY SLEEP <span class="r">BREAKS</span></div>
+  <svg style="position:absolute;left:110px;top:150px" width="860" height="470" viewBox="0 0 860 470">
+   <line x1="60" y1="20" x2="60" y2="400" stroke="#8B949E" stroke-width="6"/><line x1="60" y1="400" x2="840" y2="400" stroke="#8B949E" stroke-width="6"/>
+   <text x="20" y="40" fill="#cfe0ff" font-family="M" font-weight="900" font-size="30" transform="rotate(-90 20 40)" text-anchor="end">SLEEP QUALITY</text>
+   ${[['20',150],['30',330],['40',510],['50',690]].map(x=>`<text x="${x[1]}" y="450" fill="#D8DDE3" font-family="M" font-weight="900" font-size="34" text-anchor="middle">${x[0]}</text>`).join('')}
+   <line class="l40" x1="510" y1="20" x2="510" y2="400" stroke="#FF3B30" stroke-width="5" stroke-dasharray="14 10"/>
+   <path class="cv" d="M70 90 C200 85 330 95 470 110 C520 120 540 170 580 260 C620 330 700 360 830 375" stroke="#00C896" stroke-width="14" fill="none" stroke-linecap="round"/>
+   <circle class="dot" cx="580" cy="260" r="0" fill="#FF3B30"/></svg>
+  <div class="tg" style="position:absolute;left:570px;top:150px"><span class="chip s10" style="background:var(--rd);font-size:46px">AFTER 40 ⚠️</span></div>`));
+ const cv=q(el,'.cv');let L=null;
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);if(L===null)L=cv.getTotalLength();const p=clamp((dt-.2)/((c[1]||1.5)));cv.style.strokeDasharray=`${L*p} ${L}`;
+  cv.style.stroke=p>.55?'#FF3B30':'#00C896';q(el,'.l40').style.opacity=dt>c[0]?1:0;q(el,'.dot').setAttribute('r',dt>c[0]+.2?14+6*Math.sin(dt*10):0);popIn(q(el,'.tg'),dt-c[1]+.05)}}};
+S.care=(it)=>{const F=[['👧',150,420],['👨',380,500],['👦',640,500],['👵',870,420]];let f='';
+ F.forEach((x,i)=>f+=`<div class="fm" style="position:absolute;left:${x[1]-50}px;top:${x[2]}px;font-size:100px">${x[0]}</div><div class="ht" data-i="${i}" style="position:absolute;font-size:50px">❤️</div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:58px">YOU LOOKED AFTER <span class="g">EVERYONE</span></div>
+  <div class="me" style="position:absolute;left:470px;top:170px;font-size:140px">👩</div>${f}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.me'),dt-.05,.3);qa(el,'.fm').forEach((x,i)=>popIn(x,dt-.15-i*.1,.25));
+  qa(el,'.ht').forEach(x=>{const i=+x.dataset.i;const t=((dt-.35-i*.25)%1.1)/1.1;const on=dt>.35+i*.25;const p=ease(t);x.style.left=lerp(510,F[i][1]-20,p)+'px';x.style.top=lerp(300,F[i][2]-40,p)+'px';x.style.opacity=on?1-t*.6:0})}}};
+
+/* ---------- on-face graphics ---------- */
+S.text=(it)=>{const el=mk(`<div class="stroke tx" style="position:absolute;left:0;right:0;top:${it.y||260}px;text-align:center;font-weight:900;font-size:${it.size||120}px;line-height:1.04;text-transform:uppercase">${it.html}</div>`);
+ return {el,upd(dt){const x=q(el,'.tx');x.style.transform=`scale(${pop(dt,.3)}) rotate(${it.rot||0}deg)`;x.style.opacity=clamp(dt/.05)}}};
+S.badge=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;text-align:center;top:${it.y||260}px"><div class="bg chip" style="background:${it.bg||'var(--rd)'};color:${it.fg||'#fff'};font-size:${it.size||54}px;padding:16px 36px;box-shadow:0 12px 30px rgba(0,0,0,.5)">${it.html}</div></div>`);
+ return {el,upd(dt){const b=q(el,'.bg');b.style.transform=`scale(${pop(dt)}) rotate(${it.rot||-3}deg)`}}};
+S.name=(it)=>{const el=mk(`<div class="nm" style="position:absolute;left:60px;top:1420px;display:flex;flex-direction:column;align-items:flex-start">
+  <div class="a" style="background:var(--yl);color:#000;font-weight:900;font-size:76px;padding:10px 32px;border-radius:16px 16px 16px 0;box-shadow:0 14px 30px rgba(0,0,0,.5)">${it.html}</div>
+  <div class="b" style="background:var(--ob);border:4px solid var(--em);color:var(--em);font-weight:900;font-size:34px;padding:10px 26px;border-radius:0 0 16px 16px;margin-top:-2px">${it.sub}</div></div>`);
+ return {el,upd(dt){slideX(q(el,'.a'),dt,-900,.3);slideX(q(el,'.b'),dt-.12,-900,.3)}}};
+S.cta=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||1080}px;text-align:center">
+  <div class="btn" style="display:inline-flex;align-items:center;gap:20px;padding:30px 70px;border-radius:999px;background:${it.bg||'var(--yl)'};color:${it.fg||'#000'};font-weight:900;font-size:84px;white-space:nowrap">${it.label}</div>
+  <div class="arw stroke" style="font-size:110px;font-weight:900;color:var(--yl);line-height:1.05">↓</div>
+  ${it.badge?`<div class="bd chip" style="background:var(--ob);border:5px solid var(--em);color:var(--em);font-size:40px">${it.badge}</div>`:''}</div>`);
+ return {el,upd(dt){const b=q(el,'.btn');const pl=(dt*1.4)%1;b.style.transform=`scale(${pop(dt,.3)*(1+.045*Math.sin(dt*7))})`;b.style.boxShadow=`0 0 0 ${pl*40}px rgba(255,214,10,${.55*(1-pl)}),0 20px 50px rgba(0,0,0,.5)`;
+  q(el,'.arw').style.transform=`translateY(${Math.abs(Math.sin(dt*5))*34}px)`;const d=q(el,'.bd');if(d)d.style.transform=`scale(${pop(dt-.35)})`}}};
+S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center">${stars(60,1080,1900,0)}
+  <div class="mo" style="position:relative">${MOON(220)}</div>
+  <div class="t1" style="position:relative;margin-top:60px;font-family:A;font-size:136px;letter-spacing:4px;line-height:1">SLEEP RESET</div>
+  <div class="t2" style="position:relative;font-family:A;font-size:120px;letter-spacing:10px;color:var(--yl);line-height:1.1">PROTOCOL</div>
+  <div class="t3" style="position:relative;margin-top:30px;font-weight:800;font-size:40px;color:var(--mn);letter-spacing:3px">${it.sub||'LIVE ON ZOOM • GUIDED SLEEP HYPNOSIS'}</div>
+  <div class="t4" style="position:relative;margin-top:70px"><span class="chip" style="background:var(--yl);color:#000;font-size:72px;padding:24px 64px">👆 TAP SIGN UP</span></div>
+  <div class="t5" style="position:relative;margin-top:30px"><span class="chip" style="background:var(--rd);font-size:44px">${it.seats||'ONLY 100 SEATS'}</span></div></div>`);
+ return {el,upd(dt){twinkle(el,dt);q(el,'.mo').style.transform=`scale(${pop(dt,.4)})`;['.t1','.t2','.t3','.t4','.t5'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.1)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.1)/.3))*120}px)`});
+  const b=q(el,'.t4 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(255,214,10,${.5*(1-pl)})`}}};
+S.flash=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:#fff"></div>`);return {el,upd(dt){el.style.opacity=.85*(1-clamp(dt/.15))}}};
+
+/* ---------- captions ---------- */
+const capEl=document.getElementById('cap');let curCap=null;
+function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
+ if(!c||c.pos=='none'){capEl.style.display='none';curCap=null;return}
+ capEl.style.display='flex';capEl.className='stroke'+(c.pos&&c.pos!='top'?' '+c.pos:'');
+ if(curCap!==c){capEl.innerHTML=c.words.map(w=>`<span>${w}</span>`).join('');curCap=c}
+ const sp=[...capEl.children];const n=sp.length;const dur=(c.t1-c.t0);
+ sp.forEach((s,i)=>{const ws=c.t0+dur*i/n*0.75;const dt=t-ws;const vis=dt>=0;s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
+  s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const bs=c.pos=='split'?.82:1;s.style.fontSize=(em?104:86)*bs+'px';
+  s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
+const OVL=['text','cta','badge','flash','name'];
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type=='endcard'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+function setT(t){let any=false,hideCap=false;
+ for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
+  if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');
+   if(inn){inn.style.transform=`scale(${1+.05*dt/(it.t1-it.t0)})`;q(b.el,'.grid').style.transform=`translateY(${(dt*30)%90}px)`;
+    const fl=q(b.el,'.flash');fl.style.opacity=.45*(1-clamp(dt/.1));
+    const out=clamp((it.t1-t)/.1);b.el.style.transform=`translateX(${(1-out)*-80}px)`}
+   if(['text','cta','badge','name'].includes(it.type))b.el.style.opacity=clamp((it.t1-t)/.1);
+   if(it.nocap)hideCap=true}}
+ drawCap(t);if(hideCap)capEl.style.display='none';return any||capEl.style.display!='none'}
+window.init=init;window.setT=setT;
+</script></body></html>
