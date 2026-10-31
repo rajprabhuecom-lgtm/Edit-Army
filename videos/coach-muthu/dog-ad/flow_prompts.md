@@ -1,5 +1,7 @@
 # Dog ad: Google Flow prompts
 
+**Status (31 Oct 2026):** B01, B02, B04, B05 and B06 were generated and used in the edit. Real centre footage wasn't possible, so B07 and B08 are animated scenes (`checkup`, `mappin`).
+
 Generate **2 takes** of each shot and keep the better one. Download into `videos/coach-muthu/dog-ad/broll/` (or the Drive folder `Videos/EDITING ARMY/coach-muthu-dog-ad/broll/`) and name each file by its ID, for example `B01_dog_scale.mp4`.
 
 Every shot is vertical 9:16, 6–8 s long, with slow camera moves (the edit speeds up 1.2×). No text appears in any shot. The numbers (18 KG and so on) get added as graphics in the edit.

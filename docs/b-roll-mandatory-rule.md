@@ -48,6 +48,12 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `transform` | "Your experience → 3-day event" before/after cards |
 | `chart` | "More walk-ins": bars growing |
 | `pin` | "Next pin, fast": rocket climbing a rank ladder |
+| `vid` (v5) | Real or AI video clip as B-roll (full or split), with timed chips / big number overlay. Clip is composited by `comp.py` |
+| `questions` (v5) | "Your BMI? Mother's BMR? Wife's body fat?": 3 question cards + "தெரியாது?" stamp |
+| `checkup` (v5) | Day 3 centre visit: family walks in, BMI / BMR / FAT % rows tick |
+| `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
+| `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
+| `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

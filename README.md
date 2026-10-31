@@ -28,6 +28,8 @@ engine/
                                nightcity years awake hotac clockwatch targets battery retrain career creds
                                protocol zoomlive hypno steps seats guide name lightsoff house awake2 mindloop
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
+  v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
+                               + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
 videos/                        One folder per video (see videos/README.md)
 ```
 
