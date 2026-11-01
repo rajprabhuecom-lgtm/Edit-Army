@@ -1,5 +1,6 @@
 """V6 'Walk & Talk online' (WC NEW.mp4). Clean source (no burned text)."""
 W = '/home/user/work/v/1stCiGzZQc_nxlURRd86cqjA5tUKRJgJq/'
+END_HOLD = 2.4
 CFG = dict(capTop=1175, capH=300, blur=[], cy=700)
 BROLL = [
  ('B01', 7.15, 10.10, 'walktalk', 'split', dict(title='🚶 WALK <span class="g">&amp;</span> TALK', chip='📍 OFFLINE • SO FAR', chipAt=1.0), '"so far we have done this through walk & talk"'),
@@ -18,9 +19,8 @@ GFX = [
  ('flash', 43.75, 43.90, {}),
  ('cta', 43.80, 48.90, {'label': '📅 BOOK APPOINTMENT', 'badge': '👇 READY TO INVEST? LINK BELOW', 'y': 1060}),
  ('text', 53.70, 56.60, {'html': '<span class="g">ONLINE</span> = 2026<br>MUST-HAVE ✅', 'y': 200, 'size': 104}),
- ('text', 56.66, 59.00, {'html': 'NEXT STEP<br><span class="y">FASTER 🚀</span>', 'y': 200, 'size': 120}),
- ('cta', 59.05, 61.30, {'label': '📅 BOOK APPOINTMENT', 'badge': '👇 LINK BELOW', 'y': 1060}),
- ('endps', 61.35, 999, {}),
+ ('text', 56.66, 59.72, {'html': 'NEXT STEP<br><span class="y">FASTER 🚀</span>', 'y': 200, 'size': 120}),
+ ('endps', 59.75, 999, {}),
 ]
 CAP = [
  (0.91, 3.40, [['ஒரு', '*WELLNESS COACH-ஆ'], ['^UNKNOWN CIRCLE-ல', 'இருந்து']]),
@@ -36,11 +36,11 @@ CAP = [
  (43.80, 48.90, [['^INVEST', 'பண்ண', 'READY-ஆ', 'இருந்தா'], ['^கீழே', 'LINK', 'CLICK', 'பண்ணி'], ['*APPOINTMENT', 'BOOK', 'பண்ணுங்க']]),
  (49.18, 53.60, [['^2026-ல', 'நம்ம', 'CENTRE-க்கு'], ['*ONLINE', 'மூலமா'], ['^CONSISTENT', '*NEW WALK-INS']]),
  (53.70, 56.60, [['^ONLINE', 'ரொம்ப', '*தேவை']]),
- (56.66, 59.00, [['நம்ம', '^NEXT STEP-ஐ'], ['^இன்னும்', '*FAST-ஆ', 'ACHIEVE', 'பண்ணலாம்']]),
+ (56.66, 59.72, [['நம்ம', '^NEXT STEP-ஐ'], ['^இன்னும்', '*FAST-ஆ', 'ACHIEVE', 'பண்ணலாம்']]),
 ]
-PUNCH = [(0.0, 1.5, 1.0), (1.5, 6.15, 1.08), (30.7, 32.9, 1.14), (33.02, 35.9, 1.10), (36.0, 39.5, 1.06), (39.5, 43.18, 1.14), (43.8, 48.9, 1.10), (53.7, 56.6, 1.10), (56.66, 59.0, 1.16), (59.05, 61.3, 1.10)]
+PUNCH = [(0.0, 1.5, 1.0), (1.5, 6.15, 1.08), (30.7, 32.9, 1.14), (33.02, 35.9, 1.10), (36.0, 39.5, 1.06), (39.5, 43.18, 1.14), (43.8, 48.9, 1.10), (53.7, 56.6, 1.10), (56.66, 59.72, 1.16)]
 MUSIC = [(0.0, 11.0, 'pulse'), (11.0, 32.95, 'tech'), (32.95, 43.6, 'warm'), (43.6, 999, 'uplift')]
-SFX = [(1.50, 'hit'), (30.70, 'thud'), (32.60, 'riser'), (33.02, 'hit'), (36.00, 'pop'), (43.80, 'hit'), (56.66, 'hit'), (59.05, 'hit')]
+SFX = [(1.50, 'hit'), (30.70, 'thud'), (32.60, 'riser'), (33.02, 'hit'), (36.00, 'pop'), (43.80, 'hit'), (56.66, 'hit'), (59.75, 'hit')]
 SCENE_SFX = {
  'walktalk': [(.3, 'pop'), (.8, 'whoosh'), (1.3, 'pop'), (1.6, 'pop'), (1.9, 'pop')],
  'social': [(.3, 'pop'), (.7, 'ding'), (1.2, 'tick'), (1.6, 'tick'), (2.0, 'tick')],

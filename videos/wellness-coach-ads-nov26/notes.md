@@ -11,7 +11,7 @@
 | v3-andhra-result | VID_20261031_203748_724_bsl.mp4 | 46.5 s | 37% | Opens on the real message on his phone (kept on screen) |
 | v4-ai-followup | VID_20261031_203507_985_bsl.mp4 | 48.4 s | 30% | Silent transformation, AI follow-up, "extra 10 to 20 quality appointments" (spoken) |
 | v5-proven-system | VID_20260703_065638_816_bsl.mp4 | 40.6 s | 38% | Real WhatsApp screenshot at the start kept clear (captions moved up), 35+ centres (spoken) |
-| v6-walk-talk-online | WC NEW.mp4 | 50.2 s | 36% | Clean source; ads to people who want to lose weight, 10+ walk-ins/week (spoken) |
+| v6-walk-talk-online | WC NEW.mp4 | 50.7 s | 36% | Clean source; ads to people who want to lose weight, 10+ walk-ins/week (spoken) |
 
 ## How the sources differed
 Five of the six sources were already edited: burned-in headers ("WELLNESS COACHES ONLY!" etc.), bottom banners ("GET NEW 20+ GUEST WALKINS EVERY MONTH", "BOOK YOUR APPOINTMENT NOW") and, in v1/v2, small burned captions. These cannot be removed. So:
