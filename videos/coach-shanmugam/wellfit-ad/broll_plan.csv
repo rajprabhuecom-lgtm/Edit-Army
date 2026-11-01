@@ -1,13 +1,8 @@
-ID,Source time,Line (meaning),Scene / visual,Source,Layout,Use length,Status,Licence
-F01,TBD (transcribe),"Vanakkam Namakkal makkalaye!",Face only + "NAMAKKAL" text slam,—,Face,1.5 s,ready,—
-B01,TBD,"…check-up kooda postpone panreengala?" (you even postpone check-ups),NEW scene `postpone`: calendar card "Health check-up" dragged to next month ×3 + doctor / tests / bills icons (no amounts),P5 graphic (optional P3 AI: man at home sets a lab-test bill aside),Full cutaway after 1.5 s of face,2.5 s,to build,own
-B02,TBD,"lifestyle maarittu irukku… nutrition, fitness, healthy habits, wellness guidance demand increase",NEW scene `demand`: 4 chips pop (Nutrition · Fitness · Healthy habits · Guidance) + rising arrow "DEMAND ↑" (no figures),P5,Split,3 s,to build,own
-B03,TBD,"growing wellness industry… health + business opportunity",NEW scene `healthbiz`: heart icon + briefcase icon join into one path,P5,Split,2.5 s,to build,own
-F02,TBD,"Coach Shanmugam, Herbalife Nutrition",Name lower-third badge over face,P5,Face,2 s,to build,own
-B04,TBD,"nutrition, healthy habits, fitness…",Real group Zumba/aerobics (6.34.08) then yoga (6.33.58),P2 real,Split,3 s,ready,client footage
-B05,TBD,"training, mentor support, team guidance, structured system",NEW scene `support`: 4 stacked cards tick in,P5,Split,3.5 s,to build,own
-B06,TBD,"Working professionals, homemakers, fitness enthusiasts… interested-aa?",NEW scene `personas`: 3 cards (laptop / home / dumbbell) — then back to face for the question,P5,Split,2.5 s,to build,own
-B07,TBD,"Neenga thaniya figure out panna thevai illa… support irukkum",Real group session wide shot (6.34.09 floor stretch / 6.34.08 group),P2 real,Split,3 s,ready,client footage
-C01,TBD,"Keela irukkura link click… appointment book",Face + pulsing "BOOK APPOINTMENT" button + arrow (no B-roll),P5,Face,—,reuse `cta`,own
-C02,TBD,"Appointment-la complete details explain panrom",Face + small calendar badge,P5,Face,—,to build,own
-E01,TBD,"health-um personal growth-um orae journey",End card: Coach Shanmugam · Book appointment,P5,End card,2 s,adapt `endcard`,own
+ID,"Source time (s, joined)",Final time (s),Keyword spoken (meaning),Visual,Source,Layout,"On-screen (s, final)",Status,Licence
+B01,13.83-16.46,7.9-10.1,"""SK WellFit Club, Wellness & Fitness Centre"" - real session footage",client session footage B01_studio.mkv,P2 real,split screen,2.2,rendered,client footage - consent on file with coach
+B02,18.19-22.24,11.6-14.9,"""1000+ people, their transformation"" - real client photos","real client before/after photos [3, 5, 4] in animated cards",P2 real,split screen,3.3,rendered,client footage - consent on file with coach
+B03,26.01-29.92,15.8-19.1,"""correct care, regular follow-up, consistent guidance""","animated ""pillars"" scene",P5 motion graphics,split screen,3.3,rendered,original - no licence needed
+B04,29.92-33.31,19.1-21.9,"""this super transformation"" - real client photos with kg labels","real client before/after photos [1, 2] in animated cards",P2 real,split screen,2.8,rendered,client footage - consent on file with coach
+B05,3.34-5.84,1.6-3.7,"""look fit, wear modern dress""","animated ""fitdress"" scene",P5 motion graphics,split screen,2.1,rendered,original - no licence needed
+B06,44.55-48.95,27.4-30.8,"""one-to-one consultation, full body analysis""","animated ""offerstack"" scene",P5 motion graphics,split screen,3.3,rendered,original - no licence needed
+B07,48.95-51.45,30.8-32.9,"""fitness trial program"" - real session footage",client session footage B07_trial.mkv,P2 real,split screen,2.1,rendered,client footage - consent on file with coach
