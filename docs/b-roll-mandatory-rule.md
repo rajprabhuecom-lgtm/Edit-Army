@@ -54,10 +54,13 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
-| `beforeafter` (v6) | Real client before/after photos sliding in as cards, optional count-up title ("1000+ PEOPLE") and BEFORE/AFTER chips. Real photos only, with consent |
+| `beforeafter` (v6) | Real client before/after photos sliding in as cards, optional count-up title ("1000+ PEOPLE"), BEFORE/AFTER chips and a stamp ("-46 KG"). Real photos only, with consent |
 | `pillars` (v6) | 3 method cards tick in ("correct care · regular follow-up · consistent guidance") → "= SUPER TRANSFORMATION" |
 | `fitdress` (v6) | "Look fit, wear modern dress": hangers swing onto a rail + LOOK FIT / MODERN DRESS chips |
 | `offerstack` (v6) | "Exclusive offer" rows slide in and tick (consultation, body analysis, trial) |
+| `nostarve` (v6) | "No starving, no hard workout": 2 cards get a red ✗ stamp |
+| `meals` (v6) | Morning / afternoon / night plates spin in → "3 HEALTHY MEALS" |
+| `foods` (v6) | Veg / non-veg / payaru cards tick + "FAVOURITE FOOD ✓" |
 | `clubend` (v6) | Fitness-centre end card: SK WellFit Club + Book Appointment |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.

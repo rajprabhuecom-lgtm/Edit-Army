@@ -333,12 +333,14 @@ S.beforeafter=(it)=>{const P=it.ph||[1];let c='';
   c+=`<div class="ph card" style="left:270px;top:100px;width:540px;height:540px;overflow:hidden;padding:0;border-width:6px"><img src="../photos/${n}.jpg" style="width:100%;height:100%;object-fit:cover;display:block">${lab}</div>`});
  const el=mk(stage(it,`<div class="ttl stroke t1" style="top:18px;font-size:${it.tsz||70}px">${it.title||''}</div>${c}
   <div class="sd" style="position:absolute;left:24px;top:250px;width:230px;text-align:center;font-weight:900;font-size:40px;line-height:1.15">${it.left||'✅<br>REAL<br>CLIENTS'}</div>
-  <div class="sd" style="position:absolute;right:24px;top:250px;width:230px;text-align:center;font-weight:900;font-size:40px;line-height:1.15;color:var(--yl)">${it.right||'💪<br>REAL<br>RESULTS'}</div>`));
+  <div class="sd" style="position:absolute;right:24px;top:250px;width:230px;text-align:center;font-weight:900;font-size:40px;line-height:1.15;color:var(--yl)">${it.right||'💪<br>REAL<br>RESULTS'}</div>
+  ${it.stamp?`<div class="stp" style="position:absolute;left:0;right:0;top:${it.sty||440}px;text-align:center;z-index:40"><span class="chip s10" style="background:var(--rd);font-size:${it.stsz||110}px;padding:14px 46px;border:8px solid #fff;box-shadow:0 20px 50px rgba(0,0,0,.6)">${it.stamp}</span></div>`:''}`));
  const cu=it.cues||P.map((_,i)=>.2+i*1.3);const cnt=q(el,'[data-cnt]');
  return {el,upd(dt){popIn(q(el,'.t1'),dt);if(cnt)cnt.textContent=Math.round(+cnt.dataset.cnt*ease(dt/.9));
   qa(el,'.sd').forEach((x,i)=>{const t=dt-.35-i*.15;x.style.opacity=clamp(t/.1);x.style.transform=`translateX(${(1-ease(t/.35))*(i?300:-300)}px)`});
   qa(el,'.ph').forEach((x,i)=>{const t=dt-cu[i],nx=i+1<P.length?dt-cu[i+1]:-1;x.style.display=t<0||nx>.3?'none':'block';
-   const tx=nx>0?-ease(nx/.3)*900:(1-ease(t/.3))*900;x.style.transform=`translateX(${tx}px) rotate(${(1-ease(t/.35))*6}deg) scale(${lerp(.9,1,ease(t/.3))*(1+.03*clamp((dt-cu[i])/2))})`;x.style.zIndex=10+i})}}};
+   const tx=nx>0?-ease(nx/.3)*900:(1-ease(t/.3))*900;x.style.transform=`translateX(${tx}px) rotate(${(1-ease(t/.35))*6}deg) scale(${lerp(.9,1,ease(t/.3))*(1+.03*clamp((dt-cu[i])/2))})`;x.style.zIndex=10+i});
+  const sp=q(el,'.stp');if(sp){const u=dt-(it.st??1);sp.style.opacity=clamp(u/.05);sp.style.transform=`scale(${u<0?0:lerp(2.4,1,ease(u/.18))}) rotate(-6deg)`}}}};
 
 /* 3 pillars: correct care + regular follow-up + consistent guidance = transformation */
 S.pillars=(it)=>{const C=it.items||[['🤝','CORRECT','CARE'],['📅','REGULAR','FOLLOW-UP'],['🎯','CONSISTENT','GUIDANCE']];let c='';
@@ -386,6 +388,40 @@ S.clubend=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-d
   <div class="e7" style="position:relative;margin-top:30px;font-weight:800;font-size:38px;color:var(--ti)">📍 ${it.loc||'COACH SHANMUGAM • NAMAKKAL'}</div></div>`);
  return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e3','.e4','.e5','.e6','.e7'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*120}px)`});
   const b=q(el,'.e5 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(255,214,10,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
+
+/* "no starving, no hard workout": 2 cards get a red ✗ stamp on cue */
+S.nostarve=(it)=>{const C=it.items||[['🍽️','பட்டினி','STARVING'],['🏋️','கடுமையான','WORKOUT']];let c='';
+ C.forEach((x,i)=>c+=`<div class="card nc" style="left:${80+i*480}px;top:140px;width:440px;height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+  <div style="font-size:130px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:50px;margin-top:12px">${x[1]}</div><div style="font-weight:900;font-size:54px;color:var(--pl)">${x[2]}</div>
+  <div class="xx s10" style="position:absolute;left:0;right:0;top:40px;text-align:center;font-weight:900;font-size:300px;line-height:1;color:var(--rd)">✗</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:66px">${it.title||'<span class="r">✗</span> பட்டினி &nbsp;<span class="r">✗</span> HARD WORKOUT'}</div>${c}
+  <div class="ok" style="position:absolute;left:0;right:0;top:545px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:46px">✅ EASY • HEALTHY WAY</span></div>`));
+ const cu=it.cues||[.3,1.2];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.nc').forEach((x,i)=>{const t=dt-cu[i]+.35;x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*300}px)`;
+  const s=q(x,'.xx'),u=dt-cu[i]-.1;s.style.opacity=clamp(u/.05);s.style.transform=`scale(${u<0?0:lerp(2.2,1,ease(u/.18))}) rotate(-8deg)`;x.style.borderColor=u>0?'#FF3B30':'rgba(0,200,150,.6)';x.style.filter=u>.2?'saturate(.4)':'none'});
+  popIn(q(el,'.ok'),dt-(it.okt??(cu[1]+.9)))}}};
+
+/* morning / afternoon / night: 3 plate cards, then "3 HEALTHY MEALS" */
+S.meals=(it)=>{const M=it.items||[['☀️','MORNING'],['🌤️','AFTERNOON'],['🌙','NIGHT']];let c='';
+ M.forEach((x,i)=>c+=`<div class="card mc" style="left:${45+i*335}px;top:140px;width:320px;height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+  <div style="font-size:84px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:${x[1].length>7?40:46}px;color:var(--yl);margin:8px 0 6px">${x[1]}</div>
+  <div class="pl" style="width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#f4f4f4 0 58%,#d8dde3 59% 66%,#f4f4f4 67%);display:flex;align-items:center;justify-content:center;font-size:96px;box-shadow:0 12px 30px rgba(0,0,0,.45)">${['🥣','🍛','🥗'][i]}</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:62px">மூணு வேளையும் <span class="g">HEALTHY FOOD</span></div>${c}
+  <div class="hm" style="position:absolute;left:0;right:0;top:530px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:50px">🥗 3 HEALTHY MEALS ✓</span></div>`));
+ const cu=it.cues||[.3,1.1,1.9];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.mc').forEach((x,i)=>{const t=dt-cu[i];x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*300}px) scale(${t<0?0:pop(t,.32)})`;
+  q(x,'.pl').style.transform=`rotate(${(1-ease(t/.5))*-120}deg)`});popIn(q(el,'.hm'),dt-(it.hmt??(cu[2]+.9)))}}};
+
+/* veg / non-veg / payaru: food chips tick in, "FAVOURITE FOOD ✓" */
+S.foods=(it)=>{const F=it.items||[['🥦','VEG'],['🍗','NON-VEG'],['🫘','பயறு']];let c='';
+ F.forEach((x,i)=>c+=`<div class="card fc" style="left:${45+i*335}px;top:150px;width:320px;height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+  <div style="font-size:140px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:54px;margin-top:14px">${x[1]}</div>
+  <div class="tk" style="position:absolute;top:-26px;right:-16px;width:80px;height:80px;border-radius:50%;background:var(--em);color:#04110c;font-size:50px;font-weight:900;display:flex;align-items:center;justify-content:center">✓</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:26px;font-size:80px">எதையும் <span class="y">AVOID</span> பண்ணல</div>${c}
+  <div class="fv" style="position:absolute;left:0;right:0;top:520px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:50px">❤️ FAVOURITE FOOD ✓</span></div>`));
+ const cu=it.cues||[.3,1.1,1.9];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.fc').forEach((x,i)=>{const t=dt-cu[i];x.style.opacity=clamp(t/.06);x.style.transform=`scale(${t<0?0:pop(t,.32)}) rotate(${(1-ease(t/.3))*-10}deg)`;
+  q(x,'.tk').style.transform=`scale(${t>.3?pop(t-.3,.25):0})`;x.style.borderColor=t>.3?'#00C896':'rgba(0,200,150,.35)'});popIn(q(el,'.fv'),dt-(it.fvt??.2))}}};
 
 /* ---------- captions ---------- */
 const capEl=document.getElementById('cap');let curCap=null;

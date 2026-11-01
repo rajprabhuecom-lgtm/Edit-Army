@@ -42,3 +42,24 @@ Tamil captions are written from the Whisper transcript in spoken Tanglish; have 
 - Coach must hold consent from every client shown.
 - Photo 4 has a "…LIFE…TION Independent Associate" poster behind the client (Herbalife). Left as is.
 - End card: SK WellFit Club • Namakkal, button "BOOK APPOINTMENT".
+
+---
+
+# Fresh edit: transformation ad (1 Nov 2026) → `transformation-ad/`
+
+Prabhuraj uploaded the clips in order to Drive (`coach shanmugam` folder: 1st v … 8th v) and asked for a fresh edit using all photos and session videos, with the before/after photos as the priority. This replaces `wellfit-ad/`.
+
+| Order | Drive file | Spoken (Whisper large-v3) |
+|---|---|---|
+| 1 | 1st v (new) | வணக்கம் நாமக்கல் மக்களே. இந்த photos-ல இருக்கிற ரெண்டு பேரும் ஒரே person-னு சொன்னா நம்புவீங்களா? நம்பித்தான் ஆகணும். நாங்க சொன்னதை கேட்டு follow பண்ணி 46 kg weight குறைச்சிருக்கார். |
+| 2 | 2nd v (new) | இதுக்காக அவர் பட்டினியும் கிடக்கல, கடுமையான workout-உம் பண்ணல. Morning, afternoon, night மூணு வேளையும் healthy-ஆன food. அவருக்கு favourite food எதையும் avoid பண்ணாம, vegetarian, non-vegetarian, பயறு நிறைய சாப்பிட்டுதான் இந்த 46 kg குறைச்சிருக்கார். |
+| 3 | 3rd v (new) | இதுக்காக அவருக்கு நாங்க குடுத்த service: personalized program, one to one coaching and monitoring, proper workout guidance. |
+| 4 | 4th v = 6.30.00_1 | இந்த combination-ல correct-ஆன care, regular follow-up, consistent guidance… super transformation |
+| 5 | 5th v = 6.30.00_2 | Hi, நான் உங்க coach சண்முகம்… 6 year experience… 1000 plus people |
+| 6 | 6th v = 6.30.01 | weight reduce… fit… modern dress… SK WellFit Club-ல join பண்ணுங்க |
+| 7 | 7th v = 6.30.01_1 | exclusive offer: one to one consultation, full body analysis, fitness trial program |
+| 8 | 8th v = 6.30.02 | இன்னும் ஏன் யோசிக்கிறீங்க? … appointment book … transformation journey start பண்ணுங்க |
+
+**Photos:** photo 3 (blue dress → red dress) is the **46 kg client**, confirmed by Prabhuraj 1 Nov 2026; used on the "same person?" hook and the "-46 KG" stamp. Photos 5 and 4 go on "1000+ people", and photos 1 (80→59 kg) and 2 (83→69 kg) on "super transformation". All 5 photos are used.
+**Session videos:** Zumba (SK WellFit Club, proper workout guidance), yoga 1 (Wellness & Fitness Centre), yoga 2 (personalized program), montage 19.8–22.6 s (coach guiding a member: one-to-one coaching & monitoring), stretch (fitness trial program). All 5 videos are used. The montage's zoom-blur transitions and its "SK Dance & Fitness Studio" flyer were left out.
+"பயறு" (pulses) is a reading of what Whisper heard as "பயிர்", so it needs a proofread.

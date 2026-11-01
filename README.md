@@ -30,8 +30,8 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
-  v6-wellfit-club/              Coach Shanmugam (1 Nov 2026): v5 + beforeafter (real photo cards) pillars fitdress
-                               offerstack clubend. comp.py/mix.py/render.js/speed.sh as v5
+  v6-wellfit-club/              Coach Shanmugam (1 Nov 2026): v5 + beforeafter (real photo cards + stamp) pillars fitdress
+                               offerstack nostarve meals foods clubend. comp.py/mix.py/render.js/speed.sh as v5
 videos/                        One folder per video (see videos/README.md)
 ```
 
