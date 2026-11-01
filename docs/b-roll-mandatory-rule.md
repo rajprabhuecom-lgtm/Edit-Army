@@ -54,6 +54,10 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `checklist` (v6) | Generic title + rows that slide in and tick (items + cues). Lists, results read from a real message, "AI automation" |
+| `walktalk` (v6) | Walk & Talk activity: group walking a park path, coach phone LIVE with reactions. Also "offline only" with a chip |
+| `social` (v6) | Social media reach: phone post → ripples → unknown-circle people walk into the centre |
+| `endps` (v6) | ProfitSoul end card: Wellness Coaching Growth Program + pulsing "Book your appointment" |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

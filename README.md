@@ -30,6 +30,11 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-wellness-growth/          Wellness-coach ads batch (1 Nov 2026): ONE engine.html = v5 + all base scenes merged
+                               New: checklist walktalk social endps (ProfitSoul end card). Shared, parameterised
+                               pipeline: common.py (auto jump cuts + EDL from a plan module), run_plan.py, render.js,
+                               comp.py (blur rects over burned-in captions, per-video crop), mix.py, speed.sh,
+                               preview.sh (contact sheet), full.sh (overlays + mix + comp + 1.2x in one go)
 videos/                        One folder per video (see videos/README.md)
 ```
 
