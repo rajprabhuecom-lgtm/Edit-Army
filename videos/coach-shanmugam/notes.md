@@ -63,3 +63,11 @@ Prabhuraj uploaded the clips in order to Drive (`coach shanmugam` folder: 1st v 
 **Photos:** photo 3 (blue dress → red dress) is the **46 kg client**, confirmed by Prabhuraj 1 Nov 2026; used on the "same person?" hook and the "-46 KG" stamp. Photos 5 and 4 go on "1000+ people", and photos 1 (80→59 kg) and 2 (83→69 kg) on "super transformation". All 5 photos are used.
 **Session videos:** Zumba (SK WellFit Club, proper workout guidance), yoga 1 (Wellness & Fitness Centre), yoga 2 (personalized program), montage 19.8–22.6 s (coach guiding a member: one-to-one coaching & monitoring), stretch (fitness trial program). All 5 videos are used. The montage's zoom-blur transitions and its "SK Dance & Fitness Studio" flyer were left out.
 "பயறு" (pulses) is a reading of what Whisper heard as "பயிர்", so it needs a proofread.
+
+## Revision v2 (2 Nov 2026): 46 kg photo + logo
+
+Prabhuraj's corrections:
+1. **46 kg client photo replaced.** The 46 kg client is the man in the 3-stage collage (`assets/sk46.jpg`: before → middle → now), not photo 3. N01 ("same person?") and N02 (-46 KG stamp) now show this collage with BEFORE on the first panel and AFTER on the last (engine `beforeafter` options `card`, `afx`). Photo 3 is no longer used on the 46 kg lines.
+2. **SK WellFit Club logo** (`assets/sk_logo.png`, round crop of the client's logo) on the whole video: 170 px bug on the right, just under the split line (x 882, y 890), clear of captions, CTA and face. On the end card the logo replaces the 💪 above "SK WELLFIT CLUB" (`clubend` option `logo`).
+
+How it was made: the original source clips were not in this container, so `transformation-ad/patch_v2.py` patches the v1 final (`final/coach_shanmugam_transformation_ad.mp4`, kept in git history) instead. It re-renders the split panel (top 864 px) for N01/N02 and the full end card from the engine (`timeline.json` rebuilt by `plan.py`; everything else in it is identical to v1), matched to the v1 frames (final frame j = 1x time (1.2j − 2)/30), lays the logo over every other frame and keeps the v1 audio untouched (-14 LUFS). Output: `final/coach_shanmugam_transformation_ad_v2.mp4`, 67.3 s, 1080×1920. A full re-render from source with `plan.py` gives the same result.

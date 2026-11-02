@@ -327,10 +327,11 @@ S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-d
   const b=q(el,'.e5 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(37,211,102,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
 
 /* ===== v6: SK WellFit Club (Coach Shanmugam, Namakkal) ===== */
-/* real client before/after photo cards (split). it.ph = photo numbers in ../photos/, it.cues = when each photo lands, it.lab = add BEFORE/AFTER chips */
+/* real client before/after photo cards (split). it.ph = photo numbers (or names) in ../photos/, it.cues = when each photo lands, it.nolab = photos without BEFORE/AFTER chips.
+   it.card = [left, top, width, height] of the photo card (default 270,100,540,540); it.afx = AFTER chip x inside the card (default 279, i.e. a 2-panel photo; use ~2/3 of the width for a 3-panel collage) */
 S.beforeafter=(it)=>{const P=it.ph||[1];let c='';
- P.forEach((n,i)=>{const lab=(it.nolab||[]).includes(n)?'':`<span class="chip" style="position:absolute;left:14px;top:14px;background:rgba(8,10,13,.85);font-size:28px;padding:6px 16px">BEFORE</span><span class="chip" style="position:absolute;left:279px;top:14px;background:var(--em);color:#04110c;font-size:28px;padding:6px 16px">AFTER</span>`;
-  c+=`<div class="ph card" style="left:270px;top:100px;width:540px;height:540px;overflow:hidden;padding:0;border-width:6px"><img src="../photos/${n}.jpg" style="width:100%;height:100%;object-fit:cover;display:block">${lab}</div>`});
+ P.forEach((n,i)=>{const lab=(it.nolab||[]).includes(n)?'':`<span class="chip" style="position:absolute;left:14px;top:14px;background:rgba(8,10,13,.85);font-size:28px;padding:6px 16px">BEFORE</span><span class="chip" style="position:absolute;left:${it.afx||279}px;top:14px;background:var(--em);color:#04110c;font-size:28px;padding:6px 16px">AFTER</span>`;
+  c+=`<div class="ph card" style="left:${(it.card||[270])[0]}px;top:${(it.card||[0,100])[1]}px;width:${(it.card||[0,0,540])[2]}px;height:${(it.card||[0,0,0,540])[3]}px;overflow:hidden;padding:0;border-width:6px"><img src="../photos/${n}.jpg" style="width:100%;height:100%;object-fit:cover;display:block">${lab}</div>`});
  const el=mk(stage(it,`<div class="ttl stroke t1" style="top:18px;font-size:${it.tsz||70}px">${it.title||''}</div>${c}
   <div class="sd" style="position:absolute;left:24px;top:250px;width:230px;text-align:center;font-weight:900;font-size:40px;line-height:1.15">${it.left||'✅<br>REAL<br>CLIENTS'}</div>
   <div class="sd" style="position:absolute;right:24px;top:250px;width:230px;text-align:center;font-weight:900;font-size:40px;line-height:1.15;color:var(--yl)">${it.right||'💪<br>REAL<br>RESULTS'}</div>
@@ -378,8 +379,9 @@ S.offerstack=(it)=>{const R=it.rows||[['🗣️','ONE-TO-ONE CONSULTATION'],['�
   const on=t>.4,b=q(x,'.bx');b.style.background=on?'#00C896':'transparent';b.textContent=on?'✓':'';x.style.borderColor=on?'#00C896':'#2b3a35';b.style.transform=on?`scale(${pop(t-.4,.25)})`:'scale(1)'})}}};
 
 /* SK WellFit Club end card */
+/* end card. it.logo = client logo file in ../photos/ (round), shown in place of the 💪 */
 S.clubend=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="top:300px"></div>
-  <div class="e1" style="position:relative;font-size:150px">💪</div>
+  ${it.logo?`<img class="e1" src="../photos/${it.logo}" style="position:relative;width:300px;height:300px;border-radius:50%;box-shadow:0 0 0 8px rgba(255,255,255,.12),0 20px 60px rgba(0,0,0,.6)">`:'<div class="e1" style="position:relative;font-size:150px">💪</div>'}
   <div class="e2" style="position:relative;margin-top:20px;font-family:A;font-size:150px;letter-spacing:4px;line-height:1">SK WELLFIT CLUB</div>
   <div class="e3" style="position:relative;font-family:A;font-size:76px;letter-spacing:6px;color:var(--yl);line-height:1.2">WELLNESS & FITNESS CENTRE</div>
   <div class="e4" style="position:relative;margin-top:30px;font-weight:800;font-size:40px;color:var(--pl);letter-spacing:1px;text-align:center;line-height:1.35">1-TO-1 CONSULTATION • FULL BODY ANALYSIS<br>FITNESS TRIAL PROGRAM</div>

@@ -71,7 +71,7 @@ OLD_GFX = [
  ('flash', 48.45, 48.60, {}),
  ('cta', 48.49, 52.58, {'label': '📅 BOOK APPOINTMENT', 'badge': '👇 CLICK THE LINK BELOW', 'y': 1060}),
  ('text', 53.21, 56.97, {'html': 'START<br><span class="g">TODAY 🚀</span>', 'y': 200, 'size': 140}),
- ('clubend', 56.97, END, {'loc': 'COACH SHANMUGAM • NAMAKKAL'}),
+ ('clubend', 56.97, END, {'loc': 'COACH SHANMUGAM • NAMAKKAL', 'logo': 'sk_logo.png'}),
 ]
 OLD_CAP = [
  (1.70, 3.62, [['HI,', 'நான்', 'உங்க'], ['COACH', '^சண்முகம்']]),
@@ -105,10 +105,10 @@ OLD_SFX = [(25.45, 'hit'), (1.75, 'thud'), (36.52, 'hit'), (48.05, 'riser'), (48
 SCENE_SFX = {}
 # ---------- NEW: clips 1st-3rd (src.mkv time) ----------
 NEW_BROLL = [
- ('N01', 3.70, 7.82, 'beforeafter', 'split', dict(title='ஒரே <span class="y">PERSON?</span> 🤔', ph=[3], pcues=[3.72], left='⬅️<br>BEFORE', right='AFTER<br>➡️'),
-      '"would you believe the two people in these photos are the same person?" - real client photo (46 kg client)'),
- ('N02', 9.66, 13.37, 'beforeafter', 'split', dict(title='நாங்க சொன்னதை <span class="g">FOLLOW</span> பண்ணி', tsz=56, ph=[3], pcues=[9.68], stamp='-46 KG', stc=11.18),
-      '"followed what we said and lost 46 kg" - real client photo + 46 KG stamp'),
+ ('N01', 3.70, 7.82, 'beforeafter', 'split', dict(title='ஒரே <span class="y">PERSON?</span> 🤔', ph=['sk46'], card=[245, 95, 590, 560], afx=398, pcues=[3.72], left='⬅️<br>BEFORE', right='AFTER<br>➡️'),
+      '"would you believe the two people in these photos are the same person?" - real client photo (46 kg client, 3-stage collage sk46)'),
+ ('N02', 9.66, 13.37, 'beforeafter', 'split', dict(title='நாங்க சொன்னதை <span class="g">FOLLOW</span> பண்ணி', tsz=56, ph=['sk46'], card=[245, 95, 590, 560], afx=398, pcues=[9.68], stamp='-46 KG', stc=11.18),
+      '"followed what we said and lost 46 kg" - real client photo (sk46) + 46 KG stamp'),
  ('N03', 15.80, 19.40, 'nostarve', 'split', dict(pcues=[16.80, 17.62]), '"no starving, no hard workout"'),
  ('N04', 19.40, 22.60, 'meals', 'split', dict(pcues=[19.42, 20.26, 21.06]), '"morning, afternoon, night - healthy food"'),
  ('N04b', 36.94, 38.45, 'vid', 'split', dict(file='B08_personal.mkv', ss=0.2, cy=26, csz=46,
