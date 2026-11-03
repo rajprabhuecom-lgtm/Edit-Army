@@ -3,7 +3,7 @@
 python3 patch_v3.py jobs | preview j... | run"""
 import json, sys, subprocess, numpy as np, cv2
 sys.path.insert(0, '/home/user/Edit-Army/engine/v6-wellfit-club'); import comp   # grade(), zoom()
-F, OUT = '/home/user/w/v2.mp4', '/home/user/w/final_v3.mp4'
+F, OUT = '/home/user/w/v2.mp4', '/home/user/w/final_v3.mp4'   # v2 final: git history final/coach_shanmugam_transformation_ad_v2.mp4
 CLIP, CLIP0 = '/home/user/w/src/2nd.mp4', 14.957      # 2nd v starts at 14.957 s in src.mkv
 W, H, OFF, NF = 1080, 1920, -2, 2018
 sys.path.insert(0, '/home/user/Edit-Army/videos/coach-shanmugam/transformation-ad'); import plan

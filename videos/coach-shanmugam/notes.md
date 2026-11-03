@@ -71,3 +71,12 @@ Prabhuraj's corrections:
 2. **SK WellFit Club logo** (`assets/sk_logo.png`, round crop of the client's logo) on the whole video: 170 px bug on the right, just under the split line (x 882, y 890), clear of captions, CTA and face. On the end card the logo replaces the 💪 above "SK WELLFIT CLUB" (`clubend` option `logo`).
 
 How it was made: the original source clips were not in this container, so `transformation-ad/patch_v2.py` patches the v1 final (`final/coach_shanmugam_transformation_ad.mp4`, kept in git history) instead. It re-renders the split panel (top 864 px) for N01/N02 and the full end card from the engine (`timeline.json` rebuilt by `plan.py`; everything else in it is identical to v1), matched to the v1 frames (final frame j = 1x time (1.2j − 2)/30), lays the logo over every other frame and keeps the v1 audio untouched (-14 LUFS). Output: `final/coach_shanmugam_transformation_ad_v2.mp4`, 67.3 s, 1080×1920. A full re-render from source with `plan.py` gives the same result.
+
+
+## Revision v3 (3 Nov 2026): second 46 kg photo + "வயிறு" caption
+
+Prabhuraj's corrections:
+1. **Second 46 kg photo replaced.** The 46 kg client shows up twice. N01 ("same person?") keeps the 3-stage collage `sk46`. N02 (the "-46 KG" stamp) now shows the client-supplied before/after photo `assets/sk46b.jpg` (two panels: red T-shirts → formal shirts), with BEFORE on the left and AFTER on the right.
+2. **Caption fix: "பயறு நிறைய" → "வயிறு நிறைய"** (stomach full, not pulses). Changed in the caption and in the VEG / NON-VEG card, which now reads "😋 வயிறு நிறைய ✓" instead of "🫘 பயறு ✓". The earlier "பயறு" was a misreading of the Whisper transcript.
+
+How it was made: `transformation-ad/patch_v3.py` patches the v2 final. For N02 it re-renders the top 864 px split panel from the engine. For the "வயிறு" window (final 17.9–20.5 s), it rebuilds the full frames from the original `2nd v.mp4` (from Drive): the clip is scaled to 1080 wide and cropped from the top, then gets the same grade, punch zoom, engine overlay and logo bug, plus a fixed colour gain (`gain.json` ≈ 0.958 / 0.991 / 0.985 BGR) to match v2's encode. That window starts on a jump cut, so the seam is invisible. `render_patch.js` renders the overlay frames. Audio is unchanged (-14 LUFS). Output: `final/coach_shanmugam_transformation_ad_v3.mp4`, 67.3 s, 1080×1920.
