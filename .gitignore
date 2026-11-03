@@ -8,3 +8,6 @@ prev/
 gemini.key
 *.key
 .DS_Store
+
+# Rendered deliverables (too big for GitHub; keep in Drive)
+videos/*/final/
