@@ -14,3 +14,8 @@ videos/<video-id>/
 ```
 
 **Large files:** GitHub rejects files over 100 MB, and the repo gets slow beyond a few GB. Keep raw footage and big MP4s in Google Drive (`Videos/EDITING ARMY/<video-id>/`) and put the link in `notes.md`, or set up Git LFS before committing them. Plans, logs and engine changes always go in git.
+
+| Folder | Video |
+|---|---|
+| `coach-muthu/dog-ad` | Coach Muthu, Family Health Reset dog ad (v5 engine) |
+| `new-life-nutritions/weight-loss-ad` | Coach Tamil Elakkiya, weight loss + client testimonial (v6 engine) |

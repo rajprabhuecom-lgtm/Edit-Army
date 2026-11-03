@@ -1,0 +1,12 @@
+ID,"Source time (s, joined)",Final time (s),Line / beat,Visual,Source,Layout,"On-screen (s, final)",Status,Licence
+B01,4.78-6.86,3.4-4.9,"""trying to lose weight?"" - Flow clip: woman on scale",Google Flow AI clip B1_scale.mkv,P3 AI,full cutaway,1.6,rendered,AI-generated (Google Flow)
+B02,6.86-10.16,4.9-7.5,"""what works, what doesn't?"" - Flow clip: scrolling diet videos",Google Flow AI clip B1_scale.mkv,P3 AI,split screen,2.5,rendered,AI-generated (Google Flow)
+B03,10.16-12.78,7.5-9.6,"""diet, workout, many things tried""","animated ""struggle"" scene",P5 motion graphics,split screen,2.2,rendered,original
+B04,12.78-15.60,9.6-12.0,"""no expected result"" - Flow clip: tired on yoga mat",Google Flow AI clip B2_yoga.mkv,P3 AI,full cutaway,2.4,rendered,AI-generated (Google Flow)
+B05,16.28-19.74,12.1-15.0,"""busy lifestyle, no consistency"" - Flow clip: mother rushing",Google Flow AI clip B3_rush.mkv,P3 AI,split screen,2.9,rendered,AI-generated (Google Flow)
+B06,26.51-34.55,20.2-26.6,testimonial: her own before/after photo,"real before/after photos img/client_before.jpg + img/client_after.jpg in ""ba"" reveal scene",P2 real proof,split screen,6.4,rendered,client-supplied photos - keep written consent on file
+B07,41.39-50.89,32.0-39.7,testimonial: extra client 86 kg -> 66 kg (numbers from the photo),"real before/after photos img/extra_before.jpg + img/extra_after.jpg in ""ba"" reveal scene",P2 real proof,split screen,7.7,rendered,client-supplied photos - keep written consent on file
+B08,56.95-61.43,44.0-47.7,"""proper nutrition & fitness guidance -> healthy changes""","animated ""struggle"" scene",P5 motion graphics,split screen,3.7,rendered,original
+B09,63.38-69.99,48.9-54.2,"""I'm Tamil Elakkiya, 5 years at New Life Nutritions"" - coach before/after","real before/after photos img/coach_before.jpg + img/coach_after.jpg in ""ba"" reveal scene",P2 real proof,split screen,5.4,rendered,client-supplied photos - keep written consent on file
+B10,70.67-77.89,54.4-59.9,"""lifestyle & goals -> personalized, step-by-step support""","animated ""steps"" scene",P5 motion graphics,split screen,5.6,rendered,original
+TESTI,23.27-56.70,17.7-43.8,client testimonial video (own audio),real testimonial clip,P2 real,full + split under B06/B07,26.1,rendered,client-supplied - keep consent

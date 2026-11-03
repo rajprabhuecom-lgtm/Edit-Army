@@ -30,6 +30,9 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-weight-loss/              New Life Nutritions (3 Nov 2026): v5 + two joined sources (coach + testimonial) with per-source
+                               split crop / zoom centre in comp.py. New: ba (before/after photo reveal) struggle (X or ✓ cards)
+                               steps (personalized path) ticket (offer coupon over face) nlend (end card)
 videos/                        One folder per video (see videos/README.md)
 ```
 

@@ -54,6 +54,11 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `ba` (v6) | Real before/after photos: before card pops, AFTER wipes over it with a glowing slider, cards split with an arrow, optional kg count-down and stamp. Use only real client-supplied photos |
+| `struggle` (v6) | "Diet, workout, tried everything": cards pop, red ✕ slams on each, NO RESULT stamp. `good: true` gives green ticks + custom stamp ("proper guidance") |
+| `steps` (v6) | "Personalized, step-by-step": 4 nodes light up along a glowing path |
+| `ticket` (v6) | Offer coupon over the face ("3 DAYS FREE TRIAL"). On-face graphic, allowed on offer lines |
+| `nlend` (v6) | New Life Nutritions end card: Book appointment + 3 days free trial |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
