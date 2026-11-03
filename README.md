@@ -30,6 +30,10 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-meditation/               Naheed Khan, Tonight Wind-Down (3 Nov 2026): calm relaxation-audio video, not a sales edit.
+                               winddown.html (nightsea breath scan lantern badge intro outro + soft captions),
+                               cues.py (Whisper words -> timeline.json), soundtrack.py (original ambient bed + mix),
+                               render.js (Node Playwright canvas -> JPEG pipe -> x264 chunks, N workers)
 videos/                        One folder per video (see videos/README.md)
 ```
 

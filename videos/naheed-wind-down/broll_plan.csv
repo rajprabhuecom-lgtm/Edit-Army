@@ -1,0 +1,9 @@
+ID,video_start,video_end,line,scene,layout,status,licence
+V01,0.0,423.4,(whole runtime),nightsea,full,done,original (procedural canvas)
+V02,0.0,9.6,(intro card),intro,full,done,original
+V03,1.0,420.4,(whole runtime),badge,corner top-left,done,client photo supplied
+V04,151.9,219.2,"Breathe in through your nose for a count of four … six",breath,full centre,done,original
+V05,366.2,370.8,"take one deep breath in and out",breath,full centre,done,original
+V06,240.8,316.6,"Bring your attention now to your forehead … feet",scan,full,done,original
+V07,324.5,352.0,"imagine setting it down … you can put it down",lantern,full,done,original
+V08,398.4,418.4,"(after Good night)",outro,full,done,original

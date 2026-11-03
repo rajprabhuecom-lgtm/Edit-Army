@@ -54,6 +54,12 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `nightsea` (v6) | Calm full-frame night ocean: sky, aurora, stars, moon + water shimmer, hills, waves, mist, fireflies. Slowly darkens over the runtime |
+| `breath` (v6) | Breathing guide ring timed to the spoken counts (expands on "in", shrinks on "out") |
+| `scan` (v6) | Body-scan: soft warm band of light drifting from head to feet |
+| `lantern` (v6) | "Let go / set it down": lantern placed on the water drifts to the horizon |
+| `badge` (v6) | Small round client photo + name in a corner (whole runtime) |
+| `intro` / `outro` (v6) | "Live Webinar Bonus" title card, and "Good night" + disclaimer close |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
@@ -67,6 +73,10 @@ When a new video has a beat no scene covers, build a new scene function in `engi
 4. Composite, speed to 1.2×, bring loudness to −14 LUFS, then run QA on a contact sheet.
 5. Deliver the MP4 **plus the B-roll log**, and flag any placeholder scenes (testimonials, proof) to swap for real clips.
  
+## 4b. Exception: meditation / relaxation audio (v6)
+
+Guided relaxation, sleep or visualisation audio (for example a webinar bonus) is **not** a sales edit. The Hormozi rules are deliberately switched off: no jump cuts, no 1.2× speed, no zoom punches, no SFX hits, no CTA button. Use `engine/v6-meditation/`: a slow full-frame nature scene, soft subtitles, a small client badge in a corner, an original ambient bed (pad, ocean, soft bells, singing bowls on section changes, a pad swell timed to the breath counts), voice at −16 LUFS with a light linear gain (no single-pass loudnorm, which pumps the quiet intro up). Keep the safety lines ("not while driving", "speak to your doctor"), and never claim it will make anyone sleep.
+
 ## 5. Never
  
 - Never fake proof, results, customers or testimonials with animation or AI. Placeholders are labelled and flagged.

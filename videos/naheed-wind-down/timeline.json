@@ -1,0 +1,482 @@
+{
+ "offset": 8.0,
+ "total": 423.44,
+ "voice_end": 397.44,
+ "cues": [
+  [
+   8.27,
+   11.85,
+   "Hello sisters, this is Naheed."
+  ],
+  [
+   13.03,
+   19.55,
+   "Before we begin, please do not listen to this while driving"
+  ],
+  [
+   19.55,
+   25.85,
+   "or while doing anything that needs your full attention."
+  ],
+  [
+   26.85,
+   31.19,
+   "Find a safe place to sit or lie down."
+  ],
+  [
+   32.63,
+   35.13,
+   "This is a short relaxation practice."
+  ],
+  [
+   35.95,
+   41.05,
+   "It is not a medical advice, and it is not a treatment."
+  ],
+  [
+   42.13,
+   46.39,
+   "If sleep problems continue, please speak to your doctor."
+  ],
+  [
+   47.55,
+   52.63,
+   "Alright, let's take these five minutes just for you."
+  ],
+  [
+   53.63,
+   54.91,
+   "Get comfortable."
+  ],
+  [
+   57.19,
+   58.73,
+   "Let your shoulders drop."
+  ],
+  [
+   61.18,
+   64.54,
+   "Let your shoulders drop away from your ears."
+  ],
+  [
+   67.83,
+   73.37,
+   "Let your hands rest wherever they are comfortable."
+  ],
+  [
+   73.37,
+   80.12,
+   "If your eyes are open, let them soften."
+  ],
+  [
+   82.26,
+   83.98,
+   "If it feels comfortable,"
+  ],
+  [
+   85.4,
+   86.92,
+   "you can close them."
+  ],
+  [
+   92.12,
+   95.36,
+   "Now notice the sounds around you."
+  ],
+  [
+   96.84,
+   97.5,
+   "A fan,"
+  ],
+  [
+   98.98,
+   100.04,
+   "a distant car,"
+  ],
+  [
+   101.96,
+   103.42,
+   "the quiet of the room."
+  ],
+  [
+   106.59,
+   109.69,
+   "You don't need to do anything with them."
+  ],
+  [
+   110.83,
+   113.21,
+   "Just let them be there."
+  ],
+  [
+   117.12,
+   121.7,
+   "There is nothing you need to fix right now."
+  ],
+  [
+   122.92,
+   125.34,
+   "Nothing you need to finish."
+  ],
+  [
+   127.55,
+   129.61,
+   "This is your time."
+  ],
+  [
+   132.49,
+   137.15,
+   "Let's breathe slowly, gently,"
+  ],
+  [
+   138.37,
+   141.41,
+   "no forcing, belly breathing."
+  ],
+  [
+   143.09,
+   146.07,
+   "When you are breathing, the belly goes out."
+  ],
+  [
+   147.25,
+   150.68,
+   "When you are exhaling, the belly goes in."
+  ],
+  [
+   151.93,
+   156.85,
+   "Breathe in through your nose for a count of four."
+  ],
+  [
+   157.47,
+   161.77,
+   "One, two, three, four."
+  ],
+  [
+   163.33,
+   170.97,
+   "And breathe out slowly through your mouth with a sigh for a count of six."
+  ],
+  [
+   170.97,
+   181.07,
+   "One, two, three, four, five, six."
+  ],
+  [
+   182.25,
+   185.33,
+   "Again in through the nose."
+  ],
+  [
+   186.35,
+   189.31,
+   "Two, three, four."
+  ],
+  [
+   191.03,
+   192.63,
+   "And out slowly."
+  ],
+  [
+   192.63,
+   201.17,
+   "Two, three, four, five, six."
+  ],
+  [
+   202.33,
+   203.57,
+   "One more time."
+  ],
+  [
+   204.31,
+   209.37,
+   "In, two, three, four."
+  ],
+  [
+   209.89,
+   218.99,
+   "And out, two, three, four, five, six."
+  ],
+  [
+   219.99,
+   225.19,
+   "Now let your breathing go back to its natural rhythm."
+  ],
+  [
+   226.67,
+   229.17,
+   "You don't need to control it anymore."
+  ],
+  [
+   233.32,
+   235.66,
+   "Bring your attention now to your forehead."
+  ],
+  [
+   235.66,
+   239.3,
+   "Let it be soft, smooth."
+  ],
+  [
+   241.53,
+   242.31,
+   "Feel relaxed."
+  ],
+  [
+   243.99,
+   244.89,
+   "More relaxed."
+  ],
+  [
+   247.25,
+   248.63,
+   "Let your jaw loosen."
+  ],
+  [
+   250.85,
+   254.33,
+   "Let your teeth part slightly."
+  ],
+  [
+   256.96,
+   257.4,
+   "Relax."
+  ],
+  [
+   261.14,
+   264.1,
+   "Let your neck and shoulders feel heavy."
+  ],
+  [
+   266.21,
+   267.77,
+   "Loosen them."
+  ],
+  [
+   270.15,
+   271.07,
+   "Feel relaxed."
+  ],
+  [
+   273.52,
+   279.86,
+   "Let your arm feel heavy all the way to your fingertips."
+  ],
+  [
+   283.17,
+   286.61,
+   "Notice your chest rising and falling on its own."
+  ],
+  [
+   288.71,
+   290.85,
+   "Let your stomach be soft."
+  ],
+  [
+   292.09,
+   295.85,
+   "You don't need to hold it tonight."
+  ],
+  [
+   296.71,
+   297.35,
+   "Relax."
+  ],
+  [
+   300.17,
+   304.33,
+   "Let your legs feel heavy, more heavy, more heavier."
+  ],
+  [
+   304.33,
+   308.49,
+   "And your feet feel warm, relaxed."
+  ],
+  [
+   310.51,
+   311.19,
+   "Feel relaxed."
+  ],
+  [
+   313.89,
+   319.09,
+   "Now think of one thing from today that you can let go."
+  ],
+  [
+   319.09,
+   320.63,
+   "Just one."
+  ],
+  [
+   322.03,
+   322.71,
+   "A worry,"
+  ],
+  [
+   324.03,
+   326.71,
+   "a task, a conversation."
+  ],
+  [
+   328.49,
+   334.55,
+   "And as you breathe out, imagine setting it down."
+  ],
+  [
+   336.7,
+   339.97,
+   "It will still be there tomorrow if you need it."
+  ],
+  [
+   339.97,
+   344.35,
+   "But for tonight, you can put it down."
+  ],
+  [
+   346.88,
+   352.66,
+   "You have done something kind to yourself in this few minutes."
+  ],
+  [
+   354.24,
+   355.26,
+   "I acknowledge you."
+  ],
+  [
+   355.98,
+   357.32,
+   "I appreciate you."
+  ],
+  [
+   358.48,
+   362.32,
+   "And you can come back to this any evening."
+  ],
+  [
+   364.6,
+   370.5,
+   "When you are ready, take one deep breath in and out."
+  ],
+  [
+   373.06,
+   375.88,
+   "If you would like to continue resting,"
+  ],
+  [
+   376.72,
+   378.54,
+   "stay as you are."
+  ],
+  [
+   379.7,
+   381.36,
+   "If you need to get up,"
+  ],
+  [
+   382.84,
+   388.14,
+   "gently move your fingers and toes and open your eyes."
+  ],
+  [
+   389.78,
+   392.66,
+   "Thank you for taking this time."
+  ],
+  [
+   394.0,
+   396.0,
+   "Be kind to yourself tonight."
+  ],
+  [
+   396.92,
+   397.44,
+   "Good night."
+  ]
+ ],
+ "sections": [
+  [
+   0,
+   "Opening"
+  ],
+  [
+   53.4,
+   "Settling"
+  ],
+  [
+   132.2,
+   "Breathing"
+  ],
+  [
+   230.8,
+   "Body softening"
+  ],
+  [
+   316.6,
+   "Letting go"
+  ],
+  [
+   364.3,
+   "Ending"
+  ]
+ ],
+ "breath": [
+  [
+   151.9,
+   157.2,
+   "hold0"
+  ],
+  [
+   157.3,
+   162.0,
+   "in"
+  ],
+  [
+   163.3,
+   181.3,
+   "out"
+  ],
+  [
+   182.2,
+   189.5,
+   "in"
+  ],
+  [
+   191.0,
+   201.4,
+   "out"
+  ],
+  [
+   204.1,
+   209.6,
+   "in"
+  ],
+  [
+   209.8,
+   219.2,
+   "out"
+  ],
+  [
+   366.2,
+   368.1,
+   "in"
+  ],
+  [
+   368.1,
+   370.8,
+   "out"
+  ]
+ ],
+ "bowls": [
+  0.6,
+  53.4,
+  132.2,
+  230.8,
+  316.6,
+  364.3
+ ],
+ "lantern": [
+  324.5,
+  344.0
+ ]
+}
