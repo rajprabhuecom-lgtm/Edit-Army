@@ -107,8 +107,8 @@ SCENE_SFX = {}
 NEW_BROLL = [
  ('N01', 3.70, 7.82, 'beforeafter', 'split', dict(title='ஒரே <span class="y">PERSON?</span> 🤔', ph=['sk46'], card=[245, 95, 590, 560], afx=398, pcues=[3.72], left='⬅️<br>BEFORE', right='AFTER<br>➡️'),
       '"would you believe the two people in these photos are the same person?" - real client photo (46 kg client, 3-stage collage sk46)'),
- ('N02', 9.66, 13.37, 'beforeafter', 'split', dict(title='நாங்க சொன்னதை <span class="g">FOLLOW</span> பண்ணி', tsz=56, ph=['sk46'], card=[245, 95, 590, 560], afx=398, pcues=[9.68], stamp='-46 KG', stc=11.18),
-      '"followed what we said and lost 46 kg" - real client photo (sk46) + 46 KG stamp'),
+ ('N02', 9.66, 13.37, 'beforeafter', 'split', dict(title='நாங்க சொன்னதை <span class="g">FOLLOW</span> பண்ணி', tsz=56, ph=['sk46b'], card=[260, 100, 560, 560], afx=294, pcues=[9.68], stamp='-46 KG', stc=11.18),
+      '"followed what we said and lost 46 kg" - real client before/after photo (sk46b, client-supplied, v3) + 46 KG stamp'),
  ('N03', 15.80, 19.40, 'nostarve', 'split', dict(pcues=[16.80, 17.62]), '"no starving, no hard workout"'),
  ('N04', 19.40, 22.60, 'meals', 'split', dict(pcues=[19.42, 20.26, 21.06]), '"morning, afternoon, night - healthy food"'),
  ('N04b', 36.94, 38.45, 'vid', 'split', dict(file='B08_personal.mkv', ss=0.2, cy=26, csz=46,
@@ -122,7 +122,7 @@ NEW_GFX = [
  ('text', 1.58, 2.99, {'html': 'வணக்கம்<br><span class="y">நாமக்கல்</span> மக்களே! 👋', 'y': 200, 'size': 100}),
  ('text', 8.27, 9.25, {'html': 'நம்பித்தான்<br><span class="g">ஆகணும்!</span>', 'y': 200, 'size': 120}),
  ('text', 23.72, 26.72, {'html': '❤️ FAVOURITE FOOD<br><span class="g">AVOID பண்ணல</span>', 'y': 200, 'size': 84}),
- ('text', 27.16, 30.28, {'html': '🥦 VEG ✓ 🍗 NON-VEG ✓<br><span class="y">🫘 பயறு ✓</span>', 'y': 200, 'size': 78}),
+ ('text', 27.16, 30.28, {'html': '🥦 VEG ✓ 🍗 NON-VEG ✓<br><span class="y">😋 வயிறு நிறைய ✓</span>', 'y': 200, 'size': 78}),
  ('text', 30.28, 32.10, {'html': '<span class="y">46 KG</span> ↓<br>WEIGHT LOSS', 'y': 200, 'size': 120}),
  ('badge', 34.90, 36.94, {'html': '🎁 OUR SERVICE', 'y': 230, 'bg': 'var(--yl)', 'fg': '#000', 'size': 70}),
 ]
@@ -138,7 +138,7 @@ NEW_CAP = [
  (19.40, 21.40, [['^MORNING', '^AFTERNOON'], ['^NIGHT']]),
  (21.44, 23.62, [['மூணு', 'வேளையும்'], ['*HEALTHY-ஆன', '*FOOD']]),
  (24.07, 26.72, [['அவருக்கு', '^FAVOURITE', '^FOOD'], ['எதையும்', 'AVOID', 'பண்ணாம']]),
- (27.16, 30.28, [['*VEGETARIAN'], ['*NON-VEGETARIAN'], ['பயறு', 'நிறைய', 'சாப்பிட்டுதான்']]),
+ (27.16, 30.28, [['*VEGETARIAN'], ['*NON-VEGETARIAN'], ['வயிறு', 'நிறைய', 'சாப்பிட்டுதான்']]),
  (30.28, 32.10, [['இந்த', '^46 KG'], ['குறைச்சிருக்கார்']]),
  (34.90, 36.80, [['இதுக்காக', 'அவருக்கு'], ['நாங்க', 'குடுத்த', '^SERVICE']]),
  (36.94, 38.30, [['*PERSONALIZED', '*PROGRAM']]),
