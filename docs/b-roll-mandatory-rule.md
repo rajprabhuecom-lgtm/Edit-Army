@@ -54,6 +54,9 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `ba` / `struggle` / `steps` / `ticket` / `nlend` (v6-weight-loss) | Before/after reveal, ✕/✓ cards + stamp, step path, offer coupon, New Life Nutritions end card |
+| `counter` (v7) | Big count-up to a spoken figure ("1,597 KG in 10 days", "1,682 members") with title chip, sub line and optional lit dot grid. Use only the client's own stated numbers |
+| `mdend` (v7) | Dr. Madhan end card: Weight Loss Marathon + Click the link |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
