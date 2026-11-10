@@ -10,4 +10,9 @@
 - BGM chosen: Maara Theme (Soorarai Pottru, GV Prakash). Copyrighted; add via Instagram music for organic, or supply a licensed file. Ad cut uses the original synth bed.
 - CTA: click the link below, book an appointment, we come and meet you.
 - Transcript: `transcripts/src.ta.json` (Whisper large-v3). 12–20 s came out garbled; check by ear.
-- Status: B-roll list sent to Prabhuraj, waiting for real clips (B01, B03, B04).
+- BGM: Maara Theme MP3 supplied by Prabhuraj in the Drive folder. Starts at 10.19 s (first downbeat after 10 s); 48-beat
+  jump 58.77 s -> 32.58 s stretches it to the edit so the track's peak sits under the CTA and the outro under the end card.
+- B-roll clips supplied 10 Nov: B01 (Theni street, has burned-in "தேனி களைகட்டிய தீபாவளி" title - confirm we may use it),
+  B03, B04, B09, B11 (Google Flow AI - disclose in Meta). B11's globe tail is reused as B02 ("world").
+- Status: DELIVERED v1 `final/gopi_photography_theni_insta.mp4` (84.8 s, 1080x1920, -13.9 LUFS, peak -1.9 dBFS).
+  Rebuild: plan.py -> engine/v6-local-business (render.js x6, mix.py voice, comp.py, speed.sh).

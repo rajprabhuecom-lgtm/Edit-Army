@@ -54,6 +54,13 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `platforms` (v6) | "Instagram, Facebook, YouTube managed": 3 platform tiles pop in and tick |
+| `steps` (v6) | "Script → edit → post": step cards with arrows ticking in order |
+| `docs` (v6) | "Documents, target audience, value": rows slide in, tick, then a stamp |
+| `slots` (v6) | "Only first 5 business owners": 5 shop slots filling + trial chip |
+| `reach7` (v6) | "7 videos = reach": 7 reel cards, rocket curve, then Trial → Monthly |
+| `strike` (v6, on face) | Market price crossed out ("₹50K – ₹1 LAKH" ❌) |
+| `endcard` (v6) | Brand end card (GOPI PHOTOGRAPHY + Book appointment) |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

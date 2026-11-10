@@ -1,15 +1,12 @@
-ID,"Source time (s)",Keyword spoken (meaning),Visual,Source,Layout,On-screen (s),Status,Licence
-B01,1.5-4.8,"""Theni business owners""",Real Theni street / local shops / your clients' storefronts,P2 real footage (fallback P3 AI town street),full cutaway,3.0,needed from Prabhuraj,own footage
-B02,4.8-7.6,"""take your business to the world""",Pin drops on Theni then lines fly out across a globe,P5 motion graphics (new scene: globe),full cutaway,2.8,to build,original
-B03,7.6-12.1,"""we come to your area in Theni and shoot""",Behind-the-scenes: your team arriving with camera / tripod / mic and shooting at a shop,P2 real footage (must be real),split screen,4.5,needed from Prabhuraj,own footage
-B04,12.1-20.3,"""edit properly, post, bring reach""",Screen recording: edit timeline then Instagram post going live,P1 screen recording,split screen,6.0,needed from Prabhuraj,own footage
-B05,23.2-29.3,"""Instagram, Facebook, YouTube - all managed""",3 platform cards pop in + one dashboard,P5 motion graphics (new scene: platforms),split screen,5.0,to build,original
-B06,29.3-35.2,"""script, edit, post""",Pipeline: Script > Shoot > Edit > Post ticking,P5 motion graphics (new scene: pipeline),split screen,5.0,to build,original
-B07,35.2-44.4,"""documents, target audience, value for your clients""",Doc cards: Target audience / Content plan / Value posts stacking,P5 motion graphics (new scene: docs),split screen,6.0,to build,original
-B08,44.4-51.6,"""only first 5 business owners - trial pack""",Seat grid with 5 seats filling,P5 motion graphics (reuse: seats),split screen,5.0,to build (reuse),original
--,51.6-57.7,"""no risk - just ₹10,000""",FACE + NO-RISK stamp + price graphic ₹10,000,on-face graphic,face,-,no B-roll (price rule),-
-B09,57.7-63.7,"""7 videos in one week, shot in your area""",7 day cards filling with reel thumbnails,P5 motion graphics (new scene: sevenreels),split screen,5.5,to build,original
-B10,63.7-70.6,"""reach grows, confidence, then monthly package""",Reach bars grow (no numbers) then Trial > Monthly arrow,P5 motion graphics (reuse: chart),split screen,5.5,to build (reuse),original
--,70.6-80.0,"""only 5 / market charges ₹50k-1 lakh""",FACE + price anchor (strike ₹50,000-₹1,00,000 vs ₹10,000),on-face graphic,face,-,no B-roll (price rule),-
-B11,80.0-88.6,"""affordable rate, all over the world""",affordable price-tag drop then globe callback,P5 motion graphics (reuse: affordable + globe),split screen,5.0,to build,original
--,91.5-100.95,"""click the link, book an appointment""",FACE + pulsing CTA button + arrow + end card,on-face graphic,face,-,no B-roll (CTA rule),-
+ID,"Source time (s, joined)",Final time (s),Keyword spoken (meaning),Visual,Source,Layout,"On-screen (s, final)",Status,Licence
+B01,1.54-4.78,1.2-3.9,"""running a business in Theni?""",clip B01.mkv (supplied by Prabhuraj),P2 real,full cutaway,2.7,rendered,supplied footage - confirm rights
+B02,4.78-7.60,3.9-6.2,"""take your business to the world""",clip B11.mkv (supplied by Prabhuraj),P3 AI,full cutaway,2.3,rendered,AI-generated (Google Flow) - disclose in Meta
+B03,7.60-12.10,6.2-9.9,"""Instagram challenge - we come to your area in Theni""",clip B03.mkv (supplied by Prabhuraj),P3 AI,split screen,3.7,rendered,AI-generated (Google Flow) - disclose in Meta
+B04,12.10-16.60,9.9-13.5,"""we take the video, edit properly, post""",clip B04.mkv (supplied by Prabhuraj),P3 AI,split screen,3.6,rendered,AI-generated (Google Flow) - disclose in Meta
+B05,23.16-28.94,18.8-23.5,"""Instagram, Facebook, YouTube - all managed""","animated ""platforms"" scene",P5 motion graphics,split screen,4.8,rendered,original - no licence needed
+B06,29.28-34.00,23.8-27.8,"""script, edit, post""","animated ""steps"" scene",P5 motion graphics,split screen,3.9,rendered,original - no licence needed
+B07,35.20-43.30,28.8-35.5,"""documents, target audience, value for your clients - we craft it""","animated ""docs"" scene",P5 motion graphics,split screen,6.7,rendered,original - no licence needed
+B08,44.36-49.60,36.4-40.6,"""only first 5 business owners in Theni - trial pack""","animated ""slots"" scene",P5 motion graphics,split screen,4.2,rendered,original - no licence needed
+B09,57.70-62.90,47.2-51.4,"""7 videos in one week, shot in your area""",clip B09.mkv (supplied by Prabhuraj),P3 AI,split screen,4.2,rendered,AI-generated (Google Flow) - disclose in Meta
+B10,63.70-70.50,51.9-57.4,"""in these 7 videos your business gets reach - then monthly""","animated ""reach7"" scene",P5 motion graphics,split screen,5.6,rendered,original - no licence needed
+B11,80.00-86.10,65.0-70.0,"""affordable rate, all over the world""",clip B11.mkv (supplied by Prabhuraj),P3 AI,split screen,4.9,rendered,AI-generated (Google Flow) - disclose in Meta

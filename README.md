@@ -30,6 +30,9 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-local-business/           GOPI PHOTOGRAPHY Theni (10 Nov 2026): v5 + platforms steps docs slots reach7 strike
+                               price stamp + brand endcard. mix.py mixes a supplied BGM AFTER the 1.2x speed-up with
+                               voice-keyed look-ahead ducking, voice-band EQ carve and a rise guard (music >= ~10 dB under voice)
 videos/                        One folder per video (see videos/README.md)
 ```
 
