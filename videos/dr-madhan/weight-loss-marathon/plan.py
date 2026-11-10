@@ -56,10 +56,11 @@ GFX = [
  ('badge', 23.32, 26.10, {'html': '👥 OUR COMMUNITY • OUR SYSTEM', 'y': 230, 'bg': 'var(--em)', 'fg': '#04110c', 'size': 52}),
  ('badge', 33.60, 34.60, {'html': '👤 ஒவ்வொருவருக்கும்', 'y': 230, 'bg': 'var(--em)', 'fg': '#04110c', 'size': 58}),
  ('badge', 43.18, 44.46, {'html': "⏰ MISS பண்ணாதீங்க!", 'y': 230, 'size': 64}),
- ('badge', 44.46, 46.68, {'html': '👋 DR. MADHAN', 'y': 230, 'bg': 'var(--em)', 'fg': '#04110c', 'size': 70}),
+ ('badge', 44.46, 46.68, {'html': '👋 DR. MATHAN', 'y': 230, 'bg': 'var(--em)', 'fg': '#04110c', 'size': 70}),
  ('flash', 46.90, 47.05, {}),
- ('cta', 46.90, 50.74, {'label': '👇 CLICK THE LINK', 'badge': '🏃 START WITH DR. MADHAN', 'y': 1040}),
+ ('cta', 46.90, 50.74, {'label': '👇 CLICK THE LINK', 'badge': '🏃 START WITH DR. MATHAN', 'y': 1040}),
  ('mdend', 50.74, END, {}),
+ ('nameplate', 0.0, END, {'name': 'Dr. Mathan Muthu C M, M. Tech., PhD.', 'role': 'Health Consultant', 'y': 1650}),
 ]
 CAP = [
  (0.50, 2.00, [['*1,597 KGS']]),
@@ -82,7 +83,7 @@ CAP = [
  (39.64, 41.50, [['PLUS', '^LIFESTYLE', '^CORRECTION']]),
  (41.50, 42.86, [['*WEEKLY CLASS']]),
  (43.18, 44.46, [['இந்த', 'வாய்ப்பை', '!MISS', 'பண்ணாதீங்க']]),
- (44.46, 46.68, [['I AM', '*DR. MADHAN'], ['I AM HERE', 'TO', '^HELP YOU']]),
+ (44.46, 46.68, [['I AM', '*DR. MATHAN'], ['I AM HERE', 'TO', '^HELP YOU']]),
  (46.90, 48.10, [['கீழ', 'இருக்கிற', '^LINK-ஐ'], ['^CLICK', 'பண்ணி']]),
  (48.10, 49.60, [['இப்போவே', 'உங்க'], ['*WEIGHT LOSS', 'PROGRAM']]),
  (49.60, 50.74, [['என்னுடன்', '^START', 'பண்ணுங்க']]),

@@ -428,12 +428,19 @@ S.counter=(it)=>{const sp=SP(it);const top=sp?0:330;const nd=it.dots||0;let dg='
   slideUp(q(el,'.sb'),dt-c0-cd*.6,120,.35);
   const st=q(el,'.stp');if(st){const t=dt-(it.sc??(c0+cd+.2));st.style.opacity=t<0?0:1;st.firstElementChild.style.transform=`scale(${t<0?0:(t<.16?2-ease(t/.16):1)}) rotate(-3deg)`}}}};
 
+/* nameplate: client name + credentials pinned at the bottom for the whole video. it: name, role, y */
+S.nameplate=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||1650}px;text-align:center">
+  <div class="np" style="display:inline-block;padding:16px 40px 18px;border-radius:28px;background:rgba(8,10,13,.82);border:4px solid var(--em);box-shadow:0 14px 36px rgba(0,0,0,.55)">
+   <div style="font-weight:800;font-size:${it.size||42}px;line-height:1.15;color:#fff;white-space:nowrap">${it.name}</div>
+   <div style="font-weight:800;font-size:${Math.round((it.size||42)*.86)}px;line-height:1.2;color:var(--yl);letter-spacing:3px;text-transform:uppercase">${it.role||''}</div></div></div>`);
+ return {el,upd(dt){const x=q(el,'.np');x.style.opacity=clamp(dt/.2);x.style.transform=`translateY(${(1-ease(dt/.4))*60}px)`}}};
+
 /* mdend: Dr. Madhan Weight Loss Marathon end card */
 S.mdend=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="top:300px"></div>
   <div class="e1" style="position:relative;font-size:150px">🏃‍♂️</div>
   <div class="e2" style="position:relative;margin-top:10px;font-family:A;font-size:120px;letter-spacing:3px;line-height:1">WEIGHT LOSS</div>
   <div class="e3" style="position:relative;font-family:A;font-size:150px;letter-spacing:8px;color:var(--em);line-height:1.05">MARATHON</div>
-  <div class="e4" style="position:relative;margin-top:26px;font-weight:800;font-size:44px;color:var(--pl);letter-spacing:2px">${it.who||'WITH DR. MADHAN'}</div>
+  <div class="e4" style="position:relative;margin-top:26px;font-weight:800;font-size:44px;color:var(--pl);letter-spacing:2px">${it.who||'WITH DR. MATHAN'}</div>
   <div class="e5" style="position:relative;margin-top:60px"><span class="chip" style="background:var(--yl);color:#000;font-size:58px;padding:24px 50px;white-space:nowrap;display:inline-block">${it.btn||'👇 CLICK THE LINK'}</span></div>
   <div class="e6" style="position:relative;margin-top:30px"><span class="chip" style="background:var(--em);color:#04110c;font-size:46px">${it.sub||'START YOUR WEIGHT LOSS TODAY'}</span></div></div>`);
  return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e3','.e4','.e5','.e6'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*120}px)`});
@@ -450,7 +457,7 @@ function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c
   s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const L=c.words.join(' ').length;const bs=(c.pos=='split'?.8:(c.pos=='hi'?.9:1))*(L>26?.78:(L>20?.88:1))*(/[\u0B80-\u0BFF]/.test(c.words.join(''))?.9:1);s.style.fontSize=(em?102:86)*bs+'px';
   s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
 const OVL=['text','cta','badge','flash','vid','ticket'];
-function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type=='endcard'||it.type=='nlend'||it.type=='mdend'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='nameplate'?8:it.type=='flash'?30:(it.type=='endcard'||it.type=='nlend'||it.type=='mdend'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
 function setT(t){let any=false,hideCap=false;
  for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
   if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');
