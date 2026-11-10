@@ -46,6 +46,8 @@ BROLL = [
  ('B08', 44.36, 49.60, 'slots', 'split', dict(fcue=46.88, tcue=49.16), '"only first 5 business owners in Theni - trial pack"'),
  ('B09', 57.70, 62.90, 'vid', 'split', dict(file='B09.mkv', ss=0.0, cy=40, csz=44,
       chips=[['🎬 7 VIDEOS • 1 WEEK'], ['📍 உங்க AREA-லயே SHOOT', G, BLK, G]], ccues=[57.80, 59.50]), '"7 videos in one week, shot in your area"'),
+ ('B12', 16.60, 20.26, 'igpost', 'split', dict(pcues=[17.00, 18.10, 18.66]), '"post on your Instagram account and bring it reach"'),
+ ('B13', 86.16, 91.40, 'thenipin', 'split', dict(pcues=[86.40, 88.60, 89.54]), '"only 5 business owners here in Theni"'),
  ('B10', 63.70, 70.50, 'reach7', 'split', dict(rcue=63.88, gcue=65.76, mcue=68.76), '"in these 7 videos your business gets reach - then monthly"'),
  ('B11', 80.00, 86.10, 'vid', 'split', dict(file='B11.mkv', ss=2.8, cy=40, csz=46,
       chips=[['💰 AFFORDABLE RATE'], ['🌍 ALL OVER THE WORLD', G, BLK, G]], ccues=[80.48, 81.52]), '"affordable rate, all over the world"'),
@@ -57,10 +59,18 @@ GFX = [
  ('price', 54.55, 57.65, {'val': 10000, 'per': '1 WEEK • 7 VIDEOS', 'y': 180}),
  ('badge', 70.50, 74.10, {'html': '🔥 ONLY 5 BUSINESS OWNERS', 'y': 230, 'size': 58}),
  ('strike', 74.10, 80.00, {'old': '₹50K – ₹1 LAKH', 'lbl': 'MARKET-ல', 'y': 190, 'lc': 3.6, 'no': '❌ செலவு தேவையில்ல'}),
- ('badge', 86.16, 91.40, {'html': '📍 தேனி • ONLY 5', 'y': 230, 'bg': 'var(--yl)', 'fg': '#000', 'size': 64}),
  ('flash', 91.48, 91.63, {}),
  ('cta', 91.48, END, {'label': '👇 BOOK APPOINTMENT', 'badge': '📍 WE COME TO YOUR SHOP', 'y': 1060}),
  ('endcard', END, END + HOLD, {}),
+ ('progress', 0.0, END + HOLD, {}),
+ ('sticker', 0.70, 1.54, {'e': '🏪', 'x': 870, 'y': 930}),
+ ('sticker', 3.40, 4.78, {'e': '🔥', 'x': 880, 'y': 820, 'size': 170}),
+ ('sticker', 34.10, 35.20, {'e': '🎬', 'x': 200, 'y': 930}),
+ ('sticker', 43.35, 44.36, {'e': '⚡', 'x': 870, 'y': 930}),
+ ('sticker', 49.70, 51.55, {'e': '🎁', 'x': 190, 'y': 940}),
+ ('sticker', 52.90, 54.50, {'e': '✅', 'x': 880, 'y': 960, 'size': 130}),
+ ('sticker', 71.55, 74.05, {'e': '🔥', 'x': 880, 'y': 900, 'size': 170}),
+ ('sticker', 97.20, 99.90, {'e': '🤝', 'x': 860, 'y': 640, 'size': 140}),
 ]
 CAP = [
  (0.00, 1.54, [['தேனியில்', '*BUSINESS']]),
@@ -130,7 +140,7 @@ def build():
         sfx.append((o0 - 0.12, 'whoosh', 1))
     for ty, s0, s1, ex in GFX:
         d = dict(type=ty, t0=s2o(s0), t1=s2o(s1)); d.update(ex); items.append(d)
-        if ty in ('text', 'badge', 'strike'): sfx.append((s0, 'pop'))
+        if ty in ('text', 'badge', 'strike', 'sticker'): sfx.append((s0, 'pop'))
         if ty == 'cta': sfx.append((s0 + 0.35, 'click'))
     for s0, s1, chunks in CAP:
         o0, o1 = s2o(s0), s2o(s1); wts = [sum(len(w) for w in c) + 4 for c in chunks]; tot = sum(wts); t = o0

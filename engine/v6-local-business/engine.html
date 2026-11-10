@@ -421,6 +421,52 @@ S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-d
  return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e3','.e4','.e5','.e6','.e7'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*120}px)`});
   const b=q(el,'.e5 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(0,200,150,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
 
+
+/* B12: post on your Instagram account -> posted -> hearts + reach */
+S.igpost=(it)=>{let h='';for(let i=0;i<9;i++)h+=`<div class="ht" style="position:absolute;left:${470+(i%3)*40}px;top:520px;font-size:${48+(i%3)*10}px;opacity:0">❤️</div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:26px;font-size:76px">உங்க <span class="y">INSTAGRAM</span>-ல</div>
+  <div class="ph" style="position:absolute;left:300px;top:130px;width:480px;height:500px;border-radius:44px;border:8px solid #D8DDE3;background:#000;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6)">
+   <div style="height:70px;display:flex;align-items:center;gap:14px;padding-left:20px;font-weight:800;font-size:26px"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(45deg,#feda75,#d62976,#4f5bd5);padding:3px"><div style="width:100%;height:100%;border-radius:50%;background:#0f1713;display:flex;align-items:center;justify-content:center;font-size:22px">🏪</div></div>உங்க BUSINESS</div>
+   <div class="im" style="position:relative;height:300px;background:linear-gradient(160deg,#1b3a30,#3a1b33);display:flex;align-items:center;justify-content:center;font-size:130px">🎬<div class="pl" style="position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-size:56px;color:#000">▶</div></div>
+   <div style="padding:14px 20px;font-size:44px;display:flex;gap:18px"><span class="hr">♡</span><span>💬</span><span>➤</span></div>
+   <div class="pb" style="position:absolute;left:20px;right:20px;bottom:22px;height:44px;border-radius:22px;background:#1f2c34;overflow:hidden;font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center">
+    <div class="pf" style="position:absolute;left:0;top:0;bottom:0;width:0;background:var(--em)"></div><span class="pt" style="position:relative;color:#fff">POSTING…</span></div></div>
+  ${h}<div class="rc" style="position:absolute;left:792px;top:330px"><span class="chip" style="background:var(--yl);color:#000;font-size:38px;padding:10px 22px">🚀 REACH</span></div>
+  <div class="ed" style="position:absolute;left:30px;top:330px"><span class="chip" style="background:var(--em);color:#04110c;font-size:44px">✂️ EDITED</span></div>`));
+ const cu=it.cues||[.2,1.2,1.8];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-cu[0]+.2,700);popIn(q(el,'.ed'),dt-cu[0]);
+  const p=clamp((dt-cu[0])/(cu[1]-cu[0]));q(el,'.pf').style.width=(p*100)+'%';const done=dt>cu[1];q(el,'.pt').textContent=done?'POSTED ✓':'POSTING…';q(el,'.pt').style.color=done?'#04110c':'#fff';
+  const hr=q(el,'.hr');hr.textContent=dt>cu[2]?'❤️':'♡';hr.style.display='inline-block';hr.style.transform=`scale(${dt>cu[2]?pop(dt-cu[2],.3):1})`;
+  qa(el,'.ht').forEach((x,i)=>{const t=(dt-cu[2]-i*.13);if(t<0){x.style.opacity=0;return}const c=t%1.4;x.style.opacity=1-c/1.4;x.style.transform=`translate(${Math.sin(c*4+i)*40}px,${-c*380}px) scale(${.6+c*.5})`});
+  popIn(q(el,'.rc'),dt-cu[2]-.25)}}};
+
+/* B13: Theni map pin + 5 shops lighting up */
+S.thenipin=(it)=>{const pos=[[170,260],[330,450],[540,500],[750,450],[910,260]];let c='';
+ pos.forEach((p,i)=>c+=`<div class="sh" style="position:absolute;left:${p[0]-60}px;top:${p[1]-60}px;width:120px;height:120px;border-radius:30px;background:#0f1713;border:5px solid #2b3a35;display:flex;align-items:center;justify-content:center;font-size:70px">🏪<div class="tk" style="position:absolute;right:-14px;top:-14px;width:50px;height:50px;border-radius:50%;background:var(--em);color:#04110c;font-weight:900;font-size:32px;display:flex;align-items:center;justify-content:center">✓</div></div>`);
+ let ln='';pos.forEach(p=>ln+=`<line class="ln" x1="540" y1="300" x2="${p[0]}" y2="${p[1]}" stroke="#00C896" stroke-width="6" stroke-dasharray="14 12"/>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:26px;font-size:80px">📍 <span class="y">தேனி</span> • ONLY 5</div>
+  <svg width="1080" height="864" style="position:absolute;left:0;top:0"><g stroke="#16251f" stroke-width="26"><line x1="0" y1="380" x2="1080" y2="330"/><line x1="380" y1="120" x2="420" y2="864"/><line x1="700" y1="120" x2="660" y2="864"/></g>${ln}</svg>
+  <div class="rg" style="position:absolute;left:480px;top:300px;width:120px;height:44px;border-radius:50%;border:6px solid var(--rd)"></div>
+  <div class="pn" style="position:absolute;left:480px;top:170px;font-size:130px;line-height:1">📍</div>${c}
+  <div class="ft" style="position:absolute;left:0;right:0;top:575px;text-align:center"><span class="chip" style="background:var(--rd);font-size:44px">🔥 FIRST 5 BUSINESS OWNERS</span></div>`));
+ const cu=it.cues||[.2,1.5,2.5];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const t=dt-cu[0];q(el,'.pn').style.transform=`translateY(${t<0?-500:(1-ease(t/.3))*-500}px)`;
+  const rg=q(el,'.rg');const r=((dt-cu[0]-.3)%1.2)/1.2;rg.style.opacity=t>.3?1-r:0;rg.style.transform=`scale(${1+r*2})`;
+  qa(el,'.sh').forEach((x,i)=>{const tt=dt-cu[1]-i*.22;x.style.opacity=clamp((tt+.4)/.1);x.style.transform=`scale(${tt+.4<0?0:pop(tt+.4,.3)})`;const on=tt>0;
+   x.style.borderColor=on?'#00C896':'#2b3a35';x.style.background=on?'#0f2a20':'#0f1713';q(x,'.tk').style.transform=`scale(${on?pop(tt,.25):0})`});
+  qa(el,'.ln').forEach((x,i)=>{const tt=dt-cu[1]-i*.22;x.style.opacity=tt>0?1:0;x.style.strokeDashoffset=-dt*40});popIn(q(el,'.ft'),dt-cu[2])}}};
+
+/* on-face emoji sticker with burst */
+S.sticker=(it)=>{let d='';for(let i=0;i<10;i++)d+=`<div class="bd" style="position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border-radius:50%;background:${['#FFD60A','#00C896','#FF3B30'][i%3]}"></div>`;
+ const el=mk(`<div class="sk" style="position:absolute;left:${it.x||860}px;top:${it.y||900}px;width:0;height:0">${d}<div class="em" style="position:absolute;left:-${(it.size||150)/2}px;top:-${(it.size||150)/2}px;font-size:${it.size||150}px;line-height:1;filter:drop-shadow(0 12px 18px rgba(0,0,0,.55))">${it.e}</div></div>`);
+ return {el,upd(dt){const e=q(el,'.em');e.style.transform=`scale(${pop(dt,.3)}) rotate(${(it.rot??-10)+Math.sin(dt*6)*8}deg) translateY(${-Math.max(0,dt-.4)*30}px)`;
+  qa(el,'.bd').forEach((x,i)=>{const a=i/10*Math.PI*2,r=ease(dt/.5)*(it.size||150)*.95;x.style.transform=`translate(${Math.cos(a)*r}px,${Math.sin(a)*r}px) scale(${1-clamp(dt/.55)})`});
+  el.style.opacity=clamp((it.t1-it.t0-dt)/.2)}}};
+
+/* thin retention progress bar across the top */
+S.progress=(it)=>{const el=mk(`<div style="position:absolute;left:0;top:0;width:1080px;height:14px;background:rgba(0,0,0,.35)"><div class="pg" style="height:100%;width:0;background:linear-gradient(90deg,#00C896,#FFD60A);box-shadow:0 0 18px rgba(255,214,10,.7)"></div></div>`);
+ return {el,upd(dt){q(el,'.pg').style.width=(dt/(it.t1-it.t0)*100)+'%'}}};
+
 /* ---------- captions ---------- */
 const capEl=document.getElementById('cap');let curCap=null;
 function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
@@ -431,8 +477,8 @@ function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c
  sp.forEach((s,i)=>{const ws=c.t0+dur*i/n*0.8;const dt=t-ws;const vis=dt>=0;s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
   s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const L=c.words.join(' ').length;const bs=(c.pos=='split'?.8:(c.pos=='hi'?.9:1))*(L>26?.78:(L>20?.88:1))*(/[\u0B80-\u0BFF]/.test(c.words.join(''))?.9:1);s.style.fontSize=(em?102:86)*bs+'px';
   s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
-const OVL=['text','cta','badge','flash','vid','price','stamp','strike'];
-function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type=='endcard'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+const OVL=['text','cta','badge','flash','vid','price','stamp','strike','sticker'];
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='progress'?40:it.type=='flash'?30:(it.type=='endcard'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
 function setT(t){let any=false,hideCap=false;
  for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
   if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');

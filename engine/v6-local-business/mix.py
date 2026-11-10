@@ -22,9 +22,9 @@ def lufs(p):
 BGM = D + 'bgm_full.wav'
 START = 10.19            # "start from 10 seconds": first downbeat after 10 s
 LOOP_OUT, LOOP_IN = 58.770, 32.578   # 48-beat jump back (beat-matched, 0.976 chroma/MFCC similarity) to stretch 60 s of music to the edit
-BED_LUFS = -16.5         # music level when nobody is speaking (gaps, end card)
-DUCK_DB = 7.0            # extra dip under speech -> about 12-13 dB under the voice
-MARGIN = 10.0            # never let the music get closer than this to the voice while he speaks (rise guard)
+BED_LUFS = -22.0         # music level when nobody is speaking (gaps, end card)
+DUCK_DB = 10.0           # extra dip under speech -> about 18-20 dB under the voice (v2: Prabhuraj said BGM too loud)
+MARGIN = 16.0            # never let the music get closer than this to the voice while he speaks (rise guard)
 LOOK = 0.06              # dip starts 60 ms before a word
 ATT, REL = 0.05, 0.35    # duck attack / release (s)
 
@@ -96,7 +96,7 @@ def music_stage(dur):
     for i in range(0, n - w, h):
         if not act[min(len(act) - 1, i // hop)]: continue
         vl = 10 * np.log10(np.mean(v[i:i + w] ** 2) + 1e-12); ml = 10 * np.log10(np.mean(mm[i:i + w] ** 2) + 1e-12)
-        if vl > -32: extra[i:i + w] = np.minimum(extra[i:i + w], max(-6.0, min(0.0, (vl - ml) - MARGIN)))   # capped so it never pumps
+        if vl > -32: extra[i:i + w] = np.minimum(extra[i:i + w], max(-8.0, min(0.0, (vl - ml) - MARGIN)))   # capped so it never pumps
     gx = smooth_gain(extra, 0.03, 0.25); mus *= (10 ** (gx / 20))[:, None]
     print(f'rise guard active on {np.mean(extra < -0.5) * 100:.0f}% of samples, max cut {extra.min():.1f} dB')
     sf.write(D + 'bgm_ducked.wav', mus, SR)

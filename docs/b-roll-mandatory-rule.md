@@ -61,6 +61,10 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `reach7` (v6) | "7 videos = reach": 7 reel cards, rocket curve, then Trial → Monthly |
 | `strike` (v6, on face) | Market price crossed out ("₹50K – ₹1 LAKH" ❌) |
 | `endcard` (v6) | Brand end card (GOPI PHOTOGRAPHY + Book appointment) |
+| `igpost` (v6) | "Post on your Instagram": phone posts the video, hearts float, REACH chip |
+| `thenipin` (v6) | "Only 5 in <town>": map pin drops, 5 shops light up around it |
+| `sticker` (v6, on face) | Emoji pop with colour burst on a key word (keeps face shots moving) |
+| `progress` (v6) | Thin retention progress bar across the top for the whole video |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
