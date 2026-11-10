@@ -14,5 +14,5 @@
   jump 58.77 s -> 32.58 s stretches it to the edit so the track's peak sits under the CTA and the outro under the end card.
 - B-roll clips supplied 10 Nov: B01 (Theni street, has burned-in "தேனி களைகட்டிய தீபாவளி" title - confirm we may use it),
   B03, B04, B09, B11 (Google Flow AI - disclose in Meta). B11's globe tail is reused as B02 ("world").
-- Status: DELIVERED v1 `final/gopi_photography_theni_insta.mp4` (84.8 s, 1080x1920, -13.9 LUFS, peak -1.9 dBFS).
+- Status: DELIVERED v2 `final/gopi_photography_theni_insta.mp4` (84.8 s, 1080x1920, -13.9 LUFS). v2 = BGM bed -22 LUFS, -10 dB duck, voice >= 16 dB over music (median 21); + igpost, thenipin, 8 stickers, progress bar (B-roll 64%).
   Rebuild: plan.py -> engine/v6-local-business (render.js x6, mix.py voice, comp.py, speed.sh).
