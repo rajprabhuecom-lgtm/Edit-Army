@@ -62,6 +62,10 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `dreams` (v6) | 4 bilingual gold cards popping per word (Money · Car · Career · Own Home) |
 | `poster` (v6) | Workshop poster in the top panel for the register line (face stays below) |
 | `slam` / `sparkle` / `stamp` / `tslam` (v6) | Gold serif word slam with burst, rising sparkles, round seal stamp, Tamil text slam |
+| `pressure` (v6) | "Family, EMI, money pressure": blocks drop and stack on a woman icon, synced per word |
+| `aura` (v6) | "Women naturally manifest": meditating figure with expanding maroon/gold rings |
+| `authority` (v6) | "I'm <coach>": coach photo in a gold ring + name (face stays in the bottom panel) |
+| `vid` + `des` (v6) | Any AI/real clip, optionally black-and-white for struggle beats |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

@@ -30,6 +30,10 @@ body{font-family:JS,'Noto Color Emoji',CT,sans-serif;color:#fff}
  background-size:260% 100%,100% 100%;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;
  filter:drop-shadow(0 6px 10px rgba(30,0,8,.85)) drop-shadow(0 0 2px rgba(30,0,8,.9))}
 #cap.split .lead{font-size:34px;letter-spacing:5px}
+#cap.B{flex-direction:column-reverse}
+#cap.B .kw{font-style:normal;text-transform:uppercase;letter-spacing:1px;padding-bottom:4px}
+#cap.B .lead{font-weight:600;font-size:40px;letter-spacing:1px;margin-top:-2px}
+#cap.B.split .lead{font-size:34px}
 /* ---------- brand: top badge + lower third ---------- */
 #tb{position:absolute;right:36px;top:150px;padding:12px 30px 14px 26px;border-radius:40px;border:2px solid var(--g);
  background:linear-gradient(135deg,rgba(107,18,48,.95),rgba(58,6,24,.95));box-shadow:0 6px 26px rgba(0,0,0,.45),0 0 18px rgba(200,146,42,.35);display:flex;align-items:center;gap:10px;z-index:30}
@@ -137,6 +141,31 @@ SC.poster=(it)=>{const st=stage();st.s.style.background='radial-gradient(110% 80
   <div style="font-family:JS;font-weight:600;font-size:30px;letter-spacing:4px;color:#F6E7C4;margin-top:12px">FOR WOMEN · BY JAYACHITRA</div>`,st.s);
  Object.assign(fr.style,{position:'absolute',left:'70px',right:'70px',top:'224px',height:'410px',border:'3px solid #D9A441',outline:'2px solid rgba(217,164,65,.5)',outlineOffset:'8px',borderRadius:'16px',textAlign:'center',paddingTop:'26px',background:'rgba(40,4,16,.35)'});
  return {root:st.s,set(lt){st.dz(lt);rays.style.transform=`rotate(${lt*12}deg)`;st.m.style.opacity=0;const p=eb(lt/.5);fr.style.transform=`scale(${.7+.3*p})`;fr.style.opacity=cl(p*1.5)}}};
+
+SC.pressure=(it)=>{const st=stage();
+ const who=el('div','emo','🙍‍♀️',st.s);Object.assign(who.style,{position:'absolute',left:'470px',top:'478px',fontSize:'120px',lineHeight:'1',transformOrigin:'50% 100%'});
+ const data=[['🏠','FAMILY',392],['💳','EMI',316],['💸','MONEY PRESSURE',240]];
+ const bl=data.map(([e,x,y],i)=>{const b=el('div','card',`<span class="e" style="font-size:44px">${e}</span><span class="x" style="text-align:center;font-size:36px;letter-spacing:3px">${x}</span>`,st.s);
+  Object.assign(b.style,{left:(250-i*20)+'px',width:(580+i*40)+'px',height:'70px',top:y+'px',borderColor:'#E86A92',background:'linear-gradient(180deg,rgba(60,6,22,.95),rgba(40,4,14,.95))',boxShadow:'0 10px 24px rgba(0,0,0,.5)'});return [b,y]});
+ return {root:st.s,set(lt){st.m.style.transform=`rotate(${lt*6}deg)`;st.dz(lt);who.style.opacity=ease(lt/.25);
+  let sq=0;bl.forEach(([b,y],i)=>{const c=it.cues[i],p=cl((lt-c)/.28);const yy=-300+(y+300)*(p*p);b.style.top=yy+'px';b.style.opacity=lt>=c?1:0;
+   const k=lt-c-.28;if(k>0&&k<.25){b.style.transform=`translateX(${Math.sin(k*60)*6*(1-k/.25)}px)`;sq=Math.max(sq,1-k/.25)}else b.style.transform='none';
+   if(lt>c+.28)sq=Math.max(sq,.25*(i+1)/3)});
+  who.style.transform=`scaleY(${1-.12*sq}) scaleX(${1+.06*sq})`}}};
+SC.aura=(it)=>{const st=stage();const h=el('div','hdr gold','✦ Your Natural Power ✦',st.s);
+ const rings=[0,1,2].map(i=>{const r=el('div',null,null,st.s);Object.assign(r.style,{position:'absolute',left:'540px',top:'455px',width:'10px',height:'10px',borderRadius:'50%',border:`${6-i}px solid ${i%2?'#9a1f45':'#F5D488'}`,boxShadow:`0 0 30px ${i%2?'rgba(154,31,69,.8)':'rgba(245,212,136,.8)'}`});return r});
+ const m=el('div','emo','🧘‍♀️',st.s);Object.assign(m.style,{position:'absolute',left:'455px',top:'370px',fontSize:'170px',lineHeight:'1',filter:'drop-shadow(0 0 30px rgba(245,212,136,.9))'});
+ return {root:st.s,set(lt){st.m.style.transform=`rotate(${lt*10}deg)`;st.dz(lt);h.style.opacity=ease(lt/.3);m.style.opacity=ease(lt/.3);m.style.transform=`translateY(${Math.sin(lt*2)*8}px)`;
+  rings.forEach((r,i)=>{const ph=((lt*.55+i/3)%1),d=180+ph*520;r.style.width=d+'px';r.style.height=d*.62+'px';r.style.marginLeft=-d/2+'px';r.style.marginTop=-d*.31+'px';r.style.opacity=cl(lt/.4)*(1-ph)})}}};
+SC.authority=(it)=>{const st=stage();
+ const ph=el('div',null,`<img src="${it.img}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`,st.s);
+ Object.assign(ph.style,{position:'absolute',left:'390px',top:'250px',width:'300px',height:'300px',borderRadius:'50%',border:'6px solid #F5D488',boxShadow:'0 0 0 10px rgba(74,11,32,.9),0 0 0 14px #C8922A,0 0 60px rgba(245,212,136,.6)'});
+ const rg=el('div',null,null,st.s);Object.assign(rg.style,{position:'absolute',left:'360px',top:'220px',width:'360px',height:'360px',borderRadius:'50%',border:'3px dashed rgba(245,212,136,.8)'});
+ const nm=el('div','seal gold','Jayachitra',st.s);Object.assign(nm.style,{top:'560px',fontSize:'64px'});
+ const t1=el('div','pill',it.badge||'',st.s);Object.assign(t1.style,{top:'236px',fontSize:'26px',padding:'10px 26px 8px',display:it.badge?'block':'none'});
+ return {root:st.s,set(lt){st.m.style.transform=`rotate(${lt*8}deg)`;st.dz(lt);const p=eb(lt/.5);ph.style.transform=`scale(${.5+.5*p})`;ph.style.opacity=cl(lt/.2);
+  rg.style.transform=`rotate(${lt*30}deg) scale(${.5+.5*p})`;rg.style.opacity=cl(lt/.3);nm.style.opacity=cl((lt-.35)/.2);nm.style.transform=`translateX(-50%) translateY(${(1-eb((lt-.35)/.4))*30}px)`;
+  t1.style.opacity=cl((lt-.6)/.2)}}};
 /* ================= on-face graphics ================= */
 const GF={};
 GF.slam=(it)=>{const d=el('div','seal gold',it.html);Object.assign(d.style,{top:it.y+'px',fontSize:'96px',zIndex:22});const sp=burst(it.y+60,26);
@@ -157,7 +186,7 @@ GF.stamp=(it)=>{const d=el('div',null,`<div style="font-family:JS;font-weight:70
  return {root:d,set(lt){const p=ease(lt/.22);d.style.transform=`rotate(-8deg) scale(${2.2-1.2*p})`;d.style.opacity=cl(lt/.1)}}};
 GF.tslam=(it)=>{const d=el('div','tslam',it.html);d.style.top=it.y+'px';d.style.zIndex=22;
  return {root:d,set(lt){const p=eb(lt/.3);d.style.opacity=cl(lt/.1);d.style.transform=`translateX(-50%) scale(${1.4-.4*p})`}}};
-GF.cta=(it)=>{const r=el('div','L');r.style.zIndex=25;const b=el('div','btn',`<span>${it.label}</span><span class="ar">➜</span><div class="ring"></div>`,r);b.style.top=it.y+'px';
+GF.cta=(it)=>{const r=el('div','L');r.style.zIndex=25;const b=el('div','btn',`<span>${it.label}</span><span class="ar">${it.arrow||'➜'}</span><div class="ring"></div>`,r);b.style.top=it.y+'px';
  const hd=el('div','hand','👆',r);const sub=el('div',null,'▼ TAP THE BUTTON BELOW ▼',r);Object.assign(sub.style,{position:'absolute',left:0,right:0,top:it.y+140+'px',textAlign:'center',fontFamily:'JS',fontWeight:700,fontSize:'28px',letterSpacing:'4px',color:'#F6E7C4',textShadow:'0 2px 10px #000'});
  const ring=b.querySelector('.ring');
  return {root:r,set(lt){const p=eb(lt/.35);const pul=1+.045*Math.sin(lt*2*Math.PI*1.4);b.style.transform=`scale(${(.6+.4*p)*pul})`;b.style.opacity=cl(lt/.12);
@@ -211,11 +240,11 @@ function setT(t){let any=false,split=null,endOn=false;
  let ci=-1;for(let i=0;i<TL.captions.length;i++){const c=TL.captions[i];if(t>=c.t0&&t<c.t1){ci=i;break}}
  if(ci<0||endOn){show(CAPEL,false)}else{const c=TL.captions[ci];show(CAPEL,true);CAPEL.style.display='flex';any=true;
   const lead=CAPEL.children[0],kw=CAPEL.children[1];
-  if(ci!==lastCap){CAPEL.className=c.pos==='split'?'split':'';lead.innerHTML=c.lead?`<i>✦</i>${c.lead}<i>✦</i>`:'';lead.style.display=c.lead?'flex':'none';kw.textContent=c.kw;
-   fitKw(kw,c.pos==='split'?96:118,1000);lastCap=ci}
+  if(ci!==lastCap){CAPEL.className=(c.pos==='split'?'split':'')+(TL.capStyle==='B'?' B':'');lead.innerHTML=c.lead?`<i>✦</i>${c.lead}<i>✦</i>`:'';lead.style.display=c.lead?'flex':'none';kw.textContent=c.kw;
+   fitKw(kw,TL.capStyle==='B'?(c.pos==='split'?84:98):(c.pos==='split'?96:118),1000);lastCap=ci}
   const lt=t-c.t0,dur=c.t1-c.t0,out=cl((dur-lt)/.1);
   const p=eb(lt/.32);lead.style.opacity=cl(lt/.18)*out;lead.style.transform=`translateY(${(1-ease(lt/.25))*18}px)`;
-  kw.style.opacity=cl((lt-.06)/.16)*out;kw.style.transform=`scale(${1.22-.22*p})`;kw.style.letterSpacing=(1-ease(lt/.35))*10+'px';
+  kw.style.opacity=cl((lt-.06)/.16)*out;kw.style.transform=`scale(${1.22-.22*p})`;kw.style.letterSpacing=(TL.capStyle==='B'?1:0)+(1-ease(lt/.35))*10+'px';
   kw.style.backgroundPosition=`${130-ease(lt/.9)*190}% 0, 0 0`}
  return any}
 </script></body></html>

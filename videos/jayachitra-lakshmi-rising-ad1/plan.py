@@ -28,9 +28,9 @@ C = lambda c, t: s2o(J(c, t))                         # (clip, t) -> output time
 
 # B-roll: (id, (clip,t0), (clip,t1), scene, layout, extra, keyword)   cue lists are (clip, t)
 BROLL = [
- ('B01', (1, 5.72), (1, 9.53), 'rush', 'split', dict(cues=[(1, 5.85), (1, 6.45), (1, 7.0), (1, 7.35), (1, 7.75)]), '"running for everyone, forgot to live for you"'),
- ('B02', (2, .42), (2, 4.50), 'dreamcloud', 'split', dict(cues=[(2, 1.2), (2, 2.0), (2, 2.8), (2, 3.5)]), '"do you dream of your own income?"'),
- ('B05', (3, 3.25), (3, 5.62), 'careers', 'split', {}, '"which career is right for you"'),
+ ('B01', (1, 5.72), (1, 9.53), 'vid', 'split', dict(file='B01.mkv', ss=0.0, cy=760, chip='EVERY DAY ✦'), '"running for everyone, forgot to live for you"'),
+ ('B02', (2, .42), (2, 4.50), 'vid', 'split', dict(file='B02.mkv', ss=1.5, cy=700, chip='YOUR DREAM ✦'), '"do you dream of your own income?"'),
+ ('B05', (3, 3.25), (3, 5.62), 'vid', 'split', dict(file='B05.mkv', ss=0.6, cy=760, chip='RIGHT CAREER ✦'), '"which career is right for you"'),
  ('B06', (3, 5.62), (3, 9.06), 'vid', 'split', dict(file='B06.mkv', ss=1.4, cy=820, chip='RESTART ✦'), '"how to restart after a career break"'),
  ('B07', (4, .56), (4, 3.05), 'vid', 'split', dict(file='B07.mkv', ss=2.0, cy=760, chip='YOUR INCOME ✦'), '"how to grow your income"'),
  ('B07b', (4, 3.05), (4, 4.83), 'outcomes', 'split', dict(cues=[(4, 3.1), (4, 3.35), (4, 3.6), (4, 3.95)]), '"total clarity"'),

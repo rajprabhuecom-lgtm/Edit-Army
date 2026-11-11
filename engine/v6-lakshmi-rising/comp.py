@@ -13,8 +13,8 @@ lut_b = np.clip(curve(x * 0.93) * 255, 0, 255).astype(np.uint8)
 lut_g = np.clip(curve(x * 0.985) * 255, 0, 255).astype(np.uint8)
 lut_r = np.clip(curve(np.minimum(1, x * 1.045 + 0.012)) * 255, 0, 255).astype(np.uint8)
 LUT = np.dstack([lut_b, lut_g, lut_r]).reshape(256, 1, 3)
-CX, CY = 540, 640 # face centre for zooms
-SPLIT_Y, CROP_Y0 = 864, 180
+CX, CY = 540, int(os.environ.get('CY', 640))          # face centre for zooms (per video)
+SPLIT_Y, CROP_Y0 = 864, int(os.environ.get('CROP_Y0', 180))   # source y shown at the top of the face panel
 def grade(f):
     g = cv2.LUT(f, LUT)
     hsv = cv2.cvtColor(g, cv2.COLOR_BGR2HSV); hsv[..., 1] = np.clip(hsv[..., 1] * 1.04, 0, 255).astype(np.uint8)
@@ -51,7 +51,9 @@ def compose(src, fr, i):
     if fr['L'] == 'split':
         out = np.zeros_like(f); out[SPLIT_Y:] = f[CROP_Y0:CROP_Y0 + H - SPLIT_Y]
         if V:
-            b = pushin(broll(V[0], V[1]), V[2], cy=V[3] if len(V) > 3 else H // 2); cy = V[3] if len(V) > 3 else 960
+            b = pushin(broll(V[0], V[1]), V[2], cy=V[3] if len(V) > 3 else H // 2)
+            cy = V[3] if len(V) > 3 else 960
+            if len(V) > 4 and V[4]: b = desat(b, 0.92)
             y0 = max(0, min(H - SPLIT_Y, cy - SPLIT_Y // 2)); out[:SPLIT_Y] = b[y0:y0 + SPLIT_Y]
         f = out
     elif fr['L'] == 'full':

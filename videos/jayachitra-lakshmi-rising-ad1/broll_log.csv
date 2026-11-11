@@ -1,7 +1,7 @@
 ID,Source (clip s),Final time (s),Keyword spoken (meaning),Visual,Source,Layout,"On-screen (s, final)",Status,Licence
-B01,clip1 5.72-9.53,3.4-6.5,"""running for everyone, forgot to live for you""","animated ""rush"" scene (engine v6)",P5 motion graphics,split screen,3.2,rendered,original - no licence needed
-B02,clip2 0.42-4.50,6.5-9.9,"""do you dream of your own income?""","animated ""dreamcloud"" scene (engine v6)",P5 motion graphics,split screen,3.4,rendered,original - no licence needed
-B05,clip3 3.25-5.62,15.5-17.4,"""which career is right for you""","animated ""careers"" scene (engine v6)",P5 motion graphics,split screen,2.0,rendered,original - no licence needed
+B01,clip1 5.72-9.53,3.4-6.5,"""running for everyone, forgot to live for you""",Google Flow AI clip B01.mkv,P3 AI,split screen,3.2,rendered,AI-generated (Google Flow/Veo) - disclose in Meta
+B02,clip2 0.42-4.50,6.5-9.9,"""do you dream of your own income?""",Google Flow AI clip B02.mkv,P3 AI,split screen,3.4,rendered,AI-generated (Google Flow/Veo) - disclose in Meta
+B05,clip3 3.25-5.62,15.5-17.4,"""which career is right for you""",Google Flow AI clip B05.mkv,P3 AI,split screen,2.0,rendered,AI-generated (Google Flow/Veo) - disclose in Meta
 B06,clip3 5.62-9.06,17.4-20.3,"""how to restart after a career break""",Google Flow AI clip B06.mkv,P3 AI,split screen,2.9,rendered,AI-generated (Google Flow/Veo) - disclose in Meta
 B07,clip4 0.56-3.05,20.3-22.4,"""how to grow your income""",Google Flow AI clip B07.mkv,P3 AI,split screen,2.1,rendered,AI-generated (Google Flow/Veo) - disclose in Meta
 B07b,clip4 3.05-4.83,22.4-23.9,"""total clarity""","animated ""outcomes"" scene (engine v6)",P5 motion graphics,split screen,1.5,rendered,original - no licence needed

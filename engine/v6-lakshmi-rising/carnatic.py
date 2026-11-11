@@ -10,6 +10,10 @@ MOH = [0, 2, 4, 7, 9]                      # S R2 G3 P D2
 def deg(i):                                # scale degree index -> midi (wraps octaves)
     o, k = divmod(i, 5); return SA + 12 * o + MOH[k]
 
+SIV = [0, 2, 3, 7, 9]                      # Sivaranjani: S R2 G2 P D2 (sad colour, for the struggle section)
+def sdeg(i):
+    o, k = divmod(i, 5); return SA + 12 * o + SIV[k]
+
 def tanpura(d, amp=0.10):
     """four-string cycle P S S S(low), rich buzzing partials, slow swells"""
     out = np.zeros(int((d + 3) * SR)); cyc = 2.4; notes = [SA - 5, SA, SA, SA - 12]
@@ -87,7 +91,17 @@ def render_mood(mood, dur, bpm):
     def flute(phr, level, every=8):
         for ph in range(0, nb, every):
             for off, dg, ln in phr: add(buf, bansuri(deg(dg), ln * b, level), (ph + off) * b)
-    if mood == 'intro':
+    if mood == 'struggle':
+        add(buf, tanpura(dur + 1, 0.10), 0)
+        for br in range(bars):                                 # low minor pads, i -> iv
+            c = [[50, 57, 62, 65], [43, 55, 58, 62]][br % 2]; add(buf, pad(c, 4 * b, 0.07, 800, 0.8), br * 4 * b)
+        for i in range(0, nb, 2):                              # slow heartbeat on the bass head
+            add(buf, mridangam('thom', 0.40), i * b); add(buf, mridangam('thom', 0.22), i * b + 0.28)
+        line = [(0, 7, 1.5, 1), (1.5, 6, .5, 0), (2, 5, 2, 2), (4, 6, 1, 1), (5, 5, .5, 0), (5.5, 4, .5, 0), (6, 3, 2, 1)]
+        for ph in range(0, nb, 8):
+            for off, dg, ln, sl in line: add(buf, veena(sdeg(dg) - 12, ln * b * 1.8, 0.16, sl), (ph + off) * b)
+        buf = reverb(buf, 0.38, 2.8)
+    elif mood == 'intro':
         add(buf, tanpura(dur + 1, 0.09), 0); chords(0.05, 900); flute(FLUTE_SAD, 0.10, 8)
         buf = reverb(buf, 0.35, 2.6)
     elif mood == 'lift':

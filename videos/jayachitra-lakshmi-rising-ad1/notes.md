@@ -97,3 +97,7 @@ W=<work> python3 engine/v6-lakshmi-rising/mix.py
 W=<work> python3 engine/v6-lakshmi-rising/comp.py
 W=<work> OUT=jayachitra_lakshmi_rising_ad1.mp4 bash engine/v6-lakshmi-rising/speed.sh
 ```
+
+## Edit v2: 11 Nov 2026 (evening)
+
+B01, B02 and B05 arrived, so they replaced the stand-in animations (`rush`, `dreamcloud`, `careers`). All 8 AI clips are now real Flow footage: B01, B02, B05, B06, B07, B10, B13 and B15. Everything else is unchanged from v1, and the final MP4 is replaced. Render with `CROP_Y0=180 CY=640` (the defaults).

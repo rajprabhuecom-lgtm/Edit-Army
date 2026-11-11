@@ -34,6 +34,8 @@ engine/
                                italic / Josefin Sans / Catamaran Tamil), W=<workdir> env for every script, carnatic.py
                                original raga-Mohanam BGM. New: rush dreamcloud careers outcomes dreams poster slam sparkle
                                badge stamp tslam cta endcard + brand (top badge + lower third) + two-line serif captions
+                               + pressure aura authority, Format B captions (capStyle 'B'), B&W B-roll (des), CROP_Y0/CY env,
+                               'struggle' BGM mood (raga Sivaranjani)
 videos/                        One folder per video (see videos/README.md)
 ```
 

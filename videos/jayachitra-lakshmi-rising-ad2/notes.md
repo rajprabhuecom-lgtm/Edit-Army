@@ -79,3 +79,24 @@ Use the same `carnatic.py`, with a darker arc for Format B:
 - At 34.7 s: the finale with the temple bell.
 
 The struggle section needs a new `struggle` mood, played in raga Sivaranjani for its sad colour.
+
+## Edit v1: 11 Nov 2026 (evening)
+
+**Delivered:** `final/jayachitra_lakshmi_rising_ad2.mp4`, 46.3 s, 1080×1920, −14 LUFS. The B-roll log is [`broll_log.csv`](broll_log.csv).
+
+- **No new AI clips were generated.** All 8 Ad 1 clips are reused, mapped to the Ad 2 lines:
+  - B01, in black and white: "challenges"
+  - B07: "talent"
+  - B07's end, in black and white: "unable to move forward"
+  - B02: "design your life"
+  - B06: "promotion"
+  - B10: "own car, own home"
+  - B05: "all this through manifestation"
+  - B13: "into your life"
+  - B15: "your rise begins now"
+- **New animated scenes:** `pressure` (Family / EMI / Money Pressure blocks), `aura` (meditation rings, replacing script R05) and `authority` (her photo in a gold ring; the photo is a still from clip 6 until she sends a real headshot).
+- **Format B captions:** a CAPS gold keyword on top with a small subline below. This is the reverse of Ad 1.
+- **Music:** the same `carnatic.py`, opening in a new `struggle` mood (raga Sivaranjani, with a slow mridangam heartbeat) that lifts on "this video is for you".
+- **Coverage:** 65%. That's above the usual 50%, but the brief's Format B asks for constant cuts, and her face stays visible in the bottom panel during every split.
+- **Render** with `CROP_Y0=320 CY=780`, because she sits lower in frame than in Ad 1.
+- **Not recorded:** the "respect and wealth" line. The ad runs without it.
