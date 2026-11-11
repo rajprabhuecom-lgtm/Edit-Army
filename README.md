@@ -30,6 +30,10 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-lakshmi-rising/           Jayachitra (11 Nov 2026): standalone client-themed engine (maroon + gold, Playfair Display
+                               italic / Josefin Sans / Catamaran Tamil), W=<workdir> env for every script, carnatic.py
+                               original raga-Mohanam BGM. New: rush dreamcloud careers outcomes dreams poster slam sparkle
+                               badge stamp tslam cta endcard + brand (top badge + lower third) + two-line serif captions
 videos/                        One folder per video (see videos/README.md)
 ```
 
@@ -49,4 +53,7 @@ The scripts expect a work folder at `/home/claude/w/` containing `src.mp4`, `seg
 
 ## Brand
 
+**Every client gets a unique look.** Don't reuse ProfitSoul's fonts and colours for a client ad: give each client its own fonts and palette (from their brand doc) in a new engine version, as v6 does.
+
+ProfitSoul's own videos: 
 Obsidian `#080A0D` · Emerald `#00C896` (value) · Yellow `#FFD60A` (urgency) · Red `#FF3B30` (loss) · Montserrat Black, Noto Sans Tamil Black, Anton.

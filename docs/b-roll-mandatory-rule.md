@@ -9,6 +9,7 @@ Every talking-head sales video, Reel or ad edited in this project ships with **a
  
 - **Style:** Alex Hormozi / Russell Brunson. Jump cuts, at least 1.2× speed, karaoke captions, zoom punches, emotion-matched instrumental BGM, light SFX, a pulsing CTA button and a ProfitSoul end card.
 - **Illustrate, never decorate.** Each scene shows the exact thing being said in that line: the noun, the number or the process.
+- **Unique look per client:** a client ad uses the client's palette and its own font set (new engine version), never a copy of another client's look. ProfitSoul's own videos use the colours below.
 - **Brand colours:** Obsidian `#080A0D`, Emerald `#00C896` for value, yellow `#FFD60A` for urgency and red `#FF3B30` for loss. Fonts are Montserrat Black, Noto Sans Tamil Black and Anton.
  
 ## 2. Where B-roll goes, and where the face stays
@@ -54,6 +55,13 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `rush` (v6) | "Running for everyone": chores cards tick, then "And You?" |
+| `dreamcloud` (v6) | "Dream of your own income": thought cloud with office / car / home |
+| `careers` (v6) | "Which career is right": woman icon with orbiting career icons |
+| `outcomes` (v6) | Checklist recap ending in a gold seal ("Total Clarity") |
+| `dreams` (v6) | 4 bilingual gold cards popping per word (Money · Car · Career · Own Home) |
+| `poster` (v6) | Workshop poster in the top panel for the register line (face stays below) |
+| `slam` / `sparkle` / `stamp` / `tslam` (v6) | Gold serif word slam with burst, rising sparkles, round seal stamp, Tamil text slam |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
