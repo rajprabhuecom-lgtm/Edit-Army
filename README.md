@@ -30,6 +30,8 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-weight-coach/             Coach Arun, Sree Nutrition Club (12 Nov 2026): v5 + real-photo scenes.
+                               New: pain photos plan beforeafter offer endcard2 (configurable end card), cta fs option
 videos/                        One folder per video (see videos/README.md)
 ```
 
@@ -37,7 +39,7 @@ Each `engine.html` version is standalone, with its own scene set. To use a scene
 
 ## Pipeline
 
-1. **Transcribe.** silencedetect, then Whisper (large-v3 or medium.en via sherpa-onnx; load one recognizer at a time). Translate per phrase for meaning.
+1. **Transcribe.** silencedetect, then Whisper (large-v3 or medium.en via sherpa-onnx; load one recognizer at a time). Translate per phrase for meaning. Feed Whisper chunks of 7 s or less **with 1.5 s of silence padded on the end**, or sherpa-onnx cuts off the last words (Tamil especially).
 2. **Plan.** Copy `engine/base/plan.py` (or `v3-lead-quality/plan.py`, which is newer) and fill in BROLL / GFX / CAP / PUNCH / MUSIC / SFX for the new video. Write `broll_plan.csv`.
 3. **Preview.** Render 15–20 overlay frames with `gfx/render.py` and composite them with `comp.py <idx...>`. Check them before the full render.
 4. **Render.** `gfx/render.py` (2 workers), `audio/mix.py`, `comp.py`, then `speed.sh`.

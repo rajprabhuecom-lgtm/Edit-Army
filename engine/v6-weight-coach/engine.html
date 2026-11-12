@@ -1,0 +1,415 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:T;font-weight:900;src:url(node_modules/@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-900-normal.woff2)}
+@font-face{font-family:A;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+:root{--em:#00C896;--yl:#FFD60A;--rd:#FF3B30;--ob:#080A0D;--ti:#8B949E;--pl:#D8DDE3;--wa:#25D366}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:transparent;overflow:hidden}
+body{font-family:M,'Noto Color Emoji',T,sans-serif;color:#fff}
+.layer{position:absolute;inset:0;display:none}
+.stroke{paint-order:stroke fill;-webkit-text-stroke:16px #000;text-shadow:0 10px 24px rgba(0,0,0,.55)}
+.s10{paint-order:stroke fill;-webkit-text-stroke:10px #000}
+#cap{position:absolute;left:50px;right:50px;top:1175px;height:300px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0 24px;text-align:center;z-index:10}
+#cap span{display:inline-block;font-weight:900;font-size:86px;line-height:1.08;text-transform:uppercase;transform-origin:50% 70%}
+#cap.split{top:668px;height:190px}
+#cap.hi{top:235px;height:230px}
+.stage{position:absolute;left:0;top:0;width:1080px;overflow:hidden;background:radial-gradient(120% 90% at 50% 30%,#13241e 0%,#0b1411 50%,#080A0D 100%)}
+.stage.full{height:1920px}.stage.split{height:864px;border-bottom:8px solid var(--em);box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.inner{position:absolute;inset:0;transform-origin:540px 420px}
+.grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(0,200,150,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(0,200,150,.07) 2px,transparent 2px);background-size:90px 90px}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;left:90px;top:-100px;background:radial-gradient(circle,rgba(0,200,150,.16),transparent 65%)}
+.ttl{position:absolute;left:0;right:0;text-align:center;font-weight:900;text-transform:uppercase;line-height:1.04;z-index:4}
+.card{position:absolute;background:#0f1713;border:4px solid rgba(0,200,150,.6);border-radius:34px;box-shadow:0 0 60px rgba(0,200,150,.18),0 30px 60px rgba(0,0,0,.5)}
+.chip{white-space:nowrap;display:inline-block;padding:10px 28px;border-radius:999px;font-weight:900;font-size:40px}
+.g{color:var(--em)}.y{color:var(--yl)}.r{color:var(--rd)}
+svg{overflow:visible}
+.flash{position:absolute;inset:0;background:#fff;pointer-events:none;z-index:20}
+</style></head><body>
+<div id="root"></div>
+<div id="cap" class="stroke"></div>
+<script>
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const back=x=>{x=clamp(x);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const pop=(dt,d=.28)=>back(dt/d);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const root=document.getElementById('root');let TL=null;const els=[];
+function mk(html){const d=document.createElement('div');d.className='layer';d.innerHTML=html;root.appendChild(d);return d}
+const q=(el,s)=>el.querySelector(s), qa=(el,s)=>[...el.querySelectorAll(s)];
+function stage(it,inner){return `<div class="stage ${it.layout||'full'}"><div class="inner"><div class="grid"></div><div class="glow"></div>${inner}</div><div class="flash"></div></div>`}
+function popIn(x,dt,d=.32){if(!x)return;x.style.opacity=clamp(dt/.06);x.style.transform=`scale(${dt<0?0:pop(dt,d)})`}
+function slideUp(x,dt,dist=500,d=.4){x.style.opacity=clamp(dt/.08);x.style.transform=`translateY(${(1-ease(dt/d))*dist}px)`}
+const S={};
+const SP=it=>it.layout=='split';
+
+/* phone shell */
+const PHONE=(w,h,head,body)=>`<div class="phone card" style="width:${w}px;height:${h}px;border-radius:46px;border:8px solid #D8DDE3;background:#0b141a;overflow:hidden">
+ <div style="height:86px;background:#1f2c34;display:flex;align-items:center;padding-left:26px;font-size:30px;font-weight:800;gap:14px"><div style="width:52px;height:52px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;font-size:30px">${head[0]}</div>${head[1]}</div>
+ <div class="body" style="display:flex;flex-direction:column;padding:14px 18px">${body}</div></div>`;
+const BUB=(dir,txt,extra='')=>`<div class="msg" style="align-self:${dir=='in'?'flex-start':'flex-end'};max-width:86%;margin:9px 0;padding:14px 22px;border-radius:24px;font-size:35px;font-weight:700;line-height:1.25;background:${dir=='in'?'#202c33':'#005c4b'};color:#e9edef;${extra}">${txt}</div>`;
+
+/* 1. client request on WhatsApp */
+S.clientmsg=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:84px">CLIENT'S <span class="y">REQUEST</span></div>
+ <div class="ph" style="position:absolute;left:190px;top:160px">${PHONE(700,470,['👤','Important Client'],
+  BUB('in','I don\'t want <b style="color:#FF6B60">JUNK LEADS</b> ❌')+BUB('in','Give me only <b style="color:#3dffc8">QUALITY LEADS</b> ✅')+`<div class="typ" style="align-self:flex-start;margin-top:8px;padding:14px 22px;border-radius:24px;background:#202c33;font-size:40px;letter-spacing:6px">•••</div>`)}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-.05,600);
+  qa(el,'.msg').forEach((m,i)=>{const t=dt-.45-i*.8;m.style.opacity=clamp(t/.06);m.style.transform=`scale(${t<0?0:pop(t,.3)})`;m.style.transformOrigin='left bottom'});
+  const ty=q(el,'.typ');ty.style.opacity=dt>2.3?.4+.6*Math.abs(Math.sin(dt*5)):0}}};
+
+/* 2. ads bring quality + junk */
+S.leadrain=(it)=>{let d='';for(let i=0;i<16;i++){const good=[0,2,3,6,9,11,14].includes(i);
+  d+=`<div class="ld" data-g="${good?1:0}" style="position:absolute;left:0;top:0;width:120px;height:120px;border-radius:30px;background:${good?'#0f2a20':'#2a1010'};border:5px solid ${good?'#00C896':'#FF3B30'};display:flex;align-items:center;justify-content:center;font-size:62px;font-weight:900;color:${good?'#00C896':'#FF3B30'}">${good?'✓':'✕'}</div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:104px">RUN <span class="y">ADS</span> =</div>
+  <div class="ttl stroke t2" style="top:370px;font-size:92px"><span class="g">QUALITY</span> + <span class="r">JUNK</span></div>
+  <div class="mg" style="position:absolute;left:390px;top:500px;width:300px;height:170px;border-radius:30px;background:var(--yl);color:#000;display:flex;align-items:center;justify-content:center;font-size:70px;font-weight:900;box-shadow:0 20px 50px rgba(0,0,0,.5)">📢 AD</div>
+  <div class="box" style="position:absolute;left:140px;top:700px;width:800px;height:440px">${d}</div>
+  <div class="cnt" style="position:absolute;left:0;right:0;top:1520px;text-align:center;font-weight:900;font-size:56px">
+   <span class="chip" style="background:#0f2a20;border:4px solid var(--em);color:var(--em);font-size:52px">✓ QUALITY <span class="nq">0</span></span>&nbsp;
+   <span class="chip" style="background:#2a1010;border:4px solid var(--rd);color:var(--rd);font-size:52px">✕ JUNK <span class="nj">0</span></span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.35);
+  const mg=q(el,'.mg');mg.style.transform=`scale(${pop(dt-.1)*(1+.05*Math.sin(dt*14))}) rotate(${Math.sin(dt*9)*3}deg)`;
+  let nq=0,nj=0;qa(el,'.ld').forEach((x,i)=>{const t=dt-.5-i*.13;const col=i%6,row=(i/6|0);const X=col*136,Y=row*140;
+   const p=ease(t/.45);x.style.opacity=clamp(t/.05);x.style.left=lerp(330,X,p)+'px';x.style.top=lerp(-200,Y,p)+'px';x.style.transform=`rotate(${(1-p)*(i%2?40:-40)}deg) scale(${.5+.5*p})`;
+   if(t>.45){if(x.dataset.g==1)nq++;else nj++}});
+  q(el,'.nq').textContent=nq;q(el,'.nj').textContent=nj;popIn(q(el,'.cnt'),dt-.6)}}};
+
+/* 3. everyone says: VSL / this / that -> struck out */
+S.methods=(it)=>{const C=[['🎬','USE VSL'],['🧩','USE THIS'],['🛠️','USE THAT']];let c='';
+ C.forEach((x,i)=>{c+=`<div class="card mc" style="left:120px;top:${540+i*210}px;width:840px;height:180px;display:flex;align-items:center;padding:0 40px;overflow:visible">
+  <div style="font-size:96px;width:140px">${x[0]}</div><div class="lb" style="position:relative;font-weight:900;font-size:80px">${x[1]}<div class="sk" style="position:absolute;left:-10px;top:50%;height:14px;border-radius:7px;background:var(--rd);width:0"></div></div>
+  <div class="x" style="position:absolute;right:-24px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--rd);font-size:72px;font-weight:900;display:flex;align-items:center;justify-content:center">✕</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:260px;font-size:96px">EVERYONE SAYS…</div>${c}
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:56px">🤯 TOO MANY "METHODS"</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);
+  qa(el,'.mc').forEach((c,i)=>{const t=dt-.25-i*.4;c.style.opacity=clamp(t/.08);c.style.transform=`translateX(${(1-ease(t/.3))*(i%2?1100:-1100)}px)`;
+   const tx=dt-1.7-i*.22;q(c,'.sk').style.width=(ease(tx/.2)*106)+'%';const x=q(c,'.x');x.style.opacity=clamp(tx/.06);x.style.transform=`scale(${tx<0?0:lerp(2.2,1,ease(tx/.16))}) rotate(-10deg)`;
+   c.style.borderColor=tx>0?'#FF3B30':'rgba(0,200,150,.6)';q(c,'.lb').style.opacity=tx>0?.5:1});popIn(q(el,'.nb'),dt-2.4)}}};
+
+/* 4. cost per enquiry must not increase (gauge + lock) */
+S.cpl=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:80px">COST PER <span class="y">ENQUIRY</span></div>
+  <svg style="position:absolute;left:240px;top:200px" width="600" height="360" viewBox="0 0 600 360">
+   <path d="M60 320 A240 240 0 0 1 540 320" stroke="#1d2b26" stroke-width="54" fill="none"/>
+   <path d="M60 320 A240 240 0 0 1 180 112" stroke="#00C896" stroke-width="54" fill="none"/>
+   <path d="M180 112 A240 240 0 0 1 420 112" stroke="#FFD60A" stroke-width="54" fill="none"/>
+   <path d="M420 112 A240 240 0 0 1 540 320" stroke="#FF3B30" stroke-width="54" fill="none"/>
+   <g class="nd" style="transform-origin:300px 320px"><path d="M292 320 L300 110 L308 320 Z" fill="#fff"/><circle cx="300" cy="320" r="26" fill="#fff"/></g>
+   <text x="300" y="250" text-anchor="middle" font-family="M" font-weight="900" font-size="38" fill="#00C896" class="lw">LOW</text></svg>
+  <div class="lk" style="position:absolute;left:770px;top:330px;font-size:130px">🔒</div>
+  <div class="nb" style="position:absolute;left:0;right:0;top:570px;text-align:center"><span class="chip s10" style="background:var(--rd);font-size:46px">MUST NOT INCREASE ↑</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);
+  let a=-60;const t=dt-.4;if(t>0)a=-60+Math.min(t,.7)/.7*95;if(t>.7)a=35-ease((t-.7)/.4)*95+Math.sin(t*30)*Math.exp(-(t-.7)*4)*6;
+  q(el,'.nd').style.transform=`rotate(${a}deg)`;popIn(q(el,'.lk'),dt-1.1,.3);popIn(q(el,'.nb'),dt-1.3)}}};
+
+/* 5. pipeline: ad -> whatsapp -> chat flow */
+S.pipeline=(it)=>{const N=[['📢','ADS','#FFD60A'],['💬','WHATSAPP','#25D366'],['🤖','CHAT FLOW','#00C896']];let n='';
+ N.forEach((x,i)=>{n+=`<div class="card nd" style="left:${40+i*350}px;top:250px;width:300px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-color:${x[2]};box-shadow:0 0 60px ${x[2]}44">
+  <div style="font-size:130px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:40px;margin-top:16px">${x[1]}</div></div>`});
+ let p='';for(let i=0;i<8;i++)p+=`<div class="pk" style="position:absolute;top:385px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 0 20px #fff"></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:40px;font-size:84px">THE <span class="g">SYSTEM</span></div>
+  <div class="ln" style="position:absolute;left:190px;top:392px;height:16px;width:0;border-radius:8px;background:linear-gradient(90deg,#FFD60A,#25D366,#00C896)"></div>${n}${p}
+  <div class="nb" style="position:absolute;left:0;right:0;top:580px;text-align:center"><span class="chip" style="background:var(--ob);border:4px solid var(--em);color:var(--em);font-size:42px">⚡ 100% AUTOMATED</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.nd').forEach((x,i)=>popIn(x,dt-.2-i*.9,.35));
+  q(el,'.ln').style.width=(clamp((dt-.4)/1.9)*700)+'px';
+  qa(el,'.pk').forEach((x,i)=>{const t=((dt-2.3)*.6+i/8)%1;x.style.left=(190+t*700-15)+'px';x.style.opacity=dt>2.3?Math.sin(Math.PI*t):0});
+  popIn(q(el,'.nb'),dt-2.6)}}};
+
+/* 6. qualify on whatsapp: questions + testimonial + brochure */
+S.chatq=(it)=>{const body=BUB('out','🤖 What service do you need?')+BUB('in','Interior for 2BHK')+
+  `<div class="msg" style="align-self:flex-end;display:flex;gap:14px;margin:9px 0">
+   <div style="width:220px;height:130px;border-radius:18px;background:linear-gradient(150deg,#1d6b54,#0b1210);position:relative;border:3px solid #D8DDE3"><div style="position:absolute;left:80px;top:32px;width:60px;height:60px;border-radius:50%;background:#fff"><div style="position:absolute;left:23px;top:16px;border-left:22px solid #000;border-top:14px solid transparent;border-bottom:14px solid transparent"></div></div><div style="position:absolute;bottom:-2px;left:0;right:0;text-align:center;font-size:20px;font-weight:900;background:#FFD60A;color:#000;border-radius:0 0 14px 14px">TESTIMONIAL</div></div>
+   <div style="width:220px;height:130px;border-radius:18px;background:#f4f6f8;color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #D8DDE3"><div style="font-size:54px">📄</div><div style="font-size:22px;font-weight:900">BROCHURE.pdf</div></div></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:78px"><span class="g">QUALIFY</span> ON WHATSAPP</div>
+  <div class="ph" style="position:absolute;left:170px;top:140px">${PHONE(740,500,['🤖','Chat Flow • auto'],body)}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-.05,600);
+  qa(el,'.msg').forEach((m,i)=>{const t=dt-.4-i*.75;m.style.opacity=clamp(t/.06);m.style.transform=`scale(${t<0?0:pop(t,.3)})`;m.style.transformOrigin=i==1?'left bottom':'right bottom'})}}};
+
+/* 7. the filter: junk out, interested in */
+S.filter=(it)=>{let d='';for(let i=0;i<14;i++){const good=[1,4,5,8,12].includes(i);
+  d+=`<div class="ld" data-g="${good?1:0}" style="position:absolute;width:86px;height:86px;border-radius:50%;background:${good?'#00C896':'#FF3B30'};display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:900;color:#080A0D;box-shadow:0 10px 26px rgba(0,0,0,.5)">${good?'✓':'✕'}</div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:110px"><span class="r">FILTER</span> OUT</div>
+  <div class="ttl stroke t2" style="top:370px;font-size:80px">THE <span class="r">JUNK</span></div>
+  <svg style="position:absolute;left:240px;top:560px" width="600" height="420" viewBox="0 0 600 420"><path d="M0 0 H600 L370 260 V420 H230 V260 Z" fill="rgba(0,200,150,.12)" stroke="#00C896" stroke-width="10" stroke-linejoin="round"/>
+   <g stroke="#00C896" stroke-width="5" opacity=".6"><line x1="60" y1="60" x2="540" y2="60"/><line x1="120" y1="130" x2="480" y2="130"/><line x1="180" y1="200" x2="420" y2="200"/></g></svg>
+  <div class="bin" style="position:absolute;left:860px;top:940px;font-size:120px">🗑️</div>
+  <div class="ok" style="position:absolute;left:330px;top:1020px;width:420px;height:130px;border-radius:30px;background:#0f2a20;border:6px solid var(--em);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:50px;color:var(--em)">INTERESTED ✓ <span class="n" style="margin-left:14px;color:#fff">0</span></div>
+  <div class="lds" style="position:absolute;inset:0">${d}</div>
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:54px">ONLY SERIOUS BUYERS</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.3);popIn(q(el,'.bin'),dt-.4);popIn(q(el,'.ok'),dt-.5);let n=0;
+  qa(el,'.ld').forEach((x,i)=>{const t=dt-.6-i*.22;const g=x.dataset.g==1;const sx=280+(i*137)%520;let X,Y;
+   if(t<.5){const p=ease(t/.5);X=lerp(sx,500,p*.7);Y=lerp(420,700,p)}
+   else if(g){const p=easeIO((t-.5)/.45);X=lerp(lerp(sx,500,.7),497,p);Y=lerp(700,1040,p);if(p>=1){n++;X=497;Y=1040}}
+   else{const p=clamp((t-.5)/.55);X=lerp(lerp(sx,500,.7),900,p);Y=700-Math.sin(p*Math.PI)*220+p*260}
+   x.style.left=X+'px';x.style.top=Y+'px';x.style.opacity=t<0?0:(g&&t>.95?0:(!g&&t>1.05?0:1));x.style.transform=`scale(${t<0?0:pop(t,.25)}) rotate(${g?0:t*400}deg)`});
+  q(el,'.n').textContent=n;const b=q(el,'.ok');if(n)b.style.boxShadow=`0 0 ${30+20*Math.sin(dt*10)}px rgba(0,200,150,.6)`;popIn(q(el,'.nb'),dt-2.6)}}};
+
+/* 8. CRM monitor */
+S.crm=(it)=>{const R=[['Ravi K.','✓ ANSWERED',1],['Priya S.','NO REPLY',0],['Arun M.','✓ ANSWERED',1],['Deepa R.','NO REPLY',0],['Karthik V.','✓ ANSWERED',1]];let r='';
+ R.forEach((x,i)=>{r+=`<div class="rw" data-g="${x[2]}" style="position:absolute;left:30px;right:30px;top:${100+i*86}px;height:74px;border-radius:18px;background:#16201c;display:flex;align-items:center;padding:0 24px;font-size:34px;font-weight:800">
+  <div style="width:46px;height:46px;border-radius:50%;background:#2b3a35;margin-right:20px"></div><div style="flex:1">${x[0]}</div>
+  <div class="chip" style="font-size:26px;padding:8px 18px;background:${x[2]?'#00C896':'#3a4a44'};color:${x[2]?'#04110c':'#8B949E'}">${x[1]}</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:76px">TALK TO <span class="g">RIGHT ONES</span></div>
+  <div class="card bd" style="left:110px;top:150px;width:860px;height:560px;overflow:hidden">
+   <div style="height:80px;background:#0b1210;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-weight:900;font-size:32px"><span>📋 ENQUIRIES</span><span class="tg chip" style="font-size:26px;padding:8px 18px;background:#2b3a35">SHOW: ALL</span></div>${r}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.bd'),dt,500);const f=dt>2.0;const tg=q(el,'.tg');tg.textContent=f?'SHOW: QUALIFIED ✓':'SHOW: ALL';tg.style.background=f?'#FFD60A':'#2b3a35';tg.style.color=f?'#000':'#fff';
+  let k=0;qa(el,'.rw').forEach((x,i)=>{const t=dt-.3-i*.18;const g=x.dataset.g==1;let top=100+i*86;
+   if(f){if(g){top=lerp(100+i*86,100+k*86,ease((dt-2)/.35));k++}else{x.style.opacity=1-ease((dt-2)/.25)}}
+   if(!f||g)x.style.opacity=clamp(t/.1);x.style.top=top+'px';x.style.transform=`translateX(${(1-ease(t/.3))*-200}px)`})}}};
+
+/* 9. auto booking calendar */
+S.booking=(it)=>{let c='';const B=[3,8,10,15,17];for(let i=0;i<20;i++){c+=`<div class="sl" data-b="${B.indexOf(i)}" style="position:absolute;left:${(i%5)*156}px;top:${(i/5|0)*86}px;width:142px;height:74px;border-radius:14px;background:#16201c;border:3px solid #2b3a35;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#04110c"></div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:74px"><span class="g">AUTO-BOOKED</span> CALLS</div>
+  <div class="card cl" style="left:110px;top:150px;width:860px;height:490px">
+   <div style="height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-weight:900;font-size:36px;border-bottom:3px solid #2b3a35"><span>📅 THIS WEEK</span><span class="bk g">0 BOOKED</span></div>
+   <div style="position:absolute;left:44px;top:110px;width:780px;height:350px">${c}</div></div>
+  <div class="bell" style="position:absolute;left:880px;top:110px;font-size:100px">🔔</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.cl'),dt,500);let n=0;
+  qa(el,'.sl').forEach(x=>{const b=+x.dataset.b;if(b<0)return;const t=dt-.7-b*.42;if(t>0){n++;x.style.background='#00C896';x.style.borderColor='#3dffc8';x.textContent='BOOKED';x.style.transform=`scale(${pop(t,.25)})`}else{x.style.background='#16201c';x.textContent=''}});
+  q(el,'.bk').textContent=n+' BOOKED';const be=q(el,'.bell');be.style.opacity=dt>.7?1:0;be.style.transform=`rotate(${Math.sin(dt*25)*18*Math.exp(-((dt-.7)%.42)*6)}deg)`;be.style.transformOrigin='50% 10%'}}};
+
+/* 10. revenue */
+S.revenue=(it)=>{const v=[.25,.34,.46,.6,.78,1];let b='';v.forEach((x,i)=>b+=`<div class="br" style="position:absolute;bottom:0;left:${i*130}px;width:96px;border-radius:16px 16px 4px 4px;background:${i==5?'#FFD60A':'linear-gradient(#3dffc8,#00C896)'}"></div>`);
+ let co='';for(let i=0;i<8;i++)co+=`<div class="co" style="position:absolute;font-size:80px">🪙</div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:96px">RIGHT CLIENT</div>
+  <div class="ttl stroke t2" style="top:360px;font-size:118px">= <span class="g">REVENUE</span> ₹</div>
+  <div style="position:absolute;left:160px;top:560px;width:780px;height:560px;border-bottom:8px solid #2b3a35">${b}</div>
+  <svg style="position:absolute;left:0;top:0" width="1080" height="1920"><path class="ar" d="M190 1050 L340 980 L470 900 L600 820 L730 700 L880 560" stroke="#FFD60A" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="hd" style="position:absolute;left:840px;top:470px;font-size:110px">🚀</div>${co}
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:56px">📈 EASY CONVERSATIONS</span></div>`));
+ const ar=q(el,'.ar');let L=null;
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.3);qa(el,'.br').forEach((x,i)=>x.style.height=(ease((dt-.4-i*.15)/.4)*v[i]*540)+'px');
+  if(L===null)L=ar.getTotalLength();const p=clamp((dt-.6)/1.2);ar.style.strokeDasharray=`${L*p} ${L}`;popIn(q(el,'.hd'),dt-1.8);
+  qa(el,'.co').forEach((x,i)=>{const t=dt-1.0-i*.18;const y=(t*900)%1300;x.style.left=(120+(i*113)%840)+'px';x.style.top=(420+y)+'px';x.style.opacity=t>0&&y<1100?1:0;x.style.transform=`rotate(${t*200}deg)`});
+  popIn(q(el,'.nb'),dt-1.4)}}};
+
+/* 11. testimonial card (placeholder for real client clip) */
+S.testi=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:80px">CLIENT <span class="y">TESTIMONIAL</span></div>
+  <div class="tv card" style="left:300px;top:160px;width:480px;height:480px;border-radius:40px;border:8px solid #D8DDE3;overflow:hidden;background:linear-gradient(170deg,#1d3a31,#0b1210)">
+   <div style="position:absolute;left:170px;top:90px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.22)"></div><div style="position:absolute;left:120px;top:250px;width:240px;height:200px;border-radius:120px 120px 0 0;background:rgba(255,255,255,.16)"></div>
+   <div class="pl" style="position:absolute;left:180px;top:170px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.95)"><div style="position:absolute;left:46px;top:32px;border-left:44px solid #080A0D;border-top:28px solid transparent;border-bottom:28px solid transparent"></div></div>
+   <div style="position:absolute;left:0;right:0;bottom:24px;text-align:center;font-weight:900;font-size:44px;color:#FFD60A">★★★★★</div>
+   <div class="pr" style="position:absolute;left:0;bottom:0;height:10px;background:var(--em);width:0"></div></div>
+  <div class="bd" style="position:absolute;left:740px;top:130px"><span class="chip" style="background:var(--rd);font-size:34px;transform:rotate(8deg);display:inline-block">🎥 OPENLY</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const tv=q(el,'.tv');tv.style.opacity=clamp(dt/.1);tv.style.transform=`translateY(${(1-ease(dt/.4))*500}px) rotate(${(1-ease(dt/.4))*-10}deg)`;
+  q(el,'.pl').style.transform=`scale(${1+.07*Math.sin(dt*7)})`;q(el,'.pr').style.width=(clamp((dt-.5)/2.5)*464)+'px';popIn(q(el,'.bd'),dt-.6)}}};
+
+/* 12. live demo of chat flow */
+S.livedemo=(it)=>{const nodes=[['START',60,40],['ASK Q1',60,150],['ASK Q2',60,260],['QUALIFIED?',330,150],['📅 BOOK',600,90],['✕ DROP',600,220]];let n='';
+ nodes.forEach((x,i)=>n+=`<div class="nd" style="position:absolute;left:${x[1]}px;top:${x[2]}px;width:${i==3?230:190}px;height:74px;border-radius:16px;background:${i==4?'#00C896':(i==5?'#FF3B30':'#1d2b26')};border:3px solid ${i>3?'transparent':'#00C896'};color:${i==4?'#04110c':'#fff'};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:28px">${x[0]}</div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px"><span class="lv chip s10" style="background:var(--rd);font-size:64px;-webkit-text-stroke:0">● LIVE</span> DEMO</div>
+  <svg class="lap" style="position:absolute;left:90px;top:150px" width="900" height="500" viewBox="0 0 900 500"><rect x="60" y="0" width="780" height="440" rx="24" fill="#1b2421" stroke="#D8DDE3" stroke-width="10"/><rect x="80" y="20" width="740" height="400" rx="12" fill="#061410"/><path d="M0 450 H900 L850 500 H50 Z" fill="#D8DDE3"/></svg>
+  <svg class="wr" style="position:absolute;left:200px;top:195px" width="800" height="380"><g stroke="#00C896" stroke-width="5" fill="none" stroke-dasharray="10 8"><path d="M155 114 V150"/><path d="M155 224 V260"/><path d="M250 187 H330"/><path d="M560 187 Q580 127 600 127"/><path d="M560 187 Q580 257 600 257"/></g></svg>
+  <div style="position:absolute;left:200px;top:195px;width:740px;height:360px">${n}<div class="cur" style="position:absolute;font-size:56px">👆</div></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);q(el,'.lv').style.opacity=(Math.floor(dt*3)%2)?1:.6;q(el,'.lap').style.transform=`translateY(${(1-ease(dt/.35))*600}px)`;
+  q(el,'.wr').style.opacity=clamp((dt-.9)/.3);q(el,'.wr g').style.strokeDashoffset=-dt*60;
+  qa(el,'.nd').forEach((x,i)=>popIn(x,dt-.4-i*.22,.25));
+  const c=q(el,'.cur');const p=easeIO((dt-1.6)/1.4);c.style.left=lerp(140,660,p)+'px';c.style.top=lerp(300,120,p)+'px';c.style.opacity=dt>1.6?1:0;
+  const b=qa(el,'.nd')[4];if(dt>3.0)b.style.boxShadow=`0 0 ${30+20*Math.sin(dt*12)}px #00C896`}}};
+
+/* 13. we implement it */
+S.implement=(it)=>{const L=['📢 META ADS','💬 WHATSAPP LINK','🤖 CHAT FLOW','📅 AUTO BOOKING'];let r='';
+ L.forEach((x,i)=>r+=`<div class="ck" style="position:absolute;left:140px;top:${165+i*112}px;width:800px;height:96px;border-radius:24px;background:#0f1713;border:4px solid #2b3a35;display:flex;align-items:center;padding:0 30px;font-weight:900;font-size:48px">
+  <div class="bx" style="width:62px;height:62px;border-radius:16px;border:5px solid #00C896;margin-right:30px;display:flex;align-items:center;justify-content:center;font-size:44px;color:#04110c"></div>${x}</div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:34px;font-size:78px">WE <span class="g">IMPLEMENT</span> IT</div>${r}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.ck').forEach((x,i)=>{const t=dt-.3-i*.45;x.style.opacity=clamp(t/.08);x.style.transform=`translateX(${(1-ease(t/.3))*-900}px)`;
+  const on=t>.35;const b=q(x,'.bx');b.style.background=on?'#00C896':'transparent';b.textContent=on?'✓':'';x.style.borderColor=on?'#00C896':'#2b3a35';b.style.transform=on?`scale(${pop(t-.35,.25)})`:'scale(1)'})}}};
+
+/* 14. save time - biggest asset */
+S.time=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:250px;font-size:120px">SAVE YOUR</div>
+  <div class="ttl stroke t2" style="top:380px;font-size:170px;font-family:A,M"><span class="y">TIME</span></div>
+  <svg class="ck" style="position:absolute;left:290px;top:600px" width="500" height="500" viewBox="0 0 500 500">
+   <circle cx="250" cy="250" r="225" fill="#0f1713" stroke="#00C896" stroke-width="18"/>
+   ${Array.from({length:12},(_,i)=>`<line x1="250" y1="45" x2="250" y2="${i%3?70:90}" stroke="#D8DDE3" stroke-width="${i%3?6:12}" transform="rotate(${i*30} 250 250)"/>`).join('')}
+   <path class="arc" d="" fill="rgba(255,214,10,.25)"/>
+   <line class="hh" x1="250" y1="250" x2="250" y2="140" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+   <line class="mh" x1="250" y1="250" x2="250" y2="80" stroke="#FFD60A" stroke-width="11" stroke-linecap="round"/>
+   <circle cx="250" cy="250" r="18" fill="#fff"/></svg>
+  <div class="nb" style="position:absolute;left:0;right:0;top:1530px;text-align:center"><span class="chip" style="background:var(--rd);font-size:52px">🚫 NO MORE JUNK CALLS</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-.25,.35);const c=q(el,'.ck');c.style.transform=`scale(${pop(dt-.2,.4)})`;c.style.transformOrigin='250px 250px';
+  const sp=dt<2.2?dt*720*(1-dt/4.4):(2.2*720*.5);const m=sp%360;
+  q(el,'.mh').setAttribute('transform',`rotate(${sp} 250 250)`);q(el,'.hh').setAttribute('transform',`rotate(${sp/12} 250 250)`);popIn(q(el,'.nb'),dt-1.3)}}};
+
+/* ---------- on-face graphics ---------- */
+S.text=(it)=>{const el=mk(`<div class="stroke tx" style="position:absolute;left:0;right:0;top:${it.y||260}px;text-align:center;font-weight:900;font-size:${it.size||120}px;line-height:1.04;text-transform:uppercase">${it.html}</div>`);
+ return {el,upd(dt){const x=q(el,'.tx');x.style.transform=`scale(${pop(dt,.3)}) rotate(${it.rot||0}deg)`;x.style.opacity=clamp(dt/.05)}}};
+S.badge=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;text-align:center;top:${it.y||260}px"><div class="bg chip" style="background:${it.bg||'var(--rd)'};color:${it.fg||'#fff'};font-size:${it.size||54}px;padding:16px 36px;box-shadow:0 12px 30px rgba(0,0,0,.5)">${it.html}</div></div>`);
+ return {el,upd(dt){const b=q(el,'.bg');b.style.transform=`scale(${pop(dt)}) rotate(${it.rot||-3}deg)`}}};
+S.cta=(it)=>{const el=mk(`<div style="position:absolute;left:0;right:0;top:${it.y||1080}px;text-align:center">
+  <div class="btn" style="display:inline-flex;align-items:center;gap:20px;padding:30px 60px;border-radius:999px;background:${it.bg||'var(--yl)'};color:${it.fg||'#000'};font-weight:900;font-size:${it.fs||66}px;white-space:nowrap">${it.label}</div>
+  <div class="arw stroke" style="font-size:110px;font-weight:900;color:var(--yl);line-height:1.05">${it.arrow||'↓'}</div>
+  ${it.badge?`<div class="bd chip" style="background:var(--ob);border:5px solid var(--em);color:var(--em);font-size:44px">${it.badge}</div>`:''}</div>`);
+ return {el,upd(dt){const b=q(el,'.btn');const pl=(dt*1.4)%1;b.style.transform=`scale(${pop(dt,.3)*(1+.045*Math.sin(dt*7))})`;b.style.boxShadow=`0 0 0 ${pl*40}px rgba(255,214,10,${.55*(1-pl)}),0 20px 50px rgba(0,0,0,.5)`;
+  q(el,'.arw').style.transform=`translateY(${Math.abs(Math.sin(dt*5))*34}px)`;const d=q(el,'.bd');if(d)d.style.transform=`scale(${pop(dt-.35)})`}}};
+S.flash=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:#fff"></div>`);return {el,upd(dt){el.style.opacity=.85*(1-clamp(dt/.12))}}};
+
+/* ===== v5: Family Health Reset (Coach Muthu, Dog ad) ===== */
+/* overlay for real/AI video B-roll (the clip itself is composited in comp.py) */
+S.vid=(it)=>{const sp=SP(it);let ch='';(it.chips||[]).forEach((c,i)=>ch+=`<span class="chip vc" style="background:${c[1]||'var(--ob)'};color:${c[2]||'#fff'};border:4px solid ${c[3]||'var(--em)'};font-size:${it.csz||40}px;margin:8px 8px;box-shadow:0 10px 26px rgba(0,0,0,.55)">${c[0]}</span>`);
+ const el=mk(`${sp?'<div style="position:absolute;left:0;top:0;width:1080px;height:864px;border-bottom:8px solid var(--em);box-shadow:0 10px 40px rgba(0,0,0,.6)"></div>':''}
+  ${it.big?`<div class="bigt stroke" style="position:absolute;left:0;right:0;top:${it.by??(sp?60:260)}px;text-align:center;font-weight:900;font-size:${it.bsz||170}px;line-height:1">${it.big}</div>`:''}
+  ${ch?`<div class="chs" style="position:absolute;left:30px;right:30px;top:${it.cy||(sp?40:250)}px;display:flex;flex-wrap:wrap;justify-content:center">${ch}</div>`:''}
+  <div class="fl" style="position:absolute;inset:0;background:#fff;${sp?'height:864px':''}"></div>`);
+ return {el,upd(dt){q(el,'.fl').style.opacity=.55*(1-clamp(dt/.1));const b=q(el,'.bigt');if(b)popIn(b,dt-(it.bt||.3),.35);
+  qa(el,'.vc').forEach((x,i)=>{const t=dt-((it.ct||[])[i]??(.3+i*.5));popIn(x,t,.3);x.style.display='inline-block'})}}};
+
+/* B03: BMI? BMR? BODY FAT? question cards */
+S.questions=(it)=>{const Q=[['🧑','நீங்க','BMI'],['👵','அம்மா','BMR'],['👩','WIFE','BODY FAT %']];let c='';
+ Q.forEach((x,i)=>c+=`<div class="card qc" style="left:${45+i*335}px;top:150px;width:320px;height:420px;display:flex;flex-direction:column;align-items:center;padding-top:22px">
+  <div style="font-size:110px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:44px;margin-top:6px">${x[1]}</div>
+  <div style="font-weight:900;font-size:${x[2].length>4?44:64}px;color:var(--yl);margin-top:4px">${x[2]}</div>
+  <div class="qm s10" style="font-weight:900;font-size:130px;color:var(--rd);line-height:1">?</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:30px;font-size:80px">உங்களுக்கு <span class="y">தெரியுமா?</span></div>${c}
+  <div class="st" style="position:absolute;left:0;right:0;top:300px;text-align:center"><span class="chip s10" style="background:var(--rd);font-size:96px;padding:18px 54px;border:8px solid #fff">தெரியாது? 🤔</span></div>`));
+ const cu=it.cues||[.6,2.8,5.6],ce=it.endq||8;
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.qc').forEach((x,i)=>{const t=dt-cu[i];x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*300}px) scale(${t<0?0:pop(t,.32)})`;
+  const m=q(x,'.qm');m.style.transform=`scale(${1+.12*Math.sin(dt*8+i)}) rotate(${Math.sin(dt*5+i)*8}deg)`;x.style.borderColor=dt>ce?'#FF3B30':'rgba(0,200,150,.6)'});
+  const s=q(el,'.st');const t=dt-ce;s.style.opacity=clamp(t/.05);s.style.transform=`scale(${t<0?0:lerp(2.4,1,ease(t/.18))}) rotate(-6deg)`}}};
+
+/* B07: Day 3 centre visit - family walks in, BMI / BMR / FAT % checks tick */
+S.checkup=(it)=>{const R=[['⚖️','BMI'],['🔥','BMR'],['📊','FAT %']];let r='';
+ R.forEach((x,i)=>r+=`<div class="rw" style="position:absolute;left:560px;top:${160+i*130}px;width:470px;height:110px;border-radius:26px;background:#0f1713;border:4px solid #2b3a35;display:flex;align-items:center;padding:0 24px;font-weight:900;font-size:50px">
+  <span style="font-size:58px;margin-right:18px">${x[0]}</span><span style="flex:1">${x[1]}</span>
+  <div class="bx" style="width:64px;height:64px;border-radius:18px;border:5px solid #00C896;display:flex;align-items:center;justify-content:center;font-size:44px;color:#04110c"></div>
+  <div class="bar" style="position:absolute;left:0;bottom:0;height:8px;border-radius:0 0 0 22px;background:var(--em);width:0"></div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:28px;font-size:78px"><span class="y">DAY 3</span> • CENTRE VISIT</div>
+  <div class="cn card" style="left:50px;top:160px;width:470px;height:380px;overflow:hidden">
+   <div style="position:absolute;left:0;right:0;top:0;height:86px;background:var(--em);color:#04110c;font-weight:900;font-size:36px;white-space:nowrap;display:flex;align-items:center;justify-content:center">🌿 WELLNESS CENTRE</div>
+   <div style="position:absolute;left:150px;top:150px;width:170px;height:230px;border-radius:20px 20px 0 0;background:#1d2b26;border:5px solid #D8DDE3;border-bottom:none"></div>
+   <div class="fam" style="position:absolute;top:230px;font-size:110px;white-space:nowrap">👨👩👧👦</div></div>
+  ${r}<div class="fr" style="position:absolute;left:0;right:0;top:560px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:50px">👨👩👧👦 FULL FAMILY CHECK</span></div>`));
+ const cu=it.cues||[2,3,4];
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.cn'),dt,500);const f=q(el,'.fam');const p=easeIO((dt-.5)/1.4);f.style.left=lerp(-300,130,p)+'px';f.style.transform=`translateY(${-Math.abs(Math.sin(dt*9))*14*(p<1?1:0)}px)`;
+  qa(el,'.rw').forEach((x,i)=>{const t=dt-cu[i];x.style.opacity=clamp(t/.06);x.style.transform=`translateX(${(1-ease(t/.3))*600}px)`;const on=t>.45;const b=q(x,'.bx');
+   b.style.background=on?'#00C896':'transparent';b.textContent=on?'✓':'';x.style.borderColor=on?'#00C896':'#2b3a35';b.style.transform=on?`scale(${pop(t-.45,.25)})`:'scale(1)';q(x,'.bar').style.width=(ease((t)/.45)*100)+'%'});
+  popIn(q(el,'.fr'),dt-cu[2]-.6)}}};
+
+/* B08: centre location map pin */
+S.mappin=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:26px;font-size:84px">📍 <span class="y">குடுவாஞ்சேரி</span></div>
+  <div class="mp card" style="left:40px;top:150px;width:1000px;height:390px;overflow:hidden;background:#13201b">
+   <svg width="1000" height="390" style="position:absolute;left:0;top:0"><g stroke="#24352f" stroke-width="22"><line x1="0" y1="80" x2="1000" y2="60"/><line x1="160" y1="0" x2="200" y2="390"/><line x1="820" y1="0" x2="780" y2="390"/><line x1="0" y1="330" x2="1000" y2="350"/></g>
+    <path class="rd" d="M-20 250 L1020 170" stroke="#FFD60A" stroke-width="54" stroke-linecap="round" fill="none"/><path class="rdl" d="M-20 250 L1020 170" stroke="#080A0D" stroke-width="5" stroke-dasharray="26 22" fill="none"/></svg>
+   <div class="rn" style="position:absolute;left:330px;top:196px;transform:rotate(-4.4deg);font-weight:900;font-size:34px;color:#080A0D;letter-spacing:2px">நெல்லிக்குப்பம் ROAD</div>
+   <div class="sc" style="position:absolute;left:600px;top:250px;display:flex;flex-direction:column;align-items:center"><div style="font-size:84px">🏫</div><div class="chip" style="background:#fff;color:#000;font-size:30px;padding:6px 18px">SRM SCHOOL</div></div>
+   <div class="pa" style="position:absolute;left:470px;top:20px;display:flex;flex-direction:column;align-items:center">
+    <div class="rg" style="position:absolute;left:50%;top:118px;width:60px;height:24px;margin-left:-30px;border-radius:50%;border:5px solid var(--rd)"></div>
+    <div class="pn" style="font-size:120px;line-height:1">📍</div></div>
+   <div class="pnl" style="position:absolute;left:250px;top:24px"><span class="chip" style="background:var(--em);color:#04110c;font-size:36px">பெரியார் நகர்</span></div></div>
+  <div class="op" style="position:absolute;left:0;right:0;top:560px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:48px">🏫 SRM SCHOOL OPPOSITE</span></div>`));
+ const cu=it.cues||[.2,1.8,3.0,4.2];const rd=q(el,'.rd');let L=null;
+ return {el,upd(dt){popIn(q(el,'.t1'),dt-cu[0]);slideUp(q(el,'.mp'),dt,500);if(L===null)L=rd.getTotalLength();const p=clamp((dt-cu[1]+.3)/.6);rd.style.strokeDasharray=`${L*p} ${L}`;q(el,'.rdl').style.opacity=p;
+  q(el,'.rn').style.opacity=clamp((dt-cu[1])/.2);const t=dt-cu[2];const pa=q(el,'.pa');pa.style.opacity=clamp(t/.05);q(el,'.pn').style.transform=`translateY(${t<0?-400:(1-ease(t/.3))*-400+Math.abs(Math.sin(Math.max(0,t-.3)*3))*-8}px)`;
+  const rg=q(el,'.rg');const r=((dt-cu[2]-.3)%1.2)/1.2;rg.style.transform=`scale(${1+r*2.5})`;rg.style.opacity=t>.3?1-r:0;popIn(q(el,'.pnl'),t-.25);
+  popIn(q(el,'.sc'),dt-cu[3]);popIn(q(el,'.op'),dt-cu[3]-.4)}}};
+
+/* 3-day challenge cards (from base engine, adapted) */
+S.days=(it)=>{const s=SP(it);const D=it.days||[['DAY 1','💻','ZOOM • 1 HR'],['DAY 2','💻','ZOOM • 1 HR'],['DAY 3','🏥','CENTRE VISIT']];let c='';
+ D.forEach((d,i)=>{c+=`<div class="dy card" style="left:${60+i*330}px;top:${s?200:700}px;width:300px;height:${s?340:440}px;display:flex;flex-direction:column;align-items:center;justify-content:center;${i==2?'border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.3)':''}">
+  <div style="font-weight:900;font-size:${s?50:56}px;color:${i==2?'#FFD60A':'#00C896'}">${d[0]}</div><div style="font-size:${s?96:120}px;margin:10px 0">${d[1]}</div><div style="font-weight:900;font-size:${s?32:38}px;text-align:center">${d[2]}</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${s?20:300}px;font-size:${s?62:110}px">${it.title||'FAMILY HEALTH RESET<br><span class="y">3 DAY CHALLENGE</span>'}</div>${c}
+  <div class="ft" style="position:absolute;left:0;right:0;top:${s?570:1200}px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:40px">🏠 FROM HOME • MORNING</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.dy').forEach((x,i)=>{const t=dt-((it.cues||[])[i]??(.25+i*.3));x.style.opacity=clamp(t/.1);x.style.transform=`translateY(${(1-ease(t/.35))*120}px) scale(${t<0?0:pop(t,.35)})`});
+  popIn(q(el,'.ft'),dt-(it.ftc||1.5))}}};
+
+/* client end card: Coach Muthu */
+S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="top:300px"></div>
+  <div class="e1" style="position:relative;font-size:150px">👨👩👧👦</div>
+  <div class="e2" style="position:relative;margin-top:20px;font-family:A;font-size:120px;letter-spacing:3px;line-height:1">FAMILY HEALTH RESET</div>
+  <div class="e3" style="position:relative;font-family:A;font-size:110px;letter-spacing:8px;color:var(--yl);line-height:1.1">3 DAY CHALLENGE</div>
+  <div class="e4" style="position:relative;margin-top:26px;font-weight:800;font-size:38px;color:var(--pl);letter-spacing:2px">DAY 1 ZOOM • DAY 2 ZOOM • DAY 3 CENTRE</div>
+  <div class="e5" style="position:relative;margin-top:60px"><span class="chip" style="background:var(--wa);color:#04110c;font-size:54px;padding:24px 50px;white-space:nowrap;display:inline-block">💬 SEND WHATSAPP MESSAGE</span></div>
+  <div class="e6" style="position:relative;margin-top:30px"><span class="chip" style="background:var(--rd);font-size:44px">ONLY 10 FAMILIES FREE</span></div>
+  <div class="e7" style="position:relative;margin-top:30px;font-weight:800;font-size:36px;color:var(--ti)">📍 ${it.loc||'COACH MUTHU • GUDUVANCHERY'}</div></div>`);
+ return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e3','.e4','.e5','.e6','.e7'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*120}px)`});
+  const b=q(el,'.e5 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(37,211,102,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
+
+
+/* ===== v6: Weight-management coach (Coach Arun, Sree Nutrition Club) ===== */
+/* pain: busy lifestyle -> 4 problem cards (irregular food, weight up, diet no result, confidence down) */
+S.pain=(it)=>{const s=SP(it);const P=it.cards||[['⏰','IRREGULAR','FOOD TIMINGS','#FFD60A'],['⚖️','WEIGHT','INCREASE ↑','#FF3B30'],['🥗','DIET TRY','NO RESULT ✕','#FF3B30'],['😔','CONFIDENCE','KAMMI ↓','#FF3B30']];let c='';
+ P.forEach((d,i)=>{c+=`<div class="pc card" style="left:${70+(i%2)*480}px;top:${(s?150:520)+(i/2|0)*(s?230:300)}px;width:460px;height:${s?210:270}px;display:flex;align-items:center;gap:22px;padding:0 26px;border-color:${d[3]};box-shadow:0 0 50px ${d[3]}33">
+  <div style="font-size:${s?96:120}px">${d[0]}</div><div><div style="font-weight:900;font-size:${s?38:44}px;line-height:1.05">${d[1]}</div><div style="font-weight:900;font-size:${s?38:44}px;line-height:1.05;color:${d[3]}">${d[2]}</div></div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${s?24:300}px;font-size:${s?76:110}px">${it.title||'BUSY <span class="y">LIFESTYLE</span>'}</div>${c}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.pc').forEach((x,i)=>{const t=dt-((it.cues||[])[i]??(.3+i*.5));x.style.opacity=clamp(t/.08);x.style.transform=`translateY(${(1-ease(t/.3))*90}px) scale(${t<0?0:pop(t,.32)}) rotate(${t>.3&&i>0?Math.sin(t*14)*Math.max(0,1-(t-.3)*3)*2:0}deg)`})}}};
+
+/* photos: REAL photos as tilted cards with Ken Burns, title + chips (use only real client photos) */
+S.photos=(it)=>{const s=SP(it);const I=it.imgs||[];const n=I.length;let c='';
+ I.forEach((src,i)=>{const w=s?560:820,h=s?420:620;const x=540-w/2+(i-(n-1)/2)*(s?190:120);const y=(s?190:470)+(i%2)*(s?24:40);
+  c+=`<div class="ph" style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;border:10px solid #fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.6);transform-origin:50% 100%"><img src="${src}" style="width:100%;height:100%;object-fit:cover;transform-origin:50% 40%"></div>`});
+ let ch='';(it.chips||[]).forEach(c2=>ch+=`<span class="chip pchip" style="background:${c2[1]||'var(--em)'};color:${c2[2]||'#04110c'};font-size:${s?44:56}px;margin:8px;box-shadow:0 12px 30px rgba(0,0,0,.55)">${c2[0]}</span>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${s?20:280}px;font-size:${s?70:104}px">${it.title||''}</div>${c}
+  <div class="pcs" style="position:absolute;left:20px;right:20px;top:${s?530:1150}px;display:flex;flex-wrap:wrap;justify-content:center;z-index:5">${ch}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const D=it.t1-it.t0;qa(el,'.ph').forEach((x,i)=>{const t=dt-((it.cues||[])[i]??(.15+i*.45));const r=(i-(n-1)/2)*7;
+   x.style.opacity=clamp(t/.08);x.style.transform=`translateY(${(1-ease(t/.35))*700}px) rotate(${r*(t<0?0:ease(t/.4))}deg)`;x.style.zIndex=i;
+   q(x,'img').style.transform=`scale(${1.04+.08*clamp(t/Math.max(1,D))})`});
+  qa(el,'.pchip').forEach((x,i)=>{popIn(x,dt-((it.ccues||[])[i]??(.9+i*.5)),.3);x.style.display='inline-block'})}}};
+
+/* beforeafter: REAL client before/after photo + name + spoken result */
+S.beforeafter=(it)=>{const s=SP(it);const w=s?350:700,h=s?520:1040;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${s?20:200}px;font-size:${s?62:96}px">${it.title||'REAL CLIENT'}</div>
+  <div class="ba" style="position:absolute;left:${s?60:190}px;top:${s?108:360}px;width:${w}px;height:${h}px;border:10px solid #fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.65)"><img src="${it.img}" style="width:100%;height:100%;object-fit:cover"></div>
+  <div class="nm" style="position:absolute;left:${s?470:0}px;right:${s?30:0}px;top:${s?150:1420}px;text-align:${s?'left':'center'}">
+   <div class="chip" style="background:var(--ob);border:4px solid var(--em);color:#fff;font-size:${s?46:56}px">👤 ${it.name||''}</div></div>
+  <div class="rs" style="position:absolute;left:${s?470:0}px;right:${s?30:0}px;top:${s?280:1530}px;text-align:${s?'left':'center'}">
+   ${(it.res||[]).map((r,i)=>`<div class="rr stroke" style="font-family:A,M;font-size:${s?[140,70][i]||70:[150,80][i]||80}px;line-height:1.02;color:${i?'#fff':'var(--yl)'}">${r}</div>`).join('')}</div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const b=q(el,'.ba');b.style.opacity=clamp(dt/.08);b.style.transform=`translateX(${(1-ease(dt/.35))*-700}px) rotate(${-3*ease(dt/.4)}deg)`;
+  popIn(q(el,'.nm'),dt-(it.nc??.5));qa(el,'.rr').forEach((x,i)=>popIn(x,dt-((it.rc||[])[i]??(1.2+i*.5)),.35))}}};
+
+/* plan: lifestyle -> personalised nutrition -> healthy weight journey (3-step flow) */
+S.plan=(it)=>{const s=SP(it);const N=it.nodes||[['🧑‍💼','YOUR LIFESTYLE'],['🥗','PERSONALISED NUTRITION'],['⚖️','HEALTHY WEIGHT JOURNEY']];let c='';
+ N.forEach((d,i)=>{c+=`<div class="nd card" style="left:${(s?40:60)+i*(s?340:330)}px;top:${s?230:720}px;width:${s?320:300}px;height:${s?300:360}px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 14px;${i==2?'border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.3)':''}">
+  <div style="font-size:${s?100:120}px">${d[0]}</div><div style="font-weight:900;font-size:${s?34:38}px;line-height:1.1;margin-top:10px;color:${i==2?'#FFD60A':'#fff'}">${d[1]}</div></div>`;
+  if(i<N.length-1)c+=`<div class="ar" style="position:absolute;left:${(s?40:60)+i*(s?340:330)+(s?300:282)}px;top:${s?345:860}px;font-size:56px;font-weight:900;color:var(--em);z-index:3">➜</div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${s?24:400}px;font-size:${s?64:100}px">${it.title||'PERSONALISED <span class="g">NUTRITION SYSTEM</span>'}</div>${c}
+  ${it.chip?`<div class="ft" style="position:absolute;left:0;right:0;top:${s?580:1150}px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:42px">${it.chip}</span></div>`:''}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.nd').forEach((x,i)=>{const t=dt-((it.cues||[])[i]??(.3+i*.6));x.style.opacity=clamp(t/.1);x.style.transform=`scale(${t<0?0:pop(t,.35)})`});
+  qa(el,'.ar').forEach((x,i)=>{const t=dt-((it.cues||[])[i+1]??(.9+i*.6))+.15;x.style.opacity=clamp(t/.1);x.style.transform=`translateX(${(1-ease(t/.25))*-40}px)`});const f=q(el,'.ft');if(f)popIn(f,dt-(it.ftc||2.2))}}};
+
+/* offer: special offer cards (only items spoken in the video) */
+S.offer=(it)=>{const s=SP(it);const O=it.cards||[['3 DAYS','🥣','HEALTHY BREAKFAST'],['3 DAYS','🏋️','FITNESS TRIAL']];let c='';
+ O.forEach((d,i)=>{c+=`<div class="of card" style="left:${(s?70:80)+i*(s?500:480)}px;top:${s?230:640}px;width:${s?440:440}px;height:${s?350:480}px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.25)">
+  <div style="font-family:A,M;font-size:${s?70:86}px;color:var(--yl);letter-spacing:2px">${d[0]}</div><div style="font-size:${s?110:140}px;margin:6px 0">${d[1]}</div><div style="font-weight:900;font-size:${s?38:44}px;text-align:center">${d[2]}</div></div>`;
+  if(i<O.length-1)c+=`<div class="pl stroke" style="position:absolute;left:0;right:0;text-align:center;top:${s?340:810}px;font-size:110px;font-weight:900;color:var(--em);z-index:3">+</div>`});
+ const el=mk(stage(it,`<div class="t0x" style="position:absolute;left:0;right:0;top:${s?22:260}px;text-align:center;z-index:4"><span class="chip" style="background:var(--rd);font-size:${s?40:52}px">🎁 ${it.brand||'SPECIAL OFFER'}</span></div>
+  <div class="ttl stroke t1" style="top:${s?100:360}px;font-size:${s?72:110}px">${it.title||'<span class="y">SPECIAL OFFER</span>'}</div>${c}`));
+ return {el,upd(dt){popIn(q(el,'.t0x'),dt);popIn(q(el,'.t1'),dt-.1);qa(el,'.of').forEach((x,i)=>{const t=dt-((it.cues||[])[i]??(.4+i*.7));x.style.opacity=clamp(t/.1);x.style.transform=`translateY(${(1-ease(t/.35))*160}px) scale(${t<0?0:pop(t,.35)})`});
+  const p=q(el,'.pl');if(p)popIn(p,dt-((it.cues||[])[1]??1.1)+.1)}}};
+
+/* endcard2: configurable client end card (title, sub, button, urgency chip, location) */
+S.endcard2=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="top:300px"></div>
+  <div class="e1" style="position:relative;font-size:150px">${it.icon||'🥗'}</div>
+  <div class="e2" style="position:relative;margin-top:20px;font-family:A;font-size:${it.s1||120}px;letter-spacing:3px;line-height:1;text-align:center">${it.l1||''}</div>
+  <div class="e3" style="position:relative;font-family:A;font-size:${it.s2||100}px;letter-spacing:6px;color:var(--yl);line-height:1.1;text-align:center">${it.l2||''}</div>
+  <div class="e4" style="position:relative;margin-top:26px;font-weight:800;font-size:38px;color:var(--pl);letter-spacing:2px;text-align:center">${it.l3||''}</div>
+  <div class="e5" style="position:relative;margin-top:60px"><span class="chip" style="background:var(--yl);color:#000;font-size:54px;padding:24px 50px;white-space:nowrap;display:inline-block">${it.btn||'👇 BOOK NOW'}</span></div>
+  <div class="e6" style="position:relative;margin-top:30px">${it.urg?`<span class="chip" style="background:var(--rd);font-size:44px">${it.urg}</span>`:''}</div>
+  <div class="e7" style="position:relative;margin-top:30px;font-weight:800;font-size:36px;color:var(--ti)">${it.loc||''}</div></div>`);
+ return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e3','.e4','.e5','.e6','.e7'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*120}px)`});
+  const b=q(el,'.e5 .chip');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(255,214,10,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
+
+/* ---------- captions ---------- */
+const capEl=document.getElementById('cap');let curCap=null;
+function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
+ if(!c||c.pos=='none'){capEl.style.display='none';curCap=null;return}
+ capEl.style.display='flex';capEl.className='stroke'+(c.pos?' '+c.pos:'');
+ if(curCap!==c){capEl.innerHTML=c.words.map(w=>`<span>${w}</span>`).join('');curCap=c}
+ const sp=[...capEl.children];const n=sp.length;const dur=(c.t1-c.t0);
+ sp.forEach((s,i)=>{const ws=c.t0+dur*i/n*0.8;const dt=t-ws;const vis=dt>=0;s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
+  s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const L=c.words.join(' ').length;const bs=(c.pos=='split'?.8:(c.pos=='hi'?.9:1))*(L>26?.78:(L>20?.88:1))*(/[\u0B80-\u0BFF]/.test(c.words.join(''))?.9:1);s.style.fontSize=(em?102:86)*bs+'px';
+  s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
+const OVL=['text','cta','badge','flash','vid'];
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type.startsWith('endcard')?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+function setT(t){let any=false,hideCap=false;
+ for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
+  if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');
+   if(inn){inn.style.transform=`scale(${1+.05*dt/(it.t1-it.t0)})`;q(b.el,'.grid').style.transform=`translateY(${(dt*30)%90}px)`;
+    const fl=q(b.el,'.flash');fl.style.opacity=.5*(1-clamp(dt/.1));
+    const out=clamp((it.t1-t)/.12);b.el.style.transform=`translateX(${(1-out)*-80}px)`}
+   if(['text','cta','badge'].includes(it.type))b.el.style.opacity=clamp((it.t1-t)/.12);
+   if(it.nocap)hideCap=true}}
+ drawCap(t);if(hideCap)capEl.style.display='none';return any||capEl.style.display!='none'}
+window.init=init;window.setT=setT;
+</script></body></html>

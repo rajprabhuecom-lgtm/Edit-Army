@@ -54,6 +54,12 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `pain` (v6) | "Busy lifestyle → irregular food, weight ↑, diet no result, confidence ↓": 4 problem cards |
+| `photos` (v6) | REAL client photos (centre, events, members) as tilted cards with Ken Burns + chips ("150–200 members") |
+| `plan` (v6) | "Personalised nutrition system": lifestyle → nutrition → healthy weight journey flow |
+| `beforeafter` (v6) | REAL client before/after photo + name + the result the client/coach actually said (over a real testimonial clip) |
+| `offer` (v6) | Special offer cards ("3 days healthy breakfast + 3 days fitness trial") + brand chip |
+| `endcard2` (v6) | Configurable client end card (title, sub-title, button, urgency chip, location) |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
