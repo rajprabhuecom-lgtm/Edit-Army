@@ -8,7 +8,8 @@
 
 | Video | Folder | Status |
 |---|---|---|
-| VSL, 16:9 1920×1080, ~1:47 | `vsl/` | First edit rendered (`vsl/final/`, see below) |
+| VSL v2, 16:9 1920×1080, 1:42 | `vsl/` | Re-edit, coach-only cut (`vsl/final/tm_nutrition_vsl_v2.mp4`); Google Flow clips pending (`vsl/flow_shotlist.md`) |
+| VSL v1 | `vsl/` | Superseded: it used silence detection, so prompter lines and idle moments got in |
 | Meta ad (30–40 s, 9:16) | `meta-ad/` (to do) | Footage C0001–C0003 shot sideways for vertical; not cut yet |
 
 ## Raw footage (Sony, 4K 25 fps)
@@ -26,7 +27,12 @@ The VSL is cut from working copies (rotated/scaled, CRF 15), not committed. To r
 
 Hook "how many times have you both decided to lose weight?" → watch fully → Coach Pradheesh, TM Nutrition Centre Trichy, 18 years, hundreds of families → new batch for couples only → pain: 3-day diet then biryani, gym not even 2 weeks, mobile till midnight, "let's start tomorrow" → the problem is the home's pattern, not willpower → clients (58, Erode 32 with 26 kg excess, 48) → "everyone thought it won't work" → change started in just 3 days → 2 client bites in their own voice → "3 days, how?" → Yes, possible → Day 1 habits → Day 2 family health → Day 3 family happiness → bonus: first step to financial independence → just ₹555 → 100% money back, risk on me → only 5 couples in Trichy, I train personally → click the button below.
 
-Takes chosen line by line in `vsl/selects.py` (every line checked by re-transcribing the cut).
+**v2 cut method (coach only):** the footage was recorded with a friend off camera reading each line first and the coach repeating it.
+1. `scripts/face_track.py` tracks the coach's face (MediaPipe) on every frame: lip opening.
+2. `scripts/who_speaks.py` labels each 40 ms: voice + mouth moving = coach; voice + mouth still = prompter; no voice = idle.
+3. `scripts/transcribe_client.py` transcribes only the coach's stretches; takes are matched to the script in `vsl/selects_v2.py`.
+4. `vsl/plan_v2.py` cuts inside each take where the coach's mouth and voice both stop, alternates wide/close framing on every cut, and reserves Flow slots F01–F15.
+The final audio was transcribed again: only the coach's lines remain, in script order.
 
 ## Confirm before publishing
 

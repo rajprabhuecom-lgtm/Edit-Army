@@ -1,6 +1,8 @@
 # B-roll still needed (beyond the testimonials we already have)
 
-The first VSL edit is complete with animated B-roll. Everything below would make it stronger: real footage beats animation for trust. Priority 1 = proof, the client can shoot it on a phone (vertical or horizontal both fine, 6–10 s each, steady, good light).
+**For the VSL v2, the exact Google Flow clips (IDs F01–F15, prompts, and the timecode each one plays at) are in [`vsl/flow_shotlist.md`](vsl/flow_shotlist.md).** Generate them in Flow, name them F01.mp4 … F15.mp4, and send them; they replace the placeholder animations automatically.
+
+The list below is the **real** footage the client has to supply (Flow must not fake proof). Priority 1 = proof, shot on a phone (6–10 s each, steady, good light).
 
 ## Priority 1: real proof (client must supply, cannot be animated or AI)
 
@@ -14,7 +16,7 @@ The first VSL edit is complete with animated B-roll. Everything below would make
 | R6 | "கீழே button-ஐ click பண்ணி..." | Phone screen recording of the booking page: tap the button → ₹555 payment screen (shown picture-in-picture; the face stays on screen for the CTA) |
 | R7 | "5 couples மட்டும்" | Optional: real seat/registration counter screenshot, only if it's true at the time of posting |
 
-## Priority 2: scene footage (stock or AI is fine, disclosed as AI in Meta ads)
+## Priority 2: scene footage (now covered by the Google Flow list in `vsl/flow_shotlist.md`)
 
 | # | Line | Clip idea |
 |---|---|---|
