@@ -30,6 +30,12 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-vsl-landscape/            TM Nutrition VSL (16 Nov 2026): first 16:9 (1920x1080) engine for landscape VSLs.
+                               Layouts: full, side (animation 0-1152 + speaker panel), tside (portrait testimonial card + speaker).
+                               engine.html scenes: tally pain(diet/gym/midnight/tomorrow) pattern q3days agenda habits famhealth
+                               happy money stack testi vid + text badge price stamp cta lower flash endcard.
+                               render.js <workdir>, comp.py (portrait clips -> card on blurred copy), mix.py (testimonial bites
+                               with their own audio), speed.sh <workdir> <out.mp4>
 videos/                        One folder per video (see videos/README.md)
 ```
 
@@ -37,7 +43,7 @@ Each `engine.html` version is standalone, with its own scene set. To use a scene
 
 ## Pipeline
 
-1. **Transcribe.** silencedetect, then Whisper (large-v3 or medium.en via sherpa-onnx; load one recognizer at a time). Translate per phrase for meaning.
+1. **Transcribe.** silencedetect, then Whisper large-v3. On CPU, faster-whisper int8 (`videos/tm-nutrition-3day/scripts/transcribe.py`) runs about real time with word timings; sherpa-onnx was ~15x slower. For Tamil, turn temperature fallback off, and re-check garbled stretches in short windows. Translate per phrase for meaning.
 2. **Plan.** Copy `engine/base/plan.py` (or `v3-lead-quality/plan.py`, which is newer) and fill in BROLL / GFX / CAP / PUNCH / MUSIC / SFX for the new video. Write `broll_plan.csv`.
 3. **Preview.** Render 15–20 overlay frames with `gfx/render.py` and composite them with `comp.py <idx...>`. Check them before the full render.
 4. **Render.** `gfx/render.py` (2 workers), `audio/mix.py`, `comp.py`, then `speed.sh`.

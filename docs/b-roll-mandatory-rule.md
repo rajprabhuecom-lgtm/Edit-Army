@@ -54,6 +54,19 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `tally` (v6, 16:9) | "How many times have you decided...?": plan cards crossed out one by one |
+| `pain` (v6) | Pain beats, variants `diet` (3 days salad → biryani), `gym` (paid, 4 days then ✗), `midnight` (clock to 12 + phones glowing), `tomorrow` (calendar flipping) |
+| `pattern` (v6) | "Problem isn't willpower, it's your home's pattern": WILL POWER struck out → house with loop |
+| `q3days` (v6) | "Change in 3 days? Yes, possible": 3 day cards + YES ✓ POSSIBLE stamp |
+| `agenda` (v6) | Day 1 / Day 2 / Day 3 / Bonus cards, optional focus on one |
+| `habits` (v6) | Day 1: phone feed scrolling → stop hand → habit sliders tuned + hand-hold chip |
+| `famhealth` (v6) | Day 2: one person → whole family gets health rings + ticks |
+| `happy` (v6) | Day 3: routines tick, happiness fills the house |
+| `money` (v6) | Bonus: steps to financial independence, first step |
+| `stack` (v6) | Value stack rows dropping in (before a price line) |
+| `testi` (v6) | Real testimonial clip label (REAL CLIENT, name, result); clip composited by comp.py as a portrait card |
+| `stamp` (v6) | On-face guarantee stamp (100% MONEY BACK) |
+| `lower` (v6) | Lower third: name + title |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

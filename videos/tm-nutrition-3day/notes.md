@@ -1,0 +1,38 @@
+# TM Nutrition: 3-Day Family Wellness Challenge (Coach Pradheesh Mutharasu, Trichy)
+
+**Client:** TM Nutrition Centre, Trichy · **Offer:** 3-day live challenge, ₹555, 100% money-back, only 5 couples in Trichy for this batch
+**Script doc:** `TM-Nutrition-3-Day-Secret-v2.docx` (VSL secret segment + Meta ad script)
+**Drive (raw):** For Client's editing → `VSL/` (C0006–C0008) and `META ADS/` (C0001–C0003). Testimonials: `Pradheesh's contents/` (2 images, 5 videos).
+
+## Deliverables
+
+| Video | Folder | Status |
+|---|---|---|
+| VSL, 16:9 1920×1080, ~1:47 | `vsl/` | First edit rendered (`vsl/final/`, see below) |
+| Meta ad (30–40 s, 9:16) | `meta-ad/` (to do) | Footage C0001–C0003 shot sideways for vertical; not cut yet |
+
+## Raw footage (Sony, 4K 25 fps)
+
+| File | Length | What it is |
+|---|---|---|
+| VSL/C0006 | 5.8 s | Test clip, no audio. Unused |
+| VSL/C0007 | 6:11 | VSL part 1, landscape: hook, intro, pain, testimonial call-outs (many retakes + chatter) |
+| VSL/C0008 | 10:17 | VSL part 2, landscape: testimonials, "3 days possible?", Day 1–3, bonus, price, guarantee, scarcity, CTA |
+| META ADS/C0001–C0003 | 2.5–6 GB each | Shot with the camera on its side (rotate 90° clockwise for 9:16). C0002 is 3:26 |
+
+The VSL is cut from working copies (rotated/scaled, CRF 15), not committed. To rebuild: download from Drive and convert with `scripts/fetch_mezz.sh` (that script rotates for the portrait ad clips; for the landscape VSL clips drop `transpose=1` and scale to 1920:1080), then `vsl/build_src.py` → `vsl/plan.py` → engine v6 `render.js`, `mix.py`, `comp.py`, `speed.sh`.
+
+## VSL edit (story, as spoken)
+
+Hook "how many times have you both decided to lose weight?" → watch fully → Coach Pradheesh, TM Nutrition Centre Trichy, 18 years, hundreds of families → new batch for couples only → pain: 3-day diet then biryani, gym not even 2 weeks, mobile till midnight, "let's start tomorrow" → the problem is the home's pattern, not willpower → clients (58, Erode 32 with 26 kg excess, 48) → "everyone thought it won't work" → change started in just 3 days → 2 client bites in their own voice → "3 days, how?" → Yes, possible → Day 1 habits → Day 2 family health → Day 3 family happiness → bonus: first step to financial independence → just ₹555 → 100% money back, risk on me → only 5 couples in Trichy, I train personally → click the button below.
+
+Takes chosen line by line in `vsl/selects.py` (every line checked by re-transcribing the cut).
+
+## Confirm before publishing
+
+1. **"18 வருஷமா"** (18 years) and "hundreds of families": spoken by the coach, shown as a graphic. Confirm it is accurate.
+2. **"Change started in just 3 days"** is said over real clients whose posted results took 26 days to 8 months. Their bites used here only speak about early change (Day 1 relief, feeling active and fresh). Keep the "Individual results vary" note.
+3. **Testimonial consent:** written consent from Raveendran, Sivakarthik, Krishna Priya and the clients in clips 0613/0615. Name spellings come from what they say in their clips.
+4. **T_vid_0606 (Raveendran)** ends with a *Coach Thilaga* end card, and image 2 (146→96 kg) credits @coach_thilaga and @nutrition_center_trichy. Confirm both are TM Nutrition clients before using them.
+5. **Booking link / button text** for the CTA and end card ("BOOK NOW"), and whether the price is per couple or per family.
+6. The Day 1–3 format (Zoom or at the centre) is not spoken in the VSL, so no graphic shows it.

@@ -1,0 +1,291 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- v6: 16:9 VSL engine (1920x1080). Built for TM Nutrition 3-Day Family Wellness Challenge VSL.
+ Layouts: full = 1920x1080 cutaway; side = animation panel x 0..1152, speaker panel on the right (comp.py);
+ face = transparent overlay on the speaker (text / badge / price / cta). Captions: bottom band, or over the speaker panel in side layout. -->
+<style>
+@font-face{font-family:M;font-weight:900;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)}
+@font-face{font-family:T;font-weight:900;src:url(node_modules/@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-900-normal.woff2)}
+@font-face{font-family:A;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+:root{--em:#00C896;--yl:#FFD60A;--rd:#FF3B30;--ob:#080A0D;--ti:#8B949E;--pl:#D8DDE3;--wa:#25D366;--pk:#FF6FA8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;background:transparent;overflow:hidden}
+body{font-family:M,'Noto Color Emoji',T,sans-serif;color:#fff}
+.layer{position:absolute;inset:0;display:none}
+.stroke{paint-order:stroke fill;-webkit-text-stroke:12px #000;text-shadow:0 8px 20px rgba(0,0,0,.55)}
+.s8{paint-order:stroke fill;-webkit-text-stroke:8px #000}
+#cap{position:absolute;left:160px;right:160px;top:880px;height:150px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:0 20px;text-align:center;z-index:10}
+#cap span{display:inline-block;font-weight:900;font-size:64px;line-height:1.1;text-transform:uppercase;transform-origin:50% 70%}
+#cap.side{left:1170px;right:20px;top:860px;height:190px}
+#cap.top{top:40px}
+.stage{position:absolute;left:0;top:0;height:1080px;overflow:hidden;background:radial-gradient(110% 100% at 40% 30%,#13241e 0%,#0b1411 55%,#080A0D 100%)}
+.stage.full{width:1920px}.stage.side{width:1152px;border-right:8px solid var(--em);box-shadow:10px 0 40px rgba(0,0,0,.6)}
+.inner{position:absolute;inset:0;transform-origin:50% 45%}
+.grid{position:absolute;inset:-200px;background-image:linear-gradient(rgba(0,200,150,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(0,200,150,.07) 2px,transparent 2px);background-size:80px 80px}
+.glow{position:absolute;width:900px;height:900px;border-radius:50%;left:130px;top:-150px;background:radial-gradient(circle,rgba(0,200,150,.16),transparent 65%)}
+.ttl{position:absolute;left:0;right:0;text-align:center;font-weight:900;text-transform:uppercase;line-height:1.04;z-index:4}
+.card{position:absolute;background:#0f1713;border:4px solid rgba(0,200,150,.6);border-radius:30px;box-shadow:0 0 60px rgba(0,200,150,.18),0 30px 60px rgba(0,0,0,.5)}
+.chip{white-space:nowrap;display:inline-block;padding:10px 28px;border-radius:999px;font-weight:900;font-size:38px}
+.g{color:var(--em)}.y{color:var(--yl)}.r{color:var(--rd)}.p{color:var(--pk)}
+svg{overflow:visible}
+.flash{position:absolute;inset:0;background:#fff;pointer-events:none;z-index:20}
+</style></head><body>
+<div id="root"></div>
+<div id="cap" class="stroke"></div>
+<script>
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
+const easeIO=x=>{x=clamp(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const back=x=>{x=clamp(x);const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const pop=(dt,d=.28)=>back(dt/d);
+const lerp=(a,b,p)=>a+(b-a)*p;
+const root=document.getElementById('root');let TL=null;const els=[];
+function mk(html){const d=document.createElement('div');d.className='layer';d.innerHTML=html;root.appendChild(d);return d}
+const q=(el,s)=>el.querySelector(s), qa=(el,s)=>[...el.querySelectorAll(s)];
+const SD=it=>it.layout=='side';
+const PW=it=>SD(it)?1152:1920;           // panel width
+function stage(it,inner){return `<div class="stage ${it.layout||'full'}"><div class="inner"><div class="grid"></div><div class="glow"></div>${inner}</div><div class="flash"></div></div>`}
+function popIn(x,dt,d=.32){if(!x)return;x.style.opacity=clamp(dt/.06);x.style.transform=`scale(${dt<0?0:pop(dt,d)})`}
+function slideUp(x,dt,dist=400,d=.4){if(!x)return;x.style.opacity=clamp(dt/.08);x.style.transform=`translateY(${(1-ease(dt/d))*dist}px)`}
+function slideIn(x,dt,dist=500,d=.4){if(!x)return;x.style.opacity=clamp(dt/.08);x.style.transform=`translateX(${(1-ease(dt/d))*dist}px)`}
+const cue=(it,i,def)=>((it.cues||[])[i]??def);
+const S={};
+
+/* ---------- 1. HOOK: 3 days -> change? -> YES, POSSIBLE ---------- */
+S.q3days=(it)=>{const w=PW(it);let pg='';
+ [1,2,3].forEach((n,i)=>pg+=`<div class="pg card" style="left:${w/2-390+i*270}px;top:300px;width:240px;height:300px;display:flex;flex-direction:column;align-items:center;overflow:hidden">
+  <div style="width:100%;height:70px;background:${i==2?'var(--yl)':'var(--em)'};color:#04110c;font-weight:900;font-size:40px;display:flex;align-items:center;justify-content:center">DAY</div>
+  <div style="font-family:A;font-size:170px;line-height:1.25">${n}</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:110px;font-size:96px">மூணு நாள்ல <span class="y">CHANGE?</span></div>${pg}
+  <div class="qm s8" style="position:absolute;left:${w/2+400}px;top:250px;font-weight:900;font-size:220px;color:var(--rd)">?</div>
+  <div class="ys" style="position:absolute;left:0;width:${w}px;top:680px;text-align:center"><span class="chip s8" style="background:var(--em);color:#04110c;font-size:92px;padding:18px 60px;border:8px solid #fff">YES ✓ POSSIBLE</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.pg').forEach((x,i)=>{const t=dt-cue(it,0,.3)-i*.25;x.style.opacity=clamp(t/.06);x.style.transform=`rotateY(${(1-ease(t/.35))*90}deg) translateY(${(1-ease(t/.35))*80}px)`});
+  const m=q(el,'.qm');const tq=dt-cue(it,1,1.2);m.style.opacity=clamp(tq/.05);m.style.transform=`scale(${tq<0?0:pop(tq,.3)}) rotate(${Math.sin(dt*6)*10}deg)`;
+  const y=q(el,'.ys');const ty=dt-cue(it,2,2.4);y.style.opacity=clamp(ty/.05);y.style.transform=`scale(${ty<0?0:lerp(2.2,1,ease(ty/.2))}) rotate(-4deg)`;if(ty>0)m.style.opacity=clamp(1-ty/.2)}}};
+
+/* ---------- HOOK: "how many times have you both decided to lose weight?" - plans crossed out again and again ---------- */
+S.tally=(it)=>{const w=PW(it);let c='';const L=it.labels||['DIET START','WALKING','NO SUGAR','GYM','DIET START','NO RICE'];
+ L.forEach((l,i)=>c+=`<div class="tc card" style="left:${w/2-330+(i%3)*230}px;top:${300+Math.floor(i/3)*200}px;width:200px;height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-color:#2b3a35">
+  <div style="font-size:60px">📅</div><div style="font-weight:900;font-size:24px;margin-top:6px;white-space:nowrap">${l}</div>
+  <div class="xk s8" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:150px;color:var(--rd)">✗</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:110px;width:${w}px;font-size:${SD(it)?64:84}px">👫 எத்தனை <span class="r">தடவை?</span></div>${c}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.tc').forEach((x,i)=>{const t=dt-.25-i*.42;x.style.opacity=clamp(t/.06);x.style.transform=`scale(${t<0?0:pop(t,.28)})`;
+  const k=q(x,'.xk');const tk=t-.22;k.style.opacity=clamp(tk/.04);k.style.transform=`scale(${tk<0?0:lerp(2.2,1,ease(tk/.15))}) rotate(-8deg)`})}}};
+
+/* ---------- PAIN beats (one scene, four variants): diet->biryani, gym, midnight mobile, "tomorrow" ---------- */
+S.pain=(it)=>{const w=PW(it),cx=w/2;let body='',ttl='';const v=it.v;
+ if(v=='diet'){ttl='3 நாள் <span class="g">DIET</span>...';
+  body=[1,2,3].map(i=>`<div class="dc card" style="left:${cx-360+(i-1)*250}px;top:300px;width:220px;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:100px">🥗</div><div style="font-weight:900;font-size:34px;color:var(--em)">DAY ${i}</div></div>`).join('')+
+  `<div class="bg" style="position:absolute;left:0;width:${w}px;top:560px;text-align:center;font-size:200px;line-height:1">🍛</div><div class="bl" style="position:absolute;left:0;width:${w}px;top:790px;text-align:center"><span class="chip s8" style="background:var(--rd);font-size:60px;padding:12px 44px">அப்புறம் BIRYANI!</span></div>`}
+ if(v=='gym'){ttl='🏋️ GYM <span class="y">MEMBERSHIP</span>';
+  body=`<div class="pd" style="position:absolute;left:0;width:${w}px;top:220px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:44px">💳 PAID ✓</span></div>`+
+  Array.from({length:14},(_,i)=>`<div class="gd" style="position:absolute;left:${cx-455+(i%7)*130}px;top:${340+Math.floor(i/7)*150}px;width:110px;height:120px;border-radius:20px;background:#0f1713;border:4px solid #2b3a35;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900"><div style="font-size:24px;color:var(--ti)">DAY ${i+1}</div><div class="mk" style="font-size:52px"></div></div>`).join('')+
+  `<div class="bl" style="position:absolute;left:0;width:${w}px;top:690px;text-align:center"><span class="chip s8" style="background:var(--rd);font-size:54px;padding:12px 40px">2 வாரம் கூட இல்ல ❌</span></div>`}
+ if(v=='midnight'){ttl='🌙 ராத்திரி <span class="y">12 மணி</span> வரை';
+  body=`<svg class="ck" style="position:absolute;left:${cx-440}px;top:250px" width="420" height="420" viewBox="0 0 420 420"><circle cx="210" cy="210" r="190" fill="#0f1713" stroke="#FFD60A" stroke-width="14"/>
+   ${Array.from({length:12},(_,i)=>`<line x1="210" y1="35" x2="210" y2="${i%3?58:75}" stroke="#D8DDE3" stroke-width="${i%3?5:10}" transform="rotate(${i*30} 210 210)"/>`).join('')}
+   <line class="hh" x1="210" y1="210" x2="210" y2="110" stroke="#fff" stroke-width="16" stroke-linecap="round"/><line class="mh" x1="210" y1="210" x2="210" y2="60" stroke="#FFD60A" stroke-width="10" stroke-linecap="round"/><circle cx="210" cy="210" r="16" fill="#fff"/></svg>
+   <div class="ps" style="position:absolute;left:${cx+30}px;top:260px;display:flex;gap:40px">${['🧔','👩'].map(e=>`<div class="pp" style="display:flex;flex-direction:column;align-items:center"><div style="font-size:110px">${e}</div><div class="phn" style="width:120px;height:200px;border-radius:22px;border:7px solid #D8DDE3;background:#20406a;box-shadow:0 0 60px rgba(90,160,255,.7);display:flex;align-items:center;justify-content:center;font-size:56px">📱</div></div>`).join('')}</div>
+   <div class="bl" style="position:absolute;left:0;width:${w}px;top:740px;text-align:center"><span class="chip s8" style="background:var(--rd);font-size:54px;padding:12px 40px">கையில MOBILE 📱</span></div>`}
+ if(v=='tomorrow'){ttl='"<span class="y">நாளைக்கு</span> ஆரம்பிக்கலாம்"';
+  body=`<div class="cal card" style="left:${cx-200}px;top:250px;width:400px;height:420px;overflow:hidden"><div style="height:100px;background:var(--rd);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:46px">TOMORROW</div>
+   <div class="dn" style="font-family:A;font-size:240px;text-align:center;line-height:1.3">1</div></div>
+   <div class="pp2" style="position:absolute;left:${cx-470}px;top:330px;font-size:150px">🧔</div><div class="pp3" style="position:absolute;left:${cx+270}px;top:330px;font-size:150px">👩</div>
+   <div class="bl" style="position:absolute;left:0;width:${w}px;top:740px;text-align:center"><span class="chip s8" style="background:var(--yl);color:#000;font-size:50px;padding:12px 40px">😅 நாளைக்கு... நாளைக்கு...</span></div>`}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:90px;width:${w}px;font-size:${SD(it)?52:84}px">${ttl}</div>${body}`));
+ const c1=cue(it,0,1.2);
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);
+  if(v=='diet'){qa(el,'.dc').forEach((x,i)=>{const t=dt-.2-i*.3;x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*200}px)`;x.style.filter=dt>c1?'grayscale(1) brightness(.5)':'none'});
+   const b=q(el,'.bg');const t=dt-c1;b.style.opacity=clamp(t/.05);b.style.transform=`translateY(${t<0?-600:(1-ease(t/.25))*-600}px) scale(${1+.06*Math.sin(dt*9)})`;popIn(q(el,'.bl'),t-.2)}
+  if(v=='gym'){popIn(q(el,'.pd'),dt-.2);qa(el,'.gd').forEach((x,i)=>{const t=dt-.4-i*.06;x.style.opacity=clamp(t/.06);const att=i<4;const m=q(x,'.mk');const tm=dt-.9-i*.12;
+    if(tm>0){m.textContent=att?'✅':'✗';m.style.color=att?'':'#FF3B30';x.style.borderColor=att?'#00C896':'#5a2a2a'}});popIn(q(el,'.bl'),dt-c1-.6)}
+  if(v=='midnight'){const ck=q(el,'.ck');ck.style.transform=`scale(${pop(dt-.1,.35)})`;ck.style.transformOrigin='210px 210px';const p=ease((dt-.2)/1.4);
+   q(el,'.mh').setAttribute('transform',`rotate(${p*360*4} 210 210)`);q(el,'.hh').setAttribute('transform',`rotate(${270+p*90} 210 210)`);
+   qa(el,'.pp').forEach((x,i)=>{const t=dt-.4-i*.2;x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*200}px)`});qa(el,'.phn').forEach((x,i)=>x.style.boxShadow=`0 0 ${50+20*Math.sin(dt*6+i)}px rgba(90,160,255,.75)`);popIn(q(el,'.bl'),dt-c1)}
+  if(v=='tomorrow'){slideUp(q(el,'.cal'),dt,300);const n=Math.floor(Math.max(0,dt-.4)/.6);q(el,'.dn').textContent=['MON','TUE','WED','THU','FRI','SAT'][n%6];
+   q(el,'.dn').style.fontSize='150px';q(el,'.dn').style.paddingTop='50px';q(el,'.dn').style.transform=`rotateX(${(1-ease(((dt-.4)%.6)/.25))*80}deg)`;
+   ['.pp2','.pp3'].forEach((s,i)=>{const x=q(el,s);x.style.opacity=clamp((dt-.2)/.1);x.style.transform=`rotate(${Math.sin(dt*3+i*2)*8}deg)`});popIn(q(el,'.bl'),dt-c1)}}}};
+
+/* ---------- "problem is not willpower - it is your home's pattern" ---------- */
+S.pattern=(it)=>{const w=PW(it),cx=w/2;
+ const el=mk(stage(it,`<div class="wp" style="position:absolute;left:${cx-(SD(it)?520:640)}px;top:230px;width:${SD(it)?440:520}px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+   <div style="font-size:130px">💪</div><div style="font-weight:900;font-size:60px">WILL POWER</div>
+   <div class="x1" style="position:absolute;left:-20px;right:-20px;top:150px;height:16px;border-radius:8px;background:var(--rd);transform-origin:0 50%"></div>
+   <div class="x2 chip" style="position:absolute;top:0;right:0;background:var(--rd);font-size:34px">PROBLEM இல்ல</div></div>
+  <div class="hm" style="position:absolute;left:${cx+(SD(it)?20:60)}px;top:180px;width:${SD(it)?500:560}px;height:480px">
+   <svg width="100%" height="100%" viewBox="0 0 500 480"><path d="M60 230 L250 70 L440 230 L440 450 L60 450 Z" fill="#0f1713" stroke="#FFD60A" stroke-width="12" stroke-linejoin="round"/>
+    <g class="lp" style="transform-origin:250px 330px"><path d="M170 330 A80 80 0 1 1 250 410" fill="none" stroke="#FF3B30" stroke-width="14" stroke-linecap="round"/><path d="M250 410 l-26 -14 l6 30 z" fill="#FF3B30"/></g>
+    <text x="250" y="345" text-anchor="middle" font-size="44" font-weight="900" fill="#fff" font-family="M">🔁</text></svg>
+   <div class="pl" style="position:absolute;left:0;right:0;top:-20px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:44px">🏠 வீட்டோட PATTERN</span></div></div>
+  <div class="ft" style="position:absolute;left:0;width:${w}px;top:760px;text-align:center"><span class="chip s8" style="background:var(--em);color:#04110c;font-size:54px;padding:12px 44px">✓ PROBLEM = PATTERN</span></div>`));
+ const c1=cue(it,0,.9),c2=cue(it,1,2.0);
+ return {el,upd(dt){popIn(q(el,'.wp'),dt-.1);const x=q(el,'.x1');x.style.transform=`scaleX(${ease((dt-c1)/.25)})`;popIn(q(el,'.x2'),dt-c1-.15);q(el,'.wp').style.filter=dt>c1+.2?'grayscale(.8) brightness(.6)':'none';
+  slideUp(q(el,'.hm'),dt-c2,300);q(el,'.lp').style.transform=`rotate(${dt*160}deg)`;popIn(q(el,'.pl'),dt-c2-.2);popIn(q(el,'.ft'),dt-c2-.8)}}};
+
+/* ---------- guarantee stamp (on the face) ---------- */
+S.stamp=(it)=>{const el=mk(`<div class="sp" style="position:absolute;left:${it.x??110}px;top:${it.y??200}px;width:560px;height:560px;border-radius:50%;border:16px double var(--em);display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(4,17,12,.82);box-shadow:0 30px 70px rgba(0,0,0,.6)">
+  <div style="font-family:A;font-size:150px;color:var(--em);line-height:1">100%</div><div style="font-weight:900;font-size:58px;letter-spacing:2px">MONEY BACK</div>
+  <div style="margin-top:10px;font-weight:800;font-size:28px;color:var(--pl);text-align:center;padding:0 60px;line-height:1.2">${it.sub||'3 நாள் LIVE • VALUE இல்லைன்னா'}</div></div>
+  ${it.badge?`<div class="rb" style="position:absolute;left:${(it.x??110)-10}px;width:580px;top:${(it.y??200)+590}px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:38px">${it.badge}</span></div>`:''}`);
+ return {el,upd(dt){const s=q(el,'.sp');s.style.opacity=clamp(dt/.05);s.style.transform=`scale(${dt<0?0:lerp(2.4,1,ease(dt/.2))}) rotate(-10deg)`;const r=q(el,'.rb');if(r)popIn(r,dt-(it.bt??1.0))}}};
+
+/* ---------- 2. 3 days + bonus overview (agenda) ---------- */
+S.agenda=(it)=>{const w=PW(it);const D=it.days||[['DAY 1','📱','HABITS'],['DAY 2','👨‍👩‍👧‍👦','FAMILY HEALTH'],['DAY 3','🏡','FAMILY HAPPINESS'],['BONUS','💰','FINANCIAL LITERACY']];
+ const n=D.length,cw=SD(it)?250:360,gap=SD(it)?22:40,x0=(w-(n*cw+(n-1)*gap))/2;let c='';
+ D.forEach((d,i)=>{const b=i==n-1&&d[0]=='BONUS';c+=`<div class="dy card" style="left:${x0+i*(cw+gap)}px;top:330px;width:${cw}px;height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;${b?'border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.3)':''}">
+  <div style="font-weight:900;font-size:${SD(it)?44:54}px;color:${b?'#FFD60A':'#00C896'}">${d[0]}</div><div style="font-size:${SD(it)?100:130}px;margin:14px 0">${d[1]}</div><div style="font-weight:900;font-size:${SD(it)?30:38}px;text-align:center;padding:0 10px;line-height:1.1">${d[2]}</div></div>`});
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:110px;width:${w}px;font-size:${SD(it)?60:76}px">${it.title||'3 நாள் <span class="y">FAMILY WELLNESS</span> CHALLENGE'}</div>${c}
+  ${it.foot?`<div class="ft" style="position:absolute;left:0;width:${w}px;top:790px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:42px">${it.foot}</span></div>`:''}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.dy').forEach((x,i)=>{const t=dt-cue(it,i,.3+i*.3);x.style.opacity=clamp(t/.1);x.style.transform=`translateY(${(1-ease(t/.35))*140}px) scale(${t<0?0:pop(t,.35)})`;
+   const on=it.focus!=null?(i==it.focus):true;x.style.filter=on?'none':'brightness(.45) saturate(.4)'});popIn(q(el,'.ft'),dt-(it.ftc||1.8))}}};
+
+/* ---------- 3. DAY 1: mobile scrolling -> habits tuned (hand-hold) ---------- */
+S.habits=(it)=>{const w=PW(it),cx=w/2;const H=it.items||[['😴','SLEEP'],['🍽️','FOOD'],['🚶','MOVE'],['📵','SCREEN']];let sl='';
+ H.forEach((h,i)=>sl+=`<div class="sl" style="position:absolute;left:${cx+10+i*(SD(it)?110:150)}px;top:230px;width:100px;height:520px;display:flex;flex-direction:column;align-items:center">
+  <div style="font-size:60px">${h[0]}</div><div style="position:relative;width:22px;height:360px;margin-top:14px;border-radius:12px;background:#1e2b27">
+   <div class="fill" style="position:absolute;left:0;right:0;bottom:0;border-radius:12px;background:var(--em)"></div>
+   <div class="kn" style="position:absolute;left:-19px;width:60px;height:60px;border-radius:50%;background:#fff;border:6px solid var(--em);box-shadow:0 6px 18px rgba(0,0,0,.5)"></div></div>
+  <div style="font-weight:900;font-size:24px;margin-top:16px;white-space:nowrap">${h[1]}</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:60px;width:${w}px;font-size:${SD(it)?64:84}px"><span class="y">DAY 1</span> • HABITS</div>
+  <div class="ph" style="position:absolute;left:${cx-(SD(it)?430:560)}px;top:190px;width:330px;height:560px;border-radius:50px;border:10px solid #D8DDE3;background:#0b141a;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.6)">
+   <div class="feed" style="position:absolute;left:18px;right:18px;top:0">${Array.from({length:14},(_,i)=>`<div style="height:150px;margin:14px 0;border-radius:20px;background:${['#2a3c55','#4a2a4a','#2a4a3a','#4a402a'][i%4]};display:flex;align-items:center;justify-content:center;font-size:70px">${['🎬','😂','📺','🛒','🎮','💬','📷'][i%7]}</div>`).join('')}</div>
+   <div class="xx" style="position:absolute;inset:0;background:rgba(255,59,48,.75);display:flex;align-items:center;justify-content:center;font-size:200px;font-weight:900;opacity:0">✋</div></div>
+  <div class="lb" style="position:absolute;left:${cx-(SD(it)?430:560)}px;width:330px;top:770px;text-align:center"><span class="chip" style="background:var(--rd);font-size:30px">📱 NON-STOP SCROLL</span></div>
+  ${sl}<div class="hh" style="position:absolute;left:${cx-10}px;width:${SD(it)?460:600}px;top:770px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:26px">🤝 HAND-HOLD GUIDANCE</span></div>`));
+ const c1=cue(it,0,.2),c2=cue(it,1,1.8),c3=cue(it,2,3.2);
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.ph'),dt-c1,500);q(el,'.feed').style.transform=`translateY(${-(dt*420*(dt<c2?1:Math.max(0,1-(dt-c2)*3)))%1700}px)`;popIn(q(el,'.lb'),dt-c1-.3);
+  const x=q(el,'.xx');x.style.opacity=clamp((dt-c2)/.15)*.95;
+  qa(el,'.sl').forEach((s,i)=>{const t=dt-c2-.15*i;s.style.opacity=clamp(t/.1);s.style.transform=`translateY(${(1-ease(t/.3))*200}px)`;
+   const lo=[.15,.25,.1,.85][i%4],hi=[.85,.8,.75,.2][i%4];const p=easeIO((dt-c3-i*.18)/.6);const v=lerp(lo,hi,p);
+   q(s,'.kn').style.bottom=(v*360-30)+'px';q(s,'.fill').style.height=(v*360)+'px';q(s,'.fill').style.background=p>=1?'var(--em)':'#3d6b5c'});
+  popIn(q(el,'.hh'),dt-c3-.6)}}};
+
+/* ---------- 4. DAY 2: not just you -> whole family healthy ---------- */
+S.famhealth=(it)=>{const w=PW(it);const F=it.fam||['👨','👩','👧','👦','👵'];const n=F.length,sp=SD(it)?168:240,x0=w/2-(n-1)*sp/2;let f='';
+ F.forEach((e,i)=>f+=`<div class="fm" style="position:absolute;left:${x0+i*sp-90}px;top:320px;width:180px;height:180px;display:flex;align-items:center;justify-content:center">
+  <svg width="180" height="180" style="position:absolute;left:0;top:0"><circle cx="90" cy="90" r="80" fill="#0f1713" stroke="#24352f" stroke-width="12"/><circle class="rg" cx="90" cy="90" r="80" fill="none" stroke="#00C896" stroke-width="12" stroke-linecap="round" transform="rotate(-90 90 90)" stroke-dasharray="0 503"/></svg>
+  <div style="position:relative;font-size:100px">${e}</div><div class="tk" style="position:absolute;right:-6px;top:-6px;width:58px;height:58px;border-radius:50%;background:var(--em);color:#04110c;font-weight:900;font-size:40px;display:flex;align-items:center;justify-content:center">✓</div></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:70px;width:${w}px;font-size:${SD(it)?60:84}px"><span class="y">DAY 2</span> • FAMILY HEALTH</div>
+  <div class="t2" style="position:absolute;left:0;width:${w}px;top:200px;text-align:center"><span class="chip s8" style="background:var(--ob);border:5px solid var(--rd);color:#fff;font-size:42px">உங்களுக்கு மட்டும் இல்ல...</span></div>
+  ${f}<div class="t3" style="position:absolute;left:0;width:${w}px;top:600px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:54px;padding:16px 46px">👨‍👩‍👧‍👦 முழு FAMILY-யும் HEALTHY</span></div>`));
+ const c1=cue(it,0,.2),c2=cue(it,1,1.6);
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);popIn(q(el,'.t2'),dt-c1);
+  qa(el,'.fm').forEach((x,i)=>{const first=i==Math.floor(n/2);const t=first?dt-c1:dt-c2-.18*Math.abs(i-Math.floor(n/2));x.style.opacity=t<0?(first?0:.0):1;x.style.transform=`scale(${t<0?0:pop(t,.3)})`;
+   const p=ease((t-.15)/.5);q(x,'.rg').setAttribute('stroke-dasharray',`${p*503} 503`);const tk=q(x,'.tk');tk.style.transform=`scale(${t-.6<0?0:pop(t-.6,.25)})`});
+  popIn(q(el,'.t3'),dt-c2-.9)}}};
+
+/* ---------- 5. DAY 3: routines -> happiness fills the home ---------- */
+S.happy=(it)=>{const w=PW(it),cx=w/2;const R=it.routines||[['🌅','MORNING'],['🍲','TOGETHER'],['🌙','NIGHT']];let r='';
+ R.forEach((x,i)=>r+=`<div class="rt" style="position:absolute;left:${cx+(SD(it)?40:120)}px;top:${270+i*150}px;height:120px;width:${SD(it)?400:480}px;border-radius:24px;background:#0f1713;border:4px solid #2b3a35;display:flex;align-items:center;padding:0 20px;font-weight:900;font-size:36px">
+  <span style="font-size:54px;margin-right:14px">${x[0]}</span><span style="flex:1">${x[1]}</span><span class="ck" style="width:58px;height:58px;border-radius:16px;border:5px solid var(--em);display:flex;align-items:center;justify-content:center;font-size:38px;color:#04110c"></span></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:60px;width:${w}px;font-size:${SD(it)?54:84}px"><span class="y">DAY 3</span> • FAMILY HAPPINESS ★</div>
+  <svg class="hs" style="position:absolute;left:${cx-(SD(it)?470:620)}px;top:230px" width="460" height="520" viewBox="0 0 460 520">
+   <defs><clipPath id="hc"><path d="M30 230 L230 40 L430 230 L430 500 L30 500 Z"/></clipPath></defs>
+   <g clip-path="url(#hc)"><rect class="lv" x="0" y="500" width="460" height="480" fill="rgba(255,111,168,.35)"/></g>
+   <path d="M30 230 L230 40 L430 230 L430 500 L30 500 Z" fill="none" stroke="#D8DDE3" stroke-width="14" stroke-linejoin="round"/>
+   <rect x="185" y="360" width="90" height="140" rx="10" fill="#1d2b26" stroke="#D8DDE3" stroke-width="8"/></svg>
+  <div class="hts" style="position:absolute;left:${cx-(SD(it)?470:620)}px;top:230px;width:460px;height:520px">${Array.from({length:9},(_,i)=>`<div class="ht" style="position:absolute;left:${70+(i%3)*120}px;top:${250+Math.floor(i/3)*70}px;font-size:56px">${i%2?'💖':'😊'}</div>`).join('')}</div>
+  ${r}<div class="hp" style="position:absolute;left:0;width:${w}px;top:770px;text-align:center"><span class="chip" style="background:var(--pk);color:#1a0610;font-size:52px;padding:16px 46px">🏡 HAPPINESS வீட்டுக்குள்ள</span></div>`));
+ const c1=cue(it,0,.6),c2=cue(it,1,2.6);
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);slideUp(q(el,'.hs'),dt-.1,400);
+  qa(el,'.rt').forEach((x,i)=>{const t=dt-c1-i*.45;slideIn(x,t,500);const on=t>.4;const c=q(x,'.ck');c.style.background=on?'#00C896':'transparent';c.textContent=on?'✓':'';x.style.borderColor=on?'#00C896':'#2b3a35'});
+  const p=ease((dt-c2)/1.2);q(el,'.lv').setAttribute('y',500-p*470);
+  qa(el,'.ht').forEach((h,i)=>{const t=dt-c2-.1*i;h.style.opacity=clamp(t/.1);h.style.transform=`scale(${t<0?0:pop(t,.3)}) translateY(${Math.sin(dt*4+i)*6}px)`});
+  popIn(q(el,'.hp'),dt-c2-.9)}}};
+
+/* ---------- 6. BONUS: financial literacy -> first step to independence ---------- */
+S.money=(it)=>{const w=PW(it),cx=w/2;let st='';for(let i=0;i<5;i++)st+=`<div class="stp" style="position:absolute;left:${cx-360+i*150}px;top:${640-i*80}px;width:150px;height:${80+i*80}px;background:${i==4?'#3a3210':'#13201b'};border:4px solid ${i==4?'#FFD60A':'#2b3a35'};border-bottom:none"></div>`;
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:60px;width:${w}px;font-size:${SD(it)?52:84}px"><span class="y">BONUS</span> • FINANCIAL LITERACY</div>
+  ${st}<div class="gl" style="position:absolute;left:${cx+240}px;top:180px;font-size:110px">🏆</div>
+  <div class="gt" style="position:absolute;left:${cx+60}px;top:300px"><span class="chip" style="background:var(--yl);color:#000;font-size:24px;padding:8px 18px">FINANCIAL INDEPENDENCE</span></div>
+  <div class="mn" style="position:absolute;top:0;left:0;font-size:96px">🚶</div>
+  <div class="cn" style="position:absolute;left:${cx-330}px;top:500px;font-size:70px">🪙</div>
+  <div class="fs" style="position:absolute;left:0;width:${w}px;top:750px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:52px;padding:16px 46px">👣 உங்க FIRST STEP</span></div>`));
+ const c1=cue(it,0,.6),c2=cue(it,1,1.8);
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.stp').forEach((s,i)=>{const t=dt-.15-i*.1;s.style.opacity=clamp(t/.08);s.style.transform=`translateY(${(1-ease(t/.3))*300}px)`});
+  popIn(q(el,'.gl'),dt-.8);popIn(q(el,'.gt'),dt-1);const m=q(el,'.mn');const p=easeIO((dt-c1)/1.1);m.style.left=(cx-470+p*170)+'px';m.style.top=(545-p*80-Math.abs(Math.sin(dt*8))*12*(p<1&&p>0?1:0))+'px';
+  const c=q(el,'.cn');const tc=dt-c1-1.0;c.style.opacity=clamp(tc/.05);c.style.transform=`translateY(${tc<0?0:-Math.abs(Math.sin(tc*5))*50*Math.max(0,1-tc/1.5)}px) rotateY(${tc*500}deg)`;
+  popIn(q(el,'.fs'),dt-c2)}}};
+
+/* ---------- 7. value stack (before the price) ---------- */
+S.stack=(it)=>{const w=PW(it);const I=it.items||[['📱','DAY 1 • HABITS'],['👨‍👩‍👧‍👦','DAY 2 • FAMILY HEALTH'],['🏡','DAY 3 • FAMILY HAPPINESS'],['💰','BONUS • FINANCIAL LITERACY']];let r='';
+ I.forEach((x,i)=>r+=`<div class="sk" style="position:absolute;left:${w/2-(SD(it)?520:560)}px;top:${220+i*135}px;width:${SD(it)?1040:1120}px;height:112px;border-radius:24px;background:#0f1713;border:4px solid #00C896;display:flex;align-items:center;padding:0 30px;font-weight:900;font-size:46px;box-shadow:0 16px 40px rgba(0,0,0,.5)">
+  <span style="font-size:60px;margin-right:22px">${x[0]}</span><span style="flex:1">${x[1]}</span><span style="color:var(--em);font-size:56px">✓</span></div>`);
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:70px;width:${w}px;font-size:${SD(it)?66:84}px">${it.title||'இத்தனை <span class="y">SECRETS</span>-ம்'}</div>${r}`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.sk').forEach((x,i)=>{const t=dt-cue(it,i,.3+i*.35);x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*-500}px) rotate(${(1-ease(t/.3))*-6}deg)`})}}};
+
+/* ---------- 8. real testimonial clip label (clip composited by comp.py) ---------- */
+S.testi=(it)=>{const el=mk(`<div class="tg" style="position:absolute;left:${it.x??60}px;top:${it.y??60}px"><span class="chip" style="background:var(--em);color:#04110c;font-size:30px">✅ REAL CLIENT • TM NUTRITION</span></div>
+  ${it.name?`<div class="nm" style="position:absolute;left:${it.x??60}px;top:${(it.y??60)+70}px"><span class="chip" style="background:var(--ob);border:4px solid var(--yl);color:#fff;font-size:34px">${it.name}</span></div>`:''}
+  ${it.res?`<div class="rs stroke" style="position:absolute;left:${it.rx??60}px;top:${it.ry??780}px;font-weight:900;font-size:${it.rsz||64}px;line-height:1.05">${it.res}</div>`:''}
+  ${it.note?`<div style="position:absolute;right:30px;bottom:24px;font-weight:700;font-size:20px;color:#cfd6dc;text-shadow:0 2px 6px #000">${it.note}</div>`:''}
+  <div class="fl" style="position:absolute;inset:0;background:#fff"></div>`);
+ return {el,upd(dt){q(el,'.fl').style.opacity=.5*(1-clamp(dt/.1));popIn(q(el,'.tg'),dt-.15);popIn(q(el,'.nm'),dt-.35);popIn(q(el,'.rs'),dt-(it.rt??1.2),.35)}}};
+
+/* overlay chips for any composited video B-roll */
+S.vid=(it)=>{let ch='';(it.chips||[]).forEach((c,i)=>ch+=`<span class="chip vc" style="background:${c[1]||'var(--ob)'};color:${c[2]||'#fff'};border:4px solid ${c[3]||'var(--em)'};font-size:${it.csz||38}px;margin:8px;box-shadow:0 10px 26px rgba(0,0,0,.55)">${c[0]}</span>`);
+ const el=mk(`${ch?`<div style="position:absolute;left:30px;width:${SD(it)?1092:1860}px;top:${it.cy||50}px;display:flex;flex-wrap:wrap;justify-content:center">${ch}</div>`:''}<div class="fl" style="position:absolute;inset:0;background:#fff"></div>`);
+ return {el,upd(dt){q(el,'.fl').style.opacity=.5*(1-clamp(dt/.1));qa(el,'.vc').forEach((x,i)=>popIn(x,dt-((it.ct||[])[i]??(.3+i*.5)),.3))}}};
+
+/* ---------- on-face graphics (speaker stays on screen) ---------- */
+S.text=(it)=>{const el=mk(`<div class="stroke tx" style="position:absolute;left:${it.x??0}px;width:${it.w??1920}px;top:${it.y||120}px;text-align:center;font-weight:900;font-size:${it.size||110}px;line-height:1.04;text-transform:uppercase">${it.html}</div>`);
+ return {el,upd(dt){const x=q(el,'.tx');x.style.transform=`scale(${pop(dt,.3)}) rotate(${it.rot||0}deg)`;x.style.opacity=clamp(dt/.05)}}};
+S.badge=(it)=>{const el=mk(`<div style="position:absolute;left:${it.x??0}px;width:${it.w??1920}px;text-align:center;top:${it.y||120}px"><div class="bg chip" style="background:${it.bg||'var(--rd)'};color:${it.fg||'#fff'};font-size:${it.size||50}px;padding:14px 34px;box-shadow:0 12px 30px rgba(0,0,0,.5)">${it.html}</div></div>`);
+ return {el,upd(dt){q(el,'.bg').style.transform=`scale(${pop(dt)}) rotate(${it.rot??-3}deg)`}}};
+/* price: tag drops in, number counts up to the spoken price (no invented anchor) */
+S.price=(it)=>{const el=mk(`<div class="pt" style="position:absolute;left:${it.x??90}px;top:${it.y??190}px;width:620px;display:flex;flex-direction:column;align-items:center">
+  <div class="stroke" style="font-weight:900;font-size:64px">${it.pre||'JUST'}</div>
+  <div class="tg" style="margin-top:14px;padding:16px 56px 22px;border-radius:34px;background:var(--yl);color:#000;font-family:A;font-size:230px;line-height:1;box-shadow:0 0 0 10px #000,0 30px 60px rgba(0,0,0,.6)">₹<span class="n">0</span></div>
+  ${it.sub?`<div class="sb" style="margin-top:34px"><span class="chip" style="background:var(--ob);border:5px solid var(--em);color:#fff;font-size:42px">${it.sub}</span></div>`:''}</div>`);
+ return {el,upd(dt){const p=q(el,'.pt');p.style.opacity=clamp(dt/.05);p.style.transform=`translateY(${(1-ease(dt/.35))*-500}px) rotate(${Math.sin(Math.max(0,dt-.35)*6)*2*Math.max(0,1-(dt-.35))}deg)`;
+  q(el,'.n').textContent=Math.round(it.value*ease((dt-.25)/.7));const s=q(el,'.sb');if(s)popIn(s,dt-1.1)}}};
+S.cta=(it)=>{const el=mk(`<div style="position:absolute;left:${it.x??0}px;width:${it.w??1920}px;top:${it.y||650}px;text-align:center">
+  <div class="btn" style="display:inline-flex;align-items:center;gap:20px;padding:26px 56px;border-radius:999px;background:${it.bg||'var(--yl)'};color:${it.fg||'#000'};font-weight:900;font-size:56px;white-space:nowrap">${it.label}</div>
+  <div class="arw stroke" style="font-size:96px;font-weight:900;color:var(--yl);line-height:1.05">${it.arrow||'↓'}</div>
+  ${it.badge?`<div class="bd chip" style="background:var(--ob);border:5px solid var(--em);color:var(--em);font-size:38px">${it.badge}</div>`:''}</div>`);
+ return {el,upd(dt){const b=q(el,'.btn');const pl=(dt*1.4)%1;b.style.transform=`scale(${pop(dt,.3)*(1+.045*Math.sin(dt*7))})`;b.style.boxShadow=`0 0 0 ${pl*36}px rgba(255,214,10,${.55*(1-pl)}),0 20px 50px rgba(0,0,0,.5)`;
+  q(el,'.arw').style.transform=`translateY(${Math.abs(Math.sin(dt*5))*28}px)`;const d=q(el,'.bd');if(d)d.style.transform=`scale(${pop(dt-.35)})`}}};
+/* lower third: name + title */
+S.lower=(it)=>{const el=mk(`<div class="lt" style="position:absolute;left:${it.x??90}px;top:${it.y??760}px;display:flex;flex-direction:column;gap:10px">
+  <div class="a" style="padding:12px 30px;background:var(--em);color:#04110c;font-weight:900;font-size:50px;border-radius:14px;white-space:nowrap">${it.name}</div>
+  <div class="b" style="padding:10px 30px;background:var(--ob);border-left:8px solid var(--yl);font-weight:800;font-size:32px;border-radius:10px;white-space:nowrap">${it.title}</div></div>`);
+ return {el,upd(dt){slideIn(q(el,'.a'),dt,-700,.35);slideIn(q(el,'.b'),dt-.15,-700,.35);el.style.opacity=clamp((it.t1-it.t0-dt)/.25)}}};
+S.flash=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:#fff"></div>`);return {el,upd(dt){el.style.opacity=.85*(1-clamp(dt/.12))}}};
+
+/* end card */
+S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="left:510px;top:100px"></div>
+  <div class="e1" style="position:relative;font-size:120px">👨‍👩‍👧‍👦</div>
+  <div class="e2" style="position:relative;margin-top:6px;font-family:A,T;font-size:96px;letter-spacing:3px;line-height:1">3 நாள் FAMILY WELLNESS CHALLENGE</div>
+  <div class="e4" style="position:relative;margin-top:22px;font-weight:800;font-size:36px;color:var(--pl);letter-spacing:2px">HABITS • FAMILY HEALTH • FAMILY HAPPINESS • FINANCIAL LITERACY</div>
+  <div class="e5" style="position:relative;margin-top:44px;display:flex;gap:30px;align-items:center"><span class="chip" style="background:var(--yl);color:#000;font-family:A;font-size:90px;padding:6px 44px">₹${it.price||555}</span>
+   <span class="bk chip" style="background:var(--em);color:#04110c;font-size:56px;padding:24px 50px">👇 ${it.btn||'BOOK NOW'}</span></div>
+  ${it.seats?`<div class="e6" style="position:relative;margin-top:30px"><span class="chip" style="background:var(--rd);font-size:40px">${it.seats}</span></div>`:''}
+  <div class="e7" style="position:relative;margin-top:30px;font-weight:800;font-size:34px;color:var(--ti)">${it.loc||'TM NUTRITION • COACH PRADHEESH MUTHARASU • TRICHY'}</div></div>`);
+ return {el,upd(dt){q(el,'.e1').style.transform=`scale(${pop(dt,.4)})`;['.e2','.e4','.e5','.e6','.e7'].forEach((s,i)=>{const x=q(el,s);if(!x)return;x.style.opacity=ease((dt-.1-i*.08)/.2);x.style.transform=`translateY(${(1-ease((dt-.1-i*.08)/.3))*100}px)`});
+  const b=q(el,'.bk');const pl=(dt*1.4)%1;b.style.boxShadow=`0 0 0 ${pl*34}px rgba(0,200,150,${.5*(1-pl)})`;b.style.transform=`scale(${1+.04*Math.sin(dt*7)})`}}};
+
+/* ---------- captions (karaoke) ---------- */
+const capEl=document.getElementById('cap');let curCap=null;
+function drawCap(t){let c=null;for(const x of TL.captions){if(t>=x.t0&&t<x.t1){c=x;break}}
+ if(!c||c.pos=='none'){capEl.style.display='none';curCap=null;return}
+ capEl.style.display='flex';capEl.className='stroke'+(c.pos?' '+c.pos:'');
+ if(curCap!==c){capEl.innerHTML=c.words.map(w=>`<span>${w}</span>`).join('');curCap=c}
+ const sp=[...capEl.children];const n=sp.length;const dur=(c.t1-c.t0);const L=c.words.join(' ').length;const ta=/[஀-௿]/.test(c.words.join(''));
+ sp.forEach((s,i)=>{const ws=c.wt?c.wt[i]:c.t0+dur*i/n*0.8;const dt=t-ws;const vis=dt>=0;s.style.opacity=vis?1:0;const em=(c.hl||[]).includes(i);
+  s.style.color=em?(c.col||'#00C896'):'#FFFFFF';const bs=(c.pos=='side'?.78:1)*(L>34?.8:(L>26?.9:1))*(ta?.88:1);s.style.fontSize=(em?76:64)*bs+'px';
+  s.style.transform=`scale(${vis?pop(dt,.22):0}) rotate(${em?-2:0}deg)`});}
+const OVL=['text','cta','badge','flash','vid','price','lower','testi','stamp'];
+function init(tl){TL=tl;for(const it of TL.items){const b=S[it.type](it);b.el.style.zIndex=it.type=='flash'?30:(it.type=='endcard'?5:(OVL.includes(it.type)?3:1));els.push([it,b])}}
+function setT(t){let any=false,hideCap=false;
+ for(const [it,b] of els){const on=t>=it.t0&&t<it.t1;b.el.style.display=on?'block':'none';
+  if(on){any=true;const dt=t-it.t0;b.upd(dt,it,t);const inn=q(b.el,'.inner');
+   if(inn){const k=SD(it)?1.2:1;inn.style.transformOrigin=SD(it)?'576px 60px':'50% 45%';inn.style.transform=`scale(${k*(1+.04*dt/(it.t1-it.t0))})`;q(b.el,'.grid').style.transform=`translateY(${(dt*30)%80}px)`;
+    const fl=q(b.el,'.flash');fl.style.opacity=.5*(1-clamp(dt/.1));
+    const out=clamp((it.t1-t)/.12);b.el.style.transform=`translateX(${(1-out)*-80}px)`}
+   if(['text','cta','badge','price','stamp'].includes(it.type))b.el.style.opacity=clamp((it.t1-t)/.12);
+   if(it.nocap)hideCap=true}}
+ drawCap(t);if(hideCap)capEl.style.display='none';return any||capEl.style.display!='none'}
+window.init=init;window.setT=setT;
+</script></body></html>
