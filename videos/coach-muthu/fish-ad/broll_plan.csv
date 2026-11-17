@@ -1,0 +1,19 @@
+ID,Source time (s; IMG_2605),Coach line (meaning),Visual,Source,Layout,Approx on-screen (s),Status,Licence
+-,6.6-8.0,"""Guduvanchery people, one minute!"" (hook)",FACE ONLY,-,face,-,-,-
+B01,16.6-19.5,"""If you feed this fish this much, know what happens?""",Hand holds a pinch of fish food above an aquarium and stops,P3 AI (Google Flow),full cutaway,2.5,prompt to write,AI - disclose in Meta
+B02,21.5-25.2,"""The water gets spoiled, the fish gets sick""","Cloudy, murky tank; a dull fish drifting near the surface",P3 AI (Google Flow),split screen,2.5,prompt to write,AI - disclose in Meta
+B03,28.5-38.0,"""Everyone who keeps fish knows the rule: correct food, clean water, correct timing""",New scene fishrule: clean tank + 3 tick cards (Correct food / Clean water / Correct timing),P5 motion graphics (NEW scene),split screen,6.0,to build,original
+-,45.8-46.8,"""But our body?""",FACE + zoom punch (the turn),-,face,-,-,-
+B04,53.6-55.4,"""Late-night dinner, three cups of tea""",Family eating dinner late at night (wall clock ~11 PM) + chip 3 cups of tea,P3 AI + P5 chips,split screen,2.0,prompt to write,AI - disclose in Meta
+B05,58.4-59.8,"""We even forget to drink water""",New scene habits: full water bottle untouched + red X,P5 motion graphics (NEW scene),split screen,1.5,to build,original
+B06,65.6-69.0,"""The rule we keep for fish we don't keep for ourselves""",fishrule second state: Fish ✓✓✓ vs Us ✗✗✗,P5 motion graphics (NEW scene),split screen,3.0,to build,original
+B07,76.0-79.4,"""That's why the Family Health Reset 3 Day Challenge""",days scene (Zoom / Zoom / Centre),P5 reuse v5,split screen,2.8,ready,original
+B08,83.1-88.4,"""First 2 days on Zoom, morning 1 hour, from home""",Family on a Zoom call at home,P3 AI - reuse Dog ad B05_zoom_family,split screen,3.0,reuse,AI - disclose in Meta
+B09,106.0-109.1,"""So our family stays free of hospital visits""",Family walking in a park in the morning,P3 AI - reuse Dog ad B06_park_walk,split screen,2.5,reuse,AI - disclose in Meta
+-,109.6-114.5,"""...full roadmap from my 8+ years of experience""",FACE + badge 8+ YEARS,-,face,-,-,-
+B10,124.0-131.2,"""Day 3 come to the centre: BMI, BMR, fat analysis, all free""",checkup scene; FREE badge on face at the end,P5 reuse v5,split screen,5.0,ready,original
+B11,138.9-140.6,"""I'll look after this fish...""",Finger taps the glass of a clean tank; healthy fish swim,P3 AI (Google Flow),full cutaway,1.5,prompt to write,AI - disclose in Meta
+-,140.6-142.8,"""...give these 3 days to your family as a gift""",FACE + gift badge 3 DAYS = GIFT,-,face,-,-,-
+-,189.3-231.8,"Gift line, register CTA, WhatsApp group, only 10 families / then 2,000, register now","FACE ONLY - cta button + price graphic (First 10 families FREE, then ₹2,000)",-,face,-,no B-roll (CTA + price),-
+B12,235.0-243.7,"""Centre: Guduvanchery, Nellikuppam Road, Periyar Nagar, opp. SRM School""",mappin scene,P5 reuse v5,split screen,4.3,ready,original
+END,-,-,Client end card (Send WhatsApp message),P5 reuse v5,full,2.0,ready,original
