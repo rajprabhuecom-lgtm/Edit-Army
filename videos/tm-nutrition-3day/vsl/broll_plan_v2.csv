@@ -6,16 +6,22 @@ F06*,19.8-22.0,ராத்திரி 12 மணி வரைக்கும்
 F07*,22.0-26.0,"""நாளைக்கு ஆரம்பிச்சுக்கலாம்""","animated ""pain"" (tomorrow)",P5 motion graphics (placeholder until Flow clip),side,4.0,original
 F08*,26.0-28.7,"Problem will power-ல இல்ல, வீட்டோட pattern-ல","animated ""pattern""",P5 motion graphics (placeholder until Flow clip),full,2.7,original
 T11,28.7-30.0,client named on camera,clip T_vid_0606.mp4,P2 real testimonial,tside,1.3,client consent needed
-T12,30.0-33.7,client named on camera,clip T_vid_0608.mp4,P2 real testimonial,tside,3.7,client consent needed
-T13,33.7-35.4,client named on camera,clip T_vid_0610.mp4,P2 real testimonial,tside,1.7,client consent needed
-T14,35.4-37.7,everyone thought it would not work,clip T_vid_0613.mp4,P2 real testimonial,tside,2.4,client consent needed
-P01,41.1-44.2,client proof bite (own audio),clip B01_T_vid_0608.mkv,P2 real testimonial,full,3.2,client consent needed
-P02,44.2-46.1,client proof bite (own audio),clip B02_T_vid_0610.mkv,P2 real testimonial,full,1.9,client consent needed
-G01,48.2-50.4,Yes - change can start in 3 days,"animated ""q3days""",P5 motion graphics,full,2.2,original
-G02,50.4-52.2,Day 1: Habits,"animated ""agenda""",P5 motion graphics,full,1.7,original
-F10*,51.8-56.8,"mobile-ஐ continuous-ஆ பாக்காம, habit pattern tune","animated ""habits""",P5 motion graphics (placeholder until Flow clip),side,5.0,original
-G03,59.9-60.9,Day 2 (title card),"animated ""agenda""",P5 motion graphics,full,1.0,original
-F12*,60.9-65.1,உங்க மொத்த family-யும் healthy-ஆ,"animated ""famhealth""",P5 motion graphics (placeholder until Flow clip),side,4.2,original
-G04,65.1-67.9,Day 3 very important: family happiness,"animated ""agenda""",P5 motion graphics,full,2.8,original
-F13*,67.9-72.6,அந்த happiness உங்க வீட்டுக்குள்ள வரணும்னா... என்ன routine,"animated ""happy""",P5 motion graphics (placeholder until Flow clip),side,4.7,original
-F14*,76.4-80.1,financial independence-க்கான first step,"animated ""money""",P5 motion graphics (placeholder until Flow clip),side,3.7,original
+P11,30.0-38.3,client proof bite (own audio),clip T11_T_vid_0606.mkv,P2 real testimonial,full,8.3,client consent needed
+T12,38.3-42.0,client named on camera,clip T_vid_0608.mp4,P2 real testimonial,tside,3.7,client consent needed
+P12,42.0-46.9,client proof bite (own audio),clip T12_T_vid_0608.mkv,P2 real testimonial,full,4.9,client consent needed
+T13,46.9-48.6,client named on camera,clip T_vid_0610.mp4,P2 real testimonial,tside,1.7,client consent needed
+P13,48.6-52.1,client proof bite (own audio),clip T13_T_vid_0610.mkv,P2 real testimonial,full,3.4,client consent needed
+P13b,52.1-54.6,client proof bite (own audio),clip T13b_T_vid_0610.mkv,P2 real testimonial,full,2.6,client consent needed
+T14,54.6-57.0,everyone thought it would not work,clip T_vid_0613.mp4,P2 real testimonial,tside,2.4,client consent needed
+P14,57.0-59.9,client proof bite (own audio),clip T14_T_vid_0615.mkv,P2 real testimonial,full,2.9,client consent needed
+P14b,59.9-62.8,client proof bite (own audio),clip T14b_T_vid_0615.mkv,P2 real testimonial,full,2.9,client consent needed
+P01,66.1-69.3,client proof bite (own audio),clip B01_T_vid_0608.mkv,P2 real testimonial,full,3.2,client consent needed
+P02,69.3-71.5,client proof bite (own audio),clip B02_T_vid_0610.mkv,P2 real testimonial,full,2.2,client consent needed
+G01,73.6-75.8,Yes - change can start in 3 days,"animated ""q3days""",P5 motion graphics,full,2.2,original
+G02,75.8-77.6,Day 1: Habits,"animated ""agenda""",P5 motion graphics,full,1.7,original
+F10*,77.2-82.2,"mobile-ஐ continuous-ஆ பாக்காம, habit pattern tune","animated ""habits""",P5 motion graphics (placeholder until Flow clip),side,5.0,original
+G03,85.3-86.3,Day 2 (title card),"animated ""agenda""",P5 motion graphics,full,1.0,original
+F12*,86.3-90.5,உங்க மொத்த family-யும் healthy-ஆ,"animated ""famhealth""",P5 motion graphics (placeholder until Flow clip),side,4.2,original
+G04,90.5-93.3,Day 3 very important: family happiness,"animated ""agenda""",P5 motion graphics,full,2.8,original
+F13*,93.3-98.0,அந்த happiness உங்க வீட்டுக்குள்ள வரணும்னா... என்ன routine,"animated ""happy""",P5 motion graphics (placeholder until Flow clip),side,4.7,original
+F14*,101.8-105.5,financial independence-க்கான first step,"animated ""money""",P5 motion graphics (placeholder until Flow clip),side,3.7,original

@@ -93,7 +93,9 @@ BROLL = []
 for tid, nm, res in [('V11', 'RAVEENDRAN • 58', None), ('V12', 'SIVAKARTHIK • 32 • ERODE', '<span class="y">26 KG</span><br>EXCESS WEIGHT'), ('V13', 'KRISHNA PRIYA • 48', None)]:
     a, b = span(tid); BROLL.append(('T' + tid[1:], a, b, 'testi', 'tside', dict(clip=TCLIP[tid], name=nm, res=res, x=40, y=40, rx=60, ry=760, rt=1.2), 'client named on camera', 'P2 real testimonial'))
 a, b = span('V14'); BROLL.append(('T14', a, b, 'vid', 'tside', dict(clip=('T_vid_0613.mp4', 34.0), chips=[['🤔 "இது எனக்கு WORK ஆகாது"', 'var(--ob)', '#fff', 'var(--rd)']], ct=[0.3], cy=60), 'everyone thought it would not work', 'P2 real testimonial'))
-for bid, nm in [('B01', 'SIVAKARTHIK • ERODE'), ('B02', 'KRISHNA PRIYA • 48')]:
+BITE_NAMES = {'T11': 'RAVEENDRAN • 58 • TRICHY', 'T12': 'SIVAKARTHIK • 32 • ERODE', 'T13': 'KRISHNA PRIYA • 48', 'T13b': 'KRISHNA PRIYA • 48',
+              'T14': 'JOSEPH RAJ • 62', 'T14b': 'JOSEPH RAJ • 62', 'B01': 'SIVAKARTHIK • ERODE', 'B02': 'KRISHNA PRIYA • 48'}
+for bid, nm in [(t['id'], BITE_NAMES.get(t['id'], 'REAL CLIENT')) for t in TAKES if t['kind'] == 'bite']:
     a, b = span(bid); BROLL.append(('P' + bid[1:], a, b, 'testi', 'full', dict(clip=(TK[bid]['clip'], 0.0), name=nm, x=60, y=60, note='Individual results vary'), 'client proof bite (own audio)', 'P2 real testimonial'))
 a, b = span('V18'); BROLL.append(('G01', a, b, 'q3days', 'full', dict(cues=[0.0, 0.2, 0.5]), 'Yes - change can start in 3 days', 'P5 motion graphics'))
 a, b = span('V19'); BROLL.append(('G02', a, b + .4, 'agenda', 'full', dict(focus=0, cues=[0, .08, .16, .24]), 'Day 1: Habits', 'P5 motion graphics'))
@@ -138,6 +140,12 @@ CAP = {
  'V14': [['எல்லாருமே'], ['!"இது எனக்கு', '!WORK ஆகாது"'], ['னு நினைச்சாங்க']],
  'V15': [['ஆனா', 'அந்த', '*மாற்றம்'], ['ஆரம்பிச்சது'], ['வெறும்', '*மூணே நாள்ல']],
  'B01': [['இங்க', '*DAY 1', 'வந்து'], ['எனக்கு', 'நெஞ்செரிச்சல்'], ['^குறைய', 'ஆரம்பிச்சது']],
+ 'T11': [['^HbA1c', 'LEVEL', '!9.6'], ['இருந்தது'], ['தொடர்ந்து', '^4 மாசம்', 'FOLLOW', 'பண்ணதுல'], ['*5.4-ஆ', 'குறைஞ்சிருச்சு'], ['என்னுடைய', '!12 KG', 'EXCESS WEIGHT'], ['குறைச்சு', '*IDEAL WEIGHT', 'REACH', 'ஆயிட்டேன்']],
+ 'T12': [['^ஆறு மாசத்துல'], ['*26 KG', 'குறைச்சு'], ['இப்போ', '*IDEAL WEIGHT-ல'], ['FIT-ஆ,', '*HAPPY-ஆ', 'இருக்கேன்']],
+ 'T13': [['!SUGAR,', '!PRESSURE'], ['BORDER-ல', 'இருந்தது'], ['!OVER WEIGHT-ல', 'இருந்தேன்']],
+ 'T13b': [['THYROID,', 'SUGAR,', 'PRESSURE'], ['எல்லாம்', '*CONTROL-க்கு', 'வந்தது']],
+ 'T14': [['வணக்கம்,', 'என் பெயர்'], ['^ஜோசப் ராஜ்'], ['வயசு', '^62', 'ஆகுது']],
+ 'T14b': [['இப்ப', 'நானும்', 'என்', '*FAMILY-யும்'], ['*HEALTHY-ஆ,', '*HAPPY-ஆ', 'இருக்கோம்']],
  'B02': [['ரொம்ப', '*ACTIVE-ஆ,', '*FRESH-ஆ'], ['FEEL', 'பண்ண', 'ஆரம்பிச்சேன்']],
  'V16': [['^மூணு நாள்ல', 'எல்லாம்'], ['CHANGE', 'ஆயிடுமா?']],
  'V17': [['!அது எப்படி?']],
