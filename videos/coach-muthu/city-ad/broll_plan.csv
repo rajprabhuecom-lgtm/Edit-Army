@@ -1,20 +1,20 @@
 ID,Source time (s; IMG_2606),Coach line (meaning),Visual,Source,Layout,Approx on-screen (s),Status,Licence
--,10.6-12.0,"""Guduvanchery people!"" (hook)",FACE ONLY,-,face,-,-,AI - disclose in Meta
+-,10.6-12.0,"""Guduvanchery people!"" (hook)",FACE ONLY,-,face,-,-,-
 B01,12.0-13.1,"""...in our town everything is the best""",Guduvanchery street / town wide shot,P3 AI (Google Flow),full cutaway,1.2,prompt ready,AI - disclose in Meta
 B02,19.7-21.0,"""Nandeeswarar temple""",The real temple (no AI imitation of a real landmark),P3 AI (Google Flow),split screen,1.3,prompt ready,AI - disclose in Meta
 B03,21.0-22.0,"""Devasthana puttu"" (name to confirm)",Puttu being served,P3 AI (Google Flow),split screen,1.0,prompt ready,AI - disclose in Meta
 B04,24.4-25.3,"""good jobs""",Office workers / IT office,P3 AI (Google Flow),split screen,1.0,prompt ready,AI - disclose in Meta
--,28.8-30.9,"""But in one thing alone we are behind""",FACE + zoom punch (the turn),-,face,-,-,AI - disclose in Meta
+-,28.8-30.9,"""But in one thing alone we are behind""",FACE + zoom punch (the turn),-,face,-,-,-
 B05,37.1-40.7,"""9 AM, on this same GST Road, one hour of traffic""",GST Road traffic jam + chips 9:00 AM / 1 HOUR,P2 real GST Road (to record) - fallback stock,full cutaway,3.0,prompt ready,AI - disclose in Meta
 B06,44.0-46.5,"""Then 8 hours sitting in the office""",Person slumped at a desk + chip 8 HOURS,P3 AI (Google Flow),split screen,2.1,prompt ready,AI - disclose in Meta
 B07,53.4-57.3,"""Evening, at our favourite kaalan shop, one plate, two plates""",Roadside kaalan stall; chips 1 PLATE → 2 PLATES,P3 AI (Google Flow),split screen,3.2,prompt ready,AI - disclose in Meta
--,58.0-58.6,"""...I eat it too"" (laugh)",FACE (personal moment),-,face,-,-,AI - disclose in Meta
+-,58.0-58.6,"""...I eat it too"" (laugh)",FACE (personal moment),-,face,-,-,-
 B08,64.5-68.2,"""That's why the Family Health Reset 3 Day Challenge""",days scene (Zoom / Zoom / Centre) + chip Morning · 1 hour,P5 reuse v5,split screen,3.0,ready,original
 B09,75.7-79.4,"""Attend on Zoom from your home""",Family on a Zoom call at home,P3 AI - reuse Dog ad B05_zoom_family,split screen,3.0,reuse,AI - disclose in Meta
 B10,91.4-94.5,"""So our family stays free of hospital visits""",Family walking in a park in the morning,P3 AI - reuse Dog ad B06_park_walk,split screen,2.5,reuse,AI - disclose in Meta
--,94.5-98.5,"""...full roadmap from my 8+ years of experience""",FACE + badge 8+ YEARS,-,face,-,-,AI - disclose in Meta
+-,94.5-98.5,"""...full roadmap from my 8+ years of experience""",FACE + badge 8+ YEARS,-,face,-,-,-
 B11,109.5-117.3,"""Day 3 come to the centre: BMI, BMR, fat - all tests free""",checkup scene; FREE badge on face at the end,P5 reuse v5,split screen,5.0,ready,original
 B12,143.6-145.5,"""Our Guduvanchery gives us everything""",Quick 3-shot recall: temple / puttu / office (from B02-B04),P2/P3 (reuse),full cutaway,1.6,depends on B02-B04,AI - disclose in Meta
--,152.7-198.9,"Gift lines, register CTA, WhatsApp group, only 10 families / then 2,000, register now","FACE ONLY - gift badge, cta button, price graphic",-,face,-,no B-roll (CTA + price),AI - disclose in Meta
+-,152.7-198.9,"Gift lines, register CTA, WhatsApp group, only 10 families / then 2,000, register now","FACE ONLY - gift badge, cta button, price graphic",-,face,-,no B-roll (CTA + price),-
 B13,200.2-210.8,"""Centre: Guduvanchery, Nellikuppam Road, Periyar Nagar, opp. SRM School - come, let's meet""",mappin scene (face back for ""come, let's meet"""),P5 reuse v5,split screen,4.5,ready,original
 END,-,-,Client end card (Send WhatsApp message),P5 reuse v5,full,2.0,ready,original
