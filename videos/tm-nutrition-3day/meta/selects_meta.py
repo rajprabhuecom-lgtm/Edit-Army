@@ -12,7 +12,7 @@ TAIL = [  # shared: challenge -> 3 days -> offer -> CTA (from C0001)
  ('A21', 'C0001', 274.35, 279.30, 'Day 2: நீங்க மட்டும் இல்ல, உங்க whole family-யும் healthy-ஆ இருக்கிறது எப்படி.', 'Day 2: not just you - how your whole family stays healthy.'),
  ('A22', 'C0001', 297.50, 301.80, 'Day 3: உங்க family-க்குள்ள happiness கொண்டு வர routine எப்படி.', 'Day 3: the routine that brings happiness into your family.'),
  ('A23', 'C0001', 335.70, 339.48, 'Plus, financial independence achieve பண்றது எப்படிங்கிற roadmap session.', 'Plus a roadmap session on achieving financial independence.'),
- ('A24', 'C0001', 379.00, 381.15, 'இதுக்கு just ₹555 மட்டும்தான்.', 'All this for just Rs 555.'),
+ ('A24', 'C0001', 367.95, 369.75, 'இதுக்கு just ₹555 மட்டும்தான்.', 'All this for just Rs 555.'),
  ('A25', 'C0001', 437.55, 442.85, 'இந்த 3 days session live-ஆ attend பண்ணிட்டு உங்களுக்கு value-வே கிடைக்கலைன்னு நினைச்சீங்கன்னா,', 'Attend the 3-day live sessions; if you feel you got no value,'),
  ('A26', 'C0001', 445.95, 447.60, '100% money back.', '100% money back.'),
  ('A27', 'C0001', 456.05, 457.75, 'Risk முழுசா என் பக்கம்.', 'The risk is fully on me.'),

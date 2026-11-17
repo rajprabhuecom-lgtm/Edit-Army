@@ -67,6 +67,7 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `testi` (v6) | Real testimonial clip label (REAL CLIENT, name, result); clip composited by comp.py as a portrait card |
 | `stamp` (v6) | On-face guarantee stamp (100% MONEY BACK) |
 | `lower` (v6) | Lower third: name + title |
+| v7 (9:16) | Same scene set as v6 for vertical Meta ads; `stack` gains `bad:true` (red ✗ rows, e.g. "mobile / late dinner / no sleep / no walking"); `endcard` takes a `title` |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

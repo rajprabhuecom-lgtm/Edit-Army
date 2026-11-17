@@ -10,7 +10,10 @@
 |---|---|---|
 | VSL v2, 16:9 1920×1080, 1:42 | `vsl/` | Re-edit, coach-only cut (`vsl/final/tm_nutrition_vsl_v2.mp4`); Google Flow clips pending (`vsl/flow_shotlist.md`) |
 | VSL v1 | `vsl/` | Superseded: it used silence detection, so prompter lines and idle moments got in |
-| Meta ad (30–40 s, 9:16) | `meta-ad/` (to do) | Footage C0001–C0003 shot sideways for vertical; not cut yet |
+| VSL v5, 2:07 | `vsl/final/tm_nutrition_vsl_v5.mp4` | Current VSL: voice-ID trimmed, longer client testimonials, handshake at 1:02 removed |
+| Meta Ad 1, 1:12, 9:16 | `meta/final/tm_meta_ad1_kirthika_anand.mp4` | Hook: Kirthika & Anand (Vedaranyam). **Needs their real photo/video (R1)** |
+| Meta Ad 2, 1:16, 9:16 | `meta/final/tm_meta_ad2_joseph_raj.mp4` | Hook: couples fail → Joseph Raj, 62 (real clip) |
+| Meta Ad 3, 1:04, 9:16 | `meta/final/tm_meta_ad3_jones_92_67.mp4` | Hook: apple catch → Jones 92→67 kg (real clip) |
 
 ## Raw footage (Sony, 4K 25 fps)
 
@@ -42,3 +45,9 @@ The final audio was transcribed again: only the coach's lines remain, in script 
 4. **T_vid_0606 (Raveendran)** ends with a *Coach Thilaga* end card, and image 2 (146→96 kg) credits @coach_thilaga and @nutrition_center_trichy. Confirm both are TM Nutrition clients before using them.
 5. **Booking link / button text** for the CTA and end card ("BOOK NOW"), and whether the price is per couple or per family.
 6. The Day 1–3 format (Zoom or at the centre) is not spoken in the VSL, so no graphic shows it.
+
+## Meta ads
+
+The three raws are three different ad scripts (not the doc's): C0001 = Ad 1 (full script incl. the offer), C0002 = Ad 2, C0003 = Ad 3. Ads 2 and 3 end with Ad 1's offer section, as the coach said on camera. Cut with the same coach-only method as the VSL (`meta/selects_meta.py`, `meta/trims_meta.json`, `meta/make_ad.py`). Google Flow clips: `meta/flow_shotlist_meta.md` (M01–M13).
+
+Testimonials: every client thanks "my coach Thilagavathi Mutharasu" (TM Nutrition), so all are TM Nutrition clients.

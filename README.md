@@ -36,6 +36,9 @@ engine/
                                happy money stack testi vid + text badge price stamp cta lower flash endcard.
                                render.js <workdir>, comp.py (portrait clips -> card on blurred copy), mix.py (testimonial bites
                                with their own audio), speed.sh <workdir> <out.mp4>
+  v7-meta-portrait/            TM Nutrition Meta ads (17 Nov 2026): 9:16 (1080x1920) port of v6. All scenes use the panel
+                               layout and sit in the middle band (y 360-1590); captions on the chest band. comp.py reads the
+                               frame size from comp_cfg.json. Built by videos/tm-nutrition-3day/meta/make_ad.py.
 videos/                        One folder per video (see videos/README.md)
 ```
 
@@ -44,6 +47,7 @@ Each `engine.html` version is standalone, with its own scene set. To use a scene
 ## Pipeline
 
 1. **Transcribe.** silencedetect, then Whisper large-v3. On CPU, faster-whisper int8 (`videos/tm-nutrition-3day/scripts/transcribe.py`) runs about real time with word timings; sherpa-onnx was ~15x slower. For Tamil, turn temperature fallback off, and re-check garbled stretches in short windows. Translate per phrase for meaning.
+   **If someone off camera prompts the lines** (the speaker repeats after a friend), separate the voices before cutting: `scripts/face_track.py` (mouth movement) + `who_speaks.py`, then `voice_id.py` (ECAPA speaker embeddings) to put every cut in the silent gap after the prompter, and `voice_check.py` on the finished voice track. See `videos/tm-nutrition-3day/notes.md`.
 2. **Plan.** Copy `engine/base/plan.py` (or `v3-lead-quality/plan.py`, which is newer) and fill in BROLL / GFX / CAP / PUNCH / MUSIC / SFX for the new video. Write `broll_plan.csv`.
 3. **Preview.** Render 15–20 overlay frames with `gfx/render.py` and composite them with `comp.py <idx...>`. Check them before the full render.
 4. **Render.** `gfx/render.py` (2 workers), `audio/mix.py`, `comp.py`, then `speed.sh`.
