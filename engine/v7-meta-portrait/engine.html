@@ -111,15 +111,15 @@ S.pain=(it)=>{const w=PW(it),cx=w/2;let body='',ttl='';const v=it.v;
 
 /* ---------- "problem is not willpower - it is your home's pattern" ---------- */
 S.pattern=(it)=>{const w=PW(it),cx=w/2;
- const el=mk(stage(it,`<div class="wp" style="position:absolute;left:${cx-(SD(it)?520:640)}px;top:230px;width:${SD(it)?440:520}px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-   <div style="font-size:130px">💪</div><div style="font-weight:900;font-size:60px">WILL POWER</div>
+ const el=mk(stage(it,`<div class="wp" style="position:absolute;left:${cx-420}px;top:160px;width:360px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+   <div style="font-size:120px">💪</div><div style="font-weight:900;font-size:52px;white-space:nowrap">WILL POWER</div>
    <div class="x1" style="position:absolute;left:-20px;right:-20px;top:150px;height:16px;border-radius:8px;background:var(--rd);transform-origin:0 50%"></div>
    <div class="x2 chip" style="position:absolute;top:0;right:0;background:var(--rd);font-size:34px">PROBLEM இல்ல</div></div>
-  <div class="hm" style="position:absolute;left:${cx+(SD(it)?20:60)}px;top:180px;width:${SD(it)?500:560}px;height:480px">
+  <div class="hm" style="position:absolute;left:${cx-40}px;top:180px;width:420px;height:420px">
    <svg width="100%" height="100%" viewBox="0 0 500 480"><path d="M60 230 L250 70 L440 230 L440 450 L60 450 Z" fill="#0f1713" stroke="#FFD60A" stroke-width="12" stroke-linejoin="round"/>
     <g class="lp" style="transform-origin:250px 330px"><path d="M170 330 A80 80 0 1 1 250 410" fill="none" stroke="#FF3B30" stroke-width="14" stroke-linecap="round"/><path d="M250 410 l-26 -14 l6 30 z" fill="#FF3B30"/></g>
     <text x="250" y="345" text-anchor="middle" font-size="44" font-weight="900" fill="#fff" font-family="M">🔁</text></svg>
-   <div class="pl" style="position:absolute;left:0;right:0;top:-20px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:44px">🏠 வீட்டோட PATTERN</span></div></div>
+   <div class="pl" style="position:absolute;left:0;right:0;top:-20px;text-align:center"><span class="chip" style="background:var(--yl);color:#000;font-size:34px">🏠 வீட்டோட PATTERN</span></div></div>
   <div class="ft" style="position:absolute;left:0;width:${w}px;top:760px;text-align:center"><span class="chip s8" style="background:var(--em);color:#04110c;font-size:54px;padding:12px 44px">✓ PROBLEM = PATTERN</span></div>`));
  const c1=cue(it,0,.9),c2=cue(it,1,2.0);
  return {el,upd(dt){popIn(q(el,'.wp'),dt-.1);const x=q(el,'.x1');x.style.transform=`scaleX(${ease((dt-c1)/.25)})`;popIn(q(el,'.x2'),dt-c1-.15);q(el,'.wp').style.filter=dt>c1+.2?'grayscale(.8) brightness(.6)':'none';
@@ -134,10 +134,10 @@ S.stamp=(it)=>{const el=mk(`<div class="sp" style="position:absolute;left:${it.x
 
 /* ---------- 2. 3 days + bonus overview (agenda) ---------- */
 S.agenda=(it)=>{const w=PW(it);const D=it.days||[['DAY 1','📱','HABITS'],['DAY 2','👨‍👩‍👧‍👦','FAMILY HEALTH'],['DAY 3','🏡','FAMILY HAPPINESS'],['BONUS','💰','FINANCIAL LITERACY']];
- const n=D.length,cw=SD(it)?250:360,gap=SD(it)?22:40,x0=(w-(n*cw+(n-1)*gap))/2;let c='';
+ const n=D.length,cw=205,gap=14,x0=(w-(n*cw+(n-1)*gap))/2;let c='';
  D.forEach((d,i)=>{const b=i==n-1&&d[0]=='BONUS';c+=`<div class="dy card" style="left:${x0+i*(cw+gap)}px;top:330px;width:${cw}px;height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;${b?'border-color:#FFD60A;box-shadow:0 0 70px rgba(255,214,10,.3)':''}">
   <div style="font-weight:900;font-size:${SD(it)?44:54}px;color:${b?'#FFD60A':'#00C896'}">${d[0]}</div><div style="font-size:${SD(it)?100:130}px;margin:14px 0">${d[1]}</div><div style="font-weight:900;font-size:${SD(it)?30:38}px;text-align:center;padding:0 10px;line-height:1.1">${d[2]}</div></div>`});
- const el=mk(stage(it,`<div class="ttl stroke t1" style="top:110px;width:${w}px;font-size:${SD(it)?60:76}px">${it.title||'3 நாள் <span class="y">FAMILY WELLNESS</span> CHALLENGE'}</div>${c}
+ const el=mk(stage(it,`<div class="ttl stroke t1" style="top:90px;width:${w}px;font-size:${it.tsz||50}px">${it.title||'3 நாள் <span class="y">FAMILY WELLNESS</span> CHALLENGE'}</div>${c}
   ${it.foot?`<div class="ft" style="position:absolute;left:0;width:${w}px;top:790px;text-align:center"><span class="chip" style="background:var(--em);color:#04110c;font-size:42px">${it.foot}</span></div>`:''}`));
  return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.dy').forEach((x,i)=>{const t=dt-cue(it,i,.3+i*.3);x.style.opacity=clamp(t/.1);x.style.transform=`translateY(${(1-ease(t/.35))*140}px) scale(${t<0?0:pop(t,.35)})`;
    const on=it.focus!=null?(i==it.focus):true;x.style.filter=on?'none':'brightness(.45) saturate(.4)'});popIn(q(el,'.ft'),dt-(it.ftc||1.8))}}};
@@ -212,8 +212,8 @@ S.money=(it)=>{const w=PW(it),cx=w/2;let st='';for(let i=0;i<5;i++)st+=`<div cla
 
 /* ---------- 7. value stack (before the price) ---------- */
 S.stack=(it)=>{const w=PW(it);const I=it.items||[['📱','DAY 1 • HABITS'],['👨‍👩‍👧‍👦','DAY 2 • FAMILY HEALTH'],['🏡','DAY 3 • FAMILY HAPPINESS'],['💰','BONUS • FINANCIAL LITERACY']];let r='';
- I.forEach((x,i)=>r+=`<div class="sk" style="position:absolute;left:${w/2-(SD(it)?520:560)}px;top:${220+i*135}px;width:${SD(it)?1040:1120}px;height:112px;border-radius:24px;background:#0f1713;border:4px solid #00C896;display:flex;align-items:center;padding:0 30px;font-weight:900;font-size:46px;box-shadow:0 16px 40px rgba(0,0,0,.5)">
-  <span style="font-size:60px;margin-right:22px">${x[0]}</span><span style="flex:1">${x[1]}</span><span style="color:var(--em);font-size:56px">✓</span></div>`);
+ I.forEach((x,i)=>r+=`<div class="sk" style="position:absolute;left:110px;top:${220+i*135}px;width:860px;height:112px;border-radius:24px;background:#0f1713;border:4px solid ${it.bad?'#FF3B30':'#00C896'};display:flex;align-items:center;padding:0 30px;font-weight:900;font-size:${it.items&&it.items.length>3?40:46}px;box-shadow:0 16px 40px rgba(0,0,0,.5)">
+  <span style="font-size:60px;margin-right:22px">${x[0]}</span><span style="flex:1">${x[1]}</span><span style="color:${it.bad?'var(--rd)':'var(--em)'};font-size:56px">${it.bad?'✗':'✓'}</span></div>`);
  const el=mk(stage(it,`<div class="ttl stroke t1" style="top:70px;width:${w}px;font-size:${SD(it)?66:84}px">${it.title||'இத்தனை <span class="y">SECRETS</span>-ம்'}</div>${r}`));
  return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.sk').forEach((x,i)=>{const t=dt-cue(it,i,.3+i*.35);x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.3))*-500}px) rotate(${(1-ease(t/.3))*-6}deg)`})}}};
 
@@ -258,7 +258,7 @@ S.flash=(it)=>{const el=mk(`<div style="position:absolute;inset:0;background:#ff
 /* end card */
 S.endcard=(it)=>{const el=mk(`<div class="stage full" style="display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="grid"></div><div class="glow" style="left:90px;top:500px"></div>
   <div class="e1" style="position:relative;font-size:120px">👨‍👩‍👧‍👦</div>
-  <div class="e2" style="position:relative;margin-top:6px;font-family:A,T;font-size:92px;letter-spacing:2px;line-height:1.05;text-align:center;padding:0 40px">3 நாள் FAMILY WELLNESS CHALLENGE</div>
+  <div class="e2" style="position:relative;margin-top:6px;font-family:A,T;font-size:92px;letter-spacing:2px;line-height:1.05;text-align:center;padding:0 40px">${it.title||'3 நாள் FAMILY WELLNESS CHALLENGE'}</div>
   <div class="e4" style="position:relative;margin-top:22px;font-weight:800;font-size:34px;color:var(--pl);letter-spacing:1px;text-align:center;padding:0 60px">HABITS • FAMILY HEALTH<br>FAMILY HAPPINESS • FINANCIAL ROADMAP</div>
   <div class="e5" style="position:relative;margin-top:50px;display:flex;flex-direction:column;gap:30px;align-items:center"><span class="chip" style="background:var(--yl);color:#000;font-family:A;font-size:90px;padding:6px 44px">₹${it.price||555}</span>
    <span class="bk chip" style="background:var(--em);color:#04110c;font-size:56px;padding:24px 50px">👇 ${it.btn||'BOOK NOW'}</span></div>

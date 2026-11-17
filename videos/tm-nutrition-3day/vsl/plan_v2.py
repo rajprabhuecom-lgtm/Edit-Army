@@ -93,6 +93,8 @@ BROLL = []
 for tid, nm, res in [('V11', 'RAVEENDRAN • 58', None), ('V12', 'SIVAKARTHIK • 32 • ERODE', '<span class="y">26 KG</span><br>EXCESS WEIGHT'), ('V13', 'KRISHNA PRIYA • 48', None)]:
     a, b = span(tid); BROLL.append(('T' + tid[1:], a, b, 'testi', 'tside', dict(clip=TCLIP[tid], name=nm, res=res, x=40, y=40, rx=60, ry=760, rt=1.2), 'client named on camera', 'P2 real testimonial'))
 a, b = span('V14'); BROLL.append(('T14', a, b, 'vid', 'tside', dict(clip=('T_vid_0613.mp4', 34.0), chips=[['🤔 "இது எனக்கு WORK ஆகாது"', 'var(--ob)', '#fff', 'var(--rd)']], ct=[0.3], cy=60), 'everyone thought it would not work', 'P2 real testimonial'))
+# T14b audio (Joseph: "my family and I are healthy and happy") originally showed a handshake at the centre; use his solo shot instead
+BITE_VIS = {'T14b': ('T_vid_0615.mp4', 4.2)}
 BITE_NAMES = {'T11': 'RAVEENDRAN • 58 • TRICHY', 'T12': 'SIVAKARTHIK • 32 • ERODE', 'T13': 'KRISHNA PRIYA • 48', 'T13b': 'KRISHNA PRIYA • 48',
               'T14': 'JOSEPH RAJ • 62', 'T14b': 'JOSEPH RAJ • 62', 'B01': 'SIVAKARTHIK • ERODE', 'B02': 'KRISHNA PRIYA • 48'}
 for bid, nm in [(t['id'], BITE_NAMES.get(t['id'], 'REAL CLIENT')) for t in TAKES if t['kind'] == 'bite']:
@@ -210,7 +212,9 @@ def build():
             last_ts = p['s0'] + (t - p['o0']); prog = (t - p['o0']) / max(.01, p['o1'] - p['o0'])
             fr['z'] = round(segz[id(p)] * (1 + 0.02 * prog), 4)      # slow creep inside each shot
         fr['ts'] = round(last_ts, 4)
-        if p and p['k'] == 'bite': fr['L'] = 'full'; fr['V'] = [p['clip'], round(t - p['o0'], 4), round((t - p['o0']) / p['dur'], 3)]
+        if p and p['k'] == 'bite':
+            vis = BITE_VIS.get(p['id'])     # some bites play the client's words over a cleaner shot of the same client
+            fr['L'] = 'full'; fr['V'] = [vis[0], round(vis[1] + t - p['o0'], 4), round((t - p['o0']) / p['dur'], 3)] if vis else [p['clip'], round(t - p['o0'], 4), round((t - p['o0']) / p['dur'], 3)]
         for bid, a0, b0, sc, lay, ex, kw, src in BROLL:
             if a0 <= t < b0 and not (p and p['k'] == 'bite'):
                 fr['L'] = lay
