@@ -4,11 +4,15 @@ centroid and a prompter centroid built from known lines. Then each selected take
 prompter's last syllable and ends before the prompter's next one, with the cut snapped to the quietest 10 ms in the gap.
 usage: python3 voice_id.py  -> /home/user/w/tm/voice/report.txt + trims.json"""
 import sys, os, json, numpy as np, soundfile as sf, torch
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'vsl')); from selects_v2 import SEL
+import importlib
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', os.environ.get('SELDIR', 'vsl')))
+SEL = importlib.import_module(os.environ.get('SELECTS', 'selects_v2')).SEL
+OUT = os.environ.get('OUT', 'voice')
 from speechbrain.inference.speaker import EncoderClassifier
-B = '/home/user/w/tm/'; os.makedirs(B + 'voice', exist_ok=True)
+B = '/home/user/w/tm/'
 enc = EncoderClassifier.from_hparams(source='speechbrain/spkrec-ecapa-voxceleb', savedir='/root/models/ecapa', run_opts={'device': 'cpu'})
-AU = {f: sf.read(B + f'mezz/{f}.16k.wav', dtype='float32')[0] for f in ('C0007', 'C0008')}; SR = 16000
+AU = {f: sf.read(B + f'mezz/{f}.16k.wav', dtype='float32')[0] for f in sorted({'C0007', 'C0008'} | {s[1] for s in SEL if s[1].startswith('C')})}; SR = 16000
+os.makedirs(B + OUT, exist_ok=True)
 def emb(f, t0, t1):
     x = torch.tensor(AU[f][int(t0 * SR):int(t1 * SR)])[None]
     with torch.no_grad(): e = enc.encode_batch(x)[0, 0].numpy()
@@ -59,5 +63,5 @@ for sid, f, a, b, txt, mean in SEL:
     trims[sid] = dict(file=f, a=round(new_a, 2), b=round(new_b, 2), old=[a, b], prompter_inside=inner)
     strip = ''.join(lab[(ctr >= new_a - .6) & (ctr <= new_b + .6)])
     rep.append(f'{sid} {f} {a:.2f}-{b:.2f} -> {new_a:.2f}-{new_b:.2f}  prompter-before@{pb[-1] if pb else None}  inner-P:{inner[:6]}  |{strip}|')
-open(B + 'voice/report.txt', 'w').write('\n'.join(rep)); json.dump(trims, open(B + 'voice/trims.json', 'w'), indent=1)
+open(B + OUT + '/report.txt', 'w').write('\n'.join(rep)); json.dump(trims, open(B + OUT + '/trims.json', 'w'), indent=1)
 print('\n'.join(rep))
