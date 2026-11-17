@@ -1,14 +1,8 @@
-ID,Source time (s; IMG_2606),Coach line (meaning),Visual,Source,Layout,Approx on-screen (s),Status,Licence
--,10.6-25.3,"""Guduvanchery people, everything here is the best: Nandeeswarar temple, Devasthana puttu, good jobs""",FACE + 3 text chips (temple / puttu / jobs),-,face,-,-,-
--,28.8-30.9,"""But in one thing alone we are behind""",FACE + zoom punch,-,face,-,-,-
-C1,37.1-40.7,"""9 AM on this same GST Road, one hour of traffic""",Morning highway traffic jam + chips 9:00 AM / 1 HOUR,P3 AI (Google Flow),full cutaway,3.0,prompt ready,AI - disclose in Meta
-C2,44.0-46.5,"""Then 8 hours sitting in the office""",Tired man hunched at a desk + chip 8 HOURS,P3 AI (Google Flow),split screen,2.1,prompt ready,AI - disclose in Meta
-C3,53.4-57.3,"""Evening, at our favourite kaalan shop, one plate, two plates""",Roadside kaalan stall,P3 AI (Google Flow),split screen,3.2,prompt ready,AI - disclose in Meta
--,58.0-58.6,"""...I eat it too"" (laugh)",FACE,-,face,-,-,-
-G1,64.5-68.2,"""That's why the Family Health Reset 3 Day Challenge""",days scene + chip Morning · 1 hour,P5 reuse v5,split screen,3.0,ready,original
-S1,75.7-79.4,"""Attend on Zoom from your home""",Family on a morning Zoom call (shared with Fish ad),P3 AI (Google Flow),split screen,3.0,prompt ready,AI - disclose in Meta
--,91.4-98.5,"""Free of hospital visits... my 8+ years of experience""",FACE + 8+ YEARS badge,-,face,-,-,-
-G2,109.5-117.3,"""Day 3: BMI, BMR, fat - all tests free""",checkup scene; FREE badge on face at the end,P5 reuse v5,split screen,5.0,ready,original
--,143.6-198.9,"Our Guduvanchery gives everything, gift, register CTA, WhatsApp group, only 10 families / then 2,000, register now",FACE ONLY - gift badge + cta button + price graphic,-,face,-,no B-roll (CTA + price),-
-G3,200.2-210.8,"""Centre: Guduvanchery, Nellikuppam Road, Periyar Nagar, opp. SRM School - come, let's meet""",mappin scene,P5 reuse v5,split screen,4.5,ready,original
-END,-,-,Client end card (Send WhatsApp message),P5 reuse v5,full,2.0,ready,original
+ID,Source time (s),Final time (s),Keyword spoken (meaning),Visual,Source,Layout,"On-screen (s, final)",Status,Licence
+C1,36.90-40.75,6.4-9.3,"""9 AM on this same GST Road, one hour of traffic""",Google Flow AI clip C1_traffic.mkv,P3 AI,full cutaway,3.0,rendered,AI-generated (Google Flow) - disclose in Meta
+C2,43.80-46.55,9.3-11.3,"""then 8 hours sitting in the office""",Google Flow AI clip C2_office.mkv,P3 AI,split screen,1.9,rendered,AI-generated (Google Flow) - disclose in Meta
+C3,53.20-57.35,11.3-14.3,"""evening, our favourite kaalan shop, one plate, two plates""",Google Flow AI clip C3_kaalan.mkv,P3 AI,split screen,3.0,rendered,AI-generated (Google Flow) - disclose in Meta
+G1,64.30-68.25,14.9-17.4,"""that's why the Family Health Reset 3 Day Challenge""","animated ""days"" scene",P5 motion graphics,split screen,2.5,rendered,original - no licence needed
+S1,75.60-79.45,17.4-19.9,"""attend on Zoom from your home""",Google Flow AI clip S1_zoom.mkv,P3 AI,split screen,2.6,rendered,AI-generated (Google Flow) - disclose in Meta
+G2,109.30-115.90,25.6-30.3,"""Day 3 - come to the centre, BMI, BMR, fat""","animated ""checkup"" scene",P5 motion graphics,split screen,4.7,rendered,original - no licence needed
+G3,202.30-208.20,49.4-53.8,"""centre: Guduvanchery, Nellikuppam Rd, Periyar Nagar, opp. SRM School""","animated ""mappin"" scene",P5 motion graphics,split screen,4.4,rendered,original - no licence needed

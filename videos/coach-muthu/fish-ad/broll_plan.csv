@@ -1,15 +1,8 @@
-ID,Source time (s; IMG_2605),Coach line (meaning),Visual,Source,Layout,Approx on-screen (s),Status,Licence
--,6.6-8.0,"""Guduvanchery people, one minute!"" (hook)",FACE ONLY,-,face,-,-,-
-F1,16.6-19.5,"""If you feed this fish this much, know what happens?""",Hand holds fish food above a tank and stops,P3 AI (Google Flow),full cutaway,2.5,prompt ready,AI - disclose in Meta
-F2,21.5-25.2,"""The water gets spoiled, the fish gets sick""",Murky tank with a dull fish,P3 AI (Google Flow),split screen,3.0,prompt ready,AI - disclose in Meta
--,28.5-38.0,"""Everyone who keeps fish knows: correct food, clean water, correct timing""",FACE + 3 text chips,-,face,-,-,-
--,45.8-46.8,"""But our body?""",FACE + zoom punch,-,face,-,-,-
-F3,53.6-59.8,"""Late-night dinner, three cups of tea, we forget water""",Couple eating a heavy dinner late at night with tea cups,P3 AI (Google Flow),split screen,3.5,prompt ready,AI - disclose in Meta
--,65.6-69.0,"""The rule we keep for fish we don't keep for ourselves""",FACE,-,face,-,-,-
-G1,76.0-79.4,"""That's why the Family Health Reset 3 Day Challenge""",days scene,P5 reuse v5,split screen,2.8,ready,original
-S1,83.1-88.4,"""First 2 days on Zoom, morning 1 hour, from home""",Family on a morning Zoom call (shared with City ad),P3 AI (Google Flow),split screen,3.0,prompt ready,AI - disclose in Meta
--,106.0-114.5,"""Free of hospital visits... my 8+ years of experience""",FACE + 8+ YEARS badge,-,face,-,-,-
-G2,124.0-131.2,"""Day 3: BMI, BMR, fat analysis, all free""",checkup scene; FREE badge on face at the end,P5 reuse v5,split screen,5.0,ready,original
--,138.9-231.8,"Fish line, gift, register CTA, WhatsApp group, only 10 families / then 2,000, register now",FACE ONLY - gift badge + cta button + price graphic,-,face,-,no B-roll (CTA + price),-
-G3,235.0-243.7,"""Centre: Guduvanchery, Nellikuppam Road, Periyar Nagar, opp. SRM School""",mappin scene,P5 reuse v5,split screen,4.3,ready,original
-END,-,-,Client end card (Send WhatsApp message),P5 reuse v5,full,2.0,ready,original
+ID,Source time (s),Final time (s),Keyword spoken (meaning),Visual,Source,Layout,"On-screen (s, final)",Status,Licence
+F1,16.40-19.55,0.9-3.3,"""if you feed this fish this much, know what happens?""",Google Flow AI clip F1_feed.mkv,P3 AI,full cutaway,2.4,rendered,AI-generated (Google Flow) - disclose in Meta
+F2,21.30-25.25,3.3-4.8,"""the water spoils, the fish gets sick""",Google Flow AI clip F2_murky.mkv,P3 AI,split screen,1.5,rendered,AI-generated (Google Flow) - disclose in Meta
+F3,53.40-59.85,9.5-12.1,"""late-night dinner, three cups of tea, we forget water""",Google Flow AI clip F3_dinner.mkv,P3 AI,split screen,2.6,rendered,AI-generated (Google Flow) - disclose in Meta
+G1,75.80-79.45,14.8-17.6,"""that's why the Family Health Reset 3 Day Challenge""","animated ""days"" scene",P5 motion graphics,split screen,2.8,rendered,original - no licence needed
+S1,82.90-88.45,17.6-20.9,"""first 2 days on Zoom, morning 1 hour, from home""",Google Flow AI clip S1_zoom.mkv,P3 AI,split screen,3.2,rendered,AI-generated (Google Flow) - disclose in Meta
+G2,123.80-129.75,27.4-31.8,"""Day 3 - come to the centre, BMI, BMR, fat analysis""","animated ""checkup"" scene",P5 motion graphics,split screen,4.5,rendered,original - no licence needed
+G3,234.80-241.45,50.0-54.6,"""centre: Guduvanchery, Nellikuppam Rd, Periyar Nagar, opp. SRM School""","animated ""mappin"" scene",P5 motion graphics,split screen,4.7,rendered,original - no licence needed
