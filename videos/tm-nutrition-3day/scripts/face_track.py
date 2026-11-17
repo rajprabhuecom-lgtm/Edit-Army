@@ -8,7 +8,7 @@ f, out, t0, t1 = sys.argv[1], sys.argv[2], float(sys.argv[3]), float(sys.argv[4]
 lm = vision.FaceLandmarker.create_from_options(vision.FaceLandmarkerOptions(base_options=BaseOptions(model_asset_path='/root/models/face_landmarker.task'),
      running_mode=vision.RunningMode.VIDEO, num_faces=1, output_face_blendshapes=True))
 cap = cv2.VideoCapture(f); cap.set(cv2.CAP_PROP_POS_MSEC, t0 * 1000)
-cx, cy, S = 910, 360, 700          # crop centre follows the face
+cx, cy, S = (float(sys.argv[5]), float(sys.argv[6]), 600) if len(sys.argv) > 6 else (910, 360, 700)   # crop centre follows the face
 res = []; last = -1
 while True:
     ok, fr = cap.read()

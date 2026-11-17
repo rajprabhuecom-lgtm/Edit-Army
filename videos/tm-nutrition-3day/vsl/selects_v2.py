@@ -26,7 +26,7 @@ SEL = [
  ('V16', 'C0008', 57.20, 59.30, 'மூணு நாள்ல எல்லாம் change ஆயிடுமா?', 'Will everything change in 3 days?'),
  ('V17', 'C0008', 65.40, 66.10, 'அது எப்படி?', 'How?'),
  ('V18', 'C0008', 82.75, 85.10, 'Yes. Change start ஆகுறது possible.', 'Yes. Starting the change is possible.'),
- ('V19', 'C0008', 86.25, 87.30, 'Day 1: habits.', 'Day 1: habits.'),
+ ('V19', 'C0008', 87.20, 89.10, 'Day 1: habits.', 'Day 1: habits.'),
  ('V20', 'C0008', 103.10, 107.00, 'நீங்க உங்க mobile-ஐ continuous-ஆ பாத்துக்கிட்டு இல்லாம,', 'Instead of watching your mobile continuously,'),
  ('V21', 'C0008', 147.90, 150.25, 'உங்களோட habit pattern-ஐ எப்படி tune பண்றது', 'how to tune your habit pattern'),
  ('V22', 'C0008', 167.35, 170.95, 'hand-hold guidance-ல சொல்லித்தர மாதிரி Day 1 இருக்கப்போகுது.', 'Day 1 is taught like hand-hold guidance.'),
