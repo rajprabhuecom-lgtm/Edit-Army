@@ -1,0 +1,17 @@
+ID,VO time in raw recording (s),Line spoken (meaning),Visual needed,Source,Status,Notes
+S01,0.7-2.1,"Hello Madurai makkale",Madurai shot: Meenakshi Amman temple tower or city + map pin,P4 stock + P5 mappin,NEED (or I use licensed stock),Hook
+S02,2.7-6.4,"Weight loss try panni romba kashtapadureengala?",Person struggling: tight clothes / tired on stairs / scale,P4 stock or P3 AI,NEED (or stock),
+S03,6.4-13.1,"Namma Shobika-vin amma ippadi dhaan kashtapattaanga (Shobika's mother struggled like this)",REAL photo of Shobika's mother BEFORE,P1 real,NEED from you,Testimonial: must be the real person + written consent. If not available I show a blurred/labelled placeholder only
+S04,14.6-21.0,"Diet, workout, fasting try panniyum result illa",3 icons (diet / workout / fasting) crossed out + stock of skipped meal,P5 + P4,I animate (+ optional stock),
+S05,21.0-24.7,"Engalai pathi kelvipattu vandhaanga (She heard about us and came)",Entrance of Butterfly Wellness centre / door opening,P2 real,NEED from you,Generic entrance shot; do not imply it is her unless it is
+S06,25.2-28.5,"Body-a analyse panni",Body composition analyser in use + screen readout,P2 real,NEED from you,
+S07,29.9-33.5,"Suitable method solli",Personalised plan card building (meal / water / activity),P5 new scene `plan`,I animate,
+S08,34.2-36.5,"Personalised guidance koduthu",Coach consultation at table: hands / over-shoulder (no face needed),P2 real,NEED from you,Fits Sathish's no-face request
+S09,36.5-42.0,"Successful weight loss + health changes",Shobika's mother AFTER photo,P1 real,NEED from you,No kg numbers on screen unless you send the real figures
+S10,43.0-48.1,"Fat-aa irundhavanga Fit-aa irukkaanga",FAT → FIT text morph over her after photo,P5 text + P1,I animate,
+S11,48.3-57.1,"Myself Sathish Kumar, Butterfly Wellness Nutrition Center-la pesuren",Centre EXTERIOR signboard + logo + name lower-third,P2 real + P5,NEED signboard shot + logo,"Optional: one still photo of Sathish if he allows (not video)"
+S12,58.4-60.2,"7 years experience",Counter 7 YEARS,P5,I animate,
+S13,63.1-74.7,"500+ people-ku weight loss, health, lifestyle sollikoduthu, successful stories",Collage of real member photos / group sessions / events + 500+ counter,P2 real + P5 counter,NEED 6-10 member / event photos,Consent for every face
+S14,75.7-90.7,"₹1500 worth BMR, BMI, body fat analysis, 3 days trial",Offer card ₹1500 strike + BMR/BMI/FAT rows ticking + 3-DAY cards,P5 checkup + offer,I animate,Offer line: graphic only
+S15,92.1-97.5,"First 10 [?] completely free",10 seats filling + FREE stamp,P5 seats,I animate,CONFIRM: Whisper hears '10% சுக்கு'. Is it 'first 10 பேருக்கு' (first 10 people)?
+S16,101.1-104.3,"Appointment immediately book pannunga. Thank you",CTA button + end card (logo / address / phone),P5 cta + endcard,NEED booking link / WhatsApp number + address,
