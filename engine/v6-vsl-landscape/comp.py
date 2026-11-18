@@ -85,8 +85,11 @@ def visual(V, w, h):
         return card(img, w, h, p)
     return grade(cover(img, w, h, p), lift=False)
 
+sys.path.insert(0, '/home/user/Edit-Army/engine/base')
+from grade_skin import grade as skin_grade          # face-aware skin-glow grade (comp_cfg: skin_glow, facebox in source pixels)
+FB = tuple(cfg['facebox']) if cfg.get('facebox') else None
 def compose(src, fr, i):
-    f = grade(src)
+    f = skin_grade(src, FB) if cfg.get('skin_glow') else grade(src)
     if fr.get('des'): f = desat(f)
     V = fr.get('V'); L = fr['L']
     if L in ('side', 'tside'):

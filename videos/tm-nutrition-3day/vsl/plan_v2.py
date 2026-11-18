@@ -226,7 +226,7 @@ def build():
         frames.append(fr)
     json.dump(frames, open(W + 'frames.json', 'w'))
     json.dump(dict(total=TOTAL, pieces=pieces, sfx=sfx, music=MUSIC), open(W + 'audio/cues.json', 'w'))
-    json.dump(dict(face=[910, 330]), open(W + 'comp_cfg.json', 'w'))
+    json.dump(dict(face=[910, 330], skin_glow=True, facebox=[830, 320, 985, 535]), open(W + 'comp_cfg.json', 'w'))
     with open(os.path.join(HERE, 'broll_plan_v2.csv'), 'w', newline='') as f:
         w = csv.writer(f); w.writerow(['ID', 'Final time (s)', 'Line', 'Visual now', 'Source', 'Layout', 'On-screen (s)', 'Licence'])
         for bid, a0, b0, sc, lay, ex, kw, src in sorted(BROLL, key=lambda r: r[1]):

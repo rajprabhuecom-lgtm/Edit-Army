@@ -185,7 +185,8 @@ json.dump(frames, open(W + 'frames.json', 'w'))
 end = span(LINES[-1][0])[0]
 MUSIC = [(0.0, span('A15')[0], 'warm' if intro else 'dark'), (span('A15')[0], span('A24')[0], 'tech'), (span('A24')[0], TOTAL, 'uplift')]
 json.dump(dict(total=TOTAL, pieces=pieces, sfx=sfx, music=MUSIC), open(W + 'audio/cues.json', 'w'))
-json.dump(dict(size=[1080, 1920], face=[600, 985]), open(W + 'comp_cfg.json', 'w'))
+FACEBOX = {'ad1_kirthika_anand': [410, 870, 615, 1100]}.get(AD, [495, 870, 700, 1100])   # from face tracking (nose median per recording)
+json.dump(dict(size=[1080, 1920], face=[600, 985], skin_glow=True, facebox=FACEBOX), open(W + 'comp_cfg.json', 'w'))
 with open(os.path.join(HERE, f'broll_{AD}.csv'), 'w') as f:
     f.write('ID,Final time (s),Line,Visual,Source\n')
     for bid, a, b, sc, lay, ex, line, src in sorted(BROLL, key=lambda r: r[1]):
