@@ -10,7 +10,7 @@
 |---|---|---|
 | VSL v2, 16:9 1920×1080, 1:42 | `vsl/` | Re-edit, coach-only cut (`vsl/final/tm_nutrition_vsl_v2.mp4`); Google Flow clips pending (`vsl/flow_shotlist.md`) |
 | VSL v1 | `vsl/` | Superseded: it used silence detection, so prompter lines and idle moments got in |
-| VSL v6, 2:04 | `vsl/final/tm_nutrition_vsl_v6.mp4` | Current VSL: voice-ID trimmed, longer client testimonials; Joseph line with mismatched lips at 1:00-1:02 removed |
+| VSL v7, 2:04 | `vsl/final/tm_nutrition_vsl_v7.mp4` | Current VSL: v6 edit + skin-glow grade (engine/base/grade_skin.py) |
 | Meta Ad 1, 1:11, 9:16 | `meta/final/tm_meta_ad1_kirthika_anand.mp4` | Opens on the coach, then Kirthika & Anand with their before/after photos (client-supplied, kept in source/clients/) |
 | Meta Ad 2, 1:16, 9:16 | `meta/final/tm_meta_ad2_joseph_raj.mp4` | Hook: couples fail → Joseph Raj, 62 (real clip) |
 | Meta Ad 3, 1:04, 9:16 | `meta/final/tm_meta_ad3_jones_92_67.mp4` | Hook: apple catch → Jones 92→67 kg (real clip) |
