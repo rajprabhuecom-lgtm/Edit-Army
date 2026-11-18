@@ -1,20 +1,20 @@
-ID,VO time (s),Line spoken (meaning),Visual needed,Source,Status,Notes
-D01,0.0-2.5,"Vanakkam Tiruvannamalai makkale (Hello, people of Tiruvannamalai)",Tiruvannamalai shot: Annamalaiyar temple gopuram or town street + animated map pin,P2 real / P4 stock + P5 mappin,NEED from you (or I use licensed stock),Hook. First 1.5 s must stop the scroll.
-D02,2.5-4.5,"Neenga working women-ah? (Are you a working woman?)",Working woman rushing: office bag + tiffin / scooter / laptop late evening,P4 stock or P3 AI,NEED from you (or stock),No identifiable face that implies endorsement
-D03,4.5-8.0,"Overweight, PCOD, thyroid, weight gain",4 problem chips stacking + woman struggling with tight clothes / stepping on scale,P5 new scene `issues` + P4 stock,I animate + NEED 1 clip,
-D04,8.0-10.0,"'Naan eppo slim aaven?' (When will I get slim?)",Woman looking in mirror / pinching waist,P4 stock or P3 AI,NEED from you (or stock),
-D05,10.0-13.0,"Diet start, exercise start pannuveenga",Salad / diet chart on fridge + walking or home workout,P4 stock,NEED from you (or stock),
-D06,13.0-15.5,"Expected result illa, hope poiduchaa",Scale needle stuck + hope bar draining,P5 animation,I animate,
-D07,15.5-18.0,"Problem effort illa, correct guidance illadhadhu dhaan",Text slam: EFFORT ✓ / GUIDANCE ✗,P5 text,I animate,
-D08,18.0-19.5,"Ivanga dhaan Coach Deepa (This is Coach Deepa)",Coach Deepa photo (purple saree) with slow zoom + name card,P2 real,HAVE (Drive: 05/11/15/16/18/21/22),Confirm she is OK with her PHOTO (not video) being used
-D09,19.5-22.0,"Last 3 years, 100+ members",Counter 3 YEARS / 100+ MEMBERS over group photos at centre,P2 real + P5 counter,HAVE (04/20 group selfie; 01/08 rotated),
-D10,22.0-24.5,"Personalized nutrition, lifestyle guidance, continuous support",Consultation at table + members at shake bar + 3 pillar cards,P2 real + P5,HAVE (07 & 03 consultation; centre video 24),"Need 1 more: close-up of a meal plan / diet chart being written for a member (hands only is fine)"
-D11,24.5-27.0,"Healthy weight loss achieve panna guide panni irukkaanga",Real member transformations,P1 real proof,HAVE (09 75→57 kg; 14 107→90 kg; 12/19; 02/06 22 kg; 10/17),"MUST confirm written consent from each member. Meta usually rejects side-by-side before/after weight-loss images in ads; see notes"
-D12,27.0-29.5,"Neengalum transformation achieve pannanuma?",Animated before→after silhouette + question,P5 transform,I animate,
-D13,29.5-33.5,"Opportunity miss pannadheenga, namma RC Wellness Center-la",Centre EXTERIOR with RC Wellness Center signboard readable,P2 real,NEED from you,Video 23 is the opening day but no clear signboard. Need 5-8 s steady exterior shot
-D14,33.5-35.0,"Join aagura first 10 members-ku",10 seats filling,P5 seats,I animate,
-D15,35.0-40.0,"₹1000 worth 3 Days weightloss Trial Program",Offer card: ₹1000 strike → FREE + 3-DAY cards,P5 offer graphic,I animate,Offer line: graphic only (no stock B-roll)
-D16,40.0-42.0,"Full body checkup & fat checkup FREE",Body composition analyser in use at the centre (feet on plates + screen readout),P2 real,NEED from you,Blur the member's name/phone if shown on screen
-D17,42.0-45.0,"Special offer limited period-ku mattum",Countdown / LIMITED stamp,P5,I animate,
-D18,45.0-48.0,"Keezha irukkura link click panni appointment book pannunga",Phone screen tapping BOOK button + form,P5 cta + P1 screen recording of the real booking page,NEED booking link / WhatsApp number,CTA: no stock B-roll here
-D19,48.0-50.6,"Healthy & happy life namma center-la start pannalaam",Happy members at centre + end card (logo + address + map pin),P2 real + P5 endcard,HAVE (centre video 24) + NEED logo & address,
+ID,VO time (s),Line spoken (meaning),Visual needed,Source,Status,Notes,Google Flow
+D01,0.0-2.5,"Vanakkam Tiruvannamalai makkale (Hello, people of Tiruvannamalai)",Tiruvannamalai shot: Annamalaiyar temple gopuram or town street + animated map pin,P2 real / P4 stock + P5 mappin,NEED from you (or I use licensed stock),Hook. First 1.5 s must stop the scroll.,Flow prompt D01 (real clip preferred)
+D02,2.5-4.5,Neenga working women-ah? (Are you a working woman?),Working woman rushing: office bag + tiffin / scooter / laptop late evening,P4 stock or P3 AI,NEED from you (or stock),No identifiable face that implies endorsement,Flow prompt D02
+D03,4.5-8.0,"Overweight, PCOD, thyroid, weight gain",4 problem chips stacking + woman struggling with tight clothes / stepping on scale,P5 new scene `issues` + P4 stock,I animate + NEED 1 clip,,Flow prompt D03
+D04,8.0-10.0,'Naan eppo slim aaven?' (When will I get slim?),Woman looking in mirror / pinching waist,P4 stock or P3 AI,NEED from you (or stock),,Flow prompt D04
+D05,10.0-13.0,"Diet start, exercise start pannuveenga",Salad / diet chart on fridge + walking or home workout,P4 stock,NEED from you (or stock),,Flow prompt D05
+D06,13.0-15.5,"Expected result illa, hope poiduchaa",Scale needle stuck + hope bar draining,P5 animation,I animate,,Flow prompt D06 + animation
+D07,15.5-18.0,"Problem effort illa, correct guidance illadhadhu dhaan",Text slam: EFFORT ✓ / GUIDANCE ✗,P5 text,I animate,,No: animated in engine
+D08,18.0-19.5,Ivanga dhaan Coach Deepa (This is Coach Deepa),Coach Deepa photo (purple saree) with slow zoom + name card,P2 real,HAVE (Drive: 05/11/15/16/18/21/22),Confirm she is OK with her PHOTO (not video) being used,No: must be real footage
+D09,19.5-22.0,"Last 3 years, 100+ members",Counter 3 YEARS / 100+ MEMBERS over group photos at centre,P2 real + P5 counter,HAVE (04/20 group selfie; 01/08 rotated),,No: must be real footage
+D10,22.0-24.5,"Personalized nutrition, lifestyle guidance, continuous support",Consultation at table + members at shake bar + 3 pillar cards,P2 real + P5,HAVE (07 & 03 consultation; centre video 24),Need 1 more: close-up of a meal plan / diet chart being written for a member (hands only is fine),No: must be real footage
+D11,24.5-27.0,Healthy weight loss achieve panna guide panni irukkaanga,Real member transformations,P1 real proof,HAVE (09 75→57 kg; 14 107→90 kg; 12/19; 02/06 22 kg; 10/17),MUST confirm written consent from each member. Meta usually rejects side-by-side before/after weight-loss images in ads; see notes,No: must be real footage
+D12,27.0-29.5,Neengalum transformation achieve pannanuma?,Animated before→after silhouette + question,P5 transform,I animate,,No: animated in engine
+D13,29.5-33.5,"Opportunity miss pannadheenga, namma RC Wellness Center-la",Centre EXTERIOR with RC Wellness Center signboard readable,P2 real,NEED from you,Video 23 is the opening day but no clear signboard. Need 5-8 s steady exterior shot,No: must be real footage
+D14,33.5-35.0,Join aagura first 10 members-ku,10 seats filling,P5 seats,I animate,,No: animated in engine
+D15,35.0-40.0,₹1000 worth 3 Days weightloss Trial Program,Offer card: ₹1000 strike → FREE + 3-DAY cards,P5 offer graphic,I animate,Offer line: graphic only (no stock B-roll),No: animated in engine
+D16,40.0-42.0,Full body checkup & fat checkup FREE,Body composition analyser in use at the centre (feet on plates + screen readout),P2 real,NEED from you,Blur the member's name/phone if shown on screen,Flow fallback D16 (only if no real clip)
+D17,42.0-45.0,Special offer limited period-ku mattum,Countdown / LIMITED stamp,P5,I animate,,No: animated in engine
+D18,45.0-48.0,Keezha irukkura link click panni appointment book pannunga,Phone screen tapping BOOK button + form,P5 cta + P1 screen recording of the real booking page,NEED booking link / WhatsApp number,CTA: no stock B-roll here,Flow prompt D18
+D19,48.0-50.6,Healthy & happy life namma center-la start pannalaam,Happy members at centre + end card (logo + address + map pin),P2 real + P5 endcard,HAVE (centre video 24) + NEED logo & address,,No: must be real footage
