@@ -34,13 +34,14 @@ def islands(a, b):
     if b - t > 0.06: out.append([t, b])
     return out
 # ---------- 1b. opening: real client transformation bites (own audio; mute=True plays the clip silent under the music) ----------
-INTRO = {'ad1_kirthika_anand': [
+INTRO_USED = {}   # Ad 1's 8 s client opening was removed once Kirthika & Anand's own photos were added (kept below for reuse)
+INTRO_OLD = {'ad1_kirthika_anand': [
     ('I01', 'T_vid_0608', 21.92, 27.80, False, 'SIVAKARTHIK • 32 • ERODE', '<span class="g">−26 KG</span><br>6 MONTHS',
      'ஆறு மாசத்துல 26 kg குறைச்சு, இப்போ ideal weight-ல fit-ஆ, happy-ஆ இருக்கேன்.'),
     ('I02', 'T_vid_0613', 37.80, 40.00, True, 'JONES • 92 → 67 KG', '<span class="g">−25 KG</span>', ''),
     ('I03', 'T_vid_0610', 39.10, 40.45, False, 'KRISHNA PRIYA • 48', None, 'Healthy-ஆ, happy-ஆ இருக்கேன்.')]}
 intro = []
-for bid, f, a, b, mute, nm, res, txt in INTRO.get(AD, []):
+for bid, f, a, b, mute, nm, res, txt in INTRO_USED.get(AD, []):
     n = round((b - a) * FPS); d = n / FPS; clip = f'{bid}.mkv'
     run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', f'{a}', '-i', TST + f + '.mp4', '-vf', 'fps=30,scale=trunc(iw/2)*2:trunc(ih/2)*2', '-frames:v', str(n),
          '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', '-af', f'atrim=end={d},apad=whole_dur={d}' + (',volume=0' if mute else ''),
