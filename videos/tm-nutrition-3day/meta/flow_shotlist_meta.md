@@ -11,7 +11,7 @@ _Photorealistic cinematic vertical footage 9:16, natural warm light, shallow dep
 
 | ID | Ad | Plays at | What |
 |---|---|---|---|
-| **R1** | Ad 1 | 0:00–0:06 | **Kirthika & Anand (Vedaranyam): a real photo or short clip of the couple, before/after if available.** Ad 1's hook names them. Until it arrives, the ad shows the coach with a name badge. Needs their written consent. |
+| R1 | Ad 1 | 0:08–0:14 | Kirthika & Anand before/after photos: received and in the edit ✅ (confirm their written consent) |
 | R2 | Ad 2 | 0:13–0:22 | Joseph Raj: already in the edit (his testimonial video, T_vid_0615) ✅ |
 | R3 | Ad 3 | 0:04–0:09 | Jones 92→67 kg: already in the edit (T_vid_0613) ✅ |
 

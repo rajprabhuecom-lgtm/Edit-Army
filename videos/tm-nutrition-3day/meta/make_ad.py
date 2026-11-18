@@ -93,8 +93,14 @@ def trio(first, last):
     B('S11', a, b, 'stack', dict(title='உண்மையான <span class="y">PROBLEM</span>', items=[['📱', 'DAILY HABITS'], ['👨‍👩‍👧', 'FAMILY ROUTINE'], ['🏡', 'HAPPINESS AT HOME']],
                                 cues=[O('A11') - a, O('A12') - a, O('A13') - a]), 'daily habits / family routine / happiness at home')
 if AD == 'ad1_kirthika_anand':
-    a, b = span('A01', 'A02'); G('badge', a + .2, b, html='👫 KIRTHIKA & ANAND • VEDARANYAM', y=260, size=46, bg='var(--em)', fg='#04110c', **TOP)
-    a, b = span('A02'); G('text', O('A02', 1.4), b, html='தனித்தனியா இல்ல<br><span class="y">சேர்ந்தே</span> மாறினாங்க', y=360, size=74, nocap=True, **TOP)
+    # Kirthika & Anand (client-supplied before/after photos, compose_ka.py): face on "இவங்கதான் வேதாரண்யத்துல",
+    # Kirthika on her name, Anand on his, then both together on "சேர்ந்தே மாறினாங்க"
+    a, b = span('A01'); k0 = O('A01', 31.40 - TK['A01']['a']); n0 = O('A01', 33.25 - TK['A01']['a'])
+    G('badge', a + .15, k0, html='📍 VEDARANYAM', y=300, size=50, bg='var(--em)', fg='#04110c', **TOP)
+    CLIP('K1', k0, n0, 'KA_kirthika.mp4', 0, dict(name='KIRTHIKA • VEDARANYAM', x=40, y=60, res='<span class="y">BEFORE → AFTER</span>', rx=60, ry=1530, rt=.3), 'Kirthika')
+    a2, b2 = span('A02'); m2 = a2 + 1.1
+    CLIP('K2', n0, m2, 'KA_anand.mp4', 0, dict(name='ANAND • VEDARANYAM', x=40, y=60), 'Anand')
+    CLIP('K3', m2, b2, 'KA_both.mp4', 0, dict(name='👫 KIRTHIKA & ANAND • சேர்ந்தே மாறினாங்க', x=40, y=60), 'they changed together')
     a, b = span('A04'); G('text', a + .1, b, html='<span class="r">3</span> PROBLEMS', y=330, size=120, nocap=True, **TOP)
     a, b = span('A05'); B('S05', a, b, 'pain', dict(v='diet', cues=[1.0]), 'cannot follow a diet consistently')
     a, b = span('A06'); B('S06', a, b, 'pain', dict(v='gym', cues=[0.8]), 'no time for the gym')

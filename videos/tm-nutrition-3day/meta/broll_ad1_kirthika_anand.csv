@@ -2,6 +2,9 @@ ID,Final time (s),Line,Visual,Source
 I01,0.0-4.9,"opening: real client transformation","testi",P2 real client video (client-supplied)
 I02,4.9-6.7,"opening: real client transformation","testi",P2 real client video (client-supplied)
 I03,6.7-7.9,"opening: real client transformation","testi",P2 real client video (client-supplied)
+K1,8.3-9.8,"Kirthika","KA_kirthika.mp4",P2 real client video (client-supplied)
+K2,9.8-11.4,"Anand","KA_anand.mp4",P2 real client video (client-supplied)
+K3,11.4-13.7,"they changed together","KA_both.mp4",P2 real client video (client-supplied)
 S05,18.3-20.2,"cannot follow a diet consistently","pain",P5 motion graphics
 S06,20.2-21.5,"no time for the gym","pain",P5 motion graphics
 S07,21.5-25.2,""let's start tomorrow"","pain",P5 motion graphics
