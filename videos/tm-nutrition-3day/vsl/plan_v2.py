@@ -185,7 +185,9 @@ def build():
         d = dict(type=ty, t0=round(a0, 3), t1=round(b0, 3)); d.update(ex); items.append(d)
         sfx.append((a0, {'text': 'hit', 'badge': 'pop', 'price': 'cash', 'stamp': 'thud', 'cta': 'ding', 'lower': 'swipe', 'flash': 'whoosh', 'endcard': 'hit'}[ty]))
     for tid, chunks in CAP.items():
-        ps = [p for p in pieces if p['id'] == tid]; a0, b0 = ps[0]['o0'], ps[-1]['o1']
+        ps = [p for p in pieces if p['id'] == tid]
+        if not ps: continue          # line not in this cut
+        a0, b0 = ps[0]['o0'], ps[-1]['o1']
         wts = [sum(len(w.lstrip('*^!')) for w in c) + 3 for c in chunks]; tot = sum(wts); t = a0
         for c, wt in zip(chunks, wts):
             d = (b0 - a0) * wt / tot; col = {'*': '#00C896', '^': '#FFD60A', '!': '#FF3B30'}

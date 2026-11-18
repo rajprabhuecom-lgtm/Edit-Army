@@ -26,7 +26,6 @@ SEL = [
  ('T13b', 'T_vid_0610', 33.42, 36.52, 'Thyroid, sugar, pressure எல்லாம் control-க்கு வந்தது.', '(Krishna Priya) Thyroid, sugar, pressure all came under control.'),
  ('V14', 'C0008', 37.80, 40.76, 'எல்லாருமே "இது எனக்கு வேலை செய்யாது"னு நினைச்சாங்க.', 'Everyone thought "this won\'t work for me".'),
  ('T14', 'T_vid_0615', 0.02, 3.50, 'வணக்கம், என் பெயர் ஜோசப் ராஜ். வயசு 62 ஆகுது.', '(Joseph Raj) I am Joseph Raj, 62.'),
- ('T14b', 'T_vid_0615', 29.93, 33.45, 'இப்ப நானும் என் family-யும் healthy-ஆ, happy-ஆ இருக்கோம்.', '(Joseph Raj) Now my family and I are healthy and happy.'),
  ('V15', 'C0008', 46.95, 51.21, 'ஆனா அந்த மாற்றம் ஆரம்பிச்சது வெறும் மூணே நாள்ல.', 'But that change started in just 3 days.'),
  ('B01', 'T_vid_0608', 15.10, 18.90, 'இங்க day 1 வந்து, எனக்கு நெஞ்செரிச்சல் குறைய ஆரம்பிச்சது.', '(client) From day 1 here, my chest-burning started to reduce.'),
  ('B02', 'T_vid_0610', 21.80, 24.42, 'ரொம்ப active-ஆ, fresh-ஆ feel பண்ண ஆரம்பிச்சேன்.', '(client) I started feeling very active and fresh.'),
@@ -49,3 +48,6 @@ SEL = [
  ('V32', 'C0008', 505.35, 507.74, 'நானே personal-ஆ train பண்ணப்போறேன்.', 'I will train them personally.'),
  ('V33', 'C0008', 513.99, 518.84, 'கீழே இருக்கிற button-ஐ click பண்ணி, உங்க family-ஓட இந்த journey-ஐ start பண்ணுங்க.', 'Click the button below and start this journey with your family.'),
 ]
+
+# T14b (Joseph 'my family and I are healthy and happy') removed in v6: its own shot is a handshake, and placing the line over
+# another talking shot of him made the lips not match (looked like voice lag at 1:00-1:02).

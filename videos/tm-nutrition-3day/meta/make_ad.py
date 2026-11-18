@@ -33,7 +33,20 @@ def islands(a, b):
         t = e
     if b - t > 0.06: out.append([t, b])
     return out
-pieces = []
+# ---------- 1b. opening: real client transformation bites (own audio; mute=True plays the clip silent under the music) ----------
+INTRO = {'ad1_kirthika_anand': [
+    ('I01', 'T_vid_0608', 21.92, 27.80, False, 'SIVAKARTHIK • 32 • ERODE', '<span class="g">−26 KG</span><br>6 MONTHS',
+     'ஆறு மாசத்துல 26 kg குறைச்சு, இப்போ ideal weight-ல fit-ஆ, happy-ஆ இருக்கேன்.'),
+    ('I02', 'T_vid_0613', 37.80, 40.00, True, 'JONES • 92 → 67 KG', '<span class="g">−25 KG</span>', ''),
+    ('I03', 'T_vid_0610', 39.10, 40.45, False, 'KRISHNA PRIYA • 48', None, 'Healthy-ஆ, happy-ஆ இருக்கேன்.')]}
+intro = []
+for bid, f, a, b, mute, nm, res, txt in INTRO.get(AD, []):
+    n = round((b - a) * FPS); d = n / FPS; clip = f'{bid}.mkv'
+    run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-ss', f'{a}', '-i', TST + f + '.mp4', '-vf', 'fps=30,scale=trunc(iw/2)*2:trunc(ih/2)*2', '-frames:v', str(n),
+         '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', '-af', f'atrim=end={d},apad=whole_dur={d}' + (',volume=0' if mute else ''),
+         '-c:a', 'pcm_s16le', '-ar', '48000', '-ac', '1', W + 'broll/' + clip])
+    intro.append(dict(k='bite', id=bid, dur=d, clip=clip, name=nm, res=res, text=txt))
+pieces = [dict(p) for p in intro]
 for t in takes:
     a, b = t['off'], t['off'] + t['dur']; segs = []
     for s, e in islands(a, b):
@@ -42,7 +55,7 @@ for t in takes:
         else: segs.append([s, e])
     for s, e in (segs or [[a, b]]): pieces.append(dict(k='seg', id=t['id'], s0=s, s1=e))
 o = 0.0
-for p in pieces: p['o0'] = o; o += p['s1'] - p['s0']; p['o1'] = o
+for p in pieces: p['o0'] = o; o += (p['s1'] - p['s0']) if p['k'] == 'seg' else p['dur']; p['o1'] = o
 TAIL_S = 3.0; TOTAL = o + TAIL_S
 def span(a_id, b_id=None):
     b_id = b_id or a_id
@@ -50,6 +63,7 @@ def span(a_id, b_id=None):
 def O(tid, rel=0.0):
     ts = TK[tid]['off'] + rel
     for p in pieces:
+        if p['k'] != 'seg': continue
         if ts < p['s0']: return p['o0']
         if ts <= p['s1']: return p['o0'] + ts - p['s0']
     return o
@@ -112,6 +126,10 @@ elif AD == 'ad3_jones_92_67':
     B('S06', a, b, 'stack', dict(title='நம்ம வீட்டு <span class="r">PROBLEM</span>', bad=True, items=[['📱', 'கையில எப்பவும் MOBILE'], ['🍽️', 'LATE NIGHT DINNER'], ['😴', 'சரியா தூக்கம் இல்ல'], ['🚶', 'WALKING இல்ல']],
                               cues=[O('C07') - a, O('C08') - a, O('C09') - a, O('C10') - a]), 'phone, late dinner, no sleep, no walking')
     a, b = span('C11'); B('S11', a, b, 'pattern', dict(cues=[0.3, 1.2]), 'both stuck in the same pattern')
+for p in pieces:
+    if p['k'] == 'bite':
+        BROLL.append((p['id'], p['o0'], p['o1'], 'testi', 'full', dict(name=p['name'], res=p['res'], x=40, y=200, rx=60, ry=1150, rt=.5, note='Individual results vary'),
+                      'opening: real client transformation', 'P2 real client video (client-supplied)'))
 tail()
 # ---------- 4. captions (from the cleaned line text) ----------
 KEY = re.compile(r'(\d|₹|DIET|GYM|MOBILE|HABIT|FAMILY|HAPPINESS|CHALLENGE|POSSIBLE|MONEY|RISK|COUPLES?|LINK|REGISTER|KILO|KG|IDEAL|HEALTHY|FIT|PATTERN|ROADMAP|FINANCIAL|BIRYANI|LIVE|VALUE|LUCKY|PERSONAL|DAY|ROUTINE|TRICHY)', re.I)
@@ -123,7 +141,7 @@ def chunks(txt, n=3):
 captions = []
 def full_at(t): return any(a <= t < b and lay == 'full' for _, a, b, sc, lay, *_ in BROLL)
 nocap = [(a, b) for ty, a, b, ex in GFX if ex.get('nocap')]
-for t in takes:
+for t in [dict(id=p['id'], text=p['text']) for p in pieces if p['k'] == 'bite' and p['text']] + takes:
     ps = [p for p in pieces if p['id'] == t['id']]; a0, b0 = ps[0]['o0'], ps[-1]['o1']; cs = chunks(t['text']); wts = [sum(len(x) for x in c) + 3 for c in cs]; tt = a0
     for c, wt in zip(cs, wts):
         d = (b0 - a0) * wt / sum(wts); hl = [i for i, x in enumerate(c) if KEY.search(x)]
@@ -146,17 +164,19 @@ for p in pieces: k += 1; segz[id(p)] = 1.0 if k % 2 else 1.12
 frames = []; last = 0
 for i in range(int(round(TOTAL * FPS))):
     t = i / FPS; p = next((q for q in pieces if q['o0'] <= t < q['o1']), None); fr = dict(L='face', z=1.0)
-    if p: last = p['s0'] + t - p['o0']; fr['z'] = round(segz[id(p)] * (1 + .02 * (t - p['o0']) / max(.01, p['o1'] - p['o0'])), 4)
+    if p and p['k'] == 'seg': last = p['s0'] + t - p['o0']; fr['z'] = round(segz[id(p)] * (1 + .02 * (t - p['o0']) / max(.01, p['o1'] - p['o0'])), 4)
+    if p and p['k'] == 'bite': last = pieces[len(intro)]['s0'] if len(pieces) > len(intro) else 0
     fr['ts'] = round(last, 4)
     for bid, a, b, sc, lay, ex, line, src in BROLL:
         if a <= t < b:
             fr['L'] = 'full'
             if 'clip' in ex: fr['V'] = [ex['clip'][0], round(ex['clip'][1] + t - a, 4), round((t - a) / (b - a), 3)]
+    if p and p['k'] == 'bite': fr['L'] = 'full'; fr['V'] = [p['clip'], round(t - p['o0'], 4), round((t - p['o0']) / p['dur'], 3)]
     if t >= o: fr = dict(L='face', z=1.0, ts=round(last, 4))
     frames.append(fr)
 json.dump(frames, open(W + 'frames.json', 'w'))
 end = span(LINES[-1][0])[0]
-MUSIC = [(0.0, span('A15')[0], 'dark'), (span('A15')[0], span('A24')[0], 'tech'), (span('A24')[0], TOTAL, 'uplift')]
+MUSIC = [(0.0, span('A15')[0], 'warm' if intro else 'dark'), (span('A15')[0], span('A24')[0], 'tech'), (span('A24')[0], TOTAL, 'uplift')]
 json.dump(dict(total=TOTAL, pieces=pieces, sfx=sfx, music=MUSIC), open(W + 'audio/cues.json', 'w'))
 json.dump(dict(size=[1080, 1920], face=[600, 985]), open(W + 'comp_cfg.json', 'w'))
 with open(os.path.join(HERE, f'broll_{AD}.csv'), 'w') as f:
