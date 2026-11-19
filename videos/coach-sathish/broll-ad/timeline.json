@@ -1,0 +1,843 @@
+{
+ "total": 70.9,
+ "clips": [
+  {
+   "t0": 0.0,
+   "t1": 1.45,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S01.mp4",
+   "ss": 2.0,
+   "rate": 1.3,
+   "z0": 1.0,
+   "z1": 1.12
+  },
+  {
+   "t0": 1.45,
+   "t1": 4.4,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S02.mp4",
+   "ss": 1.5,
+   "rate": 1.15,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 8.9,
+   "t1": 9.9,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S04a.mp4",
+   "ss": 2.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 9.9,
+   "t1": 10.7,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S04b.mp4",
+   "ss": 4.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 10.7,
+   "t1": 13.8,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S04c.mp4",
+   "ss": 1.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.12
+  },
+  {
+   "t0": 16.5,
+   "t1": 19.5,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S06.mp4",
+   "ss": 4.5,
+   "rate": 0.9,
+   "z0": 1.0,
+   "z1": 1.12,
+   "fy": 900
+  },
+  {
+   "t0": 22.7,
+   "t1": 24.6,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S08.mp4",
+   "ss": 3.5,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.12
+  },
+  {
+   "t0": 45.0,
+   "t1": 49.6,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S06.mp4",
+   "ss": 4.2,
+   "rate": 0.9,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 66.4,
+   "t1": 69.0,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S16.mp4",
+   "ss": 1.5,
+   "rate": 1.1,
+   "z0": 1.0,
+   "z1": 1.12
+  }
+ ],
+ "items": [
+  {
+   "type": "vid",
+   "t0": 0.0,
+   "t1": 1.45,
+   "loc": "மதுரை",
+   "ly": 230,
+   "lt": 0.05,
+   "noflash": true
+  },
+  {
+   "type": "vid",
+   "t0": 1.45,
+   "t1": 4.4,
+   "big": "😓",
+   "bsz": 150,
+   "by": 240,
+   "bt": 1.6
+  },
+  {
+   "type": "story",
+   "t0": 4.4,
+   "t1": 8.9,
+   "title": "ஷோபிகாவின் <span class=\"y\">அம்மா</span>",
+   "badge": "😓 இப்படித் தான் கஷ்டப்பட்டாங்க",
+   "nocap": true
+  },
+  {
+   "type": "vid",
+   "t0": 8.9,
+   "t1": 9.9,
+   "cy": 250,
+   "csz": 72,
+   "ct": [
+    0.1
+   ],
+   "chips": [
+    [
+     "🥗 DIET",
+     "#2a1010",
+     "#fff",
+     "#FF3B30",
+     1
+    ]
+   ]
+  },
+  {
+   "type": "vid",
+   "t0": 9.9,
+   "t1": 10.7,
+   "cy": 250,
+   "csz": 72,
+   "ct": [
+    0.05
+   ],
+   "chips": [
+    [
+     "🏋️ WORKOUT",
+     "#2a1010",
+     "#fff",
+     "#FF3B30",
+     1
+    ]
+   ]
+  },
+  {
+   "type": "vid",
+   "t0": 10.7,
+   "t1": 13.8,
+   "cy": 250,
+   "csz": 72,
+   "ct": [
+    0.05
+   ],
+   "chips": [
+    [
+     "⏱️ FASTING",
+     "#2a1010",
+     "#fff",
+     "#FF3B30",
+     1
+    ]
+   ],
+   "big": "RESULT<br><span class=\"r\">இல்ல ❌</span>",
+   "by": 520,
+   "bsz": 130,
+   "bt": 2.0
+  },
+  {
+   "type": "brand",
+   "t0": 13.8,
+   "t1": 16.5,
+   "icon": "🦋",
+   "name": "BUTTERFLY<br>WELLNESS",
+   "tsz": 120,
+   "sub": "NUTRITION CENTER",
+   "ssz": 60,
+   "ly": 330,
+   "chips": [],
+   "nocap": false
+  },
+  {
+   "type": "vid",
+   "t0": 16.5,
+   "t1": 19.5,
+   "cy": 240,
+   "csz": 60,
+   "ct": [
+    0.8
+   ],
+   "chips": [
+    [
+     "📊 BODY ANALYSIS",
+     "#00C896",
+     "#04110c",
+     "#00C896"
+    ]
+   ]
+  },
+  {
+   "type": "plan",
+   "t0": 19.5,
+   "t1": 22.7,
+   "title": "<span class=\"y\">SUITABLE</span> METHOD",
+   "head": "PERSONAL PLAN",
+   "gap": 0.5
+  },
+  {
+   "type": "vid",
+   "t0": 22.7,
+   "t1": 24.6,
+   "cy": 240,
+   "csz": 60,
+   "ct": [
+    0.1
+   ],
+   "chips": [
+    [
+     "🤝 PERSONALIZED GUIDANCE",
+     "#00C896",
+     "#04110c",
+     "#00C896"
+    ]
+   ]
+  },
+  {
+   "type": "story",
+   "t0": 24.6,
+   "t1": 29.5,
+   "title": "ஷோபிகாவின் அம்மா <span class=\"g\">இப்போ</span>",
+   "badge": "✅ SUCCESSFUL WEIGHT LOSS",
+   "bg": "#00A87E",
+   "bt": 1.1,
+   "nocap": true
+  },
+  {
+   "type": "fatfit",
+   "t0": 29.5,
+   "t1": 34.0,
+   "sw": 3.1,
+   "sub": "",
+   "ssz": 60
+  },
+  {
+   "type": "brand",
+   "t0": 34.0,
+   "t1": 41.5,
+   "icon": "🦋",
+   "name": "SATHISH KUMAR",
+   "tsz": 104,
+   "sub": "BUTTERFLY WELLNESS<br>NUTRITION CENTER",
+   "ssz": 56,
+   "ly": 360
+  },
+  {
+   "type": "pillars",
+   "t0": 41.5,
+   "t1": 45.0,
+   "title": "<span class=\"y\">TRUSTED</span> COACH",
+   "items": [
+    [
+     "⏳",
+     "7 YEARS",
+     "EXPERIENCE"
+    ],
+    [
+     "👥",
+     "500+ PEOPLE",
+     "GUIDED"
+    ]
+   ],
+   "cues": [
+    0.2,
+    1.9
+   ],
+   "nocap": true
+  },
+  {
+   "type": "vid",
+   "t0": 45.0,
+   "t1": 49.6,
+   "cy": 240,
+   "csz": 58,
+   "ct": [
+    0.1,
+    1.1,
+    1.7
+   ],
+   "chips": [
+    [
+     "⚖️ WEIGHT LOSS ✓"
+    ],
+    [
+     "❤️ HEALTH ✓"
+    ],
+    [
+     "🌿 LIFESTYLE ✓"
+    ]
+   ]
+  },
+  {
+   "type": "brand",
+   "t0": 49.6,
+   "t1": 52.0,
+   "icon": "🏆",
+   "name": "SUCCESS<br>STORIES",
+   "tsz": 130,
+   "sub": "நிறைய!",
+   "ssz": 80,
+   "ly": 380,
+   "nocap": true
+  },
+  {
+   "type": "offer",
+   "t0": 52.0,
+   "t1": 62.9,
+   "title": "<span class=\"y\">3 DAYS</span> TRIAL",
+   "tsz": 110,
+   "sub": "BUTTERFLY WELLNESS",
+   "value": 1500,
+   "ky": 560,
+   "tty": 320,
+   "items": [
+    "BMR",
+    "BMI",
+    "BODY FAT ANALYSIS",
+    "3 DAYS TRIAL"
+   ],
+   "cues": {
+    "items": [
+     2.6,
+     3.4,
+     4.1,
+     9.2
+    ],
+    "strike": 999,
+    "free": 999
+   },
+   "nocap": true
+  },
+  {
+   "type": "seats",
+   "t0": 62.9,
+   "t1": 64.7,
+   "title": "FIRST <span class=\"y\">10</span>",
+   "fill": 7,
+   "badge": "⏳ HURRY!",
+   "nocap": true
+  },
+  {
+   "type": "offer",
+   "t0": 64.7,
+   "t1": 66.4,
+   "title": "<span class=\"y\">3 DAYS</span> TRIAL",
+   "tsz": 110,
+   "sub": "BUTTERFLY WELLNESS",
+   "value": 1500,
+   "ky": 560,
+   "tty": 320,
+   "items": [
+    "BMR",
+    "BMI",
+    "BODY FAT ANALYSIS",
+    "3 DAYS TRIAL"
+   ],
+   "cues": {
+    "items": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "strike": 0.05,
+    "free": 0.15,
+    "vt": -1
+   },
+   "nocap": true
+  },
+  {
+   "type": "cta",
+   "t0": 66.4,
+   "t1": 69.0,
+   "label": "📅 BOOK APPOINTMENT",
+   "y": 330,
+   "arrow": "↓",
+   "badge": "👇 LINK BELOW"
+  },
+  {
+   "type": "endcard2",
+   "t0": 69.0,
+   "t1": 70.9,
+   "icon": "🦋",
+   "name": "BUTTERFLY WELLNESS",
+   "nsz": 104,
+   "sub": "NUTRITION CENTER",
+   "line": "BMR • BMI • BODY FAT • 3 DAYS TRIAL",
+   "btn": "📅 BOOK APPOINTMENT",
+   "badge": "FIRST 10 • FREE",
+   "loc": "மதுரை",
+   "nocap": true
+  }
+ ],
+ "captions": [
+  {
+   "t0": 0.0,
+   "t1": 1.45,
+   "words": [
+    "HELLO",
+    "மதுரை",
+    "மக்களே!"
+   ],
+   "hl": [
+    1
+   ]
+  },
+  {
+   "t0": 1.45,
+   "t1": 3.0,
+   "words": [
+    "WEIGHT",
+    "LOSS",
+    "TRY",
+    "பண்ணி"
+   ],
+   "hl": [
+    0,
+    1
+   ]
+  },
+  {
+   "t0": 3.0,
+   "t1": 4.4,
+   "words": [
+    "ரொம்ப",
+    "கஷ்டப்படுறீங்களா?"
+   ],
+   "hl": [
+    1
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 8.9,
+   "t1": 11.4,
+   "words": [
+    "DIET,",
+    "WORKOUT,",
+    "FASTING"
+   ],
+   "hl": [
+    0,
+    1,
+    2
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 11.4,
+   "t1": 13.8,
+   "words": [
+    "TRY",
+    "பண்ணியும்",
+    "RESULT",
+    "இல்ல"
+   ],
+   "hl": [
+    2,
+    3
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 13.8,
+   "t1": 16.5,
+   "words": [
+    "எங்களைப்",
+    "பத்தி",
+    "கேள்விப்பட்டு",
+    "வந்தாங்க"
+   ],
+   "hl": [
+    2
+   ]
+  },
+  {
+   "t0": 16.5,
+   "t1": 19.5,
+   "words": [
+    "அவங்க",
+    "BODY-ஐ",
+    "ANALYSE",
+    "பண்ணி"
+   ],
+   "hl": [
+    1,
+    2
+   ]
+  },
+  {
+   "t0": 19.5,
+   "t1": 22.7,
+   "words": [
+    "அவங்களுக்கு",
+    "SUITABLE",
+    "METHOD",
+    "சொல்லி"
+   ],
+   "hl": [
+    1,
+    2
+   ]
+  },
+  {
+   "t0": 22.7,
+   "t1": 24.6,
+   "words": [
+    "PERSONALIZED",
+    "GUIDANCE",
+    "கொடுத்து"
+   ],
+   "hl": [
+    0,
+    1
+   ]
+  },
+  {
+   "t0": 29.5,
+   "t1": 34.0,
+   "words": [
+    "FAT-ஆ",
+    "இருந்தவங்க",
+    "FIT-ஆ",
+    "இருக்காங்க"
+   ],
+   "hl": [
+    2
+   ]
+  },
+  {
+   "t0": 34.0,
+   "t1": 37.3,
+   "words": [
+    "YES,",
+    "MYSELF",
+    "SATHISH",
+    "KUMAR"
+   ],
+   "hl": [
+    2,
+    3
+   ],
+   "col": "#FFD60A"
+  },
+  {
+   "t0": 37.3,
+   "t1": 40.4,
+   "words": [
+    "BUTTERFLY",
+    "WELLNESS",
+    "NUTRITION",
+    "CENTER"
+   ],
+   "hl": [
+    0,
+    1
+   ]
+  },
+  {
+   "t0": 40.4,
+   "t1": 41.5,
+   "words": [
+    "பேசுறேன்"
+   ],
+   "hl": []
+  },
+  {
+   "t0": 45.0,
+   "t1": 47.8,
+   "words": [
+    "WEIGHT",
+    "LOSS,",
+    "HEALTH,",
+    "LIFESTYLE"
+   ],
+   "hl": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "t0": 47.8,
+   "t1": 49.6,
+   "words": [
+    "இதெல்லாம்",
+    "சொல்லிக்",
+    "கொடுத்து"
+   ],
+   "hl": []
+  },
+  {
+   "t0": 66.4,
+   "t1": 68.3,
+   "words": [
+    "APPOINTMENT",
+    "IMMEDIATELY",
+    "BOOK",
+    "பண்ணுங்க"
+   ],
+   "hl": [
+    0,
+    1,
+    2
+   ],
+   "col": "#FFD60A"
+  },
+  {
+   "t0": 68.3,
+   "t1": 69.0,
+   "words": [
+    "THANK",
+    "YOU!"
+   ],
+   "hl": [
+    0,
+    1
+   ]
+  }
+ ],
+ "sfx": [
+  [
+   1.45,
+   "whoosh"
+  ],
+  [
+   4.4,
+   "whoosh"
+  ],
+  [
+   8.9,
+   "whoosh"
+  ],
+  [
+   9.9,
+   "whoosh"
+  ],
+  [
+   10.7,
+   "whoosh"
+  ],
+  [
+   13.8,
+   "whoosh"
+  ],
+  [
+   16.5,
+   "whoosh"
+  ],
+  [
+   19.5,
+   "whoosh"
+  ],
+  [
+   22.7,
+   "whoosh"
+  ],
+  [
+   24.6,
+   "whoosh"
+  ],
+  [
+   41.5,
+   "whoosh"
+  ],
+  [
+   45.0,
+   "whoosh"
+  ],
+  [
+   49.6,
+   "whoosh"
+  ],
+  [
+   52.0,
+   "whoosh"
+  ],
+  [
+   62.9,
+   "whoosh"
+  ],
+  [
+   66.4,
+   "whoosh"
+  ],
+  [
+   9.0,
+   "pop"
+  ],
+  [
+   9.95,
+   "pop"
+  ],
+  [
+   10.75,
+   "pop"
+  ],
+  [
+   17.3,
+   "pop"
+  ],
+  [
+   22.8,
+   "pop"
+  ],
+  [
+   45.1,
+   "pop"
+  ],
+  [
+   46.1,
+   "pop"
+  ],
+  [
+   46.7,
+   "pop"
+  ],
+  [
+   20.0,
+   "pop"
+  ],
+  [
+   20.5,
+   "pop"
+  ],
+  [
+   21.0,
+   "pop"
+  ],
+  [
+   21.5,
+   "pop"
+  ],
+  [
+   0.0,
+   "hit"
+  ],
+  [
+   12.7,
+   "thud"
+  ],
+  [
+   32.6,
+   "ding"
+  ],
+  [
+   34.0,
+   "hit"
+  ],
+  [
+   41.7,
+   "tick"
+  ],
+  [
+   43.4,
+   "tick"
+  ],
+  [
+   49.7,
+   "ding"
+  ],
+  [
+   52.5,
+   "cash"
+  ],
+  [
+   54.6,
+   "tick"
+  ],
+  [
+   55.4,
+   "tick"
+  ],
+  [
+   56.1,
+   "tick"
+  ],
+  [
+   61.2,
+   "tick"
+  ],
+  [
+   64.75,
+   "thud"
+  ],
+  [
+   64.85,
+   "hit"
+  ],
+  [
+   66.4,
+   "riser"
+  ],
+  [
+   69.0,
+   "hit"
+  ]
+ ],
+ "music": [
+  [
+   0,
+   1.45,
+   "pulse"
+  ],
+  [
+   1.45,
+   13.8,
+   "dark"
+  ],
+  [
+   13.8,
+   34.0,
+   "warm"
+  ],
+  [
+   34.0,
+   62.9,
+   "tech"
+  ],
+  [
+   62.9,
+   70.9,
+   "uplift"
+  ]
+ ],
+ "voice_at": 0.0
+}

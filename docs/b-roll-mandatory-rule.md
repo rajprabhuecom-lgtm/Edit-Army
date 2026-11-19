@@ -54,6 +54,21 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `photo` (v6) | Real client photo full frame with blurred fill, Ken Burns, title / count-up / tag |
+| `collage` (v6) | Real photos dropping in like polaroids + count-up ("100+ members") |
+| `effort` (v6) | "Problem isn't your effort, it's guidance": EFFORT ✓ vs CORRECT GUIDANCE ✕ |
+| `pillars` (v6) | 2-3 method cards ticking (nutrition / lifestyle / support, 7 years / 500+) |
+| `seats` (v6) | "First 10": seat grid filling |
+| `offer` (v6) | Offer ticket: ₹ worth count-up, included items tick, strike + FREE stamp |
+| `limited` (v6) | Limited period: hourglass + draining bar |
+| `plan` (v6) | Personal plan card building (meal / water / activity / sleep) |
+| `fatfit` (v6) | FAT → FIT letter swap |
+| `story` (v6) | Member story card; shows a labelled PHOTO PENDING placeholder until the real photo is supplied |
+| `brand` (v6) | Coach / centre name card for faceless ads |
+| `endcard2` (v6) | Generic client end card: centre, offer, BOOK APPOINTMENT, badge, location |
+| `vid` (v6) | Full-frame AI/real clip overlay: location pill, big word, timed chips, strike-through chips |
+
+**Faceless ads (v6, `engine/v6-faceless/`):** when the client won't appear on camera, the whole ad is voice + B-roll + animation. `voice.py` cuts pauses and gives the voice a studio chain (denoise, EQ, compression, de-ess, 1.2×), the plan is written in final time, `comp.py` composites clips (Veo sparkle cropped, landscape footage blur-filled), `mix.py` adds the emotion-mapped BGM + SFX at −14 LUFS, `final.sh` muxes and makes the QA sheet.
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

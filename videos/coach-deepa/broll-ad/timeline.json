@@ -1,0 +1,761 @@
+{
+ "total": 42.6,
+ "clips": [
+  {
+   "t0": 0.0,
+   "t1": 1.5,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D01.mp4",
+   "ss": 3.2,
+   "rate": 1.3,
+   "z0": 1.0,
+   "z1": 1.12
+  },
+  {
+   "t0": 1.5,
+   "t1": 2.45,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D02.mp4",
+   "ss": 2.6,
+   "rate": 1.2,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 2.45,
+   "t1": 4.95,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D03.mp4",
+   "ss": 1.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 4.95,
+   "t1": 6.9,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D04.mp4",
+   "ss": 2.5,
+   "rate": 1.0,
+   "z0": 1.42,
+   "z1": 1.5,
+   "dx": -380,
+   "fy": 820
+  },
+  {
+   "t0": 6.9,
+   "t1": 9.05,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D05.mp4",
+   "ss": 2.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.1
+  },
+  {
+   "t0": 9.05,
+   "t1": 11.15,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D06.mp4",
+   "ss": 1.5,
+   "rate": 1.15,
+   "z0": 1.0,
+   "z1": 1.12
+  },
+  {
+   "t0": 20.05,
+   "t1": 22.05,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/real/centre24.mp4",
+   "ss": 30.0,
+   "rate": 1.0,
+   "z0": 1.02,
+   "z1": 1.1,
+   "fy": 1000
+  },
+  {
+   "t0": 24.0,
+   "t1": 27.1,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/real/centre23.mp4",
+   "ss": 12.0,
+   "rate": 1.0,
+   "z0": 1.0,
+   "z1": 1.08,
+   "fit": "blur"
+  },
+  {
+   "t0": 35.8,
+   "t1": 38.45,
+   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/deepa/clips/D18.mp4",
+   "ss": 1.5,
+   "rate": 1.1,
+   "z0": 1.0,
+   "z1": 1.12
+  }
+ ],
+ "items": [
+  {
+   "type": "vid",
+   "t0": 0.0,
+   "t1": 1.5,
+   "loc": "திருவண்ணாமலை",
+   "ly": 230,
+   "lt": 0.05,
+   "noflash": true
+  },
+  {
+   "type": "vid",
+   "t0": 1.5,
+   "t1": 2.45,
+   "big": "WORKING<br><span class=\"y\">WOMEN?</span>",
+   "by": 230,
+   "bt": 0.05
+  },
+  {
+   "type": "vid",
+   "t0": 2.45,
+   "t1": 4.95,
+   "cy": 220,
+   "csz": 60,
+   "ct": [
+    0.05,
+    0.55,
+    1.05,
+    1.55
+   ],
+   "chips": [
+    [
+     "⚖️ OVERWEIGHT",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ],
+    [
+     "PCOD",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ],
+    [
+     "THYROID",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ],
+    [
+     "📈 WEIGHT GAIN",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ]
+   ]
+  },
+  {
+   "type": "vid",
+   "t0": 4.95,
+   "t1": 6.9,
+   "big": "😔",
+   "bsz": 150,
+   "by": 240,
+   "bt": 0.3
+  },
+  {
+   "type": "vid",
+   "t0": 6.9,
+   "t1": 9.05,
+   "cy": 230,
+   "csz": 62,
+   "ct": [
+    0.1,
+    1.1
+   ],
+   "chips": [
+    [
+     "🥗 DIET ✓"
+    ],
+    [
+     "🏃‍♀️ EXERCISE ✓"
+    ]
+   ]
+  },
+  {
+   "type": "vid",
+   "t0": 9.05,
+   "t1": 11.15,
+   "cy": 230,
+   "csz": 62,
+   "ct": [
+    0.5,
+    1.3
+   ],
+   "chips": [
+    [
+     "RESULT ❌",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ],
+    [
+     "HOPE 📉",
+     "#2a1010",
+     "#fff",
+     "#FF3B30"
+    ]
+   ]
+  },
+  {
+   "type": "effort",
+   "t0": 11.15,
+   "t1": 13.65,
+   "cues": [
+    0.85,
+    1.45
+   ],
+   "nocap": true
+  },
+  {
+   "type": "photo",
+   "t0": 13.65,
+   "t1": 14.8,
+   "src": "coach.jpg",
+   "kb": [
+    1.05,
+    1.16,
+    0,
+    0,
+    40,
+    -20
+   ],
+   "pos": "center 20%",
+   "title": "<span class=\"y\">COACH</span> DEEPA",
+   "ty": 150,
+   "tsz": 120,
+   "tag": "🌿 RC WELLNESS CENTER",
+   "tgy": 1060,
+   "tgt": 0.35
+  },
+  {
+   "type": "collage",
+   "t0": 14.8,
+   "t1": 17.0,
+   "srcs": [
+    "group_centre.jpg",
+    "group_cups.jpg",
+    "session.jpg",
+    "consult.jpg"
+   ],
+   "gap": 0.22,
+   "title": "LAST <span class=\"y\">3 YEARS</span>",
+   "count": {
+    "n": 100,
+    "suf": "+",
+    "label": "MEMBERS"
+   },
+   "ct": 1.2,
+   "nocap": true
+  },
+  {
+   "type": "pillars",
+   "t0": 17.0,
+   "t1": 20.05,
+   "cues": [
+    0.05,
+    1.0,
+    2.0
+   ],
+   "nocap": true
+  },
+  {
+   "type": "vid",
+   "t0": 20.05,
+   "t1": 22.05,
+   "cy": 230,
+   "csz": 58,
+   "ct": [
+    0.1
+   ],
+   "chips": [
+    [
+     "✅ HEALTHY WEIGHT LOSS",
+     "#00C896",
+     "#04110c",
+     "#00C896"
+    ]
+   ]
+  },
+  {
+   "type": "fatfit",
+   "t0": 22.05,
+   "t1": 24.0,
+   "sw": 0.8,
+   "ssz": 62,
+   "sub": "நீங்களும் <span class=\"g\">READY</span>-ஆ?",
+   "nocap": true
+  },
+  {
+   "type": "vid",
+   "t0": 24.0,
+   "t1": 27.1,
+   "big": "MISS<br><span class=\"y\">பண்ணாதீங்க!</span>",
+   "by": 200,
+   "bsz": 104,
+   "bt": 0.1,
+   "loc": "RC WELLNESS CENTER",
+   "ly": 520,
+   "lt": 1.7,
+   "lsz": 62
+  },
+  {
+   "type": "seats",
+   "t0": 27.1,
+   "t1": 28.55,
+   "fill": 7,
+   "nocap": true
+  },
+  {
+   "type": "offer",
+   "t0": 28.55,
+   "t1": 33.75,
+   "title": "3 DAYS <span class=\"y\">WEIGHT LOSS</span><br>TRIAL PROGRAM",
+   "tsz": 78,
+   "sub": "FIRST 10 MEMBERS",
+   "value": 1000,
+   "ky": 600,
+   "tty": 290,
+   "items": [
+    "FULL BODY CHECKUP",
+    "FAT CHECKUP"
+   ],
+   "cues": {
+    "items": [
+     2.7,
+     3.9
+    ],
+    "strike": 4.45,
+    "free": 4.55
+   },
+   "nocap": true
+  },
+  {
+   "type": "limited",
+   "t0": 33.75,
+   "t1": 35.8,
+   "title": "LIMITED <span class=\"y\">PERIOD</span>",
+   "sub": "OFFER மட்டும்!",
+   "nocap": true
+  },
+  {
+   "type": "cta",
+   "t0": 35.8,
+   "t1": 38.45,
+   "label": "📅 BOOK APPOINTMENT",
+   "y": 330,
+   "arrow": "↓",
+   "badge": "👇 LINK BELOW"
+  },
+  {
+   "type": "endcard2",
+   "t0": 38.45,
+   "t1": 42.6,
+   "icon": "🌿",
+   "name": "RC WELLNESS CENTER",
+   "sub": "3 DAYS WEIGHT LOSS TRIAL",
+   "line": "FULL BODY CHECKUP + FAT CHECKUP",
+   "btn": "📅 BOOK APPOINTMENT",
+   "badge": "FIRST 10 MEMBERS • FREE",
+   "loc": "திருவண்ணாமலை",
+   "nocap": true
+  }
+ ],
+ "captions": [
+  {
+   "t0": 0.0,
+   "t1": 1.5,
+   "words": [
+    "வணக்கம்",
+    "திருவண்ணாமலை",
+    "மக்களே!"
+   ],
+   "hl": [
+    1
+   ]
+  },
+  {
+   "t0": 1.5,
+   "t1": 2.45,
+   "words": [
+    "நீங்க",
+    "WORKING",
+    "WOMEN-ஆ?"
+   ],
+   "hl": [
+    1,
+    2
+   ]
+  },
+  {
+   "t0": 2.45,
+   "t1": 3.95,
+   "words": [
+    "OVERWEIGHT,",
+    "PCOD,",
+    "THYROID"
+   ],
+   "hl": [
+    0,
+    1,
+    2
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 3.95,
+   "t1": 4.95,
+   "words": [
+    "WEIGHT",
+    "GAIN-ஆல",
+    "கஷ்டப்பட்டு"
+   ],
+   "hl": [
+    0,
+    1
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 4.95,
+   "t1": 6.9,
+   "words": [
+    "\"நான்",
+    "எப்போ",
+    "SLIM",
+    "ஆவேன்?\""
+   ],
+   "hl": [
+    2,
+    3
+   ]
+  },
+  {
+   "t0": 6.9,
+   "t1": 8.0,
+   "words": [
+    "DIET",
+    "START",
+    "பண்ணுவீங்க"
+   ],
+   "hl": [
+    0
+   ]
+  },
+  {
+   "t0": 8.0,
+   "t1": 9.05,
+   "words": [
+    "EXERCISE-உம்",
+    "START",
+    "பண்ணுவீங்க"
+   ],
+   "hl": [
+    0
+   ]
+  },
+  {
+   "t0": 9.05,
+   "t1": 10.4,
+   "words": [
+    "ஆனா",
+    "EXPECTED",
+    "RESULT",
+    "கிடைக்காம"
+   ],
+   "hl": [
+    2
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 10.4,
+   "t1": 11.15,
+   "words": [
+    "HOPE-ஏ",
+    "போயிடுச்சா?"
+   ],
+   "hl": [
+    0
+   ],
+   "col": "#FF6B60"
+  },
+  {
+   "t0": 13.65,
+   "t1": 14.8,
+   "words": [
+    "இவங்க",
+    "தான்",
+    "COACH",
+    "DEEPA"
+   ],
+   "hl": [
+    2,
+    3
+   ],
+   "col": "#FFD60A"
+  },
+  {
+   "t0": 20.05,
+   "t1": 21.45,
+   "words": [
+    "HEALTHY",
+    "WEIGHT",
+    "LOSS"
+   ],
+   "hl": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "t0": 21.45,
+   "t1": 22.05,
+   "words": [
+    "GUIDE",
+    "பண்ணியிருக்காங்க"
+   ],
+   "hl": [
+    0
+   ]
+  },
+  {
+   "t0": 24.0,
+   "t1": 25.6,
+   "words": [
+    "இந்த",
+    "OPPORTUNITY-ஐ",
+    "MISS",
+    "பண்ணாதீங்க!"
+   ],
+   "hl": [
+    1
+   ],
+   "col": "#FFD60A"
+  },
+  {
+   "t0": 25.6,
+   "t1": 27.1,
+   "words": [
+    "நம்ம",
+    "RC",
+    "WELLNESS",
+    "CENTER-ல"
+   ],
+   "hl": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "t0": 35.8,
+   "t1": 37.4,
+   "words": [
+    "கீழே",
+    "இருக்குற",
+    "LINK-ஐ",
+    "CLICK",
+    "பண்ணி"
+   ],
+   "hl": [
+    2,
+    3
+   ],
+   "col": "#FFD60A"
+  },
+  {
+   "t0": 37.4,
+   "t1": 38.45,
+   "words": [
+    "APPOINTMENT",
+    "BOOK",
+    "பண்ணுங்க"
+   ],
+   "hl": [
+    0,
+    1
+   ],
+   "col": "#FFD60A"
+  }
+ ],
+ "sfx": [
+  [
+   1.5,
+   "whoosh"
+  ],
+  [
+   2.45,
+   "whoosh"
+  ],
+  [
+   4.95,
+   "whoosh"
+  ],
+  [
+   6.9,
+   "whoosh"
+  ],
+  [
+   9.05,
+   "whoosh"
+  ],
+  [
+   20.05,
+   "whoosh"
+  ],
+  [
+   24.0,
+   "whoosh"
+  ],
+  [
+   35.8,
+   "whoosh"
+  ],
+  [
+   2.5,
+   "pop"
+  ],
+  [
+   3.0,
+   "pop"
+  ],
+  [
+   3.5,
+   "pop"
+  ],
+  [
+   4.0,
+   "pop"
+  ],
+  [
+   9.55,
+   "pop"
+  ],
+  [
+   10.35,
+   "pop"
+  ],
+  [
+   0.0,
+   "hit"
+  ],
+  [
+   11.15,
+   "thud"
+  ],
+  [
+   12.6,
+   "thud"
+  ],
+  [
+   13.65,
+   "hit"
+  ],
+  [
+   14.95,
+   "pop"
+  ],
+  [
+   15.17,
+   "pop"
+  ],
+  [
+   15.39,
+   "pop"
+  ],
+  [
+   15.61,
+   "pop"
+  ],
+  [
+   16.0,
+   "cash"
+  ],
+  [
+   17.05,
+   "tick"
+  ],
+  [
+   18.0,
+   "tick"
+  ],
+  [
+   19.0,
+   "tick"
+  ],
+  [
+   22.85,
+   "ding"
+  ],
+  [
+   27.1,
+   "whoosh"
+  ],
+  [
+   28.55,
+   "whoosh"
+  ],
+  [
+   29.0,
+   "cash"
+  ],
+  [
+   31.25,
+   "tick"
+  ],
+  [
+   32.45,
+   "tick"
+  ],
+  [
+   33.0,
+   "thud"
+  ],
+  [
+   33.1,
+   "hit"
+  ],
+  [
+   33.75,
+   "whoosh"
+  ],
+  [
+   35.8,
+   "riser"
+  ],
+  [
+   38.45,
+   "hit"
+  ]
+ ],
+ "music": [
+  [
+   0,
+   2.45,
+   "pulse"
+  ],
+  [
+   2.45,
+   11.15,
+   "dark"
+  ],
+  [
+   11.15,
+   22.05,
+   "warm"
+  ],
+  [
+   22.05,
+   33.75,
+   "tech"
+  ],
+  [
+   33.75,
+   42.6,
+   "uplift"
+  ]
+ ],
+ "voice_at": 0.0
+}

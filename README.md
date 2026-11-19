@@ -30,6 +30,9 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-faceless/                 Coach Deepa + Sathish Kumar (19 Nov 2026): faceless ads (no talking head). voice.py (studio voice),
+                               render.js, comp.py (clips + overlays), mix.py, final.sh. New: photo collage effort pillars seats
+                               offer limited plan fatfit story brand endcard2 + v6 vid overlay
 videos/                        One folder per video (see videos/README.md)
 ```
 
