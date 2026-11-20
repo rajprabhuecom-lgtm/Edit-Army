@@ -116,7 +116,7 @@ S.photo=(it)=>{const fr=it.frame=='card';
 
 /* collage of real photos dropping in like polaroids + count-up */
 S.collage=(it)=>{let p='';it.srcs.forEach((s,i)=>{const P=[[60,330,-7],[560,300,6],[90,820,5],[560,800,-5]][i];
-  p+=`<div class="pc" style="position:absolute;left:${P[0]}px;top:${P[1]}px;width:440px;height:440px;border:10px solid #fff;border-radius:10px;background:url(${IMG(s)}) center/cover;box-shadow:0 26px 50px rgba(0,0,0,.6)" data-r="${P[2]}"></div>`});
+  p+=`<div class="pc" style="position:absolute;left:${P[0]}px;top:${P[1]}px;width:440px;height:440px;border:10px solid #fff;border-radius:10px;background:url(${IMG(s)}) center 12%/cover;box-shadow:0 26px 50px rgba(0,0,0,.6)" data-r="${P[2]}"></div>`});
  const el=mk(stage(it,`<div class="ttl stroke t1" style="top:120px;font-size:${it.tsz||92}px">${it.title}</div>${p}
   ${it.count?`<div class="cnt stroke" style="position:absolute;left:0;right:0;top:1290px;text-align:center;line-height:.95"><div style="font-family:A,M;font-size:230px;color:var(--yl)"><span class="cn">0</span>${it.count.suf||''}</div><div style="font-weight:900;font-size:74px">${it.count.label}</div></div>`:''}`));
  return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.pc').forEach((x,i)=>{const t=dt-.15-i*(it.gap||.35);x.style.opacity=clamp(t/.06);x.style.transform=`translateY(${(1-ease(t/.4))*-900}px) rotate(${lerp(-25,+x.dataset.r,ease(t/.45))}deg) scale(${lerp(1.3,1,ease(t/.4))})`});
@@ -190,12 +190,12 @@ S.fatfit=(it)=>{const el=mk(stage(it,`<div class="w1 stroke" style="position:abs
   const a=q(el,'.ar');a.style.opacity=sw?0:1;a.style.transform=`translateY(${Math.abs(Math.sin(dt*6))*30}px)`;popIn(q(el,'.t2'),dt-(it.sw||1.2)-.3)}}};
 
 /* story card for a member whose real photo is still pending (labelled placeholder, never faked) */
-S.story=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:200px;font-size:84px">${it.title}</div>
-  <div class="card sc" style="left:240px;top:420px;width:600px;height:720px;border:10px solid #fff;border-radius:24px;overflow:hidden;background:linear-gradient(170deg,#2a3a34,#0b1210)">
-   ${it.src?`<div style="position:absolute;inset:0;background:url(${IMG(it.src)}) center/cover"></div>`:`<div style="position:absolute;left:200px;top:120px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.18)"></div><div style="position:absolute;left:120px;top:360px;width:360px;height:380px;border-radius:180px 180px 0 0;background:rgba(255,255,255,.14)"></div>
+S.story=(it)=>{const el=mk(stage(it,`<div class="ttl stroke t1" style="top:${it.src?150:200}px;font-size:84px">${it.title}</div>
+  <div class="card sc" style="left:${it.src?250:240}px;top:${it.src?340:420}px;width:${it.src?580:600}px;height:${it.src?1000:720}px;border:10px solid #fff;border-radius:24px;overflow:hidden;background:linear-gradient(170deg,#2a3a34,#0b1210)">
+   ${it.src?`<div class="si" style="position:absolute;inset:0;background:url(${IMG(it.src)}) ${it.pos||'center top'}/cover"></div>`:`<div style="position:absolute;left:200px;top:120px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.18)"></div><div style="position:absolute;left:120px;top:360px;width:360px;height:380px;border-radius:180px 180px 0 0;background:rgba(255,255,255,.14)"></div>
    <div style="position:absolute;left:0;right:0;top:20px;text-align:center"><span class="chip" style="background:#FFD60A;color:#000;font-size:28px">PHOTO PENDING</span></div>`}</div>
-  <div class="nb" style="position:absolute;left:0;right:0;top:1190px;text-align:center"><span class="chip" style="background:${it.bg||'var(--rd)'};font-size:${it.bsz||44}px;padding:14px 30px;white-space:normal;max-width:980px;display:inline-block">${it.badge||''}</span></div>`));
- return {el,upd(dt){popIn(q(el,'.t1'),dt);const s=q(el,'.sc');s.style.opacity=clamp(dt/.1);s.style.transform=`translateY(${(1-ease(dt/.45))*900}px) rotate(${lerp(10,-3,ease(dt/.5))}deg) scale(${1+.04*dt/(it.t1-it.t0)})`;popIn(q(el,'.nb'),dt-(it.bt||.7))}}};
+  <div class="nb" style="position:absolute;left:0;right:0;top:${it.src?1400:1190}px;text-align:center"><span class="chip" style="background:${it.bg||'var(--rd)'};font-size:${it.bsz||44}px;padding:14px 30px;white-space:normal;max-width:980px;display:inline-block">${it.badge||''}</span></div>`));
+ return {el,upd(dt){popIn(q(el,'.t1'),dt);const s=q(el,'.sc');s.style.opacity=clamp(dt/.1);const si=q(el,'.si');if(si)si.style.transform=`scale(${1.02+.06*dt/(it.t1-it.t0)})`;s.style.transform=`translateY(${(1-ease(dt/.45))*900}px) rotate(${lerp(10,-3,ease(dt/.5))}deg) scale(${1+.04*dt/(it.t1-it.t0)})`;popIn(q(el,'.nb'),dt-(it.bt||.7))}}};
 
 /* brand / who-am-I card */
 S.brand=(it)=>{const nl=(it.name.match(/<br>/g)||[]).length+1,sy=(it.ly||420)+300+nl*(it.tsz||110)*1.05+30;const el=mk(stage(it,`<div class="lg" style="position:absolute;left:0;right:0;top:${it.ly||420}px;text-align:center;font-size:230px">${it.icon||'🦋'}</div>

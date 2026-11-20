@@ -57,15 +57,6 @@
    "fy": 900
   },
   {
-   "t0": 22.7,
-   "t1": 24.6,
-   "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S08.mp4",
-   "ss": 3.5,
-   "rate": 1.0,
-   "z0": 1.0,
-   "z1": 1.12
-  },
-  {
    "t0": 45.0,
    "t1": 49.6,
    "file": "/tmp/claude-0/-home-user-Edit-Army/047d46bc-8abf-51c6-b91d-a599bbd387d1/scratchpad/w/sathish/clips/S06.mp4",
@@ -107,6 +98,7 @@
    "type": "story",
    "t0": 4.4,
    "t1": 8.9,
+   "src": "shobika_before.jpg",
    "title": "ஷோபிகாவின் <span class=\"y\">அம்மா</span>",
    "badge": "😓 இப்படித் தான் கஷ்டப்பட்டாங்க",
    "nocap": true
@@ -173,17 +165,27 @@
    "bt": 2.0
   },
   {
-   "type": "brand",
+   "type": "photo",
    "t0": 13.8,
    "t1": 16.5,
-   "icon": "🦋",
-   "name": "BUTTERFLY<br>WELLNESS",
-   "tsz": 120,
-   "sub": "NUTRITION CENTER",
-   "ssz": 60,
-   "ly": 330,
-   "chips": [],
-   "nocap": false
+   "src": "session.jpg",
+   "frame": "card",
+   "h": 440,
+   "rot": -2,
+   "kb": [
+    1.02,
+    1.12,
+    0,
+    -30,
+    0,
+    0
+   ],
+   "title": "🦋 BUTTERFLY<br><span class=\"y\">WELLNESS</span>",
+   "ty": 110,
+   "tsz": 104,
+   "tag": "NUTRITION CENTER",
+   "tgy": 870,
+   "tgt": 0.5
   },
   {
    "type": "vid",
@@ -212,27 +214,31 @@
    "gap": 0.5
   },
   {
-   "type": "vid",
+   "type": "photo",
    "t0": 22.7,
    "t1": 24.6,
-   "cy": 240,
-   "csz": 60,
-   "ct": [
-    0.1
+   "src": "consult.jpg",
+   "frame": "card",
+   "h": 440,
+   "rot": 2,
+   "kb": [
+    1.02,
+    1.14,
+    30,
+    -20,
+    0,
+    0
    ],
-   "chips": [
-    [
-     "🤝 PERSONALIZED GUIDANCE",
-     "#00C896",
-     "#04110c",
-     "#00C896"
-    ]
-   ]
+   "tag": "🤝 PERSONALIZED GUIDANCE",
+   "tgy": 870,
+   "tgt": 0.25,
+   "tagsz": 50
   },
   {
    "type": "story",
    "t0": 24.6,
    "t1": 29.5,
+   "src": "shobika_after.jpg",
    "title": "ஷோபிகாவின் அம்மா <span class=\"g\">இப்போ</span>",
    "badge": "✅ SUCCESSFUL WEIGHT LOSS",
    "bg": "#00A87E",
@@ -248,15 +254,26 @@
    "ssz": 60
   },
   {
-   "type": "brand",
+   "type": "photo",
    "t0": 34.0,
    "t1": 41.5,
-   "icon": "🦋",
-   "name": "SATHISH KUMAR",
+   "src": "sathish.jpg",
+   "fit": "contain",
+   "kb": [
+    1.0,
+    1.08,
+    0,
+    0,
+    0,
+    20
+   ],
+   "title": "SATHISH <span class=\"y\">KUMAR</span>",
+   "ty": 110,
    "tsz": 104,
-   "sub": "BUTTERFLY WELLNESS<br>NUTRITION CENTER",
-   "ssz": 56,
-   "ly": 360
+   "tag": "🦋 BUTTERFLY WELLNESS NUTRITION CENTER",
+   "tgy": 1150,
+   "tgt": 1.2,
+   "tagsz": 40
   },
   {
    "type": "pillars",
@@ -305,15 +322,23 @@
    ]
   },
   {
-   "type": "brand",
+   "type": "collage",
    "t0": 49.6,
    "t1": 52.0,
-   "icon": "🏆",
-   "name": "SUCCESS<br>STORIES",
-   "tsz": 130,
-   "sub": "நிறைய!",
-   "ssz": 80,
-   "ly": 380,
+   "srcs": [
+    "shobika_after.jpg",
+    "member_after.jpg",
+    "session.jpg",
+    "consult.jpg"
+   ],
+   "gap": 0.18,
+   "title": "<span class=\"y\">SUCCESS</span> STORIES",
+   "count": {
+    "n": 500,
+    "suf": "+",
+    "label": "PEOPLE GUIDED"
+   },
+   "ct": 0.7,
    "nocap": true
   },
   {

@@ -11,24 +11,24 @@ RED = ['#2a1010', '#fff', '#FF3B30']
 # hook
 clip(0.0, 1.45, C + 'S01.mp4', ss=2.0, rate=1.3, z1=1.12); it('vid', 0.0, 1.45, loc='மதுரை', ly=230, lt=.05, noflash=True)
 clip(1.45, 4.4, C + 'S02.mp4', ss=1.5, rate=1.15); it('vid', 1.45, 4.4, big='😓', bsz=150, by=240, bt=1.6)
-# story: Shobika's mother (REAL photos pending -> labelled placeholder)
-it('story', 4.4, 8.9, title='ஷோபிகாவின் <span class="y">அம்மா</span>', badge='😓 இப்படித் தான் கஷ்டப்பட்டாங்க', nocap=True)
+# story: Shobika's mother - real before photo (client-supplied, 23 Jan 25)
+it('story', 4.4, 8.9, src='shobika_before.jpg', title='ஷோபிகாவின் <span class="y">அம்மா</span>', badge='😓 இப்படித் தான் கஷ்டப்பட்டாங்க', nocap=True)
 clip(8.9, 9.9, C + 'S04a.mp4', ss=2.0); it('vid', 8.9, 9.9, cy=250, csz=72, ct=[.1], chips=[['🥗 DIET'] + RED + [1]])
 clip(9.9, 10.7, C + 'S04b.mp4', ss=4.0); it('vid', 9.9, 10.7, cy=250, csz=72, ct=[.05], chips=[['🏋️ WORKOUT'] + RED + [1]])
 clip(10.7, 13.8, C + 'S04c.mp4', ss=1.0, z1=1.12); it('vid', 10.7, 13.8, cy=250, csz=72, ct=[.05], chips=[['⏱️ FASTING'] + RED + [1]], big='RESULT<br><span class="r">இல்ல ❌</span>', by=520, bsz=130, bt=2.0)
 # turn: the centre
-it('brand', 13.8, 16.5, icon='🦋', name='BUTTERFLY<br>WELLNESS', tsz=120, sub='NUTRITION CENTER', ssz=60, ly=330, chips=[], nocap=False)
+it('photo', 13.8, 16.5, src='session.jpg', frame='card', h=440, rot=-2, kb=[1.02, 1.12, 0, -30, 0, 0], title='🦋 BUTTERFLY<br><span class="y">WELLNESS</span>', ty=110, tsz=104, tag='NUTRITION CENTER', tgy=870, tgt=.5)
 clip(16.5, 19.5, C + 'S06.mp4', ss=4.5, rate=.9, z1=1.12, fy=900); it('vid', 16.5, 19.5, cy=240, csz=60, ct=[.8], chips=[['📊 BODY ANALYSIS', '#00C896', '#04110c', '#00C896']])
 it('plan', 19.5, 22.7, title='<span class="y">SUITABLE</span> METHOD', head='PERSONAL PLAN', gap=.5)
-clip(22.7, 24.6, C + 'S08.mp4', ss=3.5, z1=1.12); it('vid', 22.7, 24.6, cy=240, csz=60, ct=[.1], chips=[['🤝 PERSONALIZED GUIDANCE', '#00C896', '#04110c', '#00C896']])
-it('story', 24.6, 29.5, title='ஷோபிகாவின் அம்மா <span class="g">இப்போ</span>', badge='✅ SUCCESSFUL WEIGHT LOSS', bg='#00A87E', bt=1.1, nocap=True)
+it('photo', 22.7, 24.6, src='consult.jpg', frame='card', h=440, rot=2, kb=[1.02, 1.14, 30, -20, 0, 0], tag='🤝 PERSONALIZED GUIDANCE', tgy=870, tgt=.25, tagsz=50)
+it('story', 24.6, 29.5, src='shobika_after.jpg', title='ஷோபிகாவின் அம்மா <span class="g">இப்போ</span>', badge='✅ SUCCESSFUL WEIGHT LOSS', bg='#00A87E', bt=1.1, nocap=True)
 it('fatfit', 29.5, 34.0, sw=3.1, sub='', ssz=60)
 # who
-it('brand', 34.0, 41.5, icon='🦋', name='SATHISH KUMAR', tsz=104, sub='BUTTERFLY WELLNESS<br>NUTRITION CENTER', ssz=56, ly=360)
+it('photo', 34.0, 41.5, src='sathish.jpg', fit='contain', kb=[1.0, 1.08, 0, 0, 0, 20], title='SATHISH <span class="y">KUMAR</span>', ty=110, tsz=104, tag='🦋 BUTTERFLY WELLNESS NUTRITION CENTER', tgy=1150, tgt=1.2, tagsz=40)
 it('pillars', 41.5, 45.0, title='<span class="y">TRUSTED</span> COACH', items=[['⏳', '7 YEARS', 'EXPERIENCE'], ['👥', '500+ PEOPLE', 'GUIDED']], cues=[.2, 1.9], nocap=True)
 clip(45.0, 49.6, C + 'S06.mp4', ss=4.2, rate=.9, z1=1.1); it('vid', 45.0, 49.6, cy=240, csz=58, ct=[.1, 1.1, 1.7],
    chips=[['⚖️ WEIGHT LOSS ✓'], ['❤️ HEALTH ✓'], ['🌿 LIFESTYLE ✓']])
-it('brand', 49.6, 52.0, icon='🏆', name='SUCCESS<br>STORIES', tsz=130, sub='நிறைய!', ssz=80, ly=380, nocap=True)
+it('collage', 49.6, 52.0, srcs=['shobika_after.jpg', 'member_after.jpg', 'session.jpg', 'consult.jpg'], gap=.18, title='<span class="y">SUCCESS</span> STORIES', count={'n': 500, 'suf': '+', 'label': 'PEOPLE GUIDED'}, ct=.7, nocap=True)
 # offer (graphics only)
 it('offer', 52.0, 62.9, title='<span class="y">3 DAYS</span> TRIAL', tsz=110, sub='BUTTERFLY WELLNESS', value=1500, ky=560, tty=320,
    items=['BMR', 'BMI', 'BODY FAT ANALYSIS', '3 DAYS TRIAL'], cues={'items': [2.6, 3.4, 4.1, 9.2], 'strike': 999, 'free': 999}, nocap=True)
