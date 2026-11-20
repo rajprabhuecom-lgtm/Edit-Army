@@ -1,6 +1,6 @@
-# Coach Ambika ad: Google Flow prompts
+# Coach Ambika ad: Google Flow prompts (6 shots)
 
-All shots are vertical 9:16, 6–8 s long, with slow camera moves and no text. Use **one AI woman** across all three: a South Indian woman of about 35, medium-brown skin, braided hair, in a cotton salwar. She stands in for the viewer, not for Ambika. Name the files by ID and upload them to `For Client's editing / ambiga / brolls / flow/`. I'll swap them in for the animated stand-ins.
+All shots are vertical 9:16, 6–8 s long, with slow camera moves and no text. Use **one AI woman** across all six: a South Indian woman of about 35, medium-brown skin, braided hair, in a cotton salwar. She stands in for the viewer, not for Ambika. Name the files by ID and upload them to `For Client's editing / ambiga / brolls / flow/`. I'll swap them in for the animated stand-ins.
 
 ## A-1: "What really works?" (replaces the cards at 3.0–7.6 s)
 ```
@@ -16,3 +16,19 @@ Vertical 9:16, 6 seconds, single continuous shot. In a simple Indian home bathro
 ```
 Vertical 9:16, 6 seconds, single continuous shot. Early morning in a Tamil Nadu town: the same woman in a comfortable salwar and sports shoes starts a brisk, confident walk along a quiet tree-lined riverside path at sunrise, a temple gopuram silhouette far in the background, a few other morning walkers in the distance. Smooth tracking shot from the side, then she smiles. Golden sunrise light, light mist, cinematic realism. Ambient birdsong and footsteps, no dialogue, no music. No on-screen text, no logos, no watermarks.
 ```
+
+## A-4: "Our clients struggled like this too" (12.6–15.5 s, currently on her face)
+```
+Vertical 9:16, 6 seconds, single continuous shot. The same woman, carrying a shopping bag, stops halfway up a flight of stairs in an apartment building, out of breath, one hand on the railing and one on her knee, wiping her forehead. Slow push-in from a few steps above. Soft daylight from a stairwell window, realistic documentary style. Ambient sound and breathing, no dialogue, no music. No on-screen text, no logos, no watermarks.
+```
+
+## A-5: "For your lifestyle & fitness goals" (31.3–33.3 s, before the step-by-step animation)
+```
+Vertical 9:16, 6 seconds, single continuous shot. Early morning at home: the same woman in comfortable activewear ties her sports shoes on the doorstep, fills a steel water bottle and smiles with quiet determination, ready to start her day. Slow push-in from low angle. Fresh soft morning light, realistic style, shallow depth of field. Ambient birdsong, no dialogue, no music. No on-screen text, no logos, no watermarks.
+```
+
+## A-6: "Step by step, follow" (33.3–36.4 s, behind the steps animation)
+```
+Vertical 9:16, 6 seconds, single continuous shot. In a bright home kitchen the same woman plates a balanced South Indian meal (a small portion of rice, dal, a big helping of vegetable poriyal, curd and salad) on a steel plate, then ticks a box on a simple daily checklist stuck on the fridge with a smile. Slow sideways dolly. Warm natural light, realistic style. Ambient kitchen sound, no dialogue, no music. No readable text on the checklist, no logos, no watermarks.
+```
+
