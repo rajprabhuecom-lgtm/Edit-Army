@@ -18,6 +18,7 @@ def prep(c, k):
         fh = c.get('fh', 1150)
         vf = (f"setpts=PTS/{r},fps=30,split[a][b];[a]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.12[bg];"
               f"[b]scale=-2:{fh},crop=min(iw\\,1080):{fh}[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2")
+    elif c.get('face'): vf = f"setpts=PTS/{r},fps=30,scale=1080:-2,crop=1080:1920:0:(ih-1920)*{c.get('cyf',0)}"
     else: vf = f"setpts=PTS/{r},fps=30,scale=1210:2150:force_original_aspect_ratio=increase,crop=1080:1920:(iw-1080)*{c.get('cx',.2)}:(ih-1920)*{c.get('cyf',.2)}"
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(c.get('ss', 0)), '-t', str(dur), '-i', c['file'], '-an', '-vf', vf, '-c:v', 'ffv1', out], check=True)
     return out

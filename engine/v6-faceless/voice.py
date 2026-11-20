@@ -3,7 +3,7 @@ python3 voice.py <raw48.wav> <whisper.json> <out.wav> [--speed 1.2] [--drop "wor
 import json, sys, argparse, subprocess, numpy as np, soundfile as sf, noisereduce as nr
 ap = argparse.ArgumentParser(); ap.add_argument('raw'); ap.add_argument('js'); ap.add_argument('out')
 ap.add_argument('--speed', type=float, default=1.2); ap.add_argument('--drop', default=''); ap.add_argument('--gap', type=float, default=0.30)
-ap.add_argument('--pre', type=float, default=0.07); ap.add_argument('--post', type=float, default=0.14)
+ap.add_argument('--spans-out', default=''); ap.add_argument('--pre', type=float, default=0.07); ap.add_argument('--post', type=float, default=0.14)
 a = ap.parse_args()
 x, SR = sf.read(a.raw, dtype='float32')
 words = [w for s in json.load(open(a.js)) for w in s['words']]
@@ -15,6 +15,7 @@ for w, s, e in words:
     s, e = max(0, s - a.pre), e + a.post
     if spans and s - spans[-1][1] < a.gap: spans[-1][1] = max(spans[-1][1], e)
     else: spans.append([s, e])
+if a.spans_out: json.dump(spans, open(a.spans_out, 'w'))
 # leave a natural 0.12 s breath between kept phrases
 xf = int(0.008 * SR); brk = np.zeros(int(0.12 * SR), np.float32); parts = []
 for s, e in spans:
