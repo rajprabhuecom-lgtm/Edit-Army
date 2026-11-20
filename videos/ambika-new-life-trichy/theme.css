@@ -1,0 +1,13 @@
+/* Coach Ambika, New Life Nutrition, Trichy: fresh fitness. Deep teal + lime (her centre's green) + coral. Bricolage Grotesque / DM Sans / Hind Madurai. */
+@font-face{font-family:PF;font-weight:900;font-style:normal;src:url(node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2)}
+@font-face{font-family:PF;font-weight:900;font-style:italic;src:url(node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2)}
+@font-face{font-family:PF;font-weight:800;font-style:italic;src:url(node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-700-normal.woff2)}
+@font-face{font-family:JS;font-weight:700;src:url(node_modules/@fontsource/dm-sans/files/dm-sans-latin-800-normal.woff2)}
+@font-face{font-family:JS;font-weight:600;src:url(node_modules/@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:900;src:url(node_modules/@fontsource/hind-madurai/files/hind-madurai-tamil-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:800;src:url(node_modules/@fontsource/hind-madurai/files/hind-madurai-tamil-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:700;src:url(node_modules/@fontsource/hind-madurai/files/hind-madurai-tamil-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:900;src:url(node_modules/@fontsource/hind-madurai/files/hind-madurai-latin-700-normal.woff2);unicode-range:U+0000-00FF}
+:root{--d0:#03201C;--d1:#073A34;--d2:#0F5C52;--a0:#F3FFE0;--a1:#B8F25C;--a2:#7BD94A;--a3:#3E9A2A;--soft:#E3F6EF;--pain:#FF6F59;--painl:#FFD9D2;
+ --b1:#FFA27A;--b2:#FF6F59;--b3:#D9452F;--sh:#011311;--goldtxt:linear-gradient(180deg,#FFFFFF 0%,#F3FFE0 30%,#B8F25C 68%,#6CC33A 100%)}
+#cap .kw{letter-spacing:-.5px}

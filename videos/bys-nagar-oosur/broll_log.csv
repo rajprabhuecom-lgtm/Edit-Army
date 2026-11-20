@@ -1,0 +1,13 @@
+ID,Source (s),Final time (s),Line (meaning),Visual,Source type,Layout,"On-screen (s, final)",Status,Licence / note
+L01,0.78-1.90,0.0-0.9,"""Hello Vellore makkalae!""",site.mkv,client photo/footage,full,0.9,rendered,"client-supplied, real"
+L02,1.90-10.31,0.9-7.9,"""10 years later: regret, or happy you invested on time?""","animated ""choice"" scene (engine v7)",P5 motion graphics,full,7.0,animated stand-in for Flow L-A/L-B,original - no licence needed
+L03,10.31-14.62,7.9-11.5,"""a good investment for your family's future: BYS Nagar @ Oosur""",i23_3.mkv,client photo/footage,full,3.6,rendered,"client-supplied, real"
+L04,15.27-18.00,11.5-13.8,"""Vellore district, Anaicut taluk, Oosur""","animated ""pinmap"" scene (engine v7)",P5 motion graphics,full,2.3,rendered,original - no licence needed
+L05,18.00-21.57,13.8-16.8,"""DTCP & RERA approved plots""","animated ""stamps"" scene (engine v7)",P5 motion graphics,full,3.0,rendered,original - no licence needed
+L06,22.14-28.31,16.8-21.9,"""quality ground water, avenue trees, premium facilities""",site.mkv,client photo/footage,full,5.1,rendered,"client-supplied, real"
+L07,28.44-32.53,21.9-25.3,"""schools, hospitals, Golden Temple: all nearby""",site.mkv,client photo/footage,full,3.4,rendered,"client-supplied, real"
+L08,33.49-39.24,25.3-30.1,"""free site visit, car, bank loan: we do it all""","animated ""cards"" scene (engine v7)",P5 motion graphics,full,4.8,rendered,original - no licence needed
+L09,39.24-42.96,30.1-33.2,"""the right time to buy your own plot""",site.mkv,client photo/footage,full,3.1,rendered,"client-supplied, real"
+L10,42.96-47.68,33.2-37.2,"""first 10 bookings: 8 g silver coin free"" (offer graphic)","animated ""offer"" scene (engine v7)",P5 motion graphics,full,3.9,rendered,original - no licence needed
+L11,47.91-51.29,37.2-40.0,"""3 years free maintenance"" (offer graphic)","animated ""offer"" scene (engine v7)",P5 motion graphics,full,2.8,rendered,original - no licence needed
+L12,51.37-56.62,40.0-44.4,"""click the link, book your free site visit"" (CTA over brochure)",i23.mkv,client photo/footage,full,4.4,rendered,"client-supplied, real"

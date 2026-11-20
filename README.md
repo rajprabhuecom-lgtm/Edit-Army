@@ -36,6 +36,10 @@ engine/
                                badge stamp tslam cta endcard + brand (top badge + lower third) + two-line serif captions
                                + pressure aura authority, Format B captions (capStyle 'B'), B&W B-roll (des), CROP_Y0/CY env,
                                'struggle' BGM mood (raga Sivaranjani)
+  v7-themed/                   Theme-driven engine (20 Nov 2026): every colour, font, motif and brand text comes from the video's
+                               theme.css + plan BRAND, so each client keeps a unique look on one codebase. planlib.py builds the
+                               timeline from a short plan.py. New: cards choice stamps pinmap offer steps stuck chips; full-screen
+                               scenes for faceless ads; BGM=carnatic|base. Used by bys-nagar-oosur and ambika-new-life-trichy
 videos/                        One folder per video (see videos/README.md)
 ```
 

@@ -66,6 +66,14 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `aura` (v6) | "Women naturally manifest": meditating figure with expanding maroon/gold rings |
 | `authority` (v6) | "I'm <coach>": coach photo in a gold ring + name (face stays in the bottom panel) |
 | `vid` + `des` (v6) | Any AI/real clip, optionally black-and-white for struggle beats |
+| `cards` (v7) | Generic icon cards popping per word (1 or 2 columns, optional ticks, pain-styled items) |
+| `choice` (v7) | "Regret or happy?": two cards, bad then good, with OR |
+| `stamps` (v7) | Approval seals slam in (DTCP / RERA / certifications) |
+| `pinmap` (v7) | Route draws through location pins (district › taluk › village) |
+| `offer` (v7) | Offer card: top line, spinning icon, big item, FREE tag (only spoken offers) |
+| `steps` (v7) | Numbered process: goals → plan → follow-up |
+| `stuck` (v7) | "Tried everything, no result": icon + tried tags + NO RESULT stamp |
+| `chips` (v7, on-video) | Stacked feature pills over real footage (water, trees, nearby…) |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

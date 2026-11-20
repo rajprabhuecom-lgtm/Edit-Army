@@ -1,0 +1,13 @@
+/* BYS Nagar @ Oosur (Lokesh): land and family. Forest green + sun yellow + terracotta. Oswald / Manrope / Mukta Malar. */
+@font-face{font-family:PF;font-weight:900;font-style:normal;src:url(node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2)}
+@font-face{font-family:PF;font-weight:900;font-style:italic;src:url(node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2)}
+@font-face{font-family:PF;font-weight:800;font-style:italic;src:url(node_modules/@fontsource/oswald/files/oswald-latin-600-normal.woff2)}
+@font-face{font-family:JS;font-weight:700;src:url(node_modules/@fontsource/manrope/files/manrope-latin-800-normal.woff2)}
+@font-face{font-family:JS;font-weight:600;src:url(node_modules/@fontsource/manrope/files/manrope-latin-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:900;src:url(node_modules/@fontsource/mukta-malar/files/mukta-malar-tamil-800-normal.woff2)}
+@font-face{font-family:CT;font-weight:800;src:url(node_modules/@fontsource/mukta-malar/files/mukta-malar-tamil-800-normal.woff2)}
+@font-face{font-family:CT;font-weight:700;src:url(node_modules/@fontsource/mukta-malar/files/mukta-malar-tamil-700-normal.woff2)}
+@font-face{font-family:CT;font-weight:900;src:url(node_modules/@fontsource/mukta-malar/files/mukta-malar-latin-800-normal.woff2);unicode-range:U+0000-00FF}
+:root{--d0:#061A10;--d1:#0E2E1E;--d2:#1F5A3A;--a0:#FFF6CF;--a1:#FFC93C;--a2:#F2A007;--a3:#A86A00;--soft:#EAF4E4;--pain:#FF6B4A;--painl:#FFD6CC;
+ --b1:#FF8A50;--b2:#E8452C;--b3:#B32A17;--sh:#02100A;--goldtxt:linear-gradient(180deg,#FFFFFF 0%,#FFF2B8 35%,#FFC93C 70%,#E09400 100%)}
+#cap .kw,.seal,.hdr{text-transform:uppercase;letter-spacing:1px}
