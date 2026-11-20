@@ -1,9 +1,12 @@
 ID,Source (s),Final time (s),Line (meaning),Visual,Source type,Layout,"On-screen (s, final)",Status,Licence / note
-A01,3.00-7.56,2.5-6.3,"""trying to lose weight? not sure what works?""","animated ""cards"" scene (engine v7)",P5 motion graphics,split,3.8,animated stand-in for Flow A-1,original - no licence needed
-A02,7.56-12.59,6.3-10.5,"""tried diet and workout, still no result?""","animated ""stuck"" scene (engine v7)",P5 motion graphics,split,4.2,animated stand-in for Flow A-2,original - no licence needed
+A01,3.00-7.56,2.5-6.3,"""trying to lose weight? not sure what works?""",A-1.mkv,AI (Google Flow),split,3.8,rendered,AI (Google Flow) - disclose in Meta
+A02,7.56-10.50,6.3-8.8,"""tried diet and workout…""",A-2.mkv,AI (Google Flow),split,2.5,rendered,AI (Google Flow) - disclose in Meta
+A02b,10.50-12.59,8.8-10.5,"""…still no result?""","animated ""stuck"" scene (engine v7)",P5 motion graphics,split,1.7,rendered,original - no licence needed
+A02c,12.60-15.50,10.5-12.9,"""our clients struggled like this too""",A-4.mkv,AI (Google Flow),split,2.4,rendered,AI (Google Flow) - disclose in Meta
 A03,15.50-18.90,12.9-15.8,"""now with proper nutrition & fitness guidance"" (real centre photo)",p0604_1.mkv,client photo/footage,split,2.8,rendered,"client-supplied, real"
 A04,18.90-20.30,15.8-16.9,"""they got healthy results"" (real client photo, consent to confirm)",p1149.mkv,client photo/footage,split,1.2,rendered,"client-supplied, real"
 A05,20.30-21.50,16.9-17.9,"""they got healthy results"" (real client photo, consent to confirm)",p1207.mkv,client photo/footage,split,1.0,rendered,"client-supplied, real"
 A06,26.55-31.12,21.9-25.5,"""I support your fitness journey"" (real centre photo)",p0603.mkv,client photo/footage,split,3.6,rendered,"client-supplied, real"
-A07,31.34-36.40,25.5-29.7,"""a step-by-step plan for your lifestyle and goals""","animated ""steps"" scene (engine v7)",P5 motion graphics,split,4.2,rendered,original - no licence needed
-A08,42.30-47.52,34.6-39.0,"""in Trichy, ready to start your fitness journey?""",p0605_2.mkv,client photo/footage,split,4.4,real photo; Flow A-3 optional,"client-supplied, real"
+A07,31.34-33.30,25.5-27.1,"""for your lifestyle and fitness goals""",A-5.mkv,AI (Google Flow),split,1.6,rendered,AI (Google Flow) - disclose in Meta
+A07b,33.30-36.40,27.1-29.7,"""step by step, and follow it""",A-6.mkv,AI (Google Flow),split,2.6,rendered,AI (Google Flow) - disclose in Meta
+A08,42.30-45.50,34.6-37.3,"""in Trichy, ready to start your fitness journey?""",A-3.mkv,AI (Google Flow),split,2.7,rendered,AI (Google Flow) - disclose in Meta

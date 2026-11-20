@@ -60,6 +60,11 @@ def build(cfg, here):
     tl = dict(items=items, captions=captions, total=TOTAL, capStyle=cfg.get('CAPSTYLE', 'A'), brand=cfg.get('BRAND', {}))
     json.dump(tl, open(W + 'gfx/timeline.json', 'w'), ensure_ascii=False)
 
+    # FX: whip-zoom transitions into every B-roll / scene segment, camera shake on slams and stamps
+    seg_starts = sorted({round(it['t0'], 3) for it in items if it.get('layout')} | {round(it['t1'], 3) for it in items if it.get('layout')})
+    hits = [it['t0'] for it in items if it['type'] in ('slam', 'stamp', 'tslam')]
+    hits += [it['t0'] + c for it in items if it['type'] in ('stamps',) for c in it.get('cues', [])]
+    hits += [it['t0'] + it['scue'] for it in items if it['type'] == 'stuck' and 'scue' in it]
     fps = 30; frames = []
     for i in range(int(round(TOTAL * fps))):
         to = i / fps; ts = o2s(to); k = max(0, bisect.bisect_right(ostarts, to) - 1)
@@ -74,7 +79,11 @@ def build(cfg, here):
                 L = it['layout']
                 if it['type'] == 'vid':
                     V = [it['file'], round(it.get('ss', 0) + to - it['t0'], 4), round((to - it['t0']) / (it['t1'] - it['t0']), 4), it.get('cy', 960), bool(it.get('des'))]
-        frames.append(dict(ts=round(ts, 4), z=round(z, 4), L=L, V=V))
+        tr = 1.0
+        for st0 in seg_starts:
+            if 0 <= to - st0 < 0.24: tr = min(tr, (to - st0) / 0.24)
+        shk = max([max(0.0, 1 - (to - h) / 0.3) for h in hits if 0 <= to - h < 0.3] or [0.0])
+        frames.append(dict(ts=round(ts, 4), z=round(z, 4), L=L, V=V, tr=round(tr, 3), shk=round(shk, 3)))
     json.dump(frames, open(W + 'frames.json', 'w'))
 
     mus = [(s2o(s), m) for s, m in cfg['MUSIC']]

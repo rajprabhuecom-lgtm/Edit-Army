@@ -39,7 +39,8 @@ engine/
   v7-themed/                   Theme-driven engine (20 Nov 2026): every colour, font, motif and brand text comes from the video's
                                theme.css + plan BRAND, so each client keeps a unique look on one codebase. planlib.py builds the
                                timeline from a short plan.py. New: cards choice stamps pinmap offer steps stuck chips; full-screen
-                               scenes for faceless ads; BGM=carnatic|base. Used by bys-nagar-oosur and ambika-new-life-trichy
+                               scenes for faceless ads; BGM=carnatic|base. FX in comp.py: whip-zoom + flash transitions, impact
+                               shake, vignette, grain, LOOK=warm|fresh B-roll grade. Used by bys-nagar-oosur, ambika-new-life-trichy
 videos/                        One folder per video (see videos/README.md)
 ```
 

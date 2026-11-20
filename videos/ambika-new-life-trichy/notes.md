@@ -40,3 +40,19 @@ Whisper struggled with this audio (room noise, no pauses), so I transcribed it i
 2. **The brand spelling**, "New Life Nutrition", and whether a logo exists.
 3. **The original phone video** for a sharper render. This one is WhatsApp 480p, upscaled and reframed.
 4. **Offer details:** the 3-day trial's price or "free" is not spoken, so nothing is shown.
+
+## Edit v2 (20 Nov 2026, with Google Flow B-roll + FX)
+- **6 Flow clips added** (Drive: `Flow B-rolls / Ambika - New Life Nutrition`):
+  - A-1, confused at the diet table (with Keto / Fasting / Gym / Diet chart chips)
+  - A-2, on the scale, then the "NO RESULT ✗" stamp
+  - A-4, out of breath on the stairs, for "our clients struggled too"
+  - A-5, tying her shoes, for "your lifestyle and goals"
+  - A-6, balanced meal and daily checklist (with goals / plan / follow-up chips)
+  - A-3, morning walk past the temple, for "in Trichy"
+- **Real proof stays real:** the client before/after photos and the centre photos are unchanged.
+- **Finishing effects:**
+  - zoom-whip transitions with a light flash
+  - impact shake on the slams and the stamp
+  - a fresh grade on B-roll (`LOOK=fresh`)
+  - a vignette and fine grain
+- **AI disclosure:** tick "AI-generated or digitally altered" in Meta.

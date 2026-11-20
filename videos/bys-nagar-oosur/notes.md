@@ -37,3 +37,19 @@
 1. **Prices printed on the brochures:** the voice-over doesn't mention a price, so confirm the brochure prices are current (₹1,300/sq.ft and "8 lakh onwards" on one brochure, 1350 sq.ft on another).
 2. **Real nearby footage:** if he has phone clips of the Golden Temple (Sripuram), the nearby school or the hospital, they're better than the generic road shots used now.
 3. **Silver coin offer terms** ("T&C apply"?), and whether the 3-year free maintenance covers all plots.
+
+## Edit v2 (20 Nov 2026, with Google Flow B-roll + FX)
+- **6 Flow clips added** (Drive: `Flow B-rolls / Lokesh - BYS Nagar`):
+  - L-A, regret, "10 years later…"
+  - L-B, happy family on the plot
+  - L-I, borewell water
+  - L-N, site visit
+  - L-O, flag in the soil ("correct time")
+  - L-S, family at the new home, under the tagline before the end card
+- **Kept from v1:** the real site footage (trees, school gate), brochures, map, DTCP/RERA stamps, the "bank loan" card and the offer cards.
+- **Finishing effects** (engine v7 `comp.py`):
+  - zoom-whip transitions with a light flash on every cut
+  - impact shake on slams and stamps
+  - a warm golden grade on all B-roll (`LOOK=warm`)
+  - a cinematic vignette and fine film grain
+- **AI disclosure:** the ad now has AI-generated clips, so tick "AI-generated or digitally altered" in Meta. The AI family stands in for viewers and is never captioned as buyers.

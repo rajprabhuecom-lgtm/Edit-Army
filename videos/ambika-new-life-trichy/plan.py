@@ -1,6 +1,6 @@
 """Coach Ambika, New Life Nutrition (Trichy): talking-head 3-day trial ad.
 src.mkv = ambika 1.mp4 upscaled to 1080x1920 (53.5 s). Times are SOURCE seconds. Run: W=<work> python3 plan.py
-Render with CROP_Y0=350 CY=750. src.mkv is reframed (1.35x zoom, face moved up) because she sits low in her phone frame."""
+Render with CROP_Y0=350 CY=750 LOOK=fresh BGM=base. src.mkv is reframed (1.35x zoom, face moved up) because she sits low in her phone frame."""
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'engine', 'v7-themed'))
 from planlib import build
@@ -8,22 +8,24 @@ from planlib import build
 KEEP = [(0.0, 26.30), (26.55, 28.78), (29.06, 31.12), (31.34, 47.52), (47.69, 51.60),
         (51.60, 53.40)]                                           # tail under the end card
 BROLL = [
- ('A01', 3.00, 7.56, 'cards', 'split', dict(cues=[3.30, 4.70, 5.80, 6.40], title='What Really Works?',
-      items=[['🥑', 'KETO?'], ['⏰', 'FASTING?'], ['🏋️', 'GYM?'], ['📋', 'DIET CHART?']], status='animated stand-in for Flow A-1'),
-      '"trying to lose weight? not sure what works?"'),
- ('A02', 7.56, 12.59, 'stuck', 'split', dict(cues=[7.60, 8.30], scue=10.60, e='⚖️', tags=['🥗 DIET ✓', '🏃 WORKOUT ✓'], stamp='NO RESULT ✗',
-      status='animated stand-in for Flow A-2'), '"tried diet and workout, still no result?"'),
+ ('A01', 3.00, 7.56, 'vid', 'split', dict(file='A-1.mkv', ss=0.2, cy=900, ai=True, note='AI (Google Flow) - disclose in Meta'), '"trying to lose weight? not sure what works?"'),
+ ('A02', 7.56, 10.50, 'vid', 'split', dict(file='A-2.mkv', ss=2.5, cy=700, ai=True, note='AI (Google Flow) - disclose in Meta'), '"tried diet and workout…"'),
+ ('A02b', 10.50, 12.59, 'stuck', 'split', dict(cues=[10.50, 10.55], scue=10.70, e='⚖️', tags=['🥗 DIET ✓', '🏃 WORKOUT ✓'], stamp='NO RESULT ✗'), '"…still no result?"'),
+ ('A02c', 12.60, 15.50, 'vid', 'split', dict(file='A-4.mkv', ss=0.3, cy=900, ai=True, note='AI (Google Flow) - disclose in Meta'), '"our clients struggled like this too"'),
  ('A03', 15.50, 18.90, 'vid', 'split', dict(file='p0604_1.mkv', ss=0.5, cy=960, chip='PROPER GUIDANCE'), '"now with proper nutrition & fitness guidance" (real centre photo)'),
  ('A04', 18.90, 20.30, 'vid', 'split', dict(file='p1149.mkv', ss=0.5, cy=960, chip='OUR CLIENTS ✓'), '"they got healthy results" (real client photo, consent to confirm)'),
  ('A05', 20.30, 21.50, 'vid', 'split', dict(file='p1207.mkv', ss=0.5, cy=960, chip='OUR CLIENTS ✓'), '"they got healthy results" (real client photo, consent to confirm)'),
  ('A06', 26.55, 31.12, 'vid', 'split', dict(file='p0603.mkv', ss=0.5, cy=960, chip='YOUR FITNESS JOURNEY'), '"I support your fitness journey" (real centre photo)'),
- ('A07', 31.34, 36.40, 'steps', 'split', dict(cues=[31.80, 34.70, 35.20], title='Step by Step',
-      items=[['🎯', 'Your goals'], ['📋', 'Your plan'], ['🤝', 'Daily follow-up']]), '"a step-by-step plan for your lifestyle and goals"'),
- ('A08', 42.30, 47.52, 'vid', 'split', dict(file='p0605_2.mkv', ss=0.5, cy=960, chip='TRICHY 📍', status='real photo; Flow A-3 optional'),
+ ('A07', 31.34, 33.30, 'vid', 'split', dict(file='A-5.mkv', ss=0.5, cy=980, ai=True, note='AI (Google Flow) - disclose in Meta'), '"for your lifestyle and fitness goals"'),
+ ('A07b', 33.30, 36.40, 'vid', 'split', dict(file='A-6.mkv', ss=0.3, cy=900, ai=True, note='AI (Google Flow) - disclose in Meta'), '"step by step, and follow it"'),
+ ('A08', 42.30, 45.50, 'vid', 'split', dict(file='A-3.mkv', ss=0.3, cy=960, chip='TRICHY 📍', ai=True, note='AI (Google Flow) - disclose in Meta'),
       '"in Trichy, ready to start your fitness journey?"'),
 ]
 GFX = [
  ('slam', 0.10, 3.00, dict(html='⚠ Important Update', y=300)),
+ ('chips', 3.00, 7.56, dict(items=['🥑 KETO?', '⏰ FASTING?', '🏋️ GYM?', '📋 DIET CHART?'], cues=[3.30, 4.70, 5.80, 6.40], y=240)),
+ ('chips', 7.56, 10.50, dict(items=['🥗 DIET ✓', '🏃 WORKOUT ✓'], cues=[7.60, 8.30], y=240)),
+ ('chips', 33.30, 36.40, dict(items=['🎯 YOUR GOALS', '📋 YOUR PLAN', '✅ DAILY FOLLOW-UP'], cues=[33.30, 34.70, 35.20], y=240)),
  ('badge', 21.50, 26.30, dict(html='COACH AMBIKA <i>·</i> 8 YEARS EXPERIENCE', y=1075)),
  ('slam', 36.50, 42.20, dict(html='3-Day Trial ✚', y=300)),
  ('badge', 37.20, 42.20, dict(html='NEW LIFE NUTRITION <i>·</i> OFFER ON NOW', y=1075)),
