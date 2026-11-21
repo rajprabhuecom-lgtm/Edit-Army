@@ -30,6 +30,10 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-202605/                   202605 batch (21 Nov 2026): engine.html = v5 + levels aichat autoflow agentmail versus
+                               bullseye foundation reframe percent align growth posters camfear gbp walkin allday
+                               endcard2 (ProfitSoul end card) price stamp; per-video caption band (capy/caph).
+                               Batch pipeline: videos/202605/pipeline/ (frosted bar over burned-in captions, NOZOOM ranges)
 videos/                        One folder per video (see videos/README.md)
 ```
 

@@ -8,3 +8,4 @@ prev/
 gemini.key
 *.key
 .DS_Store
+videos/202605/source/*.mp4

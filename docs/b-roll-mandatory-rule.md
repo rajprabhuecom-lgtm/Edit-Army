@@ -54,6 +54,23 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `levels` (v6) | "AI has 3 levels": staircase of level cards, `lv` highlights one |
+| `aichat` (v6) | Level 1: chatting with AI tools (tool chips + phone chat) |
+| `autoflow` (v6) | Level 2: enquiry → AI agent → answers → qualified appointment |
+| `agentmail` (v6) | Level 3: one typed instruction, AI sorts the mailbox and drafts replies |
+| `versus` (v6) | Brand A vs brand B with keyword chips per side (positioning) |
+| `bullseye` (v6) | Target + arrow hit with chips (target audience, pain point, position) |
+| `foundation` (v6) | Blocks stacking on a base ("positioning statement = foundation") |
+| `reframe` (v6) | "You think you're in X" crossed out → "you're really in Y" |
+| `percent` (v6) | Big % count-up + 10 people, N turn red with "?" |
+| `align` (v6) | Your marketing vs client expectation snapping onto one line |
+| `growth` (v6) | Bars + rocket with title/chip (growth, scale, sales) |
+| `posters` (v6) | AI posters popping out against a 30 s timer |
+| `camfear` (v6) | Camera fear crossed out → "your face = your brand" |
+| `gbp` (v6) | Local search list, your business climbs into the top 3 |
+| `walkin` (v6) | People walking into a wellness centre (port of base) |
+| `allday` (v6) | Online system working 24/7 (ring + 24/7 + chips) |
+| `endcard2` (v6) | Generic ProfitSoul end card (title, subtitle, pulsing button) |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
