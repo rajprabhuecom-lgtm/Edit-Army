@@ -54,6 +54,14 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `stuck` (v6) | "Weight still not reduced": scale with stuck needle + red chip (on face, side) |
+| `calflip` (v6) | "Before 2027": calendar page flips 2026 → 2027 (on face, side) |
+| `journey` (v6) | "Healthy weight loss journey": road draws, runner to the finish flag |
+| `beforeafter` (v6) | REAL client before/after photos sliding in, kg count-down, "−X KG" stamp, disclaimer |
+| `nameplate` (v6) | Lower-third name + qualifications + years-of-experience count-up |
+| `offer` (v6) | Value stack rows tick in + stamp (e.g. full body evaluation / consultation / free trial) |
+| `leak` (v6) | Warm light-leak sweep for transitions |
+| comp FX (v6) | `spot` spotlight hook, `shake`, `glitch`, `whip` pan, `grid` grid-dive (in `engine/v6-weight-loss/comp.py`) |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
