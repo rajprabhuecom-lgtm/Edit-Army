@@ -6,7 +6,7 @@ BROLL = [
  ('B01', 8.0, 17.0, 'reframe', 'split', dict(title='MY OLD HABIT', A=['📱', 'PHONE FOR EVERYTHING'], B=['🔁', 'ENDLESS SCROLLING'], al='"FOR BUSINESS"', bl='30-40 MIN GONE', xc=99, bc=12.0), '"I always used my phone for business"'),
  ('B02', 29.0, 39.0, 'growth', 'split', dict(title='DIGITAL DETOX = <span class="g">FOCUS</span>', chip='⚡ 2-3 DAYS OF WORK IN 1 DAY'), '"I completed 2-3 days of work in one day"'),
  ('B03', 45.0, 57.0, 'reframe', 'split', dict(title='THE KEY POINT', A=['📱', 'MOBILE'], B=['💻', 'LAPTOP'], al='SCROLL TRAP', bl='ONLY WHAT YOU NEED ✓', xc=48.0, bc=50.0), '"open what you need on the laptop instead"'),
- ('B04', 57.0, 66.0, 'percent', 'split', dict(n=8, val=40, title='MIN LOST TO SCROLLING', label='😵 WITHOUT EVEN KNOWING', lc=62.0), '"you consume time without knowing the scrolling effect"'),
+ ('B04', 57.0, 66.0, 'percent', 'split', dict(n=8, val=40, suf=' MIN', title='LOST TO SCROLLING', label='😵 WITHOUT EVEN KNOWING', lc=62.0), '"you consume time without knowing the scrolling effect"'),
 ]
 GFX = [slam(1.0, 8.0, '1 DAY<br><span class="r">NO PHONE</span> 📵', 120, 480), stat(20.0, 26.0, 40, 'MINUTES SCROLLING', suf=' MIN', y=480, size=170, col='var(--rd)'),
  gb(34.0, 39.0, '🚀 2-3 DAYS OF WORK IN ONE DAY', 46, 495), db(66.0, 74.0, '🛋️ "RELAXING" = DEEP SCROLLING', 48, 495),
