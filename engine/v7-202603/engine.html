@@ -357,9 +357,9 @@ S.autoflow=(it)=>{const N=it.N||[['📩','ENQUIRY'],['🤖','AI AGENT'],['💬',
  N.forEach((x,i)=>n+=`<div class="nd card" style="left:${30+i*262}px;top:${OY(it)+200}px;width:240px;height:270px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;${i==N.length-1?'border-color:#FFD60A;box-shadow:0 0 60px rgba(255,214,10,.3)':''}">
   <div style="font-size:100px;line-height:1">${x[0]}</div><div style="font-weight:900;font-size:30px;margin-top:12px;line-height:1.15">${x[1]}</div></div>`);
  let ar='';for(let i=0;i<N.length-1;i++)ar+=`<div class="ar stroke" style="position:absolute;left:${246+i*262}px;top:${OY(it)+290}px;font-size:60px;font-weight:900;color:var(--yl)">➜</div>`;
- const el=mk(stage(it,TT(it,it.title||'<span class="y">LEVEL 2</span> • AUTOMATION',80)+n+ar+`<div class="wm" style="position:absolute;left:0;right:0;top:${OY(it)+510}px;text-align:center">${CHIP('👋 AUTO WELCOME MESSAGE','var(--em)','#04110c','var(--em)',42)}</div>`));
+ const el=mk(stage(it,TT(it,it.title||'<span class="y">LEVEL 2</span> • AUTOMATION',80)+n+ar+`${it.wm===''?'':`<div class="wm" style="position:absolute;left:0;right:0;top:${OY(it)+510}px;text-align:center">${CHIP(it.wm||'👋 AUTO WELCOME MESSAGE','var(--em)','#04110c','var(--em)',42)}</div>`}`));
  return {el,upd(dt){popIn(q(el,'.t1'),dt);qa(el,'.nd').forEach((x,i)=>popIn(x,dt-CUE(it,i,.25+i*.6),.35));
-  qa(el,'.ar').forEach((x,i)=>{const t=dt-CUE(it,i+1,.25+(i+1)*.6)+.1;x.style.opacity=clamp(t/.1);x.style.transform=`translateX(${Math.sin(dt*8)*6}px)`});popIn(q(el,'.wm'),dt-(it.wc??1.2))}}};
+  qa(el,'.ar').forEach((x,i)=>{const t=dt-CUE(it,i+1,.25+(i+1)*.6)+.1;x.style.opacity=clamp(t/.1);x.style.transform=`translateX(${Math.sin(dt*8)*6}px)`});{const w=q(el,'.wm');if(w)popIn(w,dt-(it.wc??1.2))}}}};
 
 /* agentmail: level 3, one instruction -> AI reads mailbox, drafts replies */
 S.agentmail=(it)=>{const cmd=it.cmd||'Go to my mailbox. Analyse yesterday\'s mails. Draft replies to clients.';

@@ -5,7 +5,7 @@ CY, ALTZ, CROP_Y0 = 960, 1.04, 330
 BROLL = [
  ('B01', 4.8, 14.8, 'reframe', 'split', dict(title='STOP SELLING', A=['🧾', 'ONE-TIME SERVICE'], B=['🔁', 'MONTHLY SUBSCRIPTION'], al='❌', bl='LIKE CLAUDE • GPT • GEMINI', xc=7.0, bc=9.6), '"not one-time service - monthly subscriptions like Claude, ChatGPT, Gemini"'),
  ('B02', 14.8, 21.5, 'growth', 'split', dict(title='BUILD YOUR OWN <span class="g">AI TOOLS</span>', chip='🤖 AUTOMATE MARKETING TASKS'), '"automate marketing tasks, create your own tools"'),
- ('B03', 29.9, 39.8, 'autoflow', 'split', dict(title='I DO IT <span class="y">WITH YOU</span>', N=[['📢', 'EXACT ADS'], ['🧲', 'FILTER<br>LEADS'], ['📞', 'SALES<br>CALL'], ['🤝', 'FIRST<br>CLIENT']], cues=[30.2, 32.4, 35.6, 37.6]), '"create ads, filter leads, close your sales call and first client"'),
+ ('B03', 29.9, 39.8, 'autoflow', 'split', dict(title='I DO IT <span class="y">WITH YOU</span>', N=[['📢', 'EXACT ADS'], ['🧲', 'FILTER<br>LEADS'], ['📞', 'SALES<br>CALL'], ['🤝', 'FIRST<br>CLIENT']], cues=[30.2, 32.4, 35.6, 37.6], wm='🎯 DONE WITH YOU'), '"create ads, filter leads, close your sales call and first client"'),
 ]
 GFX = [badge(0.3, 4.8, '🤖 AI SAAS MARKETING AGENCY', y=495), slam(21.5, 27.7, 'HOW TO GET THE<br><span class="y">FIRST CLIENT?</span> 🤔', 86, 480),
  cta(27.7, 29.9, '📅 BOOK APPOINTMENT', '👇 LINK BELOW', y=880), gb(39.8, 42.2, '🤝 PERSONAL PARTNERSHIP PROGRAM', 46, 495),
