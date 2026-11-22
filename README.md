@@ -34,6 +34,9 @@ engine/
                                bullseye foundation reframe percent align growth posters camfear gbp walkin allday
                                endcard2 (ProfitSoul end card) price stamp; per-video caption band (capy/caph).
                                Batch pipeline: videos/202605/pipeline/ (frosted bar over burned-in captions, NOZOOM ranges)
+  v7-202603/                   202603 batch (22 Nov 2026): engine.html = v6 + reasons (numbered cards) stat (count-up)
+                               confetti (emoji burst). Batch pipeline: videos/202603/pipeline/ (keeps burned captions,
+                               progress bar, chunked parallel composite, plan helpers in kit.py)
 videos/                        One folder per video (see videos/README.md)
 ```
 

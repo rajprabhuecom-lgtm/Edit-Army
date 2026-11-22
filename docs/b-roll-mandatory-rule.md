@@ -71,6 +71,9 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `walkin` (v6) | People walking into a wellness centre (port of base) |
 | `allday` (v6) | Online system working 24/7 (ring + 24/7 + chips) |
 | `endcard2` (v6) | Generic ProfitSoul end card (title, subtitle, pulsing button) |
+| `reasons` (v7) | Numbered cards ("3 reasons", "3 steps"); `cur` highlights the one being explained |
+| `stat` (v7, on face) | Big spoken number counting up with prefix/suffix + label (₹81K, 10X, 275+) |
+| `confetti` (v7, on face) | Emoji burst for payoff moments |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  
