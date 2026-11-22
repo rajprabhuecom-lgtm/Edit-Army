@@ -417,7 +417,7 @@ S.reframe=(it)=>{const A=it.A||['🧴','SKIN CARE'],B=it.B||['😎','CONFIDENCE'
 
 /* percent: 10 owners, N turn red with "?", big % counts up */
 S.percent=(it)=>{const N=it.n||9;let p='';for(let i=0;i<10;i++)p+=`<div class="pc" data-r="${i<N?1:0}" style="position:absolute;left:${70+i*95}px;top:${OY(it)+380}px;width:75px;height:150px">${PERSON('#D8DDE3')}<div class="qm s10" style="position:absolute;left:0;right:0;top:-70px;text-align:center;font-weight:900;font-size:64px;color:var(--rd)">?</div></div>`;
- const el=mk(stage(it,`<div class="big stroke" style="position:absolute;left:0;right:0;top:${OY(it)+20}px;text-align:center;font-family:A,M;font-size:220px;line-height:1;color:var(--rd)"><span class="n">0</span>%</div>
+ const el=mk(stage(it,`<div class="big stroke" style="position:absolute;left:0;right:0;top:${OY(it)+20}px;text-align:center;font-family:A,M;font-size:220px;line-height:1;color:var(--rd)"><span class="n">0</span>${it.suf??'%'}</div>
   <div class="ttl stroke t1" style="top:${OY(it)+250}px;font-size:56px">${it.title||'BUSINESS OWNERS'}</div>${p}
   <div class="lb" style="position:absolute;left:0;right:0;top:${OY(it)+560}px;text-align:center">${CHIP(it.label||'❓ தெரியல!','var(--rd)','#fff','var(--rd)',44)}</div>`));
  return {el,upd(dt){const v=Math.round(ease((dt-.1)/.8)*(it.val||90));q(el,'.n').textContent=v;q(el,'.big').style.transform=`scale(${pop(dt,.35)})`;popIn(q(el,'.t1'),dt-.2);

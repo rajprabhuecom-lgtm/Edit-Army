@@ -10,7 +10,7 @@ BROLL = [
  ('B04', 52.3, 59.4, 'reasons', 'split', dict(items=R, cur=2), '"second learning - commitment, no matter what"'),
  ('B05', 84.8, 93.3, 'growth', 'split', dict(title='CONSISTENCY = <span class="g">CLIENTS</span>', chip='🌍 INTERNATIONAL CLIENTS'), '"consistency brought international clients automatically"'),
  ('B06', 93.3, 102.0, 'reasons', 'split', dict(items=R, cur=3), '"third - see it as simple documentation, not pressure"'),
- ('B07', 117.0, 124.2, 'percent', 'split', dict(n=0, val=200, title='DAY CHALLENGE', label='🙏 THANK YOU FOR THE SUPPORT', lc=121.0), '"start your 200-day challenge"'),
+ ('B07', 117.0, 124.2, 'percent', 'split', dict(n=0, val=200, suf='', title='DAY CHALLENGE', label='🙏 THANK YOU FOR THE SUPPORT', lc=121.0), '"start your 200-day challenge"'),
 ]
 GFX = [stat(1.6, 4.0, 200, 'DAYS OF INSTAGRAM CONTENT', y=200, size=200), badge(8.7, 10.0, '💾 SAVE THIS'),
  yb(10.0, 16.6, '🎁 200-DAY CONTENT PROMPT AT THE END', 46), db(38.7, 43.8, '📉 NO VIEWS • NO FOLLOWERS AT FIRST', 46),
