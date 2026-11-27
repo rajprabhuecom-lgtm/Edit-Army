@@ -24,6 +24,11 @@
 - Wide head-and-shoulders card back in 4 places (India's leading coach, 26 years, my 3 goals, level up) at natural scale. Only face zooms are out.
 - Fixed: Learn → Apply flow and Level Up stairs now animate (timing bug in v2).
 
+## v3.1 quality pass
+- Picture: temporal denoise, exposure/midtone lift (face L 43 -> 51), warmer skin with cool shadows kept, +10% saturation, light sharpen (`engine/v6-vertical-aurora/grade.sh`).
+- Audio: spectral noise reduction (afftdn) ahead of the voice chain.
+- Exports: 1080x1920 master (CRF 14, slow, ~11 Mbps, AAC 320k, bt709 tags) in `final/`; 2160x3840 upload version (lanczos upscale + light sharpen, ~24 Mbps). The 4K file is 195 MB, too big for GitHub, so it is delivered separately and not committed.
+
 ## To check / swap
 - The lower third uses "Coach Pradheesh · TM Nutrition Centre · 📍 Trichy" (from the TM Nutrition VSL). Confirm it's wanted on this video.
 - The "75 lakh families" figure is shown exactly as spoken. If it's used as a paid ad, keep a source for the claim.
