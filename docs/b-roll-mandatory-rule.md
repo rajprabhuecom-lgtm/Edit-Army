@@ -54,6 +54,11 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `mappin` (v5) | Centre location: road draws, pin drops, landmark appears |
 | `days` (v5) | Family Health Reset 3-Day cards (Zoom, Zoom, centre) |
 | `endcard` (v5) | Client end card: Family Health Reset + Send WhatsApp message |
+| `glass` (v6) | AuroraGlass frosted card (TM Nutrition VSL look): eyebrow, title, rows with iOS toggles / ✓ / ✕ / strike-through, and body widgets `big` count-up, `price`, `seal`, `btn`, `lock`, `dots`, `bars`, `clock`, `grid`, `chips`, `photo`. The compositor frosts the video under it |
+| `pill` / `words` (v6) | Keyword caption pill (Tamil-aware, auto-fit) / word-by-word Anton captions with green highlight box |
+| `stitle` `tiles` `hub` `notif` `phone` `vs` `steps` (v6) | Ads-style stage graphics: underlined title, icon tiles with ✓/✕ + stamp, hub & spokes, iOS notification stack, phone checklist + tap, VS comparison, Day 1/2/3 step cards |
+| `tpill` `lower` `slam` `flash` (v6) | Top-right micro pill (+ progress bar), lower third, big Anton word slam, colour flash |
+| Layouts (v6) | `full` (face-tracked zoom), `card` / `cardhi` (neon-grid stage + face in glowing card), `pip` (LIVE bubble), `blur` (blurred A-roll + face card); eased transitions; fx `spot` `bw` `gl` (glitch) `zb` (zoom blur) `shake` + one `shatter` |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
  

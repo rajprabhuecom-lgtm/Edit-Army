@@ -30,6 +30,12 @@ engine/
                                alarm sleepback twocountry indiacities sleepcurve care + client endcard
   v5-family-health/            Coach Muthu (31 Oct 2026): engine.html (v3 + Tamil font) + render.js (Node Playwright)
                                + comp.py with video B-roll support. New: vid questions checkup mappin days client endcard
+  v6-vertical-aurora/          Coach Pradheesh "Blueprint for Success" (27 Nov 2026): vertical AuroraGlass engine.
+                               engine.html (glass cards + widgets, pills, word captions, stage title, tiles, hub, notif,
+                               phone, vs, steps, lower third, slam), stage.html (neon grid loop), render.js, comp.py
+                               (face-tracked layouts full/card/pip/blur, spotlight, glitch, zoom blur, shake, glass shatter,
+                               frosted glass), planlib.py (author in source time), synth.py (+toggle swoosh glass glitch
+                               type clock boom shutter), mix.py, speed.sh
 videos/                        One folder per video (see videos/README.md)
 ```
 
