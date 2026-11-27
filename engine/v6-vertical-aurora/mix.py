@@ -14,7 +14,7 @@ for s, e in cues['keep']:
     out[pos:pos + len(seg)] += seg; pos += len(seg)
 sf.write(D + 'voice_cut.wav', out[:int(total * SR)], SR)
 # 2. voice chain + two-pass loudnorm
-chain = 'highpass=f=80,acompressor=threshold=0.1:ratio=3:attack=10:release=120:makeup=2,deesser=i=0.4,equalizer=f=4000:t=q:w=1.2:g=2.5'
+chain = 'afftdn=nr=12:nf=-42:tn=1,highpass=f=80,acompressor=threshold=0.1:ratio=3:attack=10:release=120:makeup=2,deesser=i=0.4,equalizer=f=4000:t=q:w=1.2:g=2.5'
 r = subprocess.run(f'ffmpeg -y -i {D}voice_cut.wav -af "{chain},loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json" -f null -', shell=True, capture_output=True, text=True).stderr
 m = json.loads(r[r.rfind('{'):r.rfind('}') + 1])
 ln = f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true"

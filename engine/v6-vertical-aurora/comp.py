@@ -16,7 +16,9 @@ stage = [cv2.imread(p) for p in sorted(glob.glob(f'{W}/stage/*.jpg'))]
 x = np.arange(256) / 255.0
 curve = np.clip(x + 0.10 * np.sin(2 * np.pi * (x - 0.5)) * (x * (1 - x)) * 4 * 0.5 + 0.02 * (1 - x), 0, 1)
 LUT = np.stack([np.clip(curve * 255 * g, 0, 255) for g in (0.985, 1.0, 1.035)], 1).astype(np.uint8)  # B,G,R gains
+GRADE_OFF = os.environ.get('NOGRADE') == '1'  # set when cut.mkv is already graded by grade.sh
 def grade(img):
+    if GRADE_OFF: return img
     out = np.empty_like(img)
     for c in range(3): out[..., c] = cv2.LUT(img[..., c], LUT[:, c])
     return out
@@ -118,7 +120,7 @@ def run(frames=None):
             cv2.imwrite(f'{W}/prev/c_{f:05d}.jpg', img, [cv2.IMWRITE_JPEG_QUALITY, 88])
         return
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', '1080x1920', '-r', str(FPS), '-i', '-',
-                            '-i', f'{W}/audio/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '16',
+                            '-i', f'{W}/audio/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '12',
                             '-pix_fmt', 'yuv420p', '-c:a', 'pcm_s16le', '-shortest', f'{W}/comp_1x.mkv'], stdin=subprocess.PIPE)
     frozen = None
     for f, src in enumerate(reader()):
