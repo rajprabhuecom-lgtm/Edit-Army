@@ -1,4 +1,5 @@
-"""Coach Pradheesh: "Blueprint for Success" invite, v2 (vertical, Tamil + English). Source C0073.MP4 (4K, camera on its side).
+"""Coach Pradheesh: "Blueprint for Success" invite, v3 (v3: "6 HOURS" (3-day challenge) not 6 months; wide head-and-shoulders
+card back in 4 places at natural scale). v2 (vertical, Tamil + English). Source C0073.MP4 (4K, camera on its side).
 v2 changes (client feedback 27 Nov): no face-crop cards / PIP / face zooms; presenter stays in his natural full frame
 (only a slow 3-4% whole-frame drift); graphics live in the empty zones (TOP band above his head y 40-420,
 BOTTOM band over his lap y 1250-1880, captions over the chest); 9 full-screen animated scenes with swipe
@@ -15,13 +16,16 @@ P = Plan(KEEP, pre=0.04, post=0.06)
 
 # ---- layouts: 'nat' = presenter, natural frame (z drift), 'gfx' = full-screen animation ----
 D_IN, D_OUT = {'z': (1.0, 1.035)}, {'z': (1.035, 1.0)}
-GFX = [(52.60, 54.84, 'sc_years'), (74.69, 77.80, 'sc_months'), (87.12, 88.50, 'sc_blue'), (119.07, 121.75, 'sc_triad'),
+GFX = [(52.60, 54.84, 'sc_years'), (74.69, 77.80, 'sc_hours'), (87.12, 88.50, 'sc_blue'), (119.07, 121.75, 'sc_triad'),
        (164.54, 168.90, 'sc_fam'), (213.93, 216.90, 'sc_rings'), (267.75, 270.12, 'sc_chase'), (292.57, 295.60, 'sc_magnet'),
        (345.00, 348.65, 'sc_cta')]
 KEEPB = [(a, b) for a, b in KEEP]
 LAY = []
 for i, (a, b) in enumerate(KEEPB):
     LAY.append((a - 0.1, b + 0.1, 'nat', D_IN if i % 2 == 0 else D_OUT))
+CARDW = {'z': 1.0, 'fdy': 150}
+for a, b in [(105.5, 109.1), (141.7, 147.7), (191.8, 213.93), (325.8, 331.4)]:
+    LAY.append((a, b, 'cardhi', CARDW))
 for a, b, _ in GFX:
     LAY.append((a, b, 'gfx', {}))
 ZOOM = []
@@ -38,7 +42,7 @@ def wipes():
         if b < 345: out.append({'k': 'wipe', 'a': b - 0.16, 'b': b + 0.20, 'dir': -1 if i % 2 == 0 else 1, 'z': 60})
     return [w for w in out if abs(w['a'] - 267.59) > 0.05]  # the pivot uses the shatter instead
 
-G = 'glass'; T = 'pill'; CAP = 1080; BOT = 1270
+G = 'glass'; T = 'pill'; CAP = 1080; BOT = 1270; CW = 1720  # CW = caption inside the wide card
 ITEMS = [
  # ===== HOOK (face first 1.5 s) =====
  {'k': 'kin', 'a': 51.15, 'b': 52.58, 'v': 'ME + MY FAMILY', 'y': 140, 'fs': 130, 'mode': 'pop'},
@@ -51,8 +55,8 @@ ITEMS = [
            {'ic': '👨‍👩‍👧', 'lb': 'Whole *family*', 'on': 58.4, 'at': 57.4}]},
  {'k': T, 'a': 54.86, 'b': 56.56, 'v': '*HOSPITAL VISIT* இல்லாம', 'y': CAP},
  {'k': T, 'a': 56.58, 'b': 59.77, 'v': '*HEALTHY* LIFESTYLE', 'y': CAP},
- # ===== 6 MONTHS (full scene) =====
- {'k': 'sc_months', 'a': 74.69, 'b': 77.80, 'e': 'EASY-ஆ ✓'},
+ # ===== 6 HOURS (3-day challenge, full scene) =====
+ {'k': 'sc_hours', 'a': 74.69, 'b': 77.80, 'e': 'EASY-ஆ ✓'},
  # ===== BLUEPRINT =====
  {'k': 'tpill', 'a': 85.7, 'b': 87.1, 'v': '🤔 WHAT IS IT?', 'y': 330},
  {'k': 'kin', 'a': 85.68, 'b': 87.1, 'v': 'என்னன்னு தானே|கேக்குறீங்க?', 'y': 90, 'fs': 92},
@@ -66,20 +70,20 @@ ITEMS = [
  # ===== INDIA'S LEADING =====
  {'k': 'kin', 'a': 105.62, 'b': 109.05, 'v': "INDIA'S LEADING", 'y': 80, 'fs': 120},
  {'k': 'kin', 'a': 106.4, 'b': 109.05, 'v': 'WELLNESS COACH', 'y': 225, 'fs': 120, 'c': '#2EE59D', 'mode': 'drop'},
- {'k': G, 'a': 106.9, 'b': 109.05, 'y': BOT + 60, 'eb': 'MY MENTOR', 'body': {'k': 'big', 'v': '🇮🇳 🏆', 'fs': 200, 'at': 107.0}},
- {'k': T, 'a': 105.62, 'b': 107.0, 'v': 'இந்த *PROGRAM*-ல', 'y': CAP},
- {'k': T, 'a': 107.0, 'b': 109.0, 'v': "INDIA'S LEADING *COACH*", 'y': CAP},
+ {'k': G, 'a': 106.9, 'b': 109.05, 'y': 450, 'eb': 'MY MENTOR', 'body': {'k': 'big', 'v': '🇮🇳 🏆', 'fs': 200, 'at': 107.0}},
+ {'k': T, 'a': 105.62, 'b': 107.0, 'v': 'இந்த *PROGRAM*-ல', 'y': CW},
+ {'k': T, 'a': 107.0, 'b': 109.0, 'v': "INDIA'S LEADING *COACH*", 'y': CW},
  # ===== HEALTH WEALTH HAPPINESS (full scene) =====
  {'k': 'sc_triad', 'a': 119.07, 'b': 121.75, 'at': [119.1, 119.5, 119.85], 'c': 'மூணும் CONNECTED'},
  # ===== 26 YEARS =====
- {'k': G, 'a': 141.8, 'b': 147.6, 'y': 50, 'h': 380, 'eb': 'WHY THIS PROGRAM', 'body': {'k': 'big', 'n': 26, 'from': 0, 'at': 141.9, 'd': .9, 'suf': ' YRS', 'l': '*EXPERIENCE*', 'fs': 190}},
- {'k': G, 'a': 143.9, 'b': 147.6, 'y': BOT,
+ {'k': G, 'a': 141.8, 'b': 147.6, 'y': 40, 'h': 370, 'eb': 'WHY THIS PROGRAM', 'body': {'k': 'big', 'n': 26, 'from': 0, 'at': 141.9, 'd': .9, 'suf': ' YRS', 'l': '*EXPERIENCE*', 'fs': 190}},
+ {'k': G, 'a': 143.9, 'b': 147.6, 'y': 440,
   'rows': [{'ic': '🧭', 'lb': 'Experience *guidance*', 'at': 143.95, 'on': 144.1},
            {'ic': '📚', 'lb': '*Learn* from it', 'at': 144.9, 'on': 145.2},
            {'ic': '🚀', 'lb': 'Big *opportunity*', 'at': 145.9, 'on': 146.6}]},
- {'k': T, 'a': 141.8, 'b': 144.0, 'v': '*26 YEARS* EXPERIENCE', 'y': CAP},
- {'k': T, 'a': 144.03, 'b': 145.85, 'v': 'EXPERIENCE *GUIDANCE*', 'y': CAP},
- {'k': T, 'a': 145.85, 'b': 147.57, 'v': 'பெரிய *OPPORTUNITY*', 'y': CAP},
+ {'k': T, 'a': 141.8, 'b': 144.0, 'v': '*26 YEARS* EXPERIENCE', 'y': CW},
+ {'k': T, 'a': 144.03, 'b': 145.85, 'v': 'EXPERIENCE *GUIDANCE*', 'y': CW},
+ {'k': T, 'a': 145.85, 'b': 147.57, 'v': 'பெரிய *OPPORTUNITY*', 'y': CW},
  # ===== 75 LAKH (face then full scene) =====
  {'k': 'kin', 'a': 161.7, 'b': 164.52, 'v': 'IN 26 YEARS', 'y': 110, 'fs': 140, 'c': '#FFD60A'},
  {'k': G, 'a': 162.1, 'b': 164.52, 'y': BOT + 60, 'eb': 'INCLUDING', 'title': 'MY *FAMILY* ❤️'},
@@ -92,11 +96,11 @@ ITEMS = [
  {'k': T, 'a': 180.7, 'b': 183.23, 'v': 'LEARN & *APPLY*', 'y': CAP},
  # ===== 3 GOALS -> AUTOMATIC =====
  {'k': 'kin', 'a': 191.95, 'b': 213.9, 'v': 'MY 3 GOALS', 'y': 120, 'fs': 150, 'c': '#FFD60A', 'mode': 'drop'},
- {'k': G, 'a': 193.0, 'b': 213.93, 'y': BOT,
+ {'k': G, 'a': 193.0, 'b': 213.93, 'y': 330,
   'rows': [{'ic': '💪', 'lb': 'Health', 'at': 193.8}, {'ic': '💰', 'lb': 'Wealth', 'at': 194.3}, {'ic': '😊', 'lb': 'Happiness', 'at': 194.75}]},
- {'k': T, 'a': 191.95, 'b': 193.15, 'v': '*3 GOALS* SET பண்ணேன்', 'y': CAP},
- {'k': 'words', 'a': 193.17, 'b': 195.95, 'y': CAP - 20, 'w': [['HEALTH', 193.8, 0], ['WEALTH', 194.3, 1], ['HAPPINESS', 194.75, 0]]},
- {'k': T, 'a': 212.15, 'b': 213.9, 'v': 'IN FACT, *TRY* கூட பண்ணல', 'y': CAP},
+ {'k': T, 'a': 191.95, 'b': 193.15, 'v': '*3 GOALS* SET பண்ணேன்', 'y': CW},
+ {'k': 'words', 'a': 193.17, 'b': 195.95, 'y': CW - 120, 'w': [['HEALTH', 193.8, 0], ['WEALTH', 194.3, 1], ['HAPPINESS', 194.75, 0]]},
+ {'k': T, 'a': 212.15, 'b': 213.9, 'v': 'IN FACT, *TRY* கூட பண்ணல', 'y': CW},
  {'k': 'sc_rings', 'a': 213.93, 'b': 216.90, 'at': [215.0, 215.47, 215.77]},
  # ===== QUESTION + REALISATION (face) =====
  {'k': 'kin', 'a': 223.27, 'b': 225.2, 'v': 'HOW? 🤔', 'y': 110, 'fs': 190, 'c': '#FFD60A', 'mode': 'drop'},
@@ -116,11 +120,11 @@ ITEMS = [
  # ===== THIS TIME =====
  {'k': 'kin', 'a': 300.4, 'b': 302.32, 'v': 'THIS TIME TOO 🎟️', 'y': 120, 'fs': 130, 'c': '#FFD60A', 'mode': 'pop'},
  {'k': T, 'a': 300.4, 'b': 302.29, 'v': 'இந்த தடவையும் *ATTEND* பண்றேன்', 'y': CAP},
- {'k': 'kin', 'a': 325.9, 'b': 331.3, 'v': 'LEVEL UP 📈', 'y': 110, 'fs': 160, 'c': '#2EE59D', 'mode': 'drop'},
- {'k': 'stairs', 'a': 325.9, 'b': 331.3, 'y': 1300, 'v': [['MY *STANDARDS*', 326.3], ['*CHANGE* ME', 328.1], ['*BIGGER* GOALS', 329.6]]},
- {'k': T, 'a': 325.9, 'b': 328.05, 'v': 'என்னோட *STANDARDS*', 'y': CAP},
- {'k': T, 'a': 328.09, 'b': 329.55, 'v': 'என்னை *மாத்த*', 'y': CAP},
- {'k': T, 'a': 329.59, 'b': 331.26, 'v': '*BIGGER* GOALS', 'y': CAP},
+ {'k': 'kin', 'a': 325.9, 'b': 331.3, 'v': 'LEVEL UP 📈', 'y': 40, 'fs': 130, 'c': '#2EE59D', 'mode': 'drop'},
+ {'k': 'stairs', 'a': 325.9, 'b': 331.3, 'y': 330, 'v': [['MY *STANDARDS*', 326.3], ['*CHANGE* ME', 328.1], ['*BIGGER* GOALS', 329.6]]},
+ {'k': T, 'a': 325.9, 'b': 328.05, 'v': 'என்னோட *STANDARDS*', 'y': CW},
+ {'k': T, 'a': 328.09, 'b': 329.55, 'v': 'என்னை *மாத்த*', 'y': CW},
+ {'k': T, 'a': 329.59, 'b': 331.26, 'v': '*BIGGER* GOALS', 'y': CW},
  # ===== CTA (face on while he speaks) =====
  {'k': 'kin', 'a': 337.65, 'b': 341.45, 'v': '2027', 'y': 40, 'fs': 230, 'c': '#FFD60A', 'mode': 'drop'},
  {'k': 'kin', 'a': 339.38, 'b': 341.45, 'v': 'BEST VERSION', 'y': 290, 'fs': 110, 'c': '#2EE59D', 'mode': 'pop'},

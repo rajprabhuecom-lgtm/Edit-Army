@@ -19,6 +19,11 @@
 - Ending: once he stops talking, his video is cut and only the animated CTA scene plays.
 - Speed 1.3x (was 1.2x), tighter cuts between lines.
 
+## v3 (client feedback, 27 Nov 2026)
+- The coach says **6 hours** (a 3-day challenge in 6 hours), not 6 months: the scene is now a clock sweeping 6 hours + "3-DAY CHALLENGE".
+- Wide head-and-shoulders card back in 4 places (India's leading coach, 26 years, my 3 goals, level up) at natural scale. Only face zooms are out.
+- Fixed: Learn → Apply flow and Level Up stairs now animate (timing bug in v2).
+
 ## To check / swap
 - The lower third uses "Coach Pradheesh · TM Nutrition Centre · 📍 Trichy" (from the TM Nutrition VSL). Confirm it's wanted on this video.
 - The "75 lakh families" figure is shown exactly as spoken. If it's used as a paid ad, keep a source for the claim.

@@ -181,3 +181,23 @@ S.stairs=it=>{const n=it.v.length,W=290,y0=(it.y||1300);const el=mk(it.v.map((v,
 S.pill=it=>{const words=splitMK(it.v);const el=mk(`<div class="pill" style="top:${it.y||1590}px">${words.map(w=>`<span class="pw" style="display:inline-block;margin:0 9px">${w}</span>`).join('')}</div>`);const p=q(el,'.pill'),ws=qa(el,'.pw');
  return {el,upd(t,dt,dur){const pi=back(dt/.22),po=ease((dt-(dur-.12))/.12);p.style.opacity=clamp(dt/.06)*(1-po);const fit=Math.min(1,1000/Math.max(1,p.offsetWidth));p.style.transform=`translateX(-50%) scale(${fit*lerp(.75,1,pi)*(1-po*.1)})`;
   const span=Math.min(dur*.6,ws.length*.28);ws.forEach((w,i)=>{const a=i/Math.max(1,ws.length)*span;const k=(dt-a)/.2;w.style.opacity=clamp(k*4);w.style.transform=`translateY(${(1-back(k))*26}px) scale(${k<0?.5:lerp(1.25,1,ease(k))})`});return []}}}})();
+
+/* ===== 2b. 6 HOURS: clock sweeps 6 hours + 3-DAY CHALLENGE ===== {k:'sc_hours',a,b,e} */
+S.sc_hours=it=>{const cx=540,cy=900,r=320;const tk=Array.from({length:12},(_,i)=>{const a=i/12*6.283-1.5708;return `<line x1="${cx+Math.cos(a)*(r-40)}" y1="${cy+Math.sin(a)*(r-40)}" x2="${cx+Math.cos(a)*(r-8)}" y2="${cy+Math.sin(a)*(r-8)}" stroke="#fff" stroke-width="${i%3?6:12}" stroke-linecap="round"/>`}).join('');
+ const nums=[12,1,2,3,4,5,6].map((n,i)=>{const a=(n%12)/12*6.283-1.5708;return `<text class="hn" x="${cx+Math.cos(a)*(r-90)}" y="${cy+Math.sin(a)*(r-90)+22}" text-anchor="middle" font-family="M" font-weight="900" font-size="58" fill="#fff">${n}</text>`}).join('');
+ const el=mk(`<div style="${ST}">
+ <div style="position:absolute;left:0;right:0;top:150px;text-align:center;font-family:A;font-size:220px;color:#FFD60A;paint-order:stroke fill;-webkit-text-stroke:12px #000">${KL('6 HOURS')}</div>
+ <svg width="1080" height="1920" style="position:absolute;left:0;top:0">
+  <circle cx="${cx}" cy="${cy}" r="${r+30}" fill="rgba(8,20,17,.85)" stroke="#2EE59D" stroke-width="10" style="filter:drop-shadow(0 0 30px rgba(46,229,157,.6))"/>
+  <path class="wd" fill="rgba(46,229,157,.35)" d=""/>${tk}${nums}
+  <line class="hh" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-r+70}" stroke="#FFD60A" stroke-width="18" stroke-linecap="round"/>
+  <line class="mh" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-r+30}" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="${cx}" cy="${cy}" r="22" fill="#FFD60A"/></svg>
+ <div class="ch" style="position:absolute;left:0;right:0;top:1300px;text-align:center"><span style="display:inline-block;padding:22px 50px;border-radius:999px;background:rgba(8,20,17,.92);border:4px solid #2EE59D;font-weight:900;font-size:60px">${MK('*3-DAY* CHALLENGE')}</span></div>
+ <div class="ez" style="position:absolute;left:0;right:0;top:1470px;text-align:center"><span style="display:inline-block;padding:20px 50px;border-radius:999px;background:#2EE59D;color:#063;font-weight:900;font-size:60px">${MK(it.e||'EASY-ஆ ✓')}</span></div>${PARTS(24,cx,cy)}</div>`);
+ return {el,upd(t,dt,dur){klUpd(q(el,'.kl'),it.a,t,{mode:'drop',st:.05});const p=easeIO((dt-.3)/1.5);const ang=p*Math.PI; // 0 -> 6 o'clock
+  const x=cx+Math.sin(ang)*r,y=cy-Math.cos(ang)*r;q(el,'.wd').setAttribute('d',p<=0?'':`M${cx} ${cy} L${cx} ${cy-r} A${r} ${r} 0 0 1 ${x} ${y} Z`);
+  q(el,'.hh').setAttribute('transform',`rotate(${p*180} ${cx} ${cy})`);q(el,'.mh').setAttribute('transform',`rotate(${p*180*12} ${cx} ${cy})`);
+  qa(el,'.hn').forEach((n,i)=>n.setAttribute('fill',p*6>=i-.01&&i>0?'#2EE59D':'#fff'));
+  [['.ch',1.0],['.ez',1.8]].forEach(([s,d])=>{const e=q(el,s);e.style.opacity=clamp((dt-d)/.1);e.style.transform=`scale(${back((dt-d)/.35)})`});partUpd(el,dt-1.8,{burst:true,sp:500});
+  sceneOut(el,dt,dur);return []}}};

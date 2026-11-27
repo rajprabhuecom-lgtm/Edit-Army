@@ -113,6 +113,8 @@ def build(plan, LAY, ZOOM, FX, ITEMS, SFX, MUSIC, shatter=()):
     for it in items:
         if it['b'] <= it['a']: it['b'] = it['a'] + 0.5
         if it.get('k') == 'words': it['w'] = [[w[0], plan.o(w[1])] + w[2:] for w in it['w']]
+        if it.get('k') == 'stairs': it['v'] = [[v[0], plan.o(v[1])] for v in it['v']]
+        if it.get('k') == 'flow': it['v'] = [[v[0], v[1], plan.o(v[2])] for v in it['v']]
     tl = {'fps': FPS, 'total': plan.total, 'lay': lay, 'view': view, 'fx': fx, 'items': items, 'shatter': [plan.o(t) for t in shatter]}
     os.makedirs(f'{W}/gfx', exist_ok=True); json.dump(tl, open(f'{W}/gfx/timeline.json', 'w'), ensure_ascii=False)
     cues = {'total': plan.total, 'keep': plan.keep, 'sfx': sorted([[plan.o(t), nm] for t, nm in SFX]),
