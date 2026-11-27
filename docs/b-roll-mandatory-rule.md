@@ -58,6 +58,9 @@ Built so far in the overlay engine (see the doc **B-ROLL ANIMATION ENGINE**):
 | `pill` / `words` (v6) | Keyword caption pill (Tamil-aware, auto-fit) / word-by-word Anton captions with green highlight box |
 | `stitle` `tiles` `hub` `notif` `phone` `vs` `steps` (v6) | Ads-style stage graphics: underlined title, icon tiles with ✓/✕ + stamp, hub & spokes, iOS notification stack, phone checklist + tap, VS comparison, Day 1/2/3 step cards |
 | `tpill` `lower` `slam` `flash` (v6) | Top-right micro pill (+ progress bar), lower third, big Anton word slam, colour flash |
+| `sc_years` `sc_months` `sc_blue` `sc_triad` `sc_fam` `sc_rings` `sc_chase` `sc_magnet` `sc_cta` (v6.1) | Full-screen animated scenes (`scenes.js`): ring + odometer counter, calendar tiles flipping, blueprint drafting reveal, 3 orbs connecting, dot-wave "lakh families" counter, auto-filling goal rings, runner chasing a receding target, icons flying into "ME", animated CTA end scene |
+| `wipe` `kin` `flow` `stairs` (v6.1) | Swipe transition panel, letter-by-letter kinetic title (auto-fit), A → B flow with drawing arrow, rising stairs + rocket. Glass cards float and re-shine; pills reveal word by word |
+| Presenter rule (v6.1, client feedback) | Never crop or zoom into the face (no face cards / PIP / punch-ins). Presenter stays in the natural frame (≤4% whole-frame drift); graphics go in the empty zones or full-screen scenes. After the last spoken line, cut the presenter and end on the animated CTA |
 | Layouts (v6) | `full` (face-tracked zoom), `card` / `cardhi` (neon-grid stage + face in glowing card), `pip` (LIVE bubble), `blur` (blurred A-roll + face card); eased transitions; fx `spot` `bw` `gl` (glitch) `zb` (zoom blur) `shake` + one `shatter` |
  
 On-face graphics: `text` slam, `badge`, `price` (strike-through anchor + count-up), `stamp` (guarantee), `cta` (pulsing button, arrow and guarantee badge), `endcard`.
