@@ -57,7 +57,7 @@ ITEMS = [
  {'k': T, 'a': 54.84, 'b': 56.56, 'v': '*HOSPITAL VISIT* இல்லாம', 'y': 1660},
  {'k': T, 'a': 56.58, 'b': 59.77, 'v': '*HEALTHY* LIFESTYLE', 'y': 1660},
  # ---------- 6 MONTHS ----------
- {'k': 'slam', 'a': 74.72, 'b': 77.78, 'v': '6 MONTHS', 'y': 150, 'fs': 210},
+ {'k': 'slam', 'a': 74.72, 'b': 77.78, 'v': '6 MONTHS', 'y': 170, 'fs': 165},
  {'k': 'lower', 'a': 75.2, 'b': 77.78, 'name': 'Coach *Pradheesh*', 'l2': 'TM Nutrition Centre', 'l3': '📍 Trichy', 'init': 'TM', 'y': 1300},
  {'k': T, 'a': 74.72, 'b': 77.78, 'v': '*6* மாசத்துல *EASY*-ஆ', 'y': 1600},
  # ---------- BLUEPRINT ----------
