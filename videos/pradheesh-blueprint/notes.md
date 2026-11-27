@@ -11,7 +11,13 @@
 ## Edit
 - 18 best takes kept (many retakes dropped; the "6 minutes" slip in the first full take is replaced by the clean "6 months" retake).
 - Engine: `engine/v6-vertical-aurora` (new): AuroraGlass glass cards + neon-grid stage from the ads, face-tracked layouts (full / card / pip / blur), one glass shatter at the pivot.
-- 1.2× speed (25 fps source → exactly 30 fps output), −14 LUFS, procedural BGM (pulse → tech → warm → tech → dark → warm → uplift) + SFX. Music is generated in code, so no licence is needed.
+- 1.3× speed (v2), −14 LUFS, procedural BGM (pulse → tech → warm → tech → dark → warm → uplift) + SFX. Music is generated in code, so no licence is needed.
+
+## v2 rework (client feedback, 27 Nov 2026)
+- Removed every face crop (square face card, LIVE bubble, face zoom punches). The presenter stays in his natural full frame with only a 3-4% whole-frame drift.
+- Graphics moved to the empty zones (above his head, over his lap) + 9 full-screen animated scenes with swipe / whip transitions.
+- Ending: once he stops talking, his video is cut and only the animated CTA scene plays.
+- Speed 1.3x (was 1.2x), tighter cuts between lines.
 
 ## To check / swap
 - The lower third uses "Coach Pradheesh · TM Nutrition Centre · 📍 Trichy" (from the TM Nutrition VSL). Confirm it's wanted on this video.

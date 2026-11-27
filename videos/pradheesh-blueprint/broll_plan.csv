@@ -1,24 +1,25 @@
 ID,source_time,line (meaning),scene,layout,status,licence
-B01,51.12-52.55,"Me and my family…",hook spotlight + FAMILY HEALTH pill,full (face),done,n/a
-B02,52.55-54.85,"…for 18 years",glass card count-up 0→18 YEARS,card (face in neon card),done,P5 motion graphics (original)
-B03,54.85-59.77,"without a single hospital visit / healthy lifestyle",glass checklist: hospital visit ✕ + strike; healthy lifestyle ON; whole family ON,card,done,P5
-B04,74.69-77.78,"you can do it easily in 6 months",6 MONTHS slam + zoom punch + shake + lower third (Coach Pradheesh · TM Nutrition Centre · Trichy),full,done,P5
-B05,85.66-87.10,"you're asking what it is?",question pill (face kept for the question),full,done,P5
-B06,87.10-89.30,"Blueprint for Success",glitch + flash reveal; glass card + lock widget,cardhi,done,P5
-B07,89.24-92.95,"transformation programme by my mentor Mr. Ravi Sundaram",glass card with 2 check rows,cardhi,done,P5 — swap in a real photo of Mr. Ravi Sundaram if supplied
-B08,105.60-109.00,"my mentor, India's leading wellness coach",glass card + 🇮🇳; face in LIVE PIP,pip,done,P5
-B09,119.07-121.72,"health, wealth, happiness — all connected",hub diagram + word captions,card,done,P5
-B10,141.77-147.57,"26 years' experience guidance = big opportunity",26 YRS count-up + 3 toggles,cardhi,done,P5
-B11,161.66-168.89,"75 lakh families incl. mine",75 LAKH count-up + family dots (number as spoken),pip,done,P5 — claim spoken by coach; add source if used in paid ads
-B12,178.11-183.23,"last time I attended — learn & apply",small glass card above head,full,done,P5
-B13,191.91-195.94,"I set 3 goals: health, wealth, happiness",goal card toggles OFF + word captions,card,done,P5
-B14,212.13-216.85,"didn't even try — it happened automatically",same rows flip ON (IT JUST HAPPENED),card,done,P5
-B15,223.25-225.18,"how, without trying?",face only (objection) + question pill,full,done,P5
-B16,231.32-233.56,"that's where I understood",spotlight + riser,full,done,P5
-B17,267.75-273.34,"don't chase the goal — become worthy of it",glass SHATTER (once) + red flash + VS card + word captions,card,done,P5
-B18,291.45-295.53,"I changed myself — everything came looking for me",hub converging on ME,pip,done,P5
-B19,300.37-302.29,"this time too I'm attending",THIS TIME TOO pill + zoom,full,done,P5
-B20,325.87-331.26,"raise my standards / change myself / bigger goals",LEVEL UP toggle card,card,done,P5
-B21,337.60-341.34,"best version of you in 2027",small glass card above head (face on),full,done,P5
-B22,341.54-344.98,"click the link below and register now" (CTA),word captions + pulsing REGISTER NOW button over chest — face stays on,full,done,P5
-B23,344.98-349.00,end card hold,BLUEPRINT FOR SUCCESS end card over blurred A-roll,blur,done,P5
+B01,51.12-52.58,"Me and my family…",kinetic title ME + MY FAMILY + spotlight (face first 1.5 s),presenter natural frame,done,P5 motion graphics (original)
+B02,52.60-54.84,"…for 18 years",sc_years: ring draws + odometer 0→18 + ZERO HOSPITAL VISITS,full-screen animation,done,P5
+B03,54.86-59.77,"no hospital visit / healthy lifestyle",top kinetic title + bottom glass checklist (✕ hospital visit; healthy lifestyle ON; family ON),presenter + top/bottom zones,done,P5
+B04,74.69-77.78,"easily in 6 months",sc_months: 6 calendar tiles flip + ticks + progress bar + EASY,full-screen animation,done,P5
+B05,85.66-87.10,"you're asking what it is?",question title + lower third (face kept),presenter,done,P5
+B06,87.12-88.44,"Blueprint for Success",sc_blue: blueprint grid + drafting lines draw + title + rocket,full-screen animation,done,P5
+B07,89.24-92.95,"my mentor Mr. Ravi Sundaram's transformation programme",kinetic titles + bottom glass card,presenter + zones,done,P5 — add real photo of Mr. Ravi Sundaram if supplied
+B08,105.60-109.00,"India's leading wellness coach",kinetic titles + 🇮🇳🏆 glass card,presenter + zones,done,P5
+B09,119.07-121.72,"health, wealth, happiness — connected",sc_triad: 3 orbs pop + dashed links + CONNECTED,full-screen animation,done,P5
+B10,141.77-147.57,"26 years' experience guidance = big opportunity",26 YRS count-up (top) + toggle rows (bottom),presenter + zones,done,P5
+B11,161.66-164.50,"in 26 years, incl. my family",kinetic IN 26 YEARS + MY FAMILY card,presenter + zones,done,P5
+B12,164.54-168.89,"75 lakh families — extraordinary person",sc_fam: odometer 75 LAKH + dot wave + MY FAMILY TOO + EXTRAORDINARY chip (number as spoken),full-screen animation,done,P5 — keep a source if used in paid ads
+B13,178.11-183.23,"last time — learn & apply",kinetic LAST TIME + LEARN → APPLY flow,presenter + zones,done,P5
+B14,191.91-213.90,"I set 3 goals",kinetic MY 3 GOALS + goal toggles OFF + word captions,presenter + zones,done,P5
+B15,213.93-216.85,"it happened automatically",sc_rings: 3 rings fill to 100% + AUTOMATIC,full-screen animation,done,P5
+B16,223.25-225.18,"how, without trying?",HOW? title (face kept: objection),presenter,done,P5
+B17,231.32-233.56,"that's where I understood",spotlight + title + riser,presenter,done,P5
+B18,267.75-270.12,"don't chase the goal",glass SHATTER + sc_chase: runner chases a target that keeps moving away,full-screen animation,done,P5
+B19,270.15-273.34,"become worthy of the goal",kinetic title + ✕/✓ card + word captions,presenter + zones,done,P5
+B20,292.57-295.53,"everything came looking for me",sc_magnet: icons fly into ME,full-screen animation,done,P5
+B21,300.37-302.29,"this time too I'm attending",THIS TIME TOO title,presenter,done,P5
+B22,325.87-331.26,"standards / change myself / bigger goals",LEVEL UP + rising stairs + rocket,presenter + zones,done,P5
+B23,337.60-344.98,"best version in 2027 → click link below, register" (CTA),2027 / BEST VERSION titles + word captions + pulsing REGISTER NOW (face kept),presenter + zones,done,P5
+B24,345.00-348.60,end (presenter cut),sc_cta: animated BLUEPRINT FOR SUCCESS + REGISTER NOW + LINK BELOW,full-screen animation,done,P5

@@ -56,7 +56,9 @@ def compose(src, f, prev_frame=None):
     sx, sy = fx.get('shx', 0), fx.get('shy', 0)
     M = np.float32([[k / F, 0, x + w / 2 - k * cx + sx], [0, k / F, y + h / 2 - k * cy + sy]])
     full = w >= 1075 and h >= 1915
-    if full:
+    if mode == 4:  # full-screen motion graphic: neon stage only, A-roll hidden
+        out = stage[f % len(stage)].copy()
+    elif full:
         out = cv2.warpAffine(src, M, (1080, 1920), flags=cv2.INTER_AREA if k / F < 1 else cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
     else:
         bg = stage[f % len(stage)].copy()
@@ -79,6 +81,9 @@ def compose(src, f, prev_frame=None):
         for _ in range(int(6 * g)):
             y0 = rr.integers(0, 1800); hh = rr.integers(20, 120); o[y0:y0 + hh] = np.roll(o[y0:y0 + hh], int(rr.integers(-80, 80) * g), 1)
         out = o
+    if fx.get('wh'):  # whip pan: horizontal shift + motion blur
+        v = fx['wh']; sh = int(v * 260); kl = int(abs(v) * 90) | 1
+        out = np.roll(out, sh, 1); ker = np.zeros((1, kl), np.float32); ker[0, :] = 1.0 / kl; out = cv2.filter2D(out, -1, ker)
     if fx.get('zb'):  # zoom blur (transition punch)
         z = fx['zb']; acc = out.astype(np.float32); n = 6
         for i in range(1, n):

@@ -55,8 +55,10 @@ def build(plan, LAY, ZOOM, FX, ITEMS, SFX, MUSIC, shatter=()):
     n = int(round(plan.total * FPS)); face = face_track(plan)
     # ---- layout per frame
     lay = []; view = []; mode_of = ['full'] * n; opt_of = [{}] * n
+    prog = [0.0] * n
     for s0, s1, m, opt in LAY:
-        for f in range(int(round(plan.o(s0) * FPS)), min(n, int(round(plan.o(s1) * FPS)))): mode_of[f] = m; opt_of[f] = opt
+        fa, fb = int(round(plan.o(s0) * FPS)), min(n, int(round(plan.o(s1) * FPS)))
+        for f in range(fa, fb): mode_of[f] = m; opt_of[f] = opt; prog[f] = (f - fa) / max(1, fb - fa - 1)
     zkey = sorted((plan.o(t), z) for t, z in ZOOM)  # full-frame zoom keyframes (hard cut on jump cuts, eased otherwise)
     def zoom_at(t):
         z = 1.0
@@ -65,6 +67,9 @@ def build(plan, LAY, ZOOM, FX, ITEMS, SFX, MUSIC, shatter=()):
         return z
     def target(f):
         m = mode_of[f]; opt = opt_of[f]; fx_, fy_ = face[f]
+        if m in ('nat', 'gfx'):  # natural full frame, whole-frame slow drift (never a face crop)
+            z0, z1 = opt.get('z', (1.0, 1.035)); k = z0 + (z1 - z0) * prog[f]
+            return [0, 0, 1080, 1920, 0, 4 if m == 'gfx' else 0], [540 + opt.get('dx', 0) * prog[f], 900, k]
         if m == 'full':
             z = opt.get('z') or zoom_at(f / FPS); fy = opt.get('fy', 640 if z <= 1.05 else 780)
             k = z; cx = fx_ + opt.get('dx', 0); cy = fy_ + (960 - fy) / k
@@ -88,6 +93,11 @@ def build(plan, LAY, ZOOM, FX, ITEMS, SFX, MUSIC, shatter=()):
     # ---- fx per frame
     fx = [dict() for _ in range(n)]
     for s0, s1, d in FX:
+        if 'wh' in d:  # whip: shift + motion blur ramp centred on s0
+            c = int(round(plan.o(s0) * FPS))
+            for i, v in enumerate([.35, .8, 1.0, -1.0, -.8, -.35]):
+                if 0 <= c - 3 + i < n: fx[c - 3 + i]['wh'] = v * d['wh']
+            continue
         a, b = int(round(plan.o(s0) * FPS)), int(round(plan.o(s1) * FPS))
         for f in range(a, min(n, b)):
             for kk, v in d.items():
