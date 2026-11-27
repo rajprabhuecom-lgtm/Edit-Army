@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1080px;height:1920px;overflow:hidden;background:#050b0a}
+#bg{position:absolute;inset:0;background:radial-gradient(90% 55% at 50% 18%,#0f4a3c 0%,#0a2a24 38%,#061512 70%,#040908 100%)}
+#glow{position:absolute;left:-200px;right:-200px;top:1180px;height:420px;background:radial-gradient(50% 50% at 50% 50%,rgba(46,229,157,.35),transparent 70%);filter:blur(30px)}
+#floor{position:absolute;left:0;top:1260px;width:1080px;height:660px;overflow:hidden;perspective:520px;perspective-origin:50% 0}
+#plane{position:absolute;left:-1600px;width:4280px;top:0;height:2600px;transform-origin:50% 0;transform:rotateX(72deg);
+ background-image:linear-gradient(rgba(46,229,157,.75) 4px,transparent 4px),linear-gradient(90deg,rgba(46,229,157,.75) 4px,transparent 4px);background-size:160px 160px}
+#fade{position:absolute;left:0;top:1250px;width:1080px;height:200px;background:linear-gradient(#061512,rgba(6,21,18,0))}
+#hz{position:absolute;left:0;right:0;top:1258px;height:4px;background:#2EE59D;box-shadow:0 0 30px 8px rgba(46,229,157,.6);opacity:.8}
+.st{position:absolute;width:4px;height:4px;border-radius:50%;background:#bfffe6}
+#vig{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 45%,transparent 55%,rgba(0,0,0,.55) 100%)}
+</style></head><body><div id="bg"></div><div id="glow"></div><div id="stars"></div><div id="floor"><div id="plane"></div></div><div id="fade"></div><div id="hz"></div><div id="vig"></div>
+<script>
+let s='';const R=(i)=>{let x=Math.sin(i*99.13)*43758.5;return x-Math.floor(x)};
+for(let i=0;i<90;i++)s+=`<div class="st" id="s${i}" style="left:${R(i)*1080}px;top:${R(i+500)*1220}px;transform:scale(${.5+R(i+900)*1.3})"></div>`;
+document.getElementById('stars').innerHTML=s;
+function setT(f,N){const p=f/N;document.getElementById('plane').style.backgroundPosition=`0 ${p*160}px`;
+ for(let i=0;i<90;i++)document.getElementById('s'+i).style.opacity=(.25+.75*Math.abs(Math.sin(Math.PI*(p*(1+(i%3))+R(i+77)))))*.8;
+ document.getElementById('glow').style.opacity=.8+.2*Math.sin(2*Math.PI*p)}
+</script></body></html>
